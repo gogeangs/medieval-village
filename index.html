@@ -541,11 +541,11 @@ const Q=[
 
 /* ---------- view ---------- */
 const cv=$('#cv'),ctx=cv.getContext('2d');
-let dpr=1,zoomI=1;const ZOOMS=[2,3,4,5];
+let dpr=1,zoom=3;const ZOOMS=[2,3,4,5];
 const cam={x:0,y:0};
-const K=()=>dpr*ZOOMS[zoomI];
+const K=()=>dpr*zoom;
 const css=()=>K()/dpr;
-function resize(){dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(innerWidth*dpr);cv.height=Math.round(innerHeight*dpr);clampCam();measureDock();if(started)measureHud()}
+function resize(){resetGesture();dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(innerWidth*dpr);cv.height=Math.round(innerHeight*dpr);clampCam();measureDock();if(started)measureHud()}
 function measureDock(){const dock=$('#hotbar');if(dock){DOCK_H=dock.getBoundingClientRect().height+12;document.documentElement.style.setProperty('--dock-height',(DOCK_H-12)+'px')}}
 function measureHud(){const r=$('#hud').getBoundingClientRect();HUD_H=r.bottom;document.documentElement.style.setProperty('--hud-h',HUD_H+'px')}
 let HUD_H=150,DOCK_H=110;
@@ -554,7 +554,15 @@ function viewMid(){const land=innerHeight<=540&&innerWidth>innerHeight,hud=$('#h
   if(land){const l=Math.min(hud.right,innerWidth-260);return{x:(l+innerWidth)/2,y:bot>120?bot/2:innerHeight/2}}
   const top=innerWidth>760?0:HUD_H;return{x:innerWidth/2,y:bot-top>120?(top+bot)/2:innerHeight/2}}
 function centerOn(wx,wy){const m=viewMid();cam.x=wx-m.x/css();cam.y=wy-m.y/css();clampCam()}
-function setZoom(d){const m=viewMid(),cx=cam.x+m.x/css(),cy=cam.y+m.y/css();zoomI=Math.max(0,Math.min(ZOOMS.length-1,zoomI+d));centerOn(cx,cy)}
+function setZoomAt(value,m,world={x:cam.x+m.x/css(),y:cam.y+m.y/css()}){
+  zoom=Math.max(ZOOMS[0],Math.min(ZOOMS[ZOOMS.length-1],value));
+  cam.x=world.x-m.x/css();cam.y=world.y-m.y/css();clampCam();
+}
+function setZoom(d){
+  const steps=d>0?ZOOMS:[...ZOOMS].reverse(),next=steps.find(z=>d>0?z>zoom+.001:z<zoom-.001);
+  if(next!==undefined)setZoomAt(next,viewMid());
+  rebaseGesture();
+}
 
 /* ---------- effects ---------- */
 let floats=[],parts=[],smoke=[],vils=[];
@@ -617,12 +625,57 @@ function sell(i){const t=TRADES[i];if(S.r[t.k]<t.n)return;const g=Math.round(t.g
 function claim(id){const q=Q.find(q=>q.id===id);if(!q||S.claimed.includes(id)||q.v()<q.g)return;S.claimed.push(id);give(q.r);const h=S.b[0];chips(h.x*TS+16,h.y*TS,'#e8b93e',12);toast(`퀘스트 완료: ${q.t}`);updateHUD();save()}
 
 /* ---------- input ---------- */
-let ptr=null;
-cv.addEventListener('pointerdown',e=>{if(ptr)return;cv.setPointerCapture(e.pointerId);ptr={id:e.pointerId,x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y,drag:false}});
-cv.addEventListener('pointermove',e=>{if(!ptr||e.pointerId!==ptr.id)return;const dx=e.clientX-ptr.x,dy=e.clientY-ptr.y;if(!ptr.drag&&Math.hypot(dx,dy)>8)ptr.drag=true;if(ptr.drag){cam.x=ptr.cx-dx/css();cam.y=ptr.cy-dy/css();clampCam()}});
-const endPtr=e=>{if(!ptr||e.pointerId!==ptr.id)return;if(!ptr.drag&&e.type==='pointerup')tap(e.clientX,e.clientY);ptr=null};
+const pointers=new Map();
+let ptr=null,pinch=null;
+// Rebase from the current camera whenever the active fingers change.
+// A gesture that used two fingers stays a drag until all fingers are lifted.
+function rebaseGesture(suppressTap=true){
+  ptr=null;pinch=null;
+  const active=[...pointers.entries()];
+  if(active.length>=2){
+    const [[id,a],[other,b]]=active,m={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+    pinch={id,other,distance:Math.hypot(b.x-a.x,b.y-a.y),zoom,
+      world:{x:cam.x+m.x/css(),y:cam.y+m.y/css()}};
+  }else if(active.length){
+    const [id,p]=active[0];ptr={id,x:p.x,y:p.y,cx:cam.x,cy:cam.y,drag:suppressTap};
+  }
+}
+function resetGesture(){
+  const ids=[...pointers.keys()];pointers.clear();ptr=null;pinch=null;
+  for(const id of ids)if(cv.hasPointerCapture?.(id))cv.releasePointerCapture(id);
+}
+cv.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.setPointerCapture(e.pointerId);
+  rebaseGesture(pointers.size>1);
+});
+cv.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch){
+    if(e.pointerId!==pinch.id&&e.pointerId!==pinch.other)return;
+    const a=pointers.get(pinch.id),b=pointers.get(pinch.other),distance=Math.hypot(b.x-a.x,b.y-a.y);
+    if(pinch.distance<2){rebaseGesture();return}
+    setZoomAt(pinch.zoom*distance/pinch.distance,{x:(a.x+b.x)/2,y:(a.y+b.y)/2},pinch.world);
+  }else if(ptr&&e.pointerId===ptr.id){
+    const dx=e.clientX-ptr.x,dy=e.clientY-ptr.y;
+    if(!ptr.drag&&Math.hypot(dx,dy)>8)ptr.drag=true;
+    if(ptr.drag){cam.x=ptr.cx-dx/css();cam.y=ptr.cy-dy/css();clampCam()}
+  }
+});
+const endPtr=e=>{
+  if(!pointers.has(e.pointerId))return;
+  const isTap=pointers.size===1&&ptr?.id===e.pointerId&&!ptr.drag&&e.type==='pointerup';
+  pointers.delete(e.pointerId);
+  if(cv.hasPointerCapture?.(e.pointerId))cv.releasePointerCapture(e.pointerId);
+  rebaseGesture();
+  if(isTap)tap(e.clientX,e.clientY);
+};
 cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
-cv.addEventListener('wheel',e=>{e.preventDefault();setZoom(e.deltaY<0?1:-1)},{passive:false});
+cv.addEventListener('lostpointercapture',endPtr);
+addEventListener('blur',resetGesture);
+cv.addEventListener('wheel',e=>{e.preventDefault();if(!pinch&&e.deltaY)setZoom(e.deltaY<0?1:-1)},{passive:false});
+
 function hitAt(wx,wy){
   const candidates=[];
   for(const b of S.b){const img=b.k==='farm'?SP.b.farm[Math.floor(S.time/9+b.id)%3]:SP.b[b.k];candidates.push({z:b.y*TS+31,img,x:b.x*TS,y:b.y*TS+32-img.height/ART,id:b.id})}
@@ -693,7 +746,7 @@ function openSheet(id){selId=id;armDel=false;renderSheet()}
 function closeSheet(){selId=null;sheet.hidden=true;sheet.dataset.v=''}
 function renderSheet(){let h='';
   if(selId==='menu'){h=`<div class="top"><h2>작은 영지</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
-  <ul class="help"><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
+  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
   <div class="skillrow">${[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']].map(([k,n,c])=>`<div class="pill"><span>${n} <b style="font-family:var(--f-num)">Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
   <p>진행 상황은 이 기기에 자동으로 저장돼요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'한 번 더 누르면 처음부터 시작':'새로 시작'}</button></div>`}
   else{const b=S.b.find(b=>b.id===selId);if(!b){closeSheet();return}const d=B[b.k],c=upCost(b),p=prodOf(b),need=d.need;
@@ -782,6 +835,7 @@ function draw(now){
 /* ---------- boot ---------- */
 let started=false;
 function start(data){
+  resetGesture();
   let st=null;
   try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)st=load(raw)}}catch(e){st=null}
   const fresh=!st;S=st||newState();
@@ -789,7 +843,7 @@ function start(data){
   rebuildOcc();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
   mode='hand';ghost=null;movingId=null;
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){resetGesture();save()}});
     window.claude?.hot?.snapshot?.(()=>({state:serialize()}));}
   updateHUD();measureHud();centerOn(15*TS+16,12*TS+10);
   if(fresh)setTimeout(()=>toast('나무를 탭해서 목재를 모아 보세요'),600);
