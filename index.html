@@ -122,6 +122,21 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .trade-tabs{display:flex;gap:8px;margin:10px 0}.trade-tabs .btn{flex:1}
 .trade{padding:8px 0;border-bottom:1px solid #b9a07955}.trade>span:first-child{flex:1}.trade .btn{min-height:44px;margin-left:4px}
 
+.visitor-hero{display:flex;align-items:center;gap:16px;margin-top:14px;padding:10px 14px;background:#e4d6b15e;border-radius:9px}
+.visitor-hero .visitor-portrait{width:72px;height:118px;object-fit:contain;flex:none}.visitor-hero h3{font-size:24px;margin:5px 0 9px}
+.visitor-eyebrow{font-size:12px;color:var(--ink-soft)}.sheet .visitor-title{font-size:19px;margin:16px 0 8px}
+.sheet .visitor-dialogue{line-height:1.7;font-size:14px;background:#fff7e270;padding:12px;border-radius:8px;border-left:3px solid #bba270}
+.sheet .visitor-hint{font-size:14px;margin-top:16px}.visitor-choices{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+.visitor-choice{border:1px solid #c9b68e;border-radius:8px;background:#fff5dc85;padding:12px}.visitor-choice h3{margin:0 0 8px;font-size:16px}.visitor-choice p{margin-top:6px;font-size:12px;color:var(--ink-soft)}
+.visitor-cost{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px}.visitor-cost span{display:inline-flex;align-items:center;gap:4px}.visitor-cost img,.visitor-reward img{width:14px;height:14px;vertical-align:middle}
+.visitor-reward{margin:10px 0;font-size:13px;color:#6b7544;line-height:1.7}.visitor-gift-line{display:block;font-size:12px;color:#907044}.visitor-choice .btn{width:100%;min-height:44px;margin-top:4px}
+.visitor-progress{background:#e4d6b16e;border-radius:8px;padding:14px;margin-top:14px;font-size:14px}.visitor-meter{height:7px;background:#99845a33;border-radius:5px;overflow:hidden;margin-top:12px}.visitor-meter i{display:block;height:100%;background:#879d63}
+.reward-ready{padding:12px;border:1px solid #c5b57c;border-radius:8px;background:#ecdfb87a}.visitor-friends{display:grid;gap:8px}.visitor-friend{display:flex;align-items:center;gap:10px;padding:10px;background:#fff4d75c;border:1px solid #cfbd96;border-radius:8px}
+.visitor-friend .visitor-portrait{width:36px;height:60px;object-fit:contain;flex:none}.visitor-friend small,.visitor-friend span{display:block;font-size:11px;margin-top:5px;color:var(--ink-soft)}.visitor-friend p{font-size:12px;margin:6px 0 0}
+.visitor-history{padding-left:20px;font-size:13px}.visitor-history li{padding:8px 0}.visitor-history small{display:block;color:var(--ink-soft);margin-top:4px}.visitor-history p{font-size:12px;line-height:1.6}
+.slot.attention::after{content:'';position:absolute;right:5px;top:5px;width:8px;height:8px;border:1px solid #fff2cc;border-radius:50%;background:#c77b43}
+.sheet .shop-note a{color:inherit}
+
 </style>
 
 </head>
@@ -189,8 +204,97 @@ const DECOR={
   flowers:{n:'들꽃 화단',price:12,size:1,w:16,h:11,d:'집 앞과 길가를 환하게 만드는 작은 꽃밭이에요.'},
   bench:{n:'나무 벤치',price:25,size:1,w:16,h:16,d:'마을 풍경을 바라보며 쉬어 갈 수 있는 벤치예요.'},
   lantern:{n:'마을 가로등',price:45,size:1,w:12,h:30,d:'따뜻한 호박빛 등불로 길가를 꾸며 보세요.'},
-  fountain:{n:'돌 분수',price:120,size:2,w:32,h:32,d:'마을 광장의 중심이 되어 줄 작은 분수예요.'}
+  fountain:{n:'돌 분수',price:120,size:2,w:32,h:32,d:'마을 광장의 중심이 되어 줄 작은 분수예요.'},
+  flowercart:{n:'로안의 꽃수레',reward:true,size:2,w:32,h:28,d:'로안과 함께 완성한 꽃수레예요. 바퀴마다 마을의 추억이 담겨 있어요.'},
+  picnic:{n:'미라의 피크닉 식탁',reward:true,size:2,w:32,h:22,d:'작은 잔치를 기억하는 식탁이에요. 미라가 나누어 준 따뜻한 한 끼를 떠올려 보세요.'},
+  relic:{n:'루카의 해시계',reward:true,size:1,w:16,h:24,d:'루카가 옛 성터에서 찾아온 해시계예요. 첫 모험을 함께한 마을의 보물이에요.'}
 };
+/* ---------- visiting friends and their stories ---------- */
+const FRIENDS={
+  carpenter:{n:'로안',role:'여행 목수',color:'#aa7951',gift:'flowercart',farewell:'이 마을을 지나면 늘 수레를 멈추게 돼요. 꽃수레도 잘 지내고 있네요.'},
+  cook:{n:'미라',role:'떠돌이 요리사',color:'#ad7259',gift:'picnic',farewell:'함께 먹었던 빵 맛을 잊지 못할 거예요. 이 식탁에 좋은 이야기가 더 쌓이길 바라요.'},
+  explorer:{n:'루카',role:'초보 탐험가',color:'#688e82',gift:'relic',farewell:'지도에 작은 영지를 가장 크게 그려 뒀어요. 제 첫 모험은 여기서 시작됐으니까요.'}
+};
+const VISITS=[
+  {id:'roan-1',who:'carpenter',chapter:1,title:'길에서 멈춘 수레',goods:{wood:10},seconds:30,gold:12,helpGold:20,
+   intro:'안녕하세요, 목수 로안입니다. 마을 어귀에서 수레 바퀴가 부러졌어요. 목재를 조금 빌리거나, 수리를 도와줄 분을 만날 수 있을까요?',
+   goodsEnd:'이 목재라면 튼튼한 바퀴를 만들 수 있겠어요. 다음에 올 때는 꼭 제 솜씨로 보답할게요.',helpEnd:'함께 바퀴를 맞추며 마을 이야기를 들었어요. 다음에는 이곳을 위한 선물을 싣고 올게요.'},
+  {id:'mira-1',who:'cook',chapter:1,title:'따뜻한 한 끼',goods:{food:15},seconds:30,gold:15,helpGold:25,
+   intro:'저는 길 위에서 요리하는 미라예요. 오늘 만난 여행자들과 나눌 식사가 조금 모자라네요. 식재료를 나누거나 준비를 도와주실래요?',
+   goodsEnd:'나눠 주신 식량으로 모두 배불리 먹었어요. 다음에는 작은 영지 주민들을 위한 식탁을 차릴게요.',helpEnd:'주민과 함께 음식을 준비하니 어느새 한 끼가 완성됐어요. 다음에는 마을 사람들도 초대하고 싶어요.'},
+  {id:'luca-1',who:'explorer',chapter:1,title:'첫 모험의 준비',goods:{wood:8,stone:6},seconds:45,gold:18,helpGold:30,
+   intro:'저는 루카예요. 처음으로 옛 성터를 찾아가려는데 야영 도구가 아직 엉성해요. 재료를 주시거나 도구 손질을 도와주실 수 있나요?',
+   goodsEnd:'튼튼한 재료 덕분에 안심하고 길을 나설 수 있겠어요. 돌아오면 제가 본 풍경을 전해 드릴게요.',helpEnd:'주민이 매듭과 도구 쓰는 법까지 알려 줬어요. 이제 조금은 진짜 탐험가가 된 기분이에요!'},
+  {id:'roan-2',who:'carpenter',chapter:2,title:'꽃을 싣고 돌아온 목수',goods:{wood:25,stone:10},seconds:60,gold:25,helpGold:45,gift:'flowercart',
+   intro:'약속대로 돌아왔어요. 마을을 위한 꽃수레를 만들고 있는데 받침과 바퀴를 마저 완성해야 해요. 재료를 보태거나 함께 만들어 주실래요?',
+   goodsEnd:'꽃을 가득 담은 수레가 완성됐어요. 이제 이 수레의 집은 작은 영지입니다. 마음에 드는 곳에 놓아 주세요.',helpEnd:'주민이 직접 고른 나무로 만든 꽃수레예요. 함께 만든 물건이라 제게도 오래 기억에 남을 것 같아요.'},
+  {id:'mira-2',who:'cook',chapter:2,title:'우리 마을의 작은 잔치',goods:{food:30,wood:10},seconds:60,gold:28,helpGold:48,gift:'picnic',
+   intro:'오늘은 작은 영지에서 잔치를 열고 싶어요. 음식과 식탁 준비를 마치면 모두 둘러앉을 수 있어요. 물자를 보태거나 손을 빌려주시겠어요?',
+   goodsEnd:'따뜻한 빵을 나누며 웃는 얼굴을 보니 기뻐요. 이 피크닉 식탁은 마을에 남겨 둘게요. 다음 식사도 함께해요.',helpEnd:'주민과 음식을 준비하고 식탁을 놓았어요. 모두가 함께 만든 잔치였네요. 식탁을 볼 때마다 오늘을 떠올려 주세요.'},
+  {id:'luca-2',who:'explorer',chapter:2,title:'성터에서 가져온 햇살',goods:{food:25,stone:15},seconds:75,gold:35,helpGold:60,gift:'relic',
+   intro:'다녀왔어요! 성터에서 오래된 해시계를 발견했어요. 마을에 안전하게 옮길 식량과 받침돌이 필요해요. 물자를 보태거나 운반을 도와주실래요?',
+   goodsEnd:'해시계를 무사히 옮겼어요. 이 햇살이 비추는 곳마다 작은 영지의 새로운 이야기가 쌓이길 바라요.',helpEnd:'주민과 길을 나누어 걸으며 제 첫 모험을 이야기했어요. 이 해시계는 우리가 함께 가져온 마을의 보물이에요.'}
+];
+function normalizeVisitors(d){
+  const raw=d.visitors&&typeof d.visitors==='object'?d.visitors:{},done=[];
+  for(const entry of Array.isArray(raw.done)?raw.done:[]){const expected=VISITS[done.length];if(!expected||!entry||entry.id!==expected.id||!['goods','workers'].includes(entry.method))break;done.push({id:entry.id,method:entry.method})}
+  const now=Number.isFinite(d.time)?Math.max(0,d.time):0,current=VISITS[done.length];
+  const ready=current&&['goods','workers'].includes(raw.ready)?raw.ready:null;
+  const job=current&&!ready&&raw.job?.id===current.id&&Number.isFinite(raw.job.remaining)?{id:current.id,remaining:Math.max(1,Math.min(current.seconds,Math.ceil(raw.job.remaining)))}:null;
+  d.visitors={done,visitAt:current?(Number.isFinite(raw.visitAt)?Math.max(0,Math.min(now+DAY,Math.floor(raw.visitAt))):now):0,job,ready};return d;
+}
+const currentVisit=()=>VISITS[S.visitors.done.length];
+function visitorPhase(){const v=S.visitors;if(!currentVisit())return'finished';if(v.ready)return'ready';if(v.job)return'helping';return S.time>=v.visitAt?'available':'waiting'}
+const visitorWorkers=()=>S?.visitors?.job&&S.pop>=1?1:0;
+const friendship=k=>S.visitors.done.reduce((sum,v)=>sum+(VISITS.find(m=>m.id===v.id)?.who===k?(v.method==='workers'?2:1):0),0);
+function visitorRefresh(){staff();syncVils();updateHUD();save()}
+function acceptVisitor(method,id){
+  const m=currentVisit();if(!m||m.id!==id||visitorPhase()!=='available')return;staff();
+  if(method==='goods'){if(!can(m.goods)){toast('부탁한 물자가 부족해요');return}pay(m.goods);S.visitors.ready='goods'}
+  else if(method==='workers'){if(S.idle<1){toast('쉬는 주민 1명이 필요해요');return}S.visitors.job={id:m.id,remaining:m.seconds}}
+  else return;
+  visitorRefresh();toast(method==='goods'?'물자를 전했어요. 이야기를 듣고 보상을 받아요':'주민 한 명이 방문객을 도우러 갔어요');
+}
+function cancelVisitorHelp(id){const m=currentVisit();if(!m||m.id!==id||visitorPhase()!=='helping')return;S.visitors.job=null;visitorRefresh();toast('주민이 돌아왔어요. 나중에 다시 도울 수 있어요')}
+function claimVisitor(id){
+  const m=currentVisit();if(!m||m.id!==id||visitorPhase()!=='ready')return;
+  const method=S.visitors.ready,gold=method==='workers'?m.helpGold:m.gold;
+  S.visitors.done.push({id:m.id,method});S.visitors.ready=null;S.visitors.job=null;S.visitors.visitAt=currentVisit()?S.time+DAY:0;
+  S.r.gold+=gold;if(m.gift)S.decorBag[m.gift]=(S.decorBag[m.gift]||0)+1;
+  visitorRefresh();toast(m.gift?`${DECOR[m.gift].n}을(를) 받았어요. 상점 보관함에서 놓아 보세요`:`금화 ${gold}와 친밀도를 얻었어요`);
+}
+function tickVisitors(){
+  const v=S.visitors,m=currentVisit();if(!m)return;
+  if(v.job&&visitorWorkers()){v.job.remaining--;if(v.job.remaining<=0){v.job=null;v.ready='workers';toast(`${FRIENDS[m.who].n}의 준비가 끝났어요. 보상을 받아 주세요`);save()}}
+  else if(!v.ready&&!v.job&&S.time===v.visitAt)toast(`${FRIENDS[m.who].role} ${FRIENDS[m.who].n}이(가) 찾아왔어요`);
+}
+function openVisitors(){finishPlacement();selId='visitors';renderSheet();updateSlots()}
+function visitorStatus(){const phase=visitorPhase();return phase==='ready'?'보상 받기':phase==='available'?'의뢰 도착':phase==='helping'?`도움 ${S.visitors.job.remaining}초`:phase==='waiting'?`${Math.max(0,Math.ceil(S.visitors.visitAt-S.time))}초 뒤 방문`:'이야기 6/6'}
+function updateVisitorSlot(s){const label=s.querySelector('[data-visitor-state]');if(label)label.textContent=visitorStatus();s.classList.toggle('attention',['ready','available'].includes(visitorPhase()))}
+function visitorPortrait(k){return `<img class="visitor-portrait" src="${GUESTURL[k]}" alt="${FRIENDS[k].role} ${FRIENDS[k].n}">`}
+function visitorReward(m,method){return `${ic('gold')} ${method==='workers'?m.helpGold:m.gold} · 친밀도 +${method==='workers'?2:1}${m.gift?`<span class="visitor-gift-line">${DECOR[m.gift].n} 1개</span>`:''}`}
+function visitorsHTML(){
+  const m=currentVisit(),phase=visitorPhase(),v=S.visitors;
+  let h=`<div class="top shop-top"><div><h2>마을에 온 손님</h2><div class="lv">이어지는 이야기 ${v.done.length} / ${VISITS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
+  if(m){const f=FRIENDS[m.who];h+=`<div class="visitor-hero">${visitorPortrait(m.who)}<div><span class="visitor-eyebrow">${f.role} · ${m.chapter}번째 이야기</span><h3>${f.n}</h3><span class="tag">친밀도 ${friendship(m.who)}</span></div></div><h3 class="visitor-title">${m.title}</h3>`;
+    if(phase==='waiting')h+=`<p>다음 손님이 오는 길이에요. 마을을 돌보며 잠시 기다려 주세요.</p><div class="visitor-progress"><b>${Math.max(0,Math.ceil(v.visitAt-S.time))}초 뒤 방문</b></div><p class="shop-note">게임을 켜 둔 동안 시간이 흘러요.</p>`;
+    else if(phase==='available')h+=`<p class="visitor-dialogue">“${m.intro}”</p><p class="visitor-hint">어떤 방식으로 도와줄까요?</p><div class="visitor-choices"><div class="visitor-choice"><h3>물자를 나누기</h3><div class="visitor-cost">${costHTML(m.goods)}</div><p>바로 준비를 마쳐요.</p><div class="visitor-reward">${visitorReward(m,'goods')}</div><button class="btn go" data-act="visitor-goods" data-visit="${m.id}" ${can(m.goods)?'':'disabled'}>${can(m.goods)?'물자 주기':'물자가 부족해요'}</button></div><div class="visitor-choice"><h3>주민을 보내 돕기</h3><div class="visitor-cost">쉬는 주민 1명 · ${m.seconds}초</div><p>금화와 친밀도를 더 받아요.</p><div class="visitor-reward">${visitorReward(m,'workers')}</div><button class="btn go" data-act="visitor-workers" data-visit="${m.id}" ${S.idle>=1?'':'disabled'}>${S.idle>=1?'주민 보내기':'쉬는 주민이 필요해요'}</button></div></div><p class="shop-note">파견 중인 주민은 마을 일을 쉬며, 게임을 켜 둔 동안 준비가 진행돼요. 의뢰는 원할 때 도울 수 있어요.</p>`;
+    else if(phase==='helping'){const remaining=v.job.remaining;h+=`<p class="visitor-dialogue">“함께 도와주니 든든해요. 조금만 기다려 주세요!”</p><div class="visitor-progress"><b>주민 1명이 돕는 중 · ${remaining}초</b><div class="visitor-meter"><i style="width:${Math.round((1-remaining/m.seconds)*100)}%"></i></div></div><div class="visitor-reward">완료 보상 ${visitorReward(m,'workers')}</div><p class="shop-note">완료되면 주민은 자동으로 돌아와요. 화면을 닫아도 마을 안에서는 계속 진행돼요.</p><div class="acts"><button class="btn" data-act="visitor-cancel" data-visit="${m.id}">취소하고 주민 부르기</button></div>`}
+    else if(phase==='ready')h+=`<p class="visitor-dialogue">“${v.ready==='workers'?m.helpEnd:m.goodsEnd}”</p><div class="visitor-reward reward-ready">${visitorReward(m,v.ready)}</div><div class="acts"><button class="btn go" data-act="visitor-claim" data-visit="${m.id}">보상 받기</button></div>${m.gift?'<p class="shop-note">특별 장식은 상점 보관함에 들어가요. 원하는 곳에 무료로 놓을 수 있어요.</p>':''}`;
+  }else h+=`<p class="visitor-dialogue">여섯 번의 만남이 마을의 이야기가 되었어요. 친구들이 남긴 선물로 작은 영지를 꾸며 보세요.</p><div class="acts"><button class="btn go" data-act="shop">선물 놓으러 가기</button></div>`;
+  h+=`<h3>마을의 인연</h3><div class="visitor-friends">${Object.entries(FRIENDS).map(([k,f])=>{const completed=v.done.filter(x=>VISITS.find(m=>m.id===x.id).who===k).length;return `<div class="visitor-friend">${visitorPortrait(k)}<div><b>${f.n}</b><small>${f.role} · 이야기 ${completed}/2 · 친밀도 ${friendship(k)}</small>${completed===2?`<span>${DECOR[f.gift].n} 선물 받음</span>`:''}${phase==='finished'?`<p>“${f.farewell}”</p>`:''}</div></div>`}).join('')}</div>`;
+  if(v.done.length)h+=`<h3>지난 이야기</h3><ol class="visitor-history">${v.done.map(entry=>{const q=VISITS.find(x=>x.id===entry.id);return `<li><b>${FRIENDS[q.who].n} · ${q.title}</b><small>${entry.method==='workers'?'주민과 함께 도움':'물자를 나눔'} · 금화 ${entry.method==='workers'?q.helpGold:q.gold}</small><p>${entry.method==='workers'?q.helpEnd:q.goodsEnd}</p></li>`}).join('')}</ol>`;
+  return h;
+}
+function visitorFallback(k){return art(8,16,g=>{const color=FRIENDS[k].color;softShadow(g,4,15,3,.7);for(const x of[2,5])roundBox(g,x,10,1.5,4.8,.4,'#745b43');roundBox(g,1.3,6,5.4,6,1.4,color,'#665b48',.35);ellipse(g,4,4,2.2,2.5,'#e6c49d');g.beginPath();g.arc(4,3.4,2.3,Math.PI,Math.PI*2);g.fillStyle='#6c4a32';g.fill();ellipse(g,3.2,4.3,.2,.25,'#56432c');ellipse(g,4.8,4.3,.2,.25,'#56432c')})}
+function visitorAnchor(){
+  if(!['available','helping','ready'].includes(visitorPhase()))return null;
+  for(const x of[13,15,17,11,19,12,14,16,18,20,10]){const y=14,i=y*MW+x;if(TILES[i]<=1&&!OCC[i]&&!DOCC[i]&&!S.o[i])return{x:x*TS+8,y:y*TS+14}}
+  return null;
+}
+function drawVisitor(p){const m=currentVisit();if(!m)return;ctx.drawImage(SP.visitors[m.who],p.x-4,p.y-16,8,16)}
+function visitorMarker(p,now){const phase=visitorPhase(),y=p.y-20;ellipse(ctx,p.x,y,3.8,3.8,phase==='ready'?'#edd393':'#fff3da','#9e8056',.5);if(phase==='helping'){for(let i=-1;i<=1;i++)ellipse(ctx,p.x+i*1.5,y,.4,.4,'#92734e')}else{stroke(ctx,[[p.x,y-1.7],[p.x,y+.4]],'#7b633e',.7);ellipse(ctx,p.x,y+2,.4,.4,'#7b633e')}}
+
 const decorDef=k=>Object.prototype.hasOwnProperty.call(DECOR,k)?DECOR[k]:null;
 function normalizeDecor(d,tiles){
   const blocked=new Set(),ids=new Set();
@@ -205,7 +309,10 @@ function normalizeDecor(d,tiles){
 }
 function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
   softShadow(g,d.w/2,d.h-1,d.w*.42,1);
-  if(k==='flowers'){ellipse(g,8,8,7,2.2,'#9d986f');for(let i=0;i<9;i++){const x=2+i%5*2.5,y=4+(i*3)%4;ellipse(g,x,y,1.6,2,'#759056');ellipse(g,x,y-1,1,1,['#f5ead0','#dc9775','#edc16c'][i%3])}}
+  if(k==='flowercart'){roundBox(g,3,11,25,10,1,'#b69363','#745b41',.5);for(const x of[7,24])ellipse(g,x,23,4,4,'#99784f','#604b36',.7);for(let i=0;i<9;i++){ellipse(g,6+i%5*4,9+(i%3)*2,3,3,'#789157');ellipse(g,6+i%5*4,8+(i%3)*2,1.3,1.3,i%2?'#efc475':'#dfa291')}}
+  else if(k==='picnic'){for(const x of[8,23])roundBox(g,x,7,2,13,.4,'#8a6848');roundBox(g,4,3,25,7,1,'#c3a274','#7d6145',.5);roundBox(g,2,14,28,4,1,'#b38d5f','#7d6145',.5)}
+  else if(k==='relic'){roundBox(g,4,9,8,12,1,'#d7c7a1','#9c8b6c',.4);ellipse(g,8,8,7,3,'#e6d5ae','#99866a',.5);shape(g,[[7,8],[11,3],[10,8]],'#ad8e4f')}
+  else if(k==='flowers'){ellipse(g,8,8,7,2.2,'#9d986f');for(let i=0;i<9;i++){const x=2+i%5*2.5,y=4+(i*3)%4;ellipse(g,x,y,1.6,2,'#759056');ellipse(g,x,y-1,1,1,['#f5ead0','#dc9775','#edc16c'][i%3])}}
   else if(k==='bench'){for(const x of[2,13])roundBox(g,x,7,1.4,8,.3,'#73583e');roundBox(g,1,3,14,5,.6,'#b79260','#73583e',.5);roundBox(g,1,9,14,3,.5,'#c7a370','#73583e',.5)}
   else if(k==='lantern'){roundBox(g,5,7,2,22,.4,'#73583e');roundBox(g,2,4,8,7,1,'#edc676','#73583e',.8);shape(g,[[1,4],[6,1],[11,4]],'#597787');ellipse(g,6,28,4,1.3,'#b6b098')}
   else{ellipse(g,16,25,15,5,'#d8ccac','#968870',.7);ellipse(g,16,24,12,3,'#96bdc3');roundBox(g,14,9,4,15,1,'#d5c6a3');ellipse(g,16,10,8,2.8,'#e6d5ae','#a5967b',.5);ellipse(g,16,9,6,1.7,'#a8cbd0')}
@@ -213,9 +320,10 @@ function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
 const decorMoving=()=>mode==='decor'?S.decor.find(d=>d.id===decorMoveId):null;
 function decorCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!OCC[i]&&(!DOCC[i]||DOCC[i]===ignoreId)}
 function decorValid(k,x,y,ignoreId=0){const d=decorDef(k);if(!d)return false;for(let dy=0;dy<d.size;dy++)for(let dx=0;dx<d.size;dx++)if(!decorCell(x+dx,y+dy,ignoreId))return false;return true}
-function decorCost(k){return S.decorBag[k]>0?0:DECOR[k].price}
+function decorCost(k){return S.decorBag[k]>0?0:DECOR[k].reward?Infinity:DECOR[k].price}
 function beginDecor(k,id=null){
   if(!decorDef(k))return;const item=id?S.decor.find(d=>d.id===id&&d.k===k):null;if(id&&!item)return;
+  if(!item&&DECOR[k].reward&&!S.decorBag[k]){toast('방문객의 이야기를 마치고 받는 선물이에요');return}
   if(!item&&S.r.gold<decorCost(k)){toast('금화가 부족해요');return}
   finishPlacement();mode='decor';decorKind=k;decorMoveId=id;updateSlots();updateConfirm();toast('놓을 곳을 탭한 뒤 확정해 주세요');
 }
@@ -224,12 +332,12 @@ function placeDecor(){
   const moving=decorMoving();if(decorMoveId&&!moving)return;
   if(!decorValid(decorKind,ghost.x,ghost.y,moving?.id||0))return;
   if(moving){if(moving.x===ghost.x&&moving.y===ghost.y)return;moving.x=ghost.x;moving.y=ghost.y}
-  else{const cost=decorCost(decorKind);if(S.r.gold<cost)return;S.r.gold-=cost;if(S.decorBag[decorKind]>0)S.decorBag[decorKind]--;S.decor.push({id:S.decorNext++,k:decorKind,x:ghost.x,y:ghost.y})}
+  else{const cost=decorCost(decorKind);if(!Number.isFinite(cost)||S.r.gold<cost)return;S.r.gold-=cost;if(S.decorBag[decorKind]>0)S.decorBag[decorKind]--;S.decor.push({id:S.decorNext++,k:decorKind,x:ghost.x,y:ghost.y})}
   rebuildOcc();const name=DECOR[decorKind].n;finishPlacement();updateHUD();save();toast(name+(moving?'을(를) 옮겼어요':'을(를) 놓았어요'));
 }
 function storeDecor(d){if(!d||!S.decor.includes(d))return;S.decorBag[d.k]++;S.decor=S.decor.filter(v=>v!==d);rebuildOcc();finishPlacement();updateHUD();save();toast('상점에 보관했어요. 무료로 다시 놓을 수 있어요')}
 function openShop(){finishPlacement();selId='shop';renderSheet();updateSlots()}
-function shopHTML(){return `<div class="top shop-top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>마음에 드는 장식으로 마을을 꾸며 보세요.</p><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length;return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${ic('gold')} ${d.price} <span>· ${d.size}×${d.size}칸</span></div><small>마을 ${owned} · 보관 ${bag}</small><button class="btn go" data-act="decor-buy" data-k="${k}" ${S.r.gold>=decorCost(k)?'':'disabled'}>${bag?'보관품 놓기':'자리 고르기'}</button></div>`}).join('')}</div><p class="shop-note">배치를 확정할 때만 금화를 써요. 이동과 보관은 무료이며, 장식은 일손을 쓰지 않아요.</p>`}
+function shopHTML(){return `<div class="top shop-top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>마음에 드는 장식으로 마을을 꾸며 보세요.</p><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length,available=bag>0||!d.reward&&S.r.gold>=d.price;return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${d.reward?'이야기 선물':ic('gold')+' '+d.price} <span>· ${d.size}×${d.size}칸</span></div><small>마을 ${owned} · 보관 ${bag}</small><button class="btn go" data-act="decor-buy" data-k="${k}" ${available?'':'disabled'}>${bag?'보관품 놓기':d.reward?(owned?'마을에 배치됨':'의뢰 완료 보상'):'자리 고르기'}</button></div>`}).join('')}</div><p class="shop-note">배치를 확정할 때만 금화를 써요. 이야기 선물은 의뢰 보상으로 받으며, 이동과 보관은 무료예요.</p><div class="acts"><button class="btn" data-act="visitors">방문객 만나기</button></div>`}
 function decorSheet(d){const def=DECOR[d.k];return `<div class="top"><img src="${DECORURL[d.k]}" alt=""><div><h2>${def.n}</h2><div class="lv">마을 장식 · ${def.size}×${def.size}칸</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${def.d}</p><div class="acts"><button class="btn go" data-act="decor-move">옮기기</button><button class="btn" data-act="decor-store">보관하기</button><button class="btn" data-act="shop">상점</button></div><p>이동과 보관은 무료예요. 보관한 장식은 상점에서 다시 놓을 수 있어요.</p>`}
 function decorConfirm(){
   const c=$('#confirm'),yes=$('#cyes'),d=decorDef(decorKind),moving=decorMoving();if(!d){c.hidden=true;return}
@@ -422,7 +530,7 @@ function quarryArt(se){return art(32,40,g=>{
   roundBox(g,24.5,33,5.6,3.4,.35,'#a7804d','#594a32',.28);for(let i=0;i<4;i++)ellipse(g,25.4+i*1.1,33.2,.8,.85,i%2?'#b3b49a':'#869784');ellipse(g,25.2,37,1,1,'#584f38');ellipse(g,29.5,37,1,1,'#584f38');
 })}
 /* Image artwork uses relative URLs; all game rules and saved state remain below. */
-const PAINTED_META={"hall":{"url":"./assets/illustrations/hall.webp","crop":[24,15,442,466],"world":[32,52]},"house":{"url":"./assets/illustrations/house.webp","crop":[24,32,446,457],"world":[32,44]},"tree":{"url":"./assets/illustrations/tree.webp","crop":[5,36,335,432],"world":[24,35]},"pine":{"url":"./assets/illustrations/pine.webp","crop":[35,17,277,467],"world":[20,36]},"lumber":{"url":"./assets/illustrations/lumber.webp","crop":[11,12,492,370],"world":[32,44]},"quarry":{"url":"./assets/illustrations/quarry.webp","crop":[7,31,496,365],"world":[32,40]},"market":{"url":"./assets/illustrations/market.webp","crop":[18,26,476,390],"world":[32,40]},"bakery":{"url":"./assets/illustrations/bakery.webp","crop":[12,6,489,490],"world":[32,44]},"tavern":{"url":"./assets/illustrations/tavern.webp","crop":[11,15,467,475],"world":[32,44]},"farm":{"url":"./assets/illustrations/farm.webp","crop":[23,31,477,325],"world":[32,32]},"rock":{"url":"./assets/illustrations/rock.webp","crop":[57,49,409,280],"world":[16,16]},"farmer":{"url":"./assets/illustrations/farmer.webp","crop":[40,5,113,244],"world":[7,13]},"villager":{"url":"./assets/illustrations/villager.webp","crop":[39,15,98,229],"world":[7,13]},"grass":{"url":"./assets/illustrations/grass.webp","crop":[0,0,512,512],"world":null},"path":{"url":"./assets/illustrations/path.webp","crop":[0,0,512,512],"world":null},"water":{"url":"./assets/illustrations/water.webp","crop":[0,0,512,512],"world":null},"stone":{"url":"./assets/illustrations/stone.webp","crop":[0,0,512,512],"world":null},"paper":{"url":"./assets/illustrations/paper.webp","crop":[0,0,512,512],"world":null},"tree-autumn":{"url":"./assets/illustrations/tree-autumn.webp","crop":[6,36,334,432],"world":[24,35]},"farm-green":{"url":"./assets/illustrations/farm-green.webp","crop":[23,31,478,326],"world":[32,32]},"hall-winter":{"url":"./assets/illustrations/hall-winter.webp","crop":[25,15,443,467],"world":[32,52]},"house-winter":{"url":"./assets/illustrations/house-winter.webp","crop":[23,27,449,462],"world":[32,44]},"lumber-winter":{"url":"./assets/illustrations/lumber-winter.webp","crop":[10,8,495,375],"world":[32,44]},"quarry-winter":{"url":"./assets/illustrations/quarry-winter.webp","crop":[7,25,498,372],"world":[32,40]},"market-winter":{"url":"./assets/illustrations/market-winter.webp","crop":[17,17,478,399],"world":[32,40]},"bakery-winter":{"url":"./assets/illustrations/bakery-winter.webp","crop":[12,0,489,499],"world":[32,44]},"tavern-winter":{"url":"./assets/illustrations/tavern-winter.webp","crop":[10,12,468,479],"world":[32,44]},"farm-winter":{"url":"./assets/illustrations/farm-winter.webp","crop":[23,26,484,332],"world":[32,32]},"tree-winter":{"url":"./assets/illustrations/tree-winter.webp","crop":[6,20,330,450],"world":[24,35]},"pine-winter":{"url":"./assets/illustrations/pine-winter.webp","crop":[35,14,277,471],"world":[20,36]},"rock-winter":{"url":"./assets/illustrations/rock-winter.webp","crop":[59,45,408,285],"world":[16,16]},"decor-flowers":{"url":"./assets/decor/flowers.webp","crop":[0,0,512,282],"world":[16,11]},"decor-bench":{"url":"./assets/decor/bench.webp","crop":[0,0,512,466],"world":[16,16]},"decor-lantern":{"url":"./assets/decor/lantern.webp","crop":[0,0,269,512],"world":[12,30]},"decor-fountain":{"url":"./assets/decor/fountain.webp","crop":[0,0,512,471],"world":[32,32]}},PAINTED={};
+const PAINTED_META={"hall":{"url":"./assets/illustrations/hall.webp","crop":[24,15,442,466],"world":[32,52]},"house":{"url":"./assets/illustrations/house.webp","crop":[24,32,446,457],"world":[32,44]},"tree":{"url":"./assets/illustrations/tree.webp","crop":[5,36,335,432],"world":[24,35]},"pine":{"url":"./assets/illustrations/pine.webp","crop":[35,17,277,467],"world":[20,36]},"lumber":{"url":"./assets/illustrations/lumber.webp","crop":[11,12,492,370],"world":[32,44]},"quarry":{"url":"./assets/illustrations/quarry.webp","crop":[7,31,496,365],"world":[32,40]},"market":{"url":"./assets/illustrations/market.webp","crop":[18,26,476,390],"world":[32,40]},"bakery":{"url":"./assets/illustrations/bakery.webp","crop":[12,6,489,490],"world":[32,44]},"tavern":{"url":"./assets/illustrations/tavern.webp","crop":[11,15,467,475],"world":[32,44]},"farm":{"url":"./assets/illustrations/farm.webp","crop":[23,31,477,325],"world":[32,32]},"rock":{"url":"./assets/illustrations/rock.webp","crop":[57,49,409,280],"world":[16,16]},"farmer":{"url":"./assets/illustrations/farmer.webp","crop":[40,5,113,244],"world":[7,13]},"villager":{"url":"./assets/illustrations/villager.webp","crop":[39,15,98,229],"world":[7,13]},"grass":{"url":"./assets/illustrations/grass.webp","crop":[0,0,512,512],"world":null},"path":{"url":"./assets/illustrations/path.webp","crop":[0,0,512,512],"world":null},"water":{"url":"./assets/illustrations/water.webp","crop":[0,0,512,512],"world":null},"stone":{"url":"./assets/illustrations/stone.webp","crop":[0,0,512,512],"world":null},"paper":{"url":"./assets/illustrations/paper.webp","crop":[0,0,512,512],"world":null},"tree-autumn":{"url":"./assets/illustrations/tree-autumn.webp","crop":[6,36,334,432],"world":[24,35]},"farm-green":{"url":"./assets/illustrations/farm-green.webp","crop":[23,31,478,326],"world":[32,32]},"hall-winter":{"url":"./assets/illustrations/hall-winter.webp","crop":[25,15,443,467],"world":[32,52]},"house-winter":{"url":"./assets/illustrations/house-winter.webp","crop":[23,27,449,462],"world":[32,44]},"lumber-winter":{"url":"./assets/illustrations/lumber-winter.webp","crop":[10,8,495,375],"world":[32,44]},"quarry-winter":{"url":"./assets/illustrations/quarry-winter.webp","crop":[7,25,498,372],"world":[32,40]},"market-winter":{"url":"./assets/illustrations/market-winter.webp","crop":[17,17,478,399],"world":[32,40]},"bakery-winter":{"url":"./assets/illustrations/bakery-winter.webp","crop":[12,0,489,499],"world":[32,44]},"tavern-winter":{"url":"./assets/illustrations/tavern-winter.webp","crop":[10,12,468,479],"world":[32,44]},"farm-winter":{"url":"./assets/illustrations/farm-winter.webp","crop":[23,26,484,332],"world":[32,32]},"tree-winter":{"url":"./assets/illustrations/tree-winter.webp","crop":[6,20,330,450],"world":[24,35]},"pine-winter":{"url":"./assets/illustrations/pine-winter.webp","crop":[35,14,277,471],"world":[20,36]},"rock-winter":{"url":"./assets/illustrations/rock-winter.webp","crop":[59,45,408,285],"world":[16,16]},"decor-flowers":{"url":"./assets/decor/flowers.webp","crop":[0,0,512,282],"world":[16,11]},"decor-bench":{"url":"./assets/decor/bench.webp","crop":[0,0,512,466],"world":[16,16]},"decor-lantern":{"url":"./assets/decor/lantern.webp","crop":[0,0,269,512],"world":[12,30]},"decor-fountain":{"url":"./assets/decor/fountain.webp","crop":[0,0,512,471],"world":[32,32]},"guest-carpenter":{"url":"./assets/visitors/carpenter.webp","crop":[0,0,218,512],"world":[8,16]},"guest-cook":{"url":"./assets/visitors/cook.webp","crop":[0,0,266,512],"world":[8,16]},"guest-explorer":{"url":"./assets/visitors/explorer.webp","crop":[0,0,267,512],"world":[8,16]},"decor-flowercart":{"url":"./assets/visitors/flowercart.webp","crop":[0,0,512,437],"world":[32,28]},"decor-picnic":{"url":"./assets/visitors/picnic.webp","crop":[0,0,512,393],"world":[32,22]},"decor-relic":{"url":"./assets/visitors/relic.webp","crop":[0,0,417,512],"world":[16,24]}},PAINTED={};
 function paintedSprite(id,se=0,stage=2){
   let key=se===3&&PAINTED[id+'-winter']?id+'-winter':id==='tree'&&se===2&&PAINTED['tree-autumn']?'tree-autumn':id==='farm'&&se!==3&&stage<2&&PAINTED['farm-green']?'farm-green':id;
   const im=PAINTED[key],m=PAINTED_META[key];if(!im||!m?.world)return null;
@@ -446,7 +554,7 @@ function smokeOrigin(b){
   if(!r||!anchor)return{x:b.x*TS+24+jitter,y:b.y*TS-4};
   return{x:b.x*TS+r.x+r.w*anchor[0]+jitter,y:b.y*TS+32-im.height/ART+r.y+r.h*anchor[1]};
 }
-function warmUiSprites(){const fresh=buildSprites(0).b;for(const[k,im]of Object.entries(fresh)){THUMB[k]=im;THUMBURL[k]=tightThumb(k==='farm'?im[2]:im)}for(const[k,im]of Object.entries(buildSprites(0).decor))DECORURL[k]=tightThumb(im);installPaintedPeople()}
+function warmUiSprites(){const fresh=buildSprites(0).b;for(const[k,im]of Object.entries(fresh)){THUMB[k]=im;THUMBURL[k]=tightThumb(k==='farm'?im[2]:im)}for(const[k,im]of Object.entries(buildSprites(0).decor))DECORURL[k]=tightThumb(im);for(const[k,im]of Object.entries(buildSprites(0).visitors))GUESTURL[k]=PAINTED['guest-'+k]?PAINTED_META['guest-'+k].url:tightThumb(im);installPaintedPeople()}
 async function loadPaintedSprites(){
   const entries=Object.entries(PAINTED_META),failures=[],deadline=performance.now()+15000;let cursor=0,done=0;
   const loadOne=([id,m])=>new Promise(resolve=>{
@@ -467,19 +575,21 @@ async function beginIllustratedGame(){
 
 
 function buildSprites(se){
-  const s={grass:[],path:[],b:{},yard:{},decor:{}},snow=se===3;
+  const s={grass:[],path:[],b:{},yard:{},decor:{},visitors:{}},snow=se===3;
   s.water=art(16,16,g=>roundBox(g,0,0,16,16,0,snow?'#a3c2c2':'#83b5b3'));
   s.bridge=art(16,16,g=>{roundBox(g,0,1,16,14,1,'#ad916a');for(let i=0;i<6;i++){roundBox(g,i*2.8,1.8,2.5,12.4,.3,wash(g,i*2.8,2,2.5,12,'#d6bd90','#b59a73'),'#8c75532e',.2);curve(g,i*2.8+.7,3,i*2.8+.4,5,i*2.8+1.6,8,i*2.8+1,12,'#a58b653f',.2)}for(const y of[2,14]){stroke(g,[[0,y],[16,y]],'#806e55',1.5);stroke(g,[[0,y-.4],[16,y-.4]],snow?'#eef2e8':'#d2bc90',.5);for(const x of[1,15])roundBox(g,x-.65,y-1.8,1.3,3.7,.4,'#b29870')}});
   s.tree=paintedSprite('tree',se)||broadleafArt(se);s.pine=paintedSprite('pine',se)||pineArt(se);s.rock=paintedSprite('rock',se)||rockArt(se);
   for(const kind of['house','lumber','bakery','tavern'])s.b[kind]=paintedSprite(kind,se)||cottageArt(se,kind);
   s.b.hall=paintedSprite('hall',se)||townHallArt(se);s.b.market=paintedSprite('market',se)||marketArt(se);s.b.quarry=paintedSprite('quarry',se)||quarryArt(se);s.b.farm=[0,1,2].map(i=>paintedSprite('farm',se,i)||farmArt(se,i));
   for(const kind of['hall','house','lumber','quarry','market','bakery','tavern'])s.yard[kind]=yardArt(kind,se);
+  for(const k of Object.keys(FRIENDS))s.visitors[k]=paintedSprite('guest-'+k)||visitorFallback(k);
   for(const k of Object.keys(DECOR))s.decor[k]=paintedSprite('decor-'+k)||decorFallback(k);
   return s;
 }
 const THUMB=buildSprites(0).b;
 const THUMBURL=Object.fromEntries(Object.entries(THUMB).map(([k,v])=>[k,(k==='farm'?v[2]:v).toDataURL()]));
 const DECORURL=Object.fromEntries(Object.entries(buildSprites(0).decor).map(([k,im])=>[k,tightThumb(im)]));
+const GUESTURL=Object.fromEntries(Object.entries(buildSprites(0).visitors).map(([k,im])=>[k,tightThumb(im)]));
 
 /* One modest-resolution landscape cache per season; sprites have a separate,
    higher resolution so mobile memory does not grow with the sprite detail. */
@@ -570,9 +680,9 @@ function genMap(seed){
 
 /* ---------- state ---------- */
 let S,TILES,OCC,DOCC,SP,curSeason=-1;
-function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:{flowers:0,bench:0,lantern:0,fountain:0},decorNext:1,b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
+function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
-function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeDecor(d,m.t)}
+function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeVisitors(normalizeDecor(d,m.t))}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
 function rebuildOcc(){OCC=new Int32Array(MW*MH);for(const b of S.b)for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)OCC[(b.y+dy)*MW+b.x+dx]=b.id;DOCC=new Int32Array(MW*MH);for(const d of S.decor)for(let y=0;y<DECOR[d.k].size;y++)for(let x=0;x<DECOR[d.k].size;x++)DOCC[(d.y+y)*MW+d.x+x]=d.id}
 const T=(x,y)=>(x<0||y<0||x>=MW||y>=MH)?-1:TILES[y*MW+x];
@@ -590,7 +700,7 @@ const give=c=>{for(const k in c)S.r[k]+=c[k]};
 function upCost(b){if(b.k==='hall')return HALLUP[b.l]||null;if(b.l>=3)return null;const c={};for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*1.6*b.l);return c}
 function cap(){let c=0;for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
-function staff(){let a=S.pop;STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
+function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
 function bonus(k){return k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1}
 function prodOf(b){const P=B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={};for(const k in P)o[k]=P[k]*b.l*bonus(k);return o}
 function rates(){const r={wood:0,stone:0,food:-S.pop*.12,gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
@@ -654,7 +764,7 @@ const PEOPLE=SHIRTS.map((shirt,i)=>[0,1].map(f=>art(7,13,g=>{
 })));
 
 
-function syncVils(){const want=Math.min(S.pop,24);while(vils.length<want){const h=S.b[0];vils.push({x:h.x*TS+16,y:h.y*TS+34,tx:0,ty:0,wait:Math.random()*2,style:vils.length%SHIRTS.length,shirt:SHIRTS[vils.length%SHIRTS.length],hair:HAIR[(vils.length*3)%HAIR.length],sp:10+Math.random()*6,moving:false})}vils.length=want}
+function syncVils(){const want=Math.max(0,Math.min(S.pop-visitorWorkers(),24));while(vils.length<want){const h=S.b[0];vils.push({x:h.x*TS+16,y:h.y*TS+34,tx:0,ty:0,wait:Math.random()*2,style:vils.length%SHIRTS.length,shirt:SHIRTS[vils.length%SHIRTS.length],hair:HAIR[(vils.length*3)%HAIR.length],sp:10+Math.random()*6,moving:false})}vils.length=want}
 let PATHS=[];
 function pickTarget(v){if(Math.random()<.5&&S.b.length){const b=S.b[Math.random()*S.b.length|0];v.tx=b.x*TS+16+(Math.random()*8-4);v.ty=b.y*TS+35}else{const t=PATHS[Math.random()*PATHS.length|0];v.tx=t[0]*TS+4+Math.random()*8;v.ty=t[1]*TS+8+Math.random()*6}}
 
@@ -663,7 +773,7 @@ let toastT;
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600)}
 function tick(){
   const prevSe=season();
-  S.time+=1;staff();
+  S.time+=1;tickVisitors();staff();
   for(const b of S.b){const p=prodOf(b);for(const k in p){S.r[k]+=p[k];if(k==='food')S.xp.farm+=p[k]*.6;if(k==='gold')S.xp.trade+=p[k]*.4}}
   S.r.food-=S.pop*.12;
   if(S.r.food<0){S.r.food=0;S.starveT++;if(S.starveT>=8&&S.pop>1){S.pop--;S.starveT=0;toast('식량이 떨어져 주민 한 명이 마을을 떠났어요')}}else S.starveT=0;
@@ -764,6 +874,7 @@ function hitAt(wx,wy){
     candidates.push({z:y*TS+15,img,x:x*TS+(TS-w)/2,y:y*TS+TS-h,tx:x,ty:y});
   }
   for(const d of S.decor){const def=DECOR[d.k],img=SP.decor[d.k];candidates.push({z:(d.y+def.size)*TS-1,img,x:d.x*TS+(def.size*TS-def.w)/2,y:(d.y+def.size)*TS-def.h,decorId:d.id})}
+  const guest=visitorAnchor(),visit=currentVisit();if(guest&&visit)candidates.push({z:guest.y,img:SP.visitors[visit.who],x:guest.x-4,y:guest.y-16,visitor:true});
   candidates.sort((a,b)=>b.z-a.z);
   for(const c of candidates){const x=Math.floor((wx-c.x)*ART),y=Math.floor((wy-c.y)*ART);if(x<0||y<0||x>=c.img.width||y>=c.img.height)continue;
     if(!c.img.hitAlpha)c.img.hitAlpha=c.img.getContext('2d').getImageData(0,0,c.img.width,c.img.height).data;
@@ -772,7 +883,7 @@ function hitAt(wx,wy){
   return null;
 }
 function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/TS),ty=Math.floor(wy/TS);
-  if(mode==='hand'){const hit=hitAt(wx,wy);if(hit){if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
+  if(mode==='hand'){const guest=visitorAnchor();if(guest&&Math.abs(wx-guest.x)<=6&&wy>=guest.y-25&&wy<=guest.y-16){openVisitors();return}const hit=hitAt(wx,wy);if(hit){if(hit.visitor)openVisitors();else if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
   const size=mode==='decor'?DECOR[decorKind].size:2;ghost={x:Math.round(wx/TS-size/2),y:Math.round(wy/TS-size/2)};updateConfirm()}
 $('#zin').onclick=()=>setZoom(1);$('#zout').onclick=()=>setZoom(-1);
 function setQuestOpen(open){const q=$('#quests');q.classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open);try{localStorage.setItem(SAVE+'-ui',open?'open':'closed')}catch(e){};requestAnimationFrame(measureHud)}
@@ -787,9 +898,10 @@ $('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderShee
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
 function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="hand" aria-pressed="true"><img class="th sq" src="${IURL.axe}" alt=""><span>채집</span><span class="cost">탭해서 수확</span></button>`;
   html+=`<button class="slot" data-m="shop" aria-pressed="false"><img class="th" src="${DECORURL.flowers}" alt=""><span>상점</span><span class="cost">장식 · 보관함</span></button>`;
+  html+=`<button class="slot" data-m="visitors" aria-pressed="false"><img class="th" src="${GUESTURL.carpenter}" alt=""><span>방문객</span><span class="cost" data-visitor-state>${visitorStatus()}</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='shop'){openShop();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
-function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='shop'){openShop();return}if(m==='visitors'){openVisitors();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
+function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
   if(mode==='decor'){decorConfirm();return}
   const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();
@@ -829,9 +941,10 @@ function openSheet(id){selId=id;armDel=false;tradeTab='buy';renderSheet()}
 function closeSheet(){selId=null;sheet.hidden=true;sheet.dataset.v=''}
 function renderSheet(){let h='';
   if(selId==='menu'){h=`<div class="top"><h2>작은 영지</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
-  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>시장에서 금화로 자원을 사고, 아래 상점에서 장식을 골라 마을을 꾸며요. 장식은 탭해서 옮기거나 보관할 수 있어요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
+  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>시장에서 금화로 자원을 사고, 아래 상점에서 장식을 골라 마을을 꾸며요. 장식은 탭해서 옮기거나 보관할 수 있어요.</li><li>방문객의 이야기를 듣고 물자를 나누거나 주민을 보내 도와주세요. 금화와 친밀도, 특별 장식을 받을 수 있어요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
   <div class="skillrow">${[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']].map(([k,n,c])=>`<div class="pill"><span>${n} <b style="font-family:var(--f-num)">Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
   <p>진행 상황은 이 기기에 자동으로 저장돼요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'한 번 더 누르면 처음부터 시작':'새로 시작'}</button></div>`}
+  else if(selId==='visitors')h=visitorsHTML();
   else if(selId==='shop')h=shopHTML();
   else if(typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(!d){closeSheet();return}h=decorSheet(d)}
   else{const b=S.b.find(b=>b.id===selId);if(!b){closeSheet();return}const d=B[b.k],c=upCost(b),p=prodOf(b),need=d.need;
@@ -856,6 +969,11 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
   else if(act==='buy'&&b?.k==='market')buy(+a.dataset.i);
   else if(act==='trade-tab'&&b?.k==='market'){tradeTab=a.dataset.tab==='sell'?'sell':'buy';renderSheet()}
   else if(act==='shop')openShop();
+  else if(act==='visitors')openVisitors();
+  else if(act==='visitor-goods'&&selId==='visitors')acceptVisitor('goods',a.dataset.visit);
+  else if(act==='visitor-workers'&&selId==='visitors')acceptVisitor('workers',a.dataset.visit);
+  else if(act==='visitor-claim'&&selId==='visitors')claimVisitor(a.dataset.visit);
+  else if(act==='visitor-cancel'&&selId==='visitors')cancelVisitorHelp(a.dataset.visit);
   else if(act==='decor-buy'&&selId==='shop')beginDecor(a.dataset.k);
   else if(act==='decor-move'&&decoration)beginDecor(decoration.k,decoration.id);
   else if(act==='decor-store'&&decoration)storeDecor(decoration);
@@ -893,11 +1011,13 @@ function draw(now){
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const o=S.o[y*MW+x];if(o)L.push({z:y*TS+15,o,x,y})}
   for(const b of S.b){if(b.x*TS>cam.x+vw+32||b.x*TS+32<cam.x-8||b.y*TS>cam.y+vh+40||b.y*TS+32<cam.y-30)continue;L.push({z:b.y*TS+31,b})}
   for(const d of S.decor)L.push({z:(d.y+DECOR[d.k].size)*TS-1,decor:d});
+  const guest=visitorAnchor();if(guest)L.push({z:guest.y,guest});
   for(const v of vils)L.push({z:v.y,v});L.sort((a,b)=>a.z-b.z);
   for(const d of L){
     if(d.o){const o=d.o,X=d.x*TS,Y=d.y*TS;let sx=0;if(o.sh&&now-o.sh<220)sx=Math.sin((now-o.sh)/18)*1.2;
       if(o.k==='rock'){ctx.drawImage(SP.rock,X+sx,Y,16,16);if(o.hp<4)stroke(ctx,[[X+7,Y+7],[X+6.4,Y+9],[X+8.4,Y+10],[X+7.5,Y+12]],'#67786c',.35)}
       else{const img=o.k==='pine'?SP.pine:SP.tree,w=img.width/ART,h=img.height/ART;ctx.drawImage(img,X+8-w/2+sx,Y+16-h,w,h)}}
+    else if(d.guest)drawVisitor(d.guest);
     else if(d.decor){const item=d.decor;decorDraw(item,mode==='decor'&&item.id===decorMoveId?.35:1)}
     else if(d.b){const b=d.b,img=b.k==='farm'?SP.b.farm[Math.floor(S.time/9+b.id)%3]:SP.b[b.k],X=b.x*TS,top=b.y*TS+32-img.height/ART;
       ctx.save();if(b.id===movingId)ctx.globalAlpha=.35;
@@ -906,6 +1026,7 @@ function draw(now){
       if(B[b.k].need&&!STAFF[b.id]){const bx=X+16,by=top+(img.inkTop||0)-4+Math.sin(now/450)*.7;softShadow(ctx,bx,by+3.8,5,1);ellipse(ctx,bx,by,4,4,'#fff8e6','#bca07b',.45);shape(ctx,[[bx-1,by+3.5],[bx,by+5],[bx+1,by+3.5]],'#fff8e6');stroke(ctx,[[bx,by-1.8],[bx,by+.5]],'#b47859',.7);ellipse(ctx,bx,by+2,.4,.4,'#b47859')}ctx.restore()}
     else{const v=d.v,f=v.moving?((now/170|0)%2):0;ctx.drawImage(PEOPLE[v.style||0][f],v.x-2,v.y-7.2,4,7.5)}
   }
+  if(guest)visitorMarker(guest,now);
   if(typeof selId==='number'&&mode==='hand'){const b=S.b.find(b=>b.id===selId);if(b){ctx.globalAlpha=.75+.15*Math.sin(now/350);roundBox(ctx,b.x*TS-.7,b.y*TS-.7,33.4,33.4,3,null,'#fff4cb',.8);ctx.globalAlpha=1}}
   if(mode==='hand'&&typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(d){const size=DECOR[d.k].size*TS;roundBox(ctx,d.x*TS-.5,d.y*TS-.5,size+1,size+1,2.8,null,'#fff4cb',.8)}}
   if(mode==='decor')drawDecorGhost();
