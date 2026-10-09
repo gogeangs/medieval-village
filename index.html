@@ -441,7 +441,7 @@ function pathNetwork(g){
 function rebuildGround(){
   const W=(MW+2*M)*TS,H=(MH+2*M)*TS,se=curSeason,snow=se===3,G=GR[se],R=rng(S.seed+179),land=t=>t===0||t===4;
   GROUND=mk(W*GROUND_SCALE,H*GROUND_SCALE,()=>{});const g=GROUND.getContext('2d');g.scale(GROUND_SCALE,GROUND_SCALE);g.translate(M*TS,M*TS);g.lineCap='round';g.lineJoin='round';
-  g.fillStyle=material(g,'grass',46,se,G[0]);g.fillRect(-M*TS,-M*TS,W,H);
+  g.fillStyle=material(g,'grass',120,se,G[0]);g.fillRect(-M*TS,-M*TS,W,H);
   for(let i=0;i<100;i++){const x=R()*W-M*TS,y=R()*H-M*TS,rr=18+R()*44,f=g.createRadialGradient(x,y,0,x,y,rr);f.addColorStop(0,(i%3?G[1]:G[2])+'24');f.addColorStop(1,G[0]+'00');ellipse(g,x,y,rr,rr*.65,f)}
   // The same tile paths and river keep all placement and movement rules intact.
   pathNetwork(g);g.strokeStyle=snow?'#a6bbaa66':'#6c764b66';g.lineWidth=16;g.stroke();
