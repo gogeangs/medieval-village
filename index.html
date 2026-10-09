@@ -109,6 +109,18 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 @media(max-width:520px){.res{border-width:1px;border-radius:8px}.bar-in{border-radius:11px}.slot{border-radius:6px}.res .r{color:#827250}.sheet{max-height:calc(100dvh - 32px)}.iconbtn{border-width:1px}}
 
 
+.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.shop-card{min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;background:#fff5dc9c;border:1px solid #c8b28a;border-radius:8px;text-align:center}
+.shop-card .decor-thumb{width:90px;max-width:100%;height:72px;object-fit:contain}
+.shop-card h3{margin:0;font-size:15px}.shop-card small{color:var(--ink-soft);font-size:11px}
+.shop-card .btn{width:100%;margin-top:3px;min-height:44px;font-size:13px;padding:8px 4px}
+.shop-price,.shop-balance{display:flex;align-items:center;justify-content:center;gap:4px;font-size:14px}
+.shop-price img,.shop-balance img,.trade img{width:14px;height:14px;vertical-align:middle}
+.shop-price span{color:var(--ink-soft);font-size:11px}.shop-balance{justify-content:flex-start;margin:8px 0 12px}
+.sheet .shop-note{font-size:12px;color:var(--ink-soft);line-height:1.5}
+.trade-tabs{display:flex;gap:8px;margin:10px 0}.trade-tabs .btn{flex:1}
+.trade{padding:8px 0;border-bottom:1px solid #b9a07955}.trade>span:first-child{flex:1}.trade .btn{min-height:44px;margin-left:4px}
+
 </style>
 
 </head>
@@ -162,7 +174,7 @@ const B={
   farm:{n:'밀밭',d:'식량을 키워요. 겨울에는 땅이 얼어서 쉬어요.',cost:{wood:15},need:2,prod:{food:1.2},hall:1},
   lumber:{n:'벌목소',d:'일꾼이 나무를 베어 목재를 모아요.',cost:{wood:25,stone:10},need:2,prod:{wood:.8},hall:1},
   quarry:{n:'채석장',d:'언덕에서 돌을 캐 석재를 모아요.',cost:{wood:30},need:2,prod:{stone:.6},hall:1},
-  market:{n:'시장',d:'장사로 금화를 벌어요. 남는 자원을 여기서 팔 수 있어요.',cost:{wood:40,stone:20},need:2,prod:{gold:.8},hall:1},
+  market:{n:'시장',d:'장사로 금화를 벌어요. 부족한 자원을 사고 남는 자원을 팔 수 있어요.',cost:{wood:40,stone:20},need:2,prod:{gold:.8},hall:1},
   bakery:{n:'빵집',d:'계절과 상관없이 빵을 구워요. 겨울을 나려면 꼭 필요해요.',cost:{wood:35,stone:30,gold:20},need:2,prod:{food:1.6},hall:2,smoke:1},
   tavern:{n:'선술집',d:'금화를 벌고, 소문이 나서 주민이 더 빨리 모여요.',cost:{wood:60,stone:40,gold:50},need:3,prod:{gold:1.6},hall:2,smoke:1},
 };
@@ -172,6 +184,66 @@ const RES=['wood','stone','food','gold'];
 const RN={wood:'목재',stone:'석재',food:'식량',gold:'금화'};
 const RCOL={wood:'#f0c27a',stone:'#d8d4cc',food:'#ffd27a',gold:'#ffe066'};
 const TRADES=[{k:'wood',n:10,g:5},{k:'stone',n:10,g:8},{k:'food',n:10,g:4}];
+const DECOR={
+  flowers:{n:'들꽃 화단',price:12,size:1,w:16,h:11,d:'집 앞과 길가를 환하게 만드는 작은 꽃밭이에요.'},
+  bench:{n:'나무 벤치',price:25,size:1,w:16,h:16,d:'마을 풍경을 바라보며 쉬어 갈 수 있는 벤치예요.'},
+  lantern:{n:'마을 가로등',price:45,size:1,w:12,h:30,d:'따뜻한 호박빛 등불로 길가를 꾸며 보세요.'},
+  fountain:{n:'돌 분수',price:120,size:2,w:32,h:32,d:'마을 광장의 중심이 되어 줄 작은 분수예요.'}
+};
+const decorDef=k=>Object.prototype.hasOwnProperty.call(DECOR,k)?DECOR[k]:null;
+function normalizeDecor(d,tiles){
+  const blocked=new Set(),ids=new Set();
+  for(const b of d.b)for(let y=0;y<2;y++)for(let x=0;x<2;x++)blocked.add((b.y+y)*MW+b.x+x);
+  d.decor=(Array.isArray(d.decor)?d.decor:[]).filter(v=>{
+    const def=v&&decorDef(v.k);if(!def||!Number.isSafeInteger(v.id)||v.id<1||v.id>=2147483647||ids.has(v.id)||!Number.isInteger(v.x)||!Number.isInteger(v.y)||v.x<0||v.y<0||v.x+def.size>MW||v.y+def.size>MH)return false;
+    const cells=[];for(let y=0;y<def.size;y++)for(let x=0;x<def.size;x++){const i=(v.y+y)*MW+v.x+x;if(tiles[i]>1||d.o[i]||blocked.has(i))return false;cells.push(i)}
+    ids.add(v.id);cells.forEach(i=>blocked.add(i));return true;
+  }).map(({id,k,x,y})=>({id,k,x,y}));
+  const bag=d.decorBag||{};d.decorBag=Object.fromEntries(Object.keys(DECOR).map(k=>[k,Number.isSafeInteger(bag[k])?Math.max(0,Math.min(9999,bag[k])):0]));
+  d.decorNext=Math.max(1,...d.decor.map(v=>v.id+1));return d;
+}
+function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
+  softShadow(g,d.w/2,d.h-1,d.w*.42,1);
+  if(k==='flowers'){ellipse(g,8,8,7,2.2,'#9d986f');for(let i=0;i<9;i++){const x=2+i%5*2.5,y=4+(i*3)%4;ellipse(g,x,y,1.6,2,'#759056');ellipse(g,x,y-1,1,1,['#f5ead0','#dc9775','#edc16c'][i%3])}}
+  else if(k==='bench'){for(const x of[2,13])roundBox(g,x,7,1.4,8,.3,'#73583e');roundBox(g,1,3,14,5,.6,'#b79260','#73583e',.5);roundBox(g,1,9,14,3,.5,'#c7a370','#73583e',.5)}
+  else if(k==='lantern'){roundBox(g,5,7,2,22,.4,'#73583e');roundBox(g,2,4,8,7,1,'#edc676','#73583e',.8);shape(g,[[1,4],[6,1],[11,4]],'#597787');ellipse(g,6,28,4,1.3,'#b6b098')}
+  else{ellipse(g,16,25,15,5,'#d8ccac','#968870',.7);ellipse(g,16,24,12,3,'#96bdc3');roundBox(g,14,9,4,15,1,'#d5c6a3');ellipse(g,16,10,8,2.8,'#e6d5ae','#a5967b',.5);ellipse(g,16,9,6,1.7,'#a8cbd0')}
+})}
+const decorMoving=()=>mode==='decor'?S.decor.find(d=>d.id===decorMoveId):null;
+function decorCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!OCC[i]&&(!DOCC[i]||DOCC[i]===ignoreId)}
+function decorValid(k,x,y,ignoreId=0){const d=decorDef(k);if(!d)return false;for(let dy=0;dy<d.size;dy++)for(let dx=0;dx<d.size;dx++)if(!decorCell(x+dx,y+dy,ignoreId))return false;return true}
+function decorCost(k){return S.decorBag[k]>0?0:DECOR[k].price}
+function beginDecor(k,id=null){
+  if(!decorDef(k))return;const item=id?S.decor.find(d=>d.id===id&&d.k===k):null;if(id&&!item)return;
+  if(!item&&S.r.gold<decorCost(k)){toast('금화가 부족해요');return}
+  finishPlacement();mode='decor';decorKind=k;decorMoveId=id;updateSlots();updateConfirm();toast('놓을 곳을 탭한 뒤 확정해 주세요');
+}
+function placeDecor(){
+  if(mode!=='decor'||!ghost||!decorDef(decorKind))return;
+  const moving=decorMoving();if(decorMoveId&&!moving)return;
+  if(!decorValid(decorKind,ghost.x,ghost.y,moving?.id||0))return;
+  if(moving){if(moving.x===ghost.x&&moving.y===ghost.y)return;moving.x=ghost.x;moving.y=ghost.y}
+  else{const cost=decorCost(decorKind);if(S.r.gold<cost)return;S.r.gold-=cost;if(S.decorBag[decorKind]>0)S.decorBag[decorKind]--;S.decor.push({id:S.decorNext++,k:decorKind,x:ghost.x,y:ghost.y})}
+  rebuildOcc();const name=DECOR[decorKind].n;finishPlacement();updateHUD();save();toast(name+(moving?'을(를) 옮겼어요':'을(를) 놓았어요'));
+}
+function storeDecor(d){if(!d||!S.decor.includes(d))return;S.decorBag[d.k]++;S.decor=S.decor.filter(v=>v!==d);rebuildOcc();finishPlacement();updateHUD();save();toast('상점에 보관했어요. 무료로 다시 놓을 수 있어요')}
+function openShop(){finishPlacement();selId='shop';renderSheet();updateSlots()}
+function shopHTML(){return `<div class="top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>마음에 드는 장식으로 마을을 꾸며 보세요.</p><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length;return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${ic('gold')} ${d.price} <span>· ${d.size}×${d.size}칸</span></div><small>마을 ${owned} · 보관 ${bag}</small><button class="btn go" data-act="decor-buy" data-k="${k}" ${S.r.gold>=decorCost(k)?'':'disabled'}>${bag?'보관품 놓기':'자리 고르기'}</button></div>`}).join('')}</div><p class="shop-note">배치를 확정할 때만 금화를 써요. 이동과 보관은 무료이며, 장식은 일손을 쓰지 않아요.</p>`}
+function decorSheet(d){const def=DECOR[d.k];return `<div class="top"><img src="${DECORURL[d.k]}" alt=""><div><h2>${def.n}</h2><div class="lv">마을 장식 · ${def.size}×${def.size}칸</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${def.d}</p><div class="acts"><button class="btn go" data-act="decor-move">옮기기</button><button class="btn" data-act="decor-store">보관하기</button><button class="btn" data-act="shop">상점</button></div><p>이동과 보관은 무료예요. 보관한 장식은 상점에서 다시 놓을 수 있어요.</p>`}
+function decorConfirm(){
+  const c=$('#confirm'),yes=$('#cyes'),d=decorDef(decorKind),moving=decorMoving();if(!d){c.hidden=true;return}
+  const ok=ghost&&decorValid(decorKind,ghost.x,ghost.y,moving?.id||0),same=moving&&ghost&&moving.x===ghost.x&&moving.y===ghost.y,cost=moving?0:decorCost(decorKind),afford=S.r.gold>=cost;
+  c.hidden=false;yes.textContent=moving?'이동':cost?'구매·배치':'놓기';yes.disabled=!ok||same||!afford;
+  const msg=!ghost?'놓을 곳을 탭하세요':!ok?'빈 땅이나 길 위에 놓아 주세요':same?'현재 위치예요':!afford?'금화가 부족해요':`${d.size}×${d.size}칸 · ${cost?'금화 '+cost+' 사용':'비용 없음'}`;
+  $('#cmsg').innerHTML=`${d.n}${moving?' 옮기기':''}<small class="${ghost&&(!ok||same||!afford)?'bad':''}">${msg}${!ghost&&cost?' · 확정 시 금화 '+cost:''}</small>`;
+}
+function decorDraw(d,alpha=1){const def=DECOR[d.k],im=SP.decor[d.k],x=d.x*TS+(def.size*TS-def.w)/2,y=(d.y+def.size)*TS-def.h;ctx.save();ctx.globalAlpha=alpha;ctx.drawImage(im,x,y,def.w,def.h);ctx.restore()}
+function drawDecorGhost(){
+  if(!ghost||!decorDef(decorKind))return;const d=DECOR[decorKind],moving=decorMoving(),id=moving?.id||0,ok=decorValid(decorKind,ghost.x,ghost.y,id)&&(moving||S.r.gold>=decorCost(decorKind));
+  for(let y=0;y<d.size;y++)for(let x=0;x<d.size;x++){const good=decorCell(ghost.x+x,ghost.y+y,id);roundBox(ctx,(ghost.x+x)*TS+.6,(ghost.y+y)*TS+.6,14.8,14.8,2,good?'#cde2ac66':'#d78c7388',good?'#f0f6da88':'#fff0deaa',.35)}
+  decorDraw({k:decorKind,...ghost},ok?.85:.5);roundBox(ctx,ghost.x*TS-.25,ghost.y*TS-.25,d.size*TS+.5,d.size*TS+.5,2.8,null,ok?'#f7ffe2':'#ffe8d8',.7);
+}
+
 
 /* ---------- illustrated resource symbols ---------- */
 const ICON={};
@@ -349,7 +421,7 @@ function quarryArt(se){return art(32,40,g=>{
   roundBox(g,24.5,33,5.6,3.4,.35,'#a7804d','#594a32',.28);for(let i=0;i<4;i++)ellipse(g,25.4+i*1.1,33.2,.8,.85,i%2?'#b3b49a':'#869784');ellipse(g,25.2,37,1,1,'#584f38');ellipse(g,29.5,37,1,1,'#584f38');
 })}
 /* Image artwork uses relative URLs; all game rules and saved state remain below. */
-const PAINTED_META={"hall":{"url":"./assets/illustrations/hall.webp","crop":[24,15,442,466],"world":[32,52]},"house":{"url":"./assets/illustrations/house.webp","crop":[24,32,446,457],"world":[32,44]},"tree":{"url":"./assets/illustrations/tree.webp","crop":[5,36,335,432],"world":[24,35]},"pine":{"url":"./assets/illustrations/pine.webp","crop":[35,17,277,467],"world":[20,36]},"lumber":{"url":"./assets/illustrations/lumber.webp","crop":[11,12,492,370],"world":[32,44]},"quarry":{"url":"./assets/illustrations/quarry.webp","crop":[7,31,496,365],"world":[32,40]},"market":{"url":"./assets/illustrations/market.webp","crop":[18,26,476,390],"world":[32,40]},"bakery":{"url":"./assets/illustrations/bakery.webp","crop":[12,6,489,490],"world":[32,44]},"tavern":{"url":"./assets/illustrations/tavern.webp","crop":[11,15,467,475],"world":[32,44]},"farm":{"url":"./assets/illustrations/farm.webp","crop":[23,31,477,325],"world":[32,32]},"rock":{"url":"./assets/illustrations/rock.webp","crop":[57,49,409,280],"world":[16,16]},"farmer":{"url":"./assets/illustrations/farmer.webp","crop":[40,5,113,244],"world":[7,13]},"villager":{"url":"./assets/illustrations/villager.webp","crop":[39,15,98,229],"world":[7,13]},"grass":{"url":"./assets/illustrations/grass.webp","crop":[0,0,512,512],"world":null},"path":{"url":"./assets/illustrations/path.webp","crop":[0,0,512,512],"world":null},"water":{"url":"./assets/illustrations/water.webp","crop":[0,0,512,512],"world":null},"stone":{"url":"./assets/illustrations/stone.webp","crop":[0,0,512,512],"world":null},"paper":{"url":"./assets/illustrations/paper.webp","crop":[0,0,512,512],"world":null},"tree-autumn":{"url":"./assets/illustrations/tree-autumn.webp","crop":[6,36,334,432],"world":[24,35]},"farm-green":{"url":"./assets/illustrations/farm-green.webp","crop":[23,31,478,326],"world":[32,32]},"hall-winter":{"url":"./assets/illustrations/hall-winter.webp","crop":[25,15,443,467],"world":[32,52]},"house-winter":{"url":"./assets/illustrations/house-winter.webp","crop":[23,27,449,462],"world":[32,44]},"lumber-winter":{"url":"./assets/illustrations/lumber-winter.webp","crop":[10,8,495,375],"world":[32,44]},"quarry-winter":{"url":"./assets/illustrations/quarry-winter.webp","crop":[7,25,498,372],"world":[32,40]},"market-winter":{"url":"./assets/illustrations/market-winter.webp","crop":[17,17,478,399],"world":[32,40]},"bakery-winter":{"url":"./assets/illustrations/bakery-winter.webp","crop":[12,0,489,499],"world":[32,44]},"tavern-winter":{"url":"./assets/illustrations/tavern-winter.webp","crop":[10,12,468,479],"world":[32,44]},"farm-winter":{"url":"./assets/illustrations/farm-winter.webp","crop":[23,26,484,332],"world":[32,32]},"tree-winter":{"url":"./assets/illustrations/tree-winter.webp","crop":[6,20,330,450],"world":[24,35]},"pine-winter":{"url":"./assets/illustrations/pine-winter.webp","crop":[35,14,277,471],"world":[20,36]},"rock-winter":{"url":"./assets/illustrations/rock-winter.webp","crop":[59,45,408,285],"world":[16,16]}},PAINTED={};
+const PAINTED_META={"hall":{"url":"./assets/illustrations/hall.webp","crop":[24,15,442,466],"world":[32,52]},"house":{"url":"./assets/illustrations/house.webp","crop":[24,32,446,457],"world":[32,44]},"tree":{"url":"./assets/illustrations/tree.webp","crop":[5,36,335,432],"world":[24,35]},"pine":{"url":"./assets/illustrations/pine.webp","crop":[35,17,277,467],"world":[20,36]},"lumber":{"url":"./assets/illustrations/lumber.webp","crop":[11,12,492,370],"world":[32,44]},"quarry":{"url":"./assets/illustrations/quarry.webp","crop":[7,31,496,365],"world":[32,40]},"market":{"url":"./assets/illustrations/market.webp","crop":[18,26,476,390],"world":[32,40]},"bakery":{"url":"./assets/illustrations/bakery.webp","crop":[12,6,489,490],"world":[32,44]},"tavern":{"url":"./assets/illustrations/tavern.webp","crop":[11,15,467,475],"world":[32,44]},"farm":{"url":"./assets/illustrations/farm.webp","crop":[23,31,477,325],"world":[32,32]},"rock":{"url":"./assets/illustrations/rock.webp","crop":[57,49,409,280],"world":[16,16]},"farmer":{"url":"./assets/illustrations/farmer.webp","crop":[40,5,113,244],"world":[7,13]},"villager":{"url":"./assets/illustrations/villager.webp","crop":[39,15,98,229],"world":[7,13]},"grass":{"url":"./assets/illustrations/grass.webp","crop":[0,0,512,512],"world":null},"path":{"url":"./assets/illustrations/path.webp","crop":[0,0,512,512],"world":null},"water":{"url":"./assets/illustrations/water.webp","crop":[0,0,512,512],"world":null},"stone":{"url":"./assets/illustrations/stone.webp","crop":[0,0,512,512],"world":null},"paper":{"url":"./assets/illustrations/paper.webp","crop":[0,0,512,512],"world":null},"tree-autumn":{"url":"./assets/illustrations/tree-autumn.webp","crop":[6,36,334,432],"world":[24,35]},"farm-green":{"url":"./assets/illustrations/farm-green.webp","crop":[23,31,478,326],"world":[32,32]},"hall-winter":{"url":"./assets/illustrations/hall-winter.webp","crop":[25,15,443,467],"world":[32,52]},"house-winter":{"url":"./assets/illustrations/house-winter.webp","crop":[23,27,449,462],"world":[32,44]},"lumber-winter":{"url":"./assets/illustrations/lumber-winter.webp","crop":[10,8,495,375],"world":[32,44]},"quarry-winter":{"url":"./assets/illustrations/quarry-winter.webp","crop":[7,25,498,372],"world":[32,40]},"market-winter":{"url":"./assets/illustrations/market-winter.webp","crop":[17,17,478,399],"world":[32,40]},"bakery-winter":{"url":"./assets/illustrations/bakery-winter.webp","crop":[12,0,489,499],"world":[32,44]},"tavern-winter":{"url":"./assets/illustrations/tavern-winter.webp","crop":[10,12,468,479],"world":[32,44]},"farm-winter":{"url":"./assets/illustrations/farm-winter.webp","crop":[23,26,484,332],"world":[32,32]},"tree-winter":{"url":"./assets/illustrations/tree-winter.webp","crop":[6,20,330,450],"world":[24,35]},"pine-winter":{"url":"./assets/illustrations/pine-winter.webp","crop":[35,14,277,471],"world":[20,36]},"rock-winter":{"url":"./assets/illustrations/rock-winter.webp","crop":[59,45,408,285],"world":[16,16]},"decor-flowers":{"url":"./assets/decor/flowers.webp","crop":[0,0,512,282],"world":[16,11]},"decor-bench":{"url":"./assets/decor/bench.webp","crop":[0,0,512,466],"world":[16,16]},"decor-lantern":{"url":"./assets/decor/lantern.webp","crop":[0,0,269,512],"world":[12,30]},"decor-fountain":{"url":"./assets/decor/fountain.webp","crop":[0,0,512,471],"world":[32,32]}},PAINTED={};
 function paintedSprite(id,se=0,stage=2){
   let key=se===3&&PAINTED[id+'-winter']?id+'-winter':id==='tree'&&se===2&&PAINTED['tree-autumn']?'tree-autumn':id==='farm'&&se!==3&&stage<2&&PAINTED['farm-green']?'farm-green':id;
   const im=PAINTED[key],m=PAINTED_META[key];if(!im||!m?.world)return null;
@@ -373,7 +445,7 @@ function smokeOrigin(b){
   if(!r||!anchor)return{x:b.x*TS+24+jitter,y:b.y*TS-4};
   return{x:b.x*TS+r.x+r.w*anchor[0]+jitter,y:b.y*TS+32-im.height/ART+r.y+r.h*anchor[1]};
 }
-function warmUiSprites(){const fresh=buildSprites(0).b;for(const[k,im]of Object.entries(fresh)){THUMB[k]=im;THUMBURL[k]=tightThumb(k==='farm'?im[2]:im)}installPaintedPeople()}
+function warmUiSprites(){const fresh=buildSprites(0).b;for(const[k,im]of Object.entries(fresh)){THUMB[k]=im;THUMBURL[k]=tightThumb(k==='farm'?im[2]:im)}for(const[k,im]of Object.entries(buildSprites(0).decor))DECORURL[k]=tightThumb(im);installPaintedPeople()}
 async function loadPaintedSprites(){
   const entries=Object.entries(PAINTED_META),failures=[],deadline=performance.now()+15000;let cursor=0,done=0;
   const loadOne=([id,m])=>new Promise(resolve=>{
@@ -394,17 +466,19 @@ async function beginIllustratedGame(){
 
 
 function buildSprites(se){
-  const s={grass:[],path:[],b:{},yard:{}},snow=se===3;
+  const s={grass:[],path:[],b:{},yard:{},decor:{}},snow=se===3;
   s.water=art(16,16,g=>roundBox(g,0,0,16,16,0,snow?'#a3c2c2':'#83b5b3'));
   s.bridge=art(16,16,g=>{roundBox(g,0,1,16,14,1,'#ad916a');for(let i=0;i<6;i++){roundBox(g,i*2.8,1.8,2.5,12.4,.3,wash(g,i*2.8,2,2.5,12,'#d6bd90','#b59a73'),'#8c75532e',.2);curve(g,i*2.8+.7,3,i*2.8+.4,5,i*2.8+1.6,8,i*2.8+1,12,'#a58b653f',.2)}for(const y of[2,14]){stroke(g,[[0,y],[16,y]],'#806e55',1.5);stroke(g,[[0,y-.4],[16,y-.4]],snow?'#eef2e8':'#d2bc90',.5);for(const x of[1,15])roundBox(g,x-.65,y-1.8,1.3,3.7,.4,'#b29870')}});
   s.tree=paintedSprite('tree',se)||broadleafArt(se);s.pine=paintedSprite('pine',se)||pineArt(se);s.rock=paintedSprite('rock',se)||rockArt(se);
   for(const kind of['house','lumber','bakery','tavern'])s.b[kind]=paintedSprite(kind,se)||cottageArt(se,kind);
   s.b.hall=paintedSprite('hall',se)||townHallArt(se);s.b.market=paintedSprite('market',se)||marketArt(se);s.b.quarry=paintedSprite('quarry',se)||quarryArt(se);s.b.farm=[0,1,2].map(i=>paintedSprite('farm',se,i)||farmArt(se,i));
   for(const kind of['hall','house','lumber','quarry','market','bakery','tavern'])s.yard[kind]=yardArt(kind,se);
+  for(const k of Object.keys(DECOR))s.decor[k]=paintedSprite('decor-'+k)||decorFallback(k);
   return s;
 }
 const THUMB=buildSprites(0).b;
 const THUMBURL=Object.fromEntries(Object.entries(THUMB).map(([k,v])=>[k,(k==='farm'?v[2]:v).toDataURL()]));
+const DECORURL=Object.fromEntries(Object.entries(buildSprites(0).decor).map(([k,im])=>[k,tightThumb(im)]));
 
 /* One modest-resolution landscape cache per season; sprites have a separate,
    higher resolution so mobile memory does not grow with the sprite detail. */
@@ -477,7 +551,7 @@ function yardArt(kind,se){return art(40,14,g=>{
 
 
 function drawPlotDetails(b){
-  if(b.k==='farm')return;const tx=b.x+1,ty=b.y+2;if(T(tx,ty)<0||T(tx,ty)>1||S.o[ty*MW+tx]||OCC[ty*MW+tx])return;
+  if(b.k==='farm')return;const tx=b.x+1,ty=b.y+2;if(T(tx,ty)<0||T(tx,ty)>1||S.o[ty*MW+tx]||OCC[ty*MW+tx]||DOCC[ty*MW+tx])return;
   for(let i=0;i<3;i++)ellipse(ctx,b.x*TS+16+(i%2)*.8,b.y*TS+34+i*2.8,2,.85,curSeason===3?'#e8eddf':'#d0c29f','#aa9e7938',.3);
 }
 
@@ -494,12 +568,12 @@ function genMap(seed){
 }
 
 /* ---------- state ---------- */
-let S,TILES,OCC,SP,curSeason=-1;
-function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
+let S,TILES,OCC,DOCC,SP,curSeason=-1;
+function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:{flowers:0,bench:0,lantern:0,fountain:0},decorNext:1,b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
-function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return d}
+function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeDecor(d,m.t)}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
-function rebuildOcc(){OCC=new Int32Array(MW*MH);for(const b of S.b)for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)OCC[(b.y+dy)*MW+b.x+dx]=b.id}
+function rebuildOcc(){OCC=new Int32Array(MW*MH);for(const b of S.b)for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)OCC[(b.y+dy)*MW+b.x+dx]=b.id;DOCC=new Int32Array(MW*MH);for(const d of S.decor)for(let y=0;y<DECOR[d.k].size;y++)for(let x=0;x<DECOR[d.k].size;x++)DOCC[(d.y+y)*MW+d.x+x]=d.id}
 const T=(x,y)=>(x<0||y<0||x>=MW||y>=MH)?-1:TILES[y*MW+x];
 
 /* ---------- helpers ---------- */
@@ -597,7 +671,7 @@ function tick(){
   if(S.pop<c&&S.r.food>=5&&S.growT>=every){S.pop++;S.growT=0;const h=S.b[0];floatTxt(h.x*TS+16,h.y*TS+4,'+1','#cfe8ff','pop')}
   if(S.pop>c)S.pop=c;
   S.spawnT++;
-  if(S.spawnT>=20){S.spawnT=0;const n=S.o.filter(Boolean).length;if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i])continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()<.85?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
+  if(S.spawnT>=20){S.spawnT=0;const n=S.o.filter(Boolean).length;if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i])continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()<.85?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
   const se=season();if(se!==prevSe)onSeason(se,true);
   syncVils();updateHUD();
   if(S.time%5===0)save();
@@ -605,12 +679,12 @@ function tick(){
 function onSeason(se,announce){if(se===curSeason)return;curSeason=se;SP=buildSprites(se);rebuildGround();if(announce)toast(['봄이 왔어요. 밀밭이 다시 자라요','여름이에요. 밀이 쑥쑥 자라요','가을이에요. 밀밭이 황금빛으로 물들어요','겨울이에요. 밀밭이 쉬어요. 빵집이 있으면 든든해요'][se])}
 
 /* ---------- actions ---------- */
-let mode='hand',ghost=null,movingId=null,selId=null,armDel=false,armReset=false;
+let mode='hand',ghost=null,movingId=null,decorKind=null,decorMoveId=null,selId=null,armDel=false,armReset=false,tradeTab='buy';
 const movingBuilding=()=>mode==='move'?S.b.find(b=>b.id===movingId):null;
-function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&(!OCC[i]||OCC[i]===ignoreId)}
+function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!DOCC[i]&&(!OCC[i]||OCC[i]===ignoreId)}
 function validAt(x,y,ignoreId=0){for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(!placeableCell(x+dx,y+dy,ignoreId))return false;return true}
-function finishPlacement(){mode='hand';movingId=null;ghost=null;closeSheet();updateConfirm();updateSlots()}
-function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
+function finishPlacement(){mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots()}
+function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;decorMoveId=null;movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${B[b.k].n}을(를) 옮겼어요`);updateHUD();save()}
 function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);finishPlacement();updateHUD();save()}
 function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;const now=performance.now();o.sh=now;o.hp--;const wx=x*TS+8,wy=y*TS+4;
@@ -621,7 +695,12 @@ function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;const now=perfo
 
 function upgrade(b){const c=upCost(b);if(!c||!can(c))return;pay(c);b.l++;S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
 function demolish(b){if(b.k==='hall')return;const c=B[b.k].cost;for(const k in c)S.r[k]+=Math.floor(c[k]/2);S.b=S.b.filter(x=>x!==b);rebuildOcc();staff();toast(`${B[b.k].n}을(를) 허물고 자재 절반을 돌려받았어요`);closeSheet();updateHUD();save()}
-function sell(i){const t=TRADES[i];if(S.r[t.k]<t.n)return;const g=Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));S.r[t.k]-=t.n;S.r.gold+=g;S.st.sold+=t.n;S.xp.trade+=g;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');updateHUD()}
+const salePrice=t=>Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));
+const purchasePrice=t=>Math.max({wood:10,stone:15,food:8}[t.k],Math.ceil(salePrice(t)*1.8));
+function buy(i){const t=TRADES[i];if(!t||!count('market'))return;const price=purchasePrice(t);if(S.r.gold<price){toast('금화가 부족해요');return}S.r.gold-=price;S.r[t.k]+=t.n;updateHUD();save();toast(`${RN[t.k]} ${t.n}개를 샀어요`)}
+function sell(i){const t=TRADES[i];if(!t||!count('market')||S.r[t.k]<t.n)return;const g=salePrice(t);S.r[t.k]-=t.n;S.r.gold+=g;S.st.sold+=t.n;S.xp.trade+=g;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');updateHUD();save()}
+function marketHTML(){const buying=tradeTab==='buy';return `<h3>시장 거래</h3><div class="trade-tabs" aria-label="거래 종류"><button class="btn ${buying?'go':''}" data-act="trade-tab" data-tab="buy" aria-pressed="${buying}">자원 구매</button><button class="btn ${!buying?'go':''}" data-act="trade-tab" data-tab="sell" aria-pressed="${!buying}">자원 판매</button></div><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div><div class="trades">${TRADES.map((t,i)=>{const price=buying?purchasePrice(t):salePrice(t);return `<div class="trade"><span>${ic(t.k)} ${RN[t.k]} ${t.n}개</span><span>${ic('gold')} ${price}</span><button class="btn ${buying?'go':''}" data-act="${buying?'buy':'sell'}" data-i="${i}" aria-label="${RN[t.k]} ${t.n}개 ${buying?'구매':'판매'}" ${(buying?S.r.gold>=price:S.r[t.k]>=t.n)?'':'disabled'}>${buying?'구매':'판매'}</button></div>`}).join('')}</div><p class="shop-note">거래 가격에는 교역 레벨이 반영돼요.</p>`}
+
 function claim(id){const q=Q.find(q=>q.id===id);if(!q||S.claimed.includes(id)||q.v()<q.g)return;S.claimed.push(id);give(q.r);const h=S.b[0];chips(h.x*TS+16,h.y*TS,'#e8b93e',12);toast(`퀘스트 완료: ${q.t}`);updateHUD();save()}
 
 /* ---------- input ---------- */
@@ -683,6 +762,7 @@ function hitAt(wx,wy){
     const o=S.o[y*MW+x];if(!o)continue;const img=SP[o.k],w=img.width/ART,h=img.height/ART;
     candidates.push({z:y*TS+15,img,x:x*TS+(TS-w)/2,y:y*TS+TS-h,tx:x,ty:y});
   }
+  for(const d of S.decor){const def=DECOR[d.k],img=SP.decor[d.k];candidates.push({z:(d.y+def.size)*TS-1,img,x:d.x*TS+(def.size*TS-def.w)/2,y:(d.y+def.size)*TS-def.h,decorId:d.id})}
   candidates.sort((a,b)=>b.z-a.z);
   for(const c of candidates){const x=Math.floor((wx-c.x)*ART),y=Math.floor((wy-c.y)*ART);if(x<0||y<0||x>=c.img.width||y>=c.img.height)continue;
     if(!c.img.hitAlpha)c.img.hitAlpha=c.img.getContext('2d').getImageData(0,0,c.img.width,c.img.height).data;
@@ -691,24 +771,26 @@ function hitAt(wx,wy){
   return null;
 }
 function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/TS),ty=Math.floor(wy/TS);
-  if(mode==='hand'){const hit=hitAt(wx,wy);if(hit){if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
-  ghost={x:Math.round(wx/TS-1),y:Math.round(wy/TS-1)};updateConfirm()}
+  if(mode==='hand'){const hit=hitAt(wx,wy);if(hit){if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
+  const size=mode==='decor'?DECOR[decorKind].size:2;ghost={x:Math.round(wx/TS-size/2),y:Math.round(wy/TS-size/2)};updateConfirm()}
 $('#zin').onclick=()=>setZoom(1);$('#zout').onclick=()=>setZoom(-1);
 function setQuestOpen(open){const q=$('#quests');q.classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open);try{localStorage.setItem(SAVE+'-ui',open?'open':'closed')}catch(e){};requestAnimationFrame(measureHud)}
 $('#qhead').onclick=()=>setQuestOpen($('#quests').classList.contains('closed'));
 {let pref=null;try{pref=localStorage.getItem(SAVE+'-ui')}catch(e){}const open=pref?pref==='open':!(innerWidth<=520||innerHeight<=540);$('#quests').classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open)}
 $('#qlist').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)claim(b.dataset.q)});
 $('#cno').onclick=finishPlacement;
-$('#cyes').onclick=()=>{if(mode==='move')moveBuilding();else build()};
+$('#cyes').onclick=()=>{if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
 $('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet()};
 
 /* ---------- hotbar ---------- */
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
 function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="hand" aria-pressed="true"><img class="th sq" src="${IURL.axe}" alt=""><span>채집</span><span class="cost">탭해서 수확</span></button>`;
+  html+=`<button class="slot" data-m="shop" aria-pressed="false"><img class="th" src="${DECORURL.flowers}" alt=""><span>상점</span><span class="cost">장식 · 보관함</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
-function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m===mode);if(m==='hand')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='shop'){openShop();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
+function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
+  if(mode==='decor'){decorConfirm();return}
   const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();
   yes.textContent=mode==='move'?'이동':'짓기';
   if(mode==='move'){
@@ -742,13 +824,15 @@ function updateHUD(){
 
 /* ---------- sheet ---------- */
 const sheet=$('#sheet');
-function openSheet(id){selId=id;armDel=false;renderSheet()}
+function openSheet(id){selId=id;armDel=false;tradeTab='buy';renderSheet()}
 function closeSheet(){selId=null;sheet.hidden=true;sheet.dataset.v=''}
 function renderSheet(){let h='';
   if(selId==='menu'){h=`<div class="top"><h2>작은 영지</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
-  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
+  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>시장에서 금화로 자원을 사고, 아래 상점에서 장식을 골라 마을을 꾸며요. 장식은 탭해서 옮기거나 보관할 수 있어요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
   <div class="skillrow">${[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']].map(([k,n,c])=>`<div class="pill"><span>${n} <b style="font-family:var(--f-num)">Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
   <p>진행 상황은 이 기기에 자동으로 저장돼요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'한 번 더 누르면 처음부터 시작':'새로 시작'}</button></div>`}
+  else if(selId==='shop')h=shopHTML();
+  else if(typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(!d){closeSheet();return}h=decorSheet(d)}
   else{const b=S.b.find(b=>b.id===selId);if(!b){closeSheet();return}const d=B[b.k],c=upCost(b),p=prodOf(b),need=d.need;
     const img=THUMBURL[b.k];
     let stats='';for(const k in (d.prod||{})){const v=p[k]||0;stats+=`<span class="tag">${ic(k)}<span class="num">${v?'+'+v.toFixed(1):'0'}</span>/초</span>`}
@@ -758,15 +842,22 @@ function renderSheet(){let h='';
     const max=b.k==='hall'?3:3;
     h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p><div class="stat">${stats}</div>
     <div class="acts">${c?`<button class="btn go" data-act="up" ${can(c)?'':'disabled'}>업그레이드 ${Object.entries(c).map(([k,v])=>`${ic(k)}<span class="num">${v}</span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
-    if(b.k==='market'){const g=t=>Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));h+=`<h3>자원 팔기</h3><div class="trades">${TRADES.map((t,i)=>`<div class="trade">${ic(t.k)} ${RN[t.k]} ${t.n}개 → ${ic('gold')} <b class="num" style="font-family:var(--f-num)">${g(t)}</b><button class="btn" data-act="sell" data-i="${i}" ${S.r[t.k]>=t.n?'':'disabled'}>팔기</button></div>`).join('')}</div>`}
+    if(b.k==='market')h+=marketHTML();
   }
   if(sheet.dataset.v!==h){sheet.innerHTML=h;sheet.dataset.v=h}sheet.hidden=false}
 sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act;const b=S.b.find(b=>b.id===selId);
-  if(act==='close')closeSheet();
+  const decoration=typeof selId==='string'&&selId.startsWith('decor:')?S.decor.find(d=>d.id===+selId.slice(6)):null;
+  if(act==='close'){closeSheet();updateSlots()}
   else if(act==='up'&&b)upgrade(b);
   else if(act==='move'&&b)beginMove(b);
   else if(act==='del'&&b){if(armDel)demolish(b);else{armDel=true;renderSheet()}}
-  else if(act==='sell')sell(+a.dataset.i);
+  else if(act==='sell'&&b?.k==='market')sell(+a.dataset.i);
+  else if(act==='buy'&&b?.k==='market')buy(+a.dataset.i);
+  else if(act==='trade-tab'&&b?.k==='market'){tradeTab=a.dataset.tab==='sell'?'sell':'buy';renderSheet()}
+  else if(act==='shop')openShop();
+  else if(act==='decor-buy'&&selId==='shop')beginDecor(a.dataset.k);
+  else if(act==='decor-move'&&decoration)beginDecor(decoration.k,decoration.id);
+  else if(act==='decor-store'&&decoration)storeDecor(decoration);
   else if(act==='reset'){if(armReset){try{localStorage.removeItem(SAVE)}catch(e){}start({fresh:true});closeSheet();toast('새 영지에서 다시 시작해요')}else{armReset=true;renderSheet()}}});
 
 /* ---------- render ---------- */
@@ -800,11 +891,13 @@ function draw(now){
   const L=[];
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const o=S.o[y*MW+x];if(o)L.push({z:y*TS+15,o,x,y})}
   for(const b of S.b){if(b.x*TS>cam.x+vw+32||b.x*TS+32<cam.x-8||b.y*TS>cam.y+vh+40||b.y*TS+32<cam.y-30)continue;L.push({z:b.y*TS+31,b})}
+  for(const d of S.decor)L.push({z:(d.y+DECOR[d.k].size)*TS-1,decor:d});
   for(const v of vils)L.push({z:v.y,v});L.sort((a,b)=>a.z-b.z);
   for(const d of L){
     if(d.o){const o=d.o,X=d.x*TS,Y=d.y*TS;let sx=0;if(o.sh&&now-o.sh<220)sx=Math.sin((now-o.sh)/18)*1.2;
       if(o.k==='rock'){ctx.drawImage(SP.rock,X+sx,Y,16,16);if(o.hp<4)stroke(ctx,[[X+7,Y+7],[X+6.4,Y+9],[X+8.4,Y+10],[X+7.5,Y+12]],'#67786c',.35)}
       else{const img=o.k==='pine'?SP.pine:SP.tree,w=img.width/ART,h=img.height/ART;ctx.drawImage(img,X+8-w/2+sx,Y+16-h,w,h)}}
+    else if(d.decor){const item=d.decor;decorDraw(item,mode==='decor'&&item.id===decorMoveId?.35:1)}
     else if(d.b){const b=d.b,img=b.k==='farm'?SP.b.farm[Math.floor(S.time/9+b.id)%3]:SP.b[b.k],X=b.x*TS,top=b.y*TS+32-img.height/ART;
       ctx.save();if(b.id===movingId)ctx.globalAlpha=.35;
       ctx.drawImage(img,X,top,img.width/ART,img.height/ART);
@@ -813,7 +906,9 @@ function draw(now){
     else{const v=d.v,f=v.moving?((now/170|0)%2):0;ctx.drawImage(PEOPLE[v.style||0][f],v.x-2,v.y-7.2,4,7.5)}
   }
   if(typeof selId==='number'&&mode==='hand'){const b=S.b.find(b=>b.id===selId);if(b){ctx.globalAlpha=.75+.15*Math.sin(now/350);roundBox(ctx,b.x*TS-.7,b.y*TS-.7,33.4,33.4,3,null,'#fff4cb',.8);ctx.globalAlpha=1}}
-  if(mode!=='hand'&&ghost){const moving=movingBuilding(),kind=moving?moving.k:mode,ignoreId=moving?moving.id:0,ok=validAt(ghost.x,ghost.y,ignoreId)&&(moving||can(B[kind].cost)),img=kind==='farm'?SP.b.farm[2]:SP.b[kind],X=ghost.x*TS,Y=ghost.y*TS;
+  if(mode==='hand'&&typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(d){const size=DECOR[d.k].size*TS;roundBox(ctx,d.x*TS-.5,d.y*TS-.5,size+1,size+1,2.8,null,'#fff4cb',.8)}}
+  if(mode==='decor')drawDecorGhost();
+  if(mode!=='hand'&&mode!=='decor'&&ghost){const moving=movingBuilding(),kind=moving?moving.k:mode,ignoreId=moving?moving.id:0,ok=validAt(ghost.x,ghost.y,ignoreId)&&(moving||can(B[kind].cost)),img=kind==='farm'?SP.b.farm[2]:SP.b[kind],X=ghost.x*TS,Y=ghost.y*TS;
     for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const tx=ghost.x+dx,ty=ghost.y+dy,good=placeableCell(tx,ty,ignoreId),cx=X+dx*16,cy=Y+dy*16;
       roundBox(ctx,cx+.6,cy+.6,14.8,14.8,2,good?'#cde2ac66':'#d78c7388',good?'#f0f6da88':'#fff0deaa',.35);
       if(!good){stroke(ctx,[[cx+5,cy+5],[cx+11,cy+11]],'#fff3df',.7);stroke(ctx,[[cx+11,cy+5],[cx+5,cy+11]],'#fff3df',.7)}}
@@ -841,7 +936,7 @@ function start(data){
   const fresh=!st;S=st||newState();
   TILES=genMap(S.seed).t;PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1)PATHS.push([x,y]);
   rebuildOcc();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
-  mode='hand';ghost=null;movingId=null;
+  mode='hand';ghost=null;movingId=null;decorKind=null;decorMoveId=null;
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
     document.addEventListener('visibilitychange',()=>{if(document.hidden){resetGesture();save()}});
     window.claude?.hot?.snapshot?.(()=>({state:serialize()}));}
