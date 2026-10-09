@@ -1,23 +1,41 @@
 {
   "tool": "Built-in ImageGen",
   "style": "User-approved illustrated concept; original artwork for 작은 영지",
-  "export": "512px maximum edge WebP; people 256px; alpha retained. Original PNGs retained separately.",
+  "export": "Front-facing buildings: 512px wide transparent WebP, requested 32:52/44/40/32 canvas aspect. Source trim uses alpha > 8/255 to exclude detached near-transparent generation noise; antialiased alpha within that rectangle is retained. Proportional Lanczos resize, transparent padding above, bottom contact. Final PAINTED_META crops use all nonzero-alpha pixels in the exported WebP. Other assets retain previous exports. Original generated PNGs retained locally.",
   "assets": [
     {
       "id": "hall",
-      "prompt": "Use case: style-transfer. Asset type: actual transparent PNG sprite for the Korean cozy medieval village management game 작은 영지.\nInput image 1 is the approved village concept and a STYLE/ARCHITECTURE reference, not a background to reproduce. Create ONE isolated game asset described below. Translate the reference's lovingly detailed rustic village art into smooth, hand-painted storybook illustration. Preserve the rich small material details, warm sunshine, soft worn surfaces and natural silhouettes. NOT pixel art, NOT chunky low-resolution pixels, NOT flat vector art, NOT glossy plastic 3D. Soft but clearly defined painted edges, subtle warm dark outlines, visible front and a little right side, 3/4 top-down game view with visible roof tops. Warm light from upper left, shaded right side. Cohesive muted yet rich olive greens, creamy limestone, weathered honey brown timber, slate blue roofs and warm terracotta. True alpha transparent background, no opaque background of any color, no checkerboard painted into image. One object centered, entirely visible, generous transparent margin, no UI, no label, no letters, no watermark, no surrounding scenery or additional buildings.\nSubject: The reference's village town hall as a single building: a substantial broad cream limestone main hall with weathered dark timber beams and slate blue tiled roof, a prominent central square clock tower with a perfectly round ivory clock face and simple readable clock hands, steep slate blue tower roof, small deep blue pennant at the peak, arched wooden double door, short stone doorstep, two blue cloth banners with simple floral emblems, mullioned windows, tiny abundant flower planters and pots touching the building's base. The whole building should have a broad welcoming silhouette, width about 80% of its full height. Front facade faces viewer, right wall visible. It must be recognizable when reduced to 120 pixels. All decorations belong to this one structure; no people, smoke or yard-sized platform. Whole building including flag and steps in frame.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Portrait composition, target aspect 32:52 (512x832 final). Preserve cream stone/timber town hall with blue-grey tiled roofs, clock tower rising centrally, ivory clock face, blue flag, blue banners, arched front entrance, flower boxes/pots and stone steps. Turn the entire assembly straight toward camera. Tower clock face is frontal rectangular, not a diagonal corner; hall long main roof ridge runs horizontally behind the tower. Front steps are horizontal rectangles, roof top occupies sufficient vertical depth. No side facade. Frame full tower flag through flat front foundation with tiny transparent margin.",
       "transparent": true,
       "references": [
-        "Approved concept 1"
-      ]
+        "Existing hall.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: actual transparent PNG sprite for the Korean cozy medieval village management game 작은 영지.\nInput image 1 is the approved village concept and a STYLE/ARCHITECTURE reference, not a background to reproduce. Create ONE isolated game asset described below. Translate the reference's lovingly detailed rustic village art into smooth, hand-painted storybook illustration. Preserve the rich small material details, warm sunshine, soft worn surfaces and natural silhouettes. NOT pixel art, NOT chunky low-resolution pixels, NOT flat vector art, NOT glossy plastic 3D. Soft but clearly defined painted edges, subtle warm dark outlines, visible front and a little right side, 3/4 top-down game view with visible roof tops. Warm light from upper left, shaded right side. Cohesive muted yet rich olive greens, creamy limestone, weathered honey brown timber, slate blue roofs and warm terracotta. True alpha transparent background, no opaque background of any color, no checkerboard painted into image. One object centered, entirely visible, generous transparent margin, no UI, no label, no letters, no watermark, no surrounding scenery or additional buildings.\nSubject: The reference's village town hall as a single building: a substantial broad cream limestone main hall with weathered dark timber beams and slate blue tiled roof, a prominent central square clock tower with a perfectly round ivory clock face and simple readable clock hands, steep slate blue tower roof, small deep blue pennant at the peak, arched wooden double door, short stone doorstep, two blue cloth banners with simple floral emblems, mullioned windows, tiny abundant flower planters and pots touching the building's base. The whole building should have a broad welcoming silhouette, width about 80% of its full height. Front facade faces viewer, right wall visible. It must be recognizable when reduced to 120 pixels. All decorations belong to this one structure; no people, smoke or yard-sized platform. Whole building including flag and steps in frame.",
+          "references": [
+            "Approved concept 1"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "house",
-      "prompt": "Use case: style-transfer. Asset type: actual transparent PNG sprite for the Korean cozy medieval village management game 작은 영지.\nInput image 1 is the approved village concept and a STYLE/ARCHITECTURE reference, not a background to reproduce. Create ONE isolated game asset described below. Translate the reference's lovingly detailed rustic village art into smooth, hand-painted storybook illustration. Preserve the rich small material details, warm sunshine, soft worn surfaces and natural silhouettes. NOT pixel art, NOT chunky low-resolution pixels, NOT flat vector art, NOT glossy plastic 3D. Soft but clearly defined painted edges, subtle warm dark outlines, visible front and a little right side, 3/4 top-down game view with visible roof tops. Warm light from upper left, shaded right side. Cohesive muted yet rich olive greens, creamy limestone, weathered honey brown timber, slate blue roofs and warm terracotta. True alpha transparent background, no opaque background of any color, no checkerboard painted into image. One object centered, entirely visible, generous transparent margin, no UI, no label, no letters, no watermark, no surrounding scenery or additional buildings.\nSubject: One cozy small cottage matching the red-roofed timber-and-plaster cottages in the reference. Broad chunky terracotta tiled gabled roof, cream plaster walls, worn brown half-timber beams, clearly visible front wall and right side wall, tall stone chimney, dark wood arched entrance with a few stone steps, small blue-glass windows with open wooden shutters, full flower boxes, one wooden barrel and two tiny planted terracotta pots touching the base. Warm rustic miniature architecture, detailed but readable and charming. The whole cottage width about 90% of its full height. No smoke plume, no ground island, no fence stretching away, no people. Entire roof and chimney in frame.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Portrait composition, target aspect 32:44 (512x704 final). Preserve this cozy cream-plaster dark-timber cottage, red terracotta tiled roof, dormer, flowers, timber door, stone foundation, flower pots and barrel. Main roof ridge horizontal; broad frontal slope visible from above; centered frontal dormer can have a small triangular gable. Chimney remains at upper right about 75% across image, needed for game smoke attachment. Door and windows all on the single flat front facade; do not show right side wall. Front stone steps flat horizontal. Frame full chimney through flat bottom foundation tightly.",
       "transparent": true,
       "references": [
-        "Approved concept 1"
-      ]
+        "Existing house.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: actual transparent PNG sprite for the Korean cozy medieval village management game 작은 영지.\nInput image 1 is the approved village concept and a STYLE/ARCHITECTURE reference, not a background to reproduce. Create ONE isolated game asset described below. Translate the reference's lovingly detailed rustic village art into smooth, hand-painted storybook illustration. Preserve the rich small material details, warm sunshine, soft worn surfaces and natural silhouettes. NOT pixel art, NOT chunky low-resolution pixels, NOT flat vector art, NOT glossy plastic 3D. Soft but clearly defined painted edges, subtle warm dark outlines, visible front and a little right side, 3/4 top-down game view with visible roof tops. Warm light from upper left, shaded right side. Cohesive muted yet rich olive greens, creamy limestone, weathered honey brown timber, slate blue roofs and warm terracotta. True alpha transparent background, no opaque background of any color, no checkerboard painted into image. One object centered, entirely visible, generous transparent margin, no UI, no label, no letters, no watermark, no surrounding scenery or additional buildings.\nSubject: One cozy small cottage matching the red-roofed timber-and-plaster cottages in the reference. Broad chunky terracotta tiled gabled roof, cream plaster walls, worn brown half-timber beams, clearly visible front wall and right side wall, tall stone chimney, dark wood arched entrance with a few stone steps, small blue-glass windows with open wooden shutters, full flower boxes, one wooden barrel and two tiny planted terracotta pots touching the base. Warm rustic miniature architecture, detailed but readable and charming. The whole cottage width about 90% of its full height. No smoke plume, no ground island, no fence stretching away, no people. Entire roof and chimney in frame.",
+          "references": [
+            "Approved concept 1"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "tree",
@@ -37,57 +55,111 @@
     },
     {
       "id": "lumber",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small rustic lumber workshop. Weathered timber framing, moss green slate roof, a compact open-sided lean-to with neat stacks of cut logs and visible round log ends, small sawhorse, hand axe resting in a stump, tiny closed tool cabinet. Distinct from the residential cottage, utilitarian but cozy. A low cream stone foundation. Broad building, width slightly more than total height.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:44; final512x704px. Green tiled roof timber lumber workshop with front dormer, stone chimney on left, an attached open lean-to on RIGHT filled with round-ended neatly stacked logs, chopping stump and axe, saw horse, small plants. Recompose for a compact portrait footprint: lean-to projects no farther than the right boundary. All workshop and wood-storage front edges horizontal. The round log ends face directly front; shelter roof ridge horizontal. No visible side wall. Preserve the lumber identity.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing lumber.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small rustic lumber workshop. Weathered timber framing, moss green slate roof, a compact open-sided lean-to with neat stacks of cut logs and visible round log ends, small sawhorse, hand axe resting in a stump, tiny closed tool cabinet. Distinct from the residential cottage, utilitarian but cozy. A low cream stone foundation. Broad building, width slightly more than total height.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "quarry",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One compact medieval quarry entrance: a rocky grey-green limestone outcrop with a dark arched mine opening supported by heavy timber beams, little wooden lifting frame with rope and pulley, tiny wooden cart filled with stone, a warm hanging lantern. Not a house, no tall fortress towers, no huge terrain platform. Squat silhouette with stone pile clustered around entrance. Width about 1.2 times height.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:40; final512x640px. A rock hill quarry, large timber-framed dark mine entrance, wooden mine cart filled with rocks, short tracks coming straight downward toward viewer, small timber hoist to RIGHT, barrels/crates at left, scattered stones, shovel/pick. Tall compact rocky hill above mine opening. The hill base flat and horizontal; mine opening straight front; track ties horizontal and rails vertical in image, not diagonal. No landscape or raised soil chunk.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing quarry.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One compact medieval quarry entrance: a rocky grey-green limestone outcrop with a dark arched mine opening supported by heavy timber beams, little wooden lifting frame with rope and pulley, tiny wooden cart filled with stone, a warm hanging lantern. Not a house, no tall fortress towers, no huge terrain platform. Squat silhouette with stone pile clustered around entrance. Width about 1.2 times height.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "market",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One cozy medieval open-air produce market stall. Warm terracotta and creamy ivory striped canvas awning with soft fabric folds, weathered wooden posts and front counter, neatly separated baskets of red apples, yellow bread and green vegetables, tiny scales, crates and one barrel touching the base. Wide low silhouette, front plus right side visible, entire canopy supported above counter. No merchant or customer, no writing.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:40; final512x640px. Wooden market stall with orange/red and cream striped curved canopy, stone post bases, bread and red/green vegetable crates on the countertop, brass weighing scales, hanging lantern to right, barrel of flowers left and flower crate right. Tall compact stall. Front and back canopy support bars perfectly horizontal; canopy displays its upper curved surface from above, all four posts aligned into left/right rows, no lateral facade. Countertop and front panel horizontal rectangles.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing market.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One cozy medieval open-air produce market stall. Warm terracotta and creamy ivory striped canvas awning with soft fabric folds, weathered wooden posts and front counter, neatly separated baskets of red apples, yellow bread and green vegetables, tiny scales, crates and one barrel touching the base. Wide low silhouette, front plus right side visible, entire canopy supported above counter. No merchant or customer, no writing.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "bakery",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small welcoming medieval bakery building related to the reference cottage but unmistakably a bakery. Warm terracotta tiled roof, cream stone and timber walls, tall brick chimney, arched dark wooden door, a small front window under red-and-cream striped cloth awning with three golden bread loaves, a little hanging sign with a simple bread shape and NO letters, side masonry bread oven with dark opening and stacked firewood, tiny flower pots at doorstep. Width about equal to height.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:44; final512x704px. Cream plaster timber bakery, terracotta red roof, dormer with flowers, roof chimney upper RIGHT around 75% of width, hanging bread-symbol sign left (no words), red/cream small striped awning over a bread display window LEFT of arched front entrance, lit oven arch and log stack in a compact attached bay on RIGHT facing directly FRONT, flower pots. Preserve all identifying details. Broad roof top, horizontal main roof ridge. Entire assembly has one frontal orientation including oven.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing bakery.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small welcoming medieval bakery building related to the reference cottage but unmistakably a bakery. Warm terracotta tiled roof, cream stone and timber walls, tall brick chimney, arched dark wooden door, a small front window under red-and-cream striped cloth awning with three golden bread loaves, a little hanging sign with a simple bread shape and NO letters, side masonry bread oven with dark opening and stacked firewood, tiny flower pots at doorstep. Width about equal to height.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "tavern",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One cozy two-story medieval tavern related to the reference cottage. A broad slate blue roof, cream plaster and rich wood framing, warm amber windows, arched wooden entrance, a hanging wooden sign showing a simple mug emblem and NO text, two barrels and a small outdoor bench close to facade, leafy window flower boxes. Welcoming substantial building, no people or smoke. Width 80-90% of full height.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:44; final512x704px. Cozy timber/cream stone tavern, blue tiled roof, flower-box dormer, chimney upper RIGHT about 75% across, hanging beer-mug symbol sign LEFT, two barrels and a bench left, arched door right of center and flower windowboxes/pots. Main ridge perfectly horizontal, broad roof slope visible. Flat front wall, zero right side facade. Baseline of barrels bench and steps horizontally aligned.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing tavern.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One cozy two-story medieval tavern related to the reference cottage. A broad slate blue roof, cream plaster and rich wood framing, warm amber windows, arched wooden entrance, a hanging wooden sign showing a simple mug emblem and NO text, two barrels and a small outdoor bench close to facade, leafy window flower boxes. Welcoming substantial building, no people or smoke. Width 80-90% of full height.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "farm",
-      "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small rectangular cultivated wheat plot, viewed from the same high 3/4 camera, gently trapezoid footprint with nearly horizontal front edge. Dense golden ripe wheat stalks and seed heads in ordered rows with visible earthen furrows, short rustic wooden fence along the back and sides with open front, one tiny straw scarecrow in the back corner. No building, no cart, no people, no ground extending outside this one farm plot. Height about 75% of width. Cozy painterly farming game asset, readable at 110px.",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent building sprite for a medieval village game on an axis-aligned square grid. Image 1 is the exact building to repaint; preserve its warm storybook painted brush texture, charming detailed materials, colors, architecture identity and small props. CHANGE THE CAMERA ANGLE. Camera is centered DIRECTLY IN FRONT, yaw exactly zero, raised 40 degrees looking down. Orthographic front-elevated view, not isometric. Entrance wall faces screen bottom straight on, both its left and right ends at the SAME HEIGHT. Every front foundation edge, roof eave and main roof ridge is PERFECTLY HORIZONTAL. Roof top generously visible, side walls invisible or only negligible slivers, absolutely no corner facing viewer, no receding left-to-right roof ridges. Keep all objects within a square axis-aligned footprint. No diamond-shaped ground, no scenic island, no background. Genuine transparent alpha. The horizontal foundation/ground contact sits at the very bottom, building spans almost full canvas width. Soft warm daylight and existing painted finish, crisp readable details, no text, no watermark, no people. Only this single building, no comparison sheet. Target aspect 32:32; final512x512px. A mature golden wheat plot with rustic wooden fence on rear and both sides, small straw-hat scarecrow at back RIGHT, white daisies and greenery at perimeter. The plot is an AXIS-ALIGNED SQUARE seen from above: left and right edges VERTICAL in the picture, front and back edges HORIZONTAL. Wheat planting rows run LEFT TO RIGHT HORIZONTALLY across entire plot; evenly spaced exposed brown soil furrows parallel to bottom edge. NO DIAGONAL wheat rows, no diamond rhombus or perspective trapezoid. Bottom row and soil contact form a straight horizontal edge at image bottom. Square composition, minimal exterior margin. Tall plants do not alter rectangular footprint.",
       "transparent": true,
       "references": [
-        "house.png",
-        "hall.png"
-      ]
+        "Existing farm.webp at 0dcbfc4e8c431e3843f8f4e0067583793ace1fa5"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: style-transfer. Asset type: production transparent game sprite for the cozy Korean medieval village game 작은 영지. Image 1 is the APPROVED COTTAGE style reference and image 2 is the APPROVED TOWN HALL style reference. Match their warm detailed hand-painted storybook illustration, weathered wood, cream plaster/limestone, small modeled material details, clear graceful edges, sunlight from upper left and shaded right side. Same 3/4 top-down game camera showing front and right wall plus roof. Smooth illustration, NOT pixel art, NOT flat vector, NOT plastic 3D. One centered isolated asset, fully visible, transparent padding, TRUE ALPHA transparent background outside the object. No checkerboard, no scene backdrop, no written labels, no UI, no watermark. Readable at 120 pixels wide. Decorations must stay attached to the structure's base; no large island platform, no smoke, no people unless the requested subject itself is a person.\nSubject: One small rectangular cultivated wheat plot, viewed from the same high 3/4 camera, gently trapezoid footprint with nearly horizontal front edge. Dense golden ripe wheat stalks and seed heads in ordered rows with visible earthen furrows, short rustic wooden fence along the back and sides with open front, one tiny straw scarecrow in the back corner. No building, no cart, no people, no ground extending outside this one farm plot. Height about 75% of width. Cozy painterly farming game asset, readable at 110px.",
+          "references": [
+            "house.png",
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "rock",
@@ -171,75 +243,156 @@
     },
     {
       "id": "farm-green",
-      "prompt": "Use case: precise-object-edit. Edit target: the supplied golden wheat plot game sprite. Change ONLY the mature golden wheat to shorter young green wheat plants in the exact same ordered rows, revealing more brown soil furrows between. Keep fence, scarecrow, footprint, camera and every other object unchanged. Same detailed hand-painted illustration. True transparent background outside the same farm plot, no added objects, no text.",
+      "prompt": "Use case: precise-object-edit. Image 1 is the approved front-elevated SQUARE wheat farm sprite. Change ONLY the mature golden wheat to shorter young GREEN wheat shoots in the EXACT SAME FOUR HORIZONTAL ROWS. Keep identical camera, canvas, fence, scarecrow, flowers, soil outline and every prop's location. The field must retain perfectly axis-aligned rectangular edges: horizontal front/back, vertical sides. Same warm painted brush style and lighting. True transparent alpha, no background, no words, no extra props. Preserve crop footprint and scale exactly.",
       "transparent": true,
       "references": [
-        "exec-a28ec01f-8e6f-4665-9540-9b5c72e216a8.png"
-      ]
+        "Front-facing farm.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: precise-object-edit. Edit target: the supplied golden wheat plot game sprite. Change ONLY the mature golden wheat to shorter young green wheat plants in the exact same ordered rows, revealing more brown soil furrows between. Keep fence, scarecrow, footprint, camera and every other object unchanged. Same detailed hand-painted illustration. True transparent background outside the same farm plot, no added objects, no text.",
+          "references": [
+            "exec-a28ec01f-8e6f-4665-9540-9b5c72e216a8.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "hall-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "hall.png"
-      ]
+        "Front-facing hall.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "hall.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "house-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "house.png"
-      ]
+        "Front-facing house.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "house.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "lumber-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-2af4e101-f8f9-42c2-9645-247b345c57e6.png"
-      ]
+        "Front-facing lumber.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-2af4e101-f8f9-42c2-9645-247b345c57e6.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "quarry-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-7f732f1e-b50c-425e-b401-056ddaacde5b.png"
-      ]
+        "Front-facing quarry.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-7f732f1e-b50c-425e-b401-056ddaacde5b.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "market-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-7d83f97e-1caf-4d80-9729-6f13361649d1.png"
-      ]
+        "Front-facing market.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-7d83f97e-1caf-4d80-9729-6f13361649d1.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "bakery-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-5c715ff2-4d0f-49fc-96aa-68c49269ab2b.png"
-      ]
+        "Front-facing bakery.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-5c715ff2-4d0f-49fc-96aa-68c49269ab2b.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "tavern-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing.  No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-1cde0a23-afd1-4301-9591-f60729973415.png"
-      ]
+        "Front-facing tavern.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. Add a believable modest layer of fresh ivory snow to upward-facing roof planes, ridge tiles, awnings and ledges, and a few small snowy patches around base. Keep every building shape, door, window, sign, object, camera angle and proportions EXACTLY the same. Upper edges have soft irregular snow lips; roof material remains visible in patches. Flower boxes have winter greenery and light snow instead of bright blossoms. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-1cde0a23-afd1-4301-9591-f60729973415.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "farm-winter",
-      "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. The same plot in winter, harvested and dormant: remove the standing golden wheat, show low cut stubble and thin fluffy snow following the earthen furrows. Keep fence, scarecrow, footprint and camera identical. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+      "prompt": "Use case: lighting-weather. Image 1 is the edit target and FINAL APPROVED CAMERA/ARCHITECTURE. Create its winter version by ADDING SNOW ONLY. Preserve the exact same front-elevated zero-yaw orthographic camera, canvas proportions, object scale, silhouette, building footprint, horizontal roof ridges and horizontal foundation baseline. Do not rotate, move, redesign or recenter any structural feature or prop. Same warm storybook painted materials and palette. Add thin puffy natural snow caps to roof tile rows, ridge, chimney rim (opening clear), outdoor ground/steps, pots, barrels and fence caps where present. Keep snow below door openings and do not obscure the identifying signs, windows, clock or flags. No extra landscape, no falling snow particles, no background: true transparent alpha. Keep all snow inside the existing overall width and footprint, never add a snow island. Match the summer asset's exact position and framing. For this wheat plot, replace mature wheat with dormant short stubble partially covered by a snow blanket in the SAME FOUR HORIZONTAL rows; retain fence and scarecrow at exactly the same locations. Field outline still square with vertical sides and horizontal bottom. No text or watermark.",
       "transparent": true,
       "references": [
-        "exec-a28ec01f-8e6f-4665-9540-9b5c72e216a8.png"
-      ]
+        "Front-facing farm.webp from this revision"
+      ],
+      "history": [
+        {
+          "prompt": "Use case: lighting-weather. Edit target: the supplied approved game sprite. Make only its WINTER variant, preserving the exact detailed hand-painted illustration style, warm material colors, object identity, front-right 3/4 perspective and transparent canvas. The same plot in winter, harvested and dormant: remove the standing golden wheat, show low cut stubble and thin fluffy snow following the earthen furrows. Keep fence, scarecrow, footprint and camera identical. No sky or background, no falling snow particles, no smoke, no ground island, no text. Outside the sprite must remain truly alpha-transparent, with clean edges and no glow. Entire object visible.",
+          "references": [
+            "exec-a28ec01f-8e6f-4665-9540-9b5c72e216a8.png"
+          ]
+        }
+      ],
+      "revision": "2026-10-10 front-elevated grid alignment"
     },
     {
       "id": "tree-winter",

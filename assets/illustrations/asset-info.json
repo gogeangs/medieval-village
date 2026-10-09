@@ -1,17 +1,31 @@
 [
   {
     "id": "hall",
-    "width": 482,
-    "height": 512,
-    "bytes": 71320,
-    "alphaZeroFraction": 0.482
+    "width": 512,
+    "height": 832,
+    "bytes": 128086,
+    "alphaZeroFraction": 0.3198,
+    "crop": [
+      0,
+      27,
+      512,
+      805
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "house",
-    "width": 478,
-    "height": 512,
-    "bytes": 86678,
-    "alphaZeroFraction": 0.388
+    "width": 512,
+    "height": 704,
+    "bytes": 143202,
+    "alphaZeroFraction": 0.2329,
+    "crop": [
+      0,
+      67,
+      512,
+      637
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "tree",
@@ -30,44 +44,86 @@
   {
     "id": "lumber",
     "width": 512,
-    "height": 410,
-    "bytes": 73682,
-    "alphaZeroFraction": 0.412
+    "height": 704,
+    "bytes": 105330,
+    "alphaZeroFraction": 0.421,
+    "crop": [
+      0,
+      236,
+      512,
+      468
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "quarry",
     "width": 512,
-    "height": 427,
-    "bytes": 87476,
-    "alphaZeroFraction": 0.41
+    "height": 640,
+    "bytes": 140828,
+    "alphaZeroFraction": 0.2956,
+    "crop": [
+      0,
+      94,
+      512,
+      546
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "market",
     "width": 512,
-    "height": 432,
-    "bytes": 78134,
-    "alphaZeroFraction": 0.423
+    "height": 640,
+    "bytes": 97400,
+    "alphaZeroFraction": 0.3858,
+    "crop": [
+      0,
+      165,
+      512,
+      475
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "bakery",
     "width": 512,
-    "height": 512,
-    "bytes": 98154,
-    "alphaZeroFraction": 0.336
+    "height": 704,
+    "bytes": 121526,
+    "alphaZeroFraction": 0.2918,
+    "crop": [
+      0,
+      96,
+      512,
+      608
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "tavern",
-    "width": 478,
-    "height": 512,
-    "bytes": 92960,
-    "alphaZeroFraction": 0.331
+    "width": 512,
+    "height": 704,
+    "bytes": 130436,
+    "alphaZeroFraction": 0.2462,
+    "crop": [
+      0,
+      58,
+      512,
+      646
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "farm",
     "width": 512,
-    "height": 384,
-    "bytes": 79386,
-    "alphaZeroFraction": 0.463
+    "height": 512,
+    "bytes": 151084,
+    "alphaZeroFraction": 0.1638,
+    "crop": [
+      0,
+      29,
+      512,
+      483
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "rock",
@@ -135,65 +191,128 @@
   {
     "id": "farm-green",
     "width": 512,
-    "height": 384,
-    "bytes": 71556,
-    "alphaZeroFraction": 0.46
+    "height": 512,
+    "bytes": 142048,
+    "alphaZeroFraction": 0.1628,
+    "crop": [
+      0,
+      29,
+      512,
+      483
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "hall-winter",
-    "width": 482,
-    "height": 512,
-    "bytes": 66948,
-    "alphaZeroFraction": 0.473
+    "width": 512,
+    "height": 832,
+    "bytes": 133604,
+    "alphaZeroFraction": 0.3141,
+    "crop": [
+      0,
+      22,
+      512,
+      810
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "house-winter",
-    "width": 478,
-    "height": 512,
-    "bytes": 76360,
-    "alphaZeroFraction": 0.377
+    "width": 512,
+    "height": 704,
+    "bytes": 126644,
+    "alphaZeroFraction": 0.232,
+    "crop": [
+      0,
+      66,
+      512,
+      638
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "lumber-winter",
     "width": 512,
-    "height": 410,
-    "bytes": 68534,
-    "alphaZeroFraction": 0.401
+    "height": 704,
+    "bytes": 99186,
+    "alphaZeroFraction": 0.4247,
+    "crop": [
+      0,
+      237,
+      512,
+      467
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "quarry-winter",
     "width": 512,
-    "height": 427,
-    "bytes": 75652,
-    "alphaZeroFraction": 0.393
+    "height": 640,
+    "bytes": 119672,
+    "alphaZeroFraction": 0.2837,
+    "crop": [
+      0,
+      85,
+      512,
+      555
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "market-winter",
     "width": 512,
-    "height": 432,
-    "bytes": 71320,
-    "alphaZeroFraction": 0.406
+    "height": 640,
+    "bytes": 88726,
+    "alphaZeroFraction": 0.3702,
+    "crop": [
+      0,
+      157,
+      512,
+      483
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "bakery-winter",
     "width": 512,
-    "height": 512,
-    "bytes": 89926,
-    "alphaZeroFraction": 0.325
+    "height": 704,
+    "bytes": 120338,
+    "alphaZeroFraction": 0.2716,
+    "crop": [
+      0,
+      88,
+      512,
+      616
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "tavern-winter",
-    "width": 478,
-    "height": 512,
-    "bytes": 86696,
-    "alphaZeroFraction": 0.325
+    "width": 512,
+    "height": 704,
+    "bytes": 121020,
+    "alphaZeroFraction": 0.2424,
+    "crop": [
+      0,
+      58,
+      512,
+      646
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "farm-winter",
     "width": 512,
-    "height": 384,
-    "bytes": 75488,
-    "alphaZeroFraction": 0.447
+    "height": 512,
+    "bytes": 136892,
+    "alphaZeroFraction": 0.1484,
+    "crop": [
+      0,
+      23,
+      512,
+      489
+    ],
+    "view": "front-elevated; zero yaw; horizontal front edge and roof ridge"
   },
   {
     "id": "tree-winter",
