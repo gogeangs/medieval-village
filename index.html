@@ -173,7 +173,7 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .profile-hero .big{font-size:34px;line-height:1;color:#4f6b49}.profile-hero p{margin:4px 0 0;font-size:12px;color:var(--ink-soft)}
 .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:10px}.stats div{padding:8px 10px;border:1px solid #cdbb94;border-radius:8px;background:#fff6df80;font-size:12px;color:var(--ink-soft)}.stats b{display:block;font-size:17px;color:var(--ink);font-weight:400}
 .sheet{bottom:calc(var(--dock-height,64px) + 22px);max-height:calc(100dvh - var(--dock-height,64px) - 40px - env(safe-area-inset-top,0px))}
-.confirm{z-index:9}
+.confirm{z-index:9}.confirm.compact{flex-wrap:nowrap;padding:6px 6px 6px 12px}.confirm.compact .msg{flex:1 1 auto;font-size:13px}.confirm.compact .msg small{font-size:11px;margin-top:1px}
 .scene{position:fixed;inset:0;z-index:50;display:grid;place-items:end center;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 18px);background:linear-gradient(#1d2a1e00,#1d2a1ecc 45%);animation:scene-in .25s ease-out}
 .scene-card{width:min(560px,100%);max-height:calc(100dvh - 60px);overflow:auto;background-color:#f1e3c2;background-image:linear-gradient(145deg,#fff5deaa,#e1cda144),url('./assets/illustrations/paper.webp');background-size:auto,280px 280px;border:2px solid #8a6a3e;border-radius:14px;box-shadow:0 8px 30px #12201580,inset 0 0 0 2px #fff0cb8c;padding:16px 16px 12px;cursor:pointer}
 .scene-head{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #c8b28a;padding-bottom:8px}.scene-head span{font-size:13px;color:#8a6a3e;flex:none}.scene-head h2{margin:0;font-size:20px;font-weight:400;color:#4c3924}
@@ -739,7 +739,7 @@ function genMap(seed){
 let S,TILES,OCC,DOCC,SP,curSeason=-1;
 function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
-function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeStory(normalizeVisitors(normalizeDecor(d,m.t)))}
+function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeRoads(normalizeStory(normalizeVisitors(normalizeDecor(d,m.t))),m.t)}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
 function rebuildOcc(){OCC=new Int32Array(MW*MH);for(const b of S.b)for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)OCC[(b.y+dy)*MW+b.x+dx]=b.id;DOCC=new Int32Array(MW*MH);for(const d of S.decor)for(let y=0;y<DECOR[d.k].size;y++)for(let x=0;x<DECOR[d.k].size;x++)DOCC[(d.y+y)*MW+d.x+x]=d.id}
 const T=(x,y)=>(x<0||y<0||x>=MW||y>=MH)?-1:TILES[y*MW+x];
@@ -851,7 +851,7 @@ let mode='hand',ghost=null,movingId=null,decorKind=null,decorMoveId=null,selId=n
 const movingBuilding=()=>mode==='move'?S.b.find(b=>b.id===movingId):null;
 function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!DOCC[i]&&(!OCC[i]||OCC[i]===ignoreId)}
 function validAt(x,y,ignoreId=0){for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(!placeableCell(x+dx,y+dy,ignoreId))return false;return true}
-function finishPlacement(){mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();setDrawer(false);updateConfirm();updateSlots()}
+function finishPlacement(){if(mode==='road'&&roadDirty.size)scheduleGround(0);mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();setDrawer(false);updateConfirm();updateSlots()}
 function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;decorMoveId=null;movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${B[b.k].n}을(를) 옮겼어요`);updateHUD();save()}
 function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);finishPlacement();updateHUD();save()}
@@ -940,6 +940,7 @@ function hitAt(wx,wy){
   return null;
 }
 function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/TS),ty=Math.floor(wy/TS);
+  if(mode==='road'){toggleRoad(tx,ty);return}
   if(mode==='hand'){const guest=visitorAnchor();if(guest&&Math.abs(wx-guest.x)<=6&&wy>=guest.y-25&&wy<=guest.y-16){openVisitors();return}const hit=hitAt(wx,wy);if(hit){if(hit.visitor)openVisitors();else if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
   const size=mode==='decor'?DECOR[decorKind].size:2;ghost={x:Math.round(wx/TS-size/2),y:Math.round(wy/TS-size/2)};updateConfirm()}
 
@@ -947,8 +948,31 @@ $('#goal').addEventListener('click',e=>{const c=e.target.closest('[data-q]');if(
 $('#chief').onclick=()=>openTab('profile');
 $('#tabbar').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)openTab(t.dataset.tab)});
 $('#cno').onclick=finishPlacement;
-$('#cyes').onclick=()=>{if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
+$('#cyes').onclick=()=>{if(mode==='road'){finishPlacement();toast('길을 다 놓았어요');return}if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
 $('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet();updateTabs()};
+
+/* ---------- player-made dirt roads ---------- */
+const ROAD_COST=1;let BASE_TILES=null,roadDirty=new Map(),roadTimer=null;
+function normalizeRoads(d,base){const seen=new Set();d.roads=(Array.isArray(d.roads)?d.roads:[]).filter(i=>Number.isInteger(i)&&i>=0&&i<MW*MH&&base[i]===0&&!seen.has(i)&&seen.add(i));return d}
+function applyRoads(){for(const i of S.roads)if(BASE_TILES[i]===0)TILES[i]=1;
+  PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1)PATHS.push([x,y])}
+const isPlayerRoad=i=>S.roads.includes(i);
+function scheduleGround(delay=900){clearTimeout(roadTimer);roadTimer=setTimeout(()=>{rebuildGround();roadDirty.clear()},delay)}
+function toggleRoad(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;const i=ty*MW+tx;
+  if(isPlayerRoad(i)){if(OCC[i]||DOCC[i]){toast('건물이나 장식이 있는 길은 지울 수 없어요');return}
+    S.roads=S.roads.filter(v=>v!==i);TILES[i]=0;S.r.stone+=ROAD_COST;roadDirty.set(i,'grass');floatTxt(tx*TS+8,ty*TS+4,'+'+ROAD_COST,RCOL.stone,'stone')}
+  else{if(BASE_TILES[i]!==0){toast(BASE_TILES[i]===1||BASE_TILES[i]===3?'이미 길이에요':'물 위에는 길을 낼 수 없어요');return}
+    if(S.o[i]){toast('나무나 바위를 먼저 치워 주세요');return}
+    if(OCC[i]||DOCC[i]){toast('건물이나 장식이 없는 땅에 놓아 주세요');return}
+    if(S.r.stone<ROAD_COST){toast('석재가 부족해요');return}
+    S.r.stone-=ROAD_COST;S.roads.push(i);TILES[i]=1;roadDirty.set(i,'path');chips(tx*TS+8,ty*TS+10,'#c5b487',5)}
+  applyRoads();scheduleGround();updateHUD();save()}
+function beginRoad(){finishPlacement();mode='road';setDrawer(false);updateSlots();updateConfirm();toast('길을 낼 칸을 하나씩 탭하세요')}
+function roadConfirm(){const c=$('#confirm');c.hidden=false;c.classList.add('compact');$('#cyes').textContent='완료';$('#cyes').disabled=false;$('#cno').hidden=true;
+  $('#cmsg').innerHTML=`흙길 ${S.roads.length}칸 · 석재 ${ROAD_COST}/칸<small>다시 탭하면 지우고 돌려받아요</small>`}
+function drawRoadOverlay(){
+  for(const[i,kind]of roadDirty){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1.5,y*TS+1.5,13,13,4,kind==='path'?(curSeason===3?'#d2dacf':'#cfb887'):(GR[curSeason]||GR[0])[0],null,0)}
+  if(mode==='road')for(const i of S.roads){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1,y*TS+1,14,14,3,null,'#fff4cbcc',.45)}}
 
 /* ---------- season 1 scenes, reveals and clues ---------- */
 const N='';
@@ -1030,7 +1054,7 @@ const resArrived=r=>r.always||count(r.home)>0;
 const resClues=r=>(S.clues&&S.clues[r.id]||[]).length;
 let drawerOpen=false;
 function setDrawer(open){drawerOpen=!!open;const d=$('#hotbar');if(d)d.hidden=!drawerOpen;measureDock();updateTabs()}
-function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode])return'build';if(selId==='profile'||selId==='menu')return'';return'village'}
+function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode]||mode==='road')return'build';if(selId==='profile'||selId==='menu')return'';return'village'}
 function updateTabs(){const tb=$('#tabbar');if(!tb||!S)return;const cur=currentTab();
   tb.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.tab===cur));
   const dots={people:typeof visitorPhase==='function'&&['ready','available'].includes(visitorPhase()),story:Q.some(q=>!S.claimed.includes(q.id)&&q.v()>=q.g)};
@@ -1065,12 +1089,17 @@ function storyHTML(){const next=Q.findIndex(q=>!S.claimed.includes(q.id));let fr
   return h+`</ol>`}
 
 /* ---------- hotbar ---------- */
+let ROAD_THUMB=null;function roadThumb(){if(ROAD_THUMB)return ROAD_THUMB;const c=document.createElement('canvas');c.width=c.height=88;const g=c.getContext('2d');
+  g.fillStyle='#88a966';g.beginPath();g.ellipse(44,58,40,24,0,0,Math.PI*2);g.fill();g.lineCap='round';g.strokeStyle='#6c764b';g.lineWidth=22;g.beginPath();g.moveTo(12,70);g.quadraticCurveTo(44,40,78,48);g.stroke();
+  g.strokeStyle='#cfb887';g.lineWidth=17;g.stroke();g.fillStyle='#a6a080';for(const[x,y]of[[30,56],[50,48],[64,50]]){g.beginPath();g.ellipse(x,y,3,2,0,0,Math.PI*2);g.fill()}return ROAD_THUMB=c.toDataURL()}
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
-function buildHotbar(){const h=$('#hotbar');let html='';
+function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>흙길</span><span class="cost">${ic('stone')}${ROAD_COST}/칸</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
-function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
+function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
+  $('#cno').hidden=false;$('#confirm').classList.remove('compact');
+  if(mode==='road'){roadConfirm();return}
   if(mode==='decor'){decorConfirm();return}
   const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();
   yes.textContent=mode==='move'?'이동':'짓기';
@@ -1179,6 +1208,7 @@ function draw(now){
   for(const b of S.b){if(b.k==='farm')continue;
     if(selId===b.id&&mode==='hand'){ctx.globalAlpha=.35+.08*Math.sin(now/350);ellipse(ctx,b.x*TS+16,b.y*TS+31,19,8,'#f9e3a7');ctx.globalAlpha=1}
     ctx.drawImage(SP.yard[b.k],b.x*TS-4,b.y*TS+24,40,14)}
+  drawRoadOverlay();
   for(const b of S.b)drawPlotDetails(b);
   const L=[];
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const o=S.o[y*MW+x];if(o)L.push({z:y*TS+15,o,x,y})}
@@ -1230,7 +1260,7 @@ function start(data){
   let st=null;
   try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)st=load(raw)}}catch(e){st=null}
   const fresh=!st;S=st||newState();normalizeStory(S);
-  TILES=genMap(S.seed).t;PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1)PATHS.push([x,y]);
+  TILES=genMap(S.seed).t;BASE_TILES=TILES.slice();normalizeRoads(S,BASE_TILES);roadDirty.clear();applyRoads();
   rebuildOcc();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
   mode='hand';ghost=null;movingId=null;decorKind=null;decorMoveId=null;
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
