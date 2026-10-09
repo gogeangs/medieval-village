@@ -1,0 +1,219 @@
+[
+  {
+    "id": "hall",
+    "width": 482,
+    "height": 512,
+    "bytes": 71320,
+    "alphaZeroFraction": 0.482
+  },
+  {
+    "id": "house",
+    "width": 478,
+    "height": 512,
+    "bytes": 86678,
+    "alphaZeroFraction": 0.388
+  },
+  {
+    "id": "tree",
+    "width": 341,
+    "height": 512,
+    "bytes": 67590,
+    "alphaZeroFraction": 0.465
+  },
+  {
+    "id": "pine",
+    "width": 341,
+    "height": 512,
+    "bytes": 53286,
+    "alphaZeroFraction": 0.582
+  },
+  {
+    "id": "lumber",
+    "width": 512,
+    "height": 410,
+    "bytes": 73682,
+    "alphaZeroFraction": 0.412
+  },
+  {
+    "id": "quarry",
+    "width": 512,
+    "height": 427,
+    "bytes": 87476,
+    "alphaZeroFraction": 0.41
+  },
+  {
+    "id": "market",
+    "width": 512,
+    "height": 432,
+    "bytes": 78134,
+    "alphaZeroFraction": 0.423
+  },
+  {
+    "id": "bakery",
+    "width": 512,
+    "height": 512,
+    "bytes": 98154,
+    "alphaZeroFraction": 0.336
+  },
+  {
+    "id": "tavern",
+    "width": 478,
+    "height": 512,
+    "bytes": 92960,
+    "alphaZeroFraction": 0.331
+  },
+  {
+    "id": "farm",
+    "width": 512,
+    "height": 384,
+    "bytes": 79386,
+    "alphaZeroFraction": 0.463
+  },
+  {
+    "id": "rock",
+    "width": 512,
+    "height": 369,
+    "bytes": 44962,
+    "alphaZeroFraction": 0.599
+  },
+  {
+    "id": "farmer",
+    "width": 188,
+    "height": 256,
+    "bytes": 15292,
+    "alphaZeroFraction": 0.649
+  },
+  {
+    "id": "villager",
+    "width": 171,
+    "height": 256,
+    "bytes": 13210,
+    "alphaZeroFraction": 0.648
+  },
+  {
+    "id": "grass",
+    "width": 512,
+    "height": 512,
+    "bytes": 81924,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "path",
+    "width": 512,
+    "height": 512,
+    "bytes": 58990,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "water",
+    "width": 512,
+    "height": 512,
+    "bytes": 29186,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "stone",
+    "width": 512,
+    "height": 512,
+    "bytes": 88238,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "paper",
+    "width": 512,
+    "height": 512,
+    "bytes": 10572,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "tree-autumn",
+    "width": 341,
+    "height": 512,
+    "bytes": 63932,
+    "alphaZeroFraction": 0.483
+  },
+  {
+    "id": "farm-green",
+    "width": 512,
+    "height": 384,
+    "bytes": 71556,
+    "alphaZeroFraction": 0.46
+  },
+  {
+    "id": "hall-winter",
+    "width": 482,
+    "height": 512,
+    "bytes": 66948,
+    "alphaZeroFraction": 0.473
+  },
+  {
+    "id": "house-winter",
+    "width": 478,
+    "height": 512,
+    "bytes": 76360,
+    "alphaZeroFraction": 0.377
+  },
+  {
+    "id": "lumber-winter",
+    "width": 512,
+    "height": 410,
+    "bytes": 68534,
+    "alphaZeroFraction": 0.401
+  },
+  {
+    "id": "quarry-winter",
+    "width": 512,
+    "height": 427,
+    "bytes": 75652,
+    "alphaZeroFraction": 0.393
+  },
+  {
+    "id": "market-winter",
+    "width": 512,
+    "height": 432,
+    "bytes": 71320,
+    "alphaZeroFraction": 0.406
+  },
+  {
+    "id": "bakery-winter",
+    "width": 512,
+    "height": 512,
+    "bytes": 89926,
+    "alphaZeroFraction": 0.325
+  },
+  {
+    "id": "tavern-winter",
+    "width": 478,
+    "height": 512,
+    "bytes": 86696,
+    "alphaZeroFraction": 0.325
+  },
+  {
+    "id": "farm-winter",
+    "width": 512,
+    "height": 384,
+    "bytes": 75488,
+    "alphaZeroFraction": 0.447
+  },
+  {
+    "id": "tree-winter",
+    "width": 341,
+    "height": 512,
+    "bytes": 103160,
+    "alphaZeroFraction": 0.541
+  },
+  {
+    "id": "pine-winter",
+    "width": 341,
+    "height": 512,
+    "bytes": 52504,
+    "alphaZeroFraction": 0.582
+  },
+  {
+    "id": "rock-winter",
+    "width": 512,
+    "height": 369,
+    "bytes": 38170,
+    "alphaZeroFraction": 0.595
+  }
+]
