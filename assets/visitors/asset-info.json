@@ -1,0 +1,44 @@
+[
+  {
+    "id": "carpenter",
+    "width": 218,
+    "height": 512,
+    "bytes": 42982,
+    "alphaZeroFraction": 0.3906518778669725
+  },
+  {
+    "id": "cook",
+    "width": 266,
+    "height": 512,
+    "bytes": 50398,
+    "alphaZeroFraction": 0.34565906954887216
+  },
+  {
+    "id": "explorer",
+    "width": 267,
+    "height": 512,
+    "bytes": 47830,
+    "alphaZeroFraction": 0.4228259597378277
+  },
+  {
+    "id": "flowercart",
+    "width": 512,
+    "height": 437,
+    "bytes": 97318,
+    "alphaZeroFraction": 0.3989157251144165
+  },
+  {
+    "id": "picnic",
+    "width": 512,
+    "height": 393,
+    "bytes": 70158,
+    "alphaZeroFraction": 0.4161001113231552
+  },
+  {
+    "id": "relic",
+    "width": 417,
+    "height": 512,
+    "bytes": 80326,
+    "alphaZeroFraction": 0.3261344049760192
+  }
+]

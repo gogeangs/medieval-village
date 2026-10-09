@@ -1,0 +1,30 @@
+[
+  {
+    "id": "flowers",
+    "width": 512,
+    "height": 282,
+    "bytes": 82356,
+    "alphaZeroFraction": 0.18827570921985815
+  },
+  {
+    "id": "bench",
+    "width": 512,
+    "height": 466,
+    "bytes": 92762,
+    "alphaZeroFraction": 0.3908177977467811
+  },
+  {
+    "id": "lantern",
+    "width": 269,
+    "height": 512,
+    "bytes": 48092,
+    "alphaZeroFraction": 0.5660795190520446
+  },
+  {
+    "id": "fountain",
+    "width": 512,
+    "height": 471,
+    "bytes": 99312,
+    "alphaZeroFraction": 0.31825985270700635
+  }
+]
