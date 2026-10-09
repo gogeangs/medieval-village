@@ -1,4 +1,4 @@
-# 작은 영지
+# 알고보니 초보자 마을이 Lv999
 
 따뜻한 동화책 일러스트로 표현한 중세 마을 경영 시뮬레이션입니다. 게임 로직과 HTML/CSS/JS는 index.html 한 파일에 있으며, 건물·자연물·주민·재질 그림은 assets/illustrations/, 장식은 assets/decor/의 WebP를 Canvas에 그립니다.
 
