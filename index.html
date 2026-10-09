@@ -115,7 +115,8 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .shop-card h3{margin:0;font-size:15px}.shop-card small{color:var(--ink-soft);font-size:11px}
 .shop-card .btn{width:100%;margin-top:3px;min-height:44px;font-size:13px;padding:8px 4px}
 .shop-price,.shop-balance{display:flex;align-items:center;justify-content:center;gap:4px;font-size:14px}
-.shop-price img,.shop-balance img,.trade img{width:14px;height:14px;vertical-align:middle}
+.shop-price img,.sheet .shop-balance img,.trade img{width:14px;height:14px;vertical-align:middle}
+.sheet .shop-top{position:sticky;top:-14px;z-index:1;background:#f1e3c2;padding:8px 0;border-bottom:1px solid #c8b28a}
 .shop-price span{color:var(--ink-soft);font-size:11px}.shop-balance{justify-content:flex-start;margin:8px 0 12px}
 .sheet .shop-note{font-size:12px;color:var(--ink-soft);line-height:1.5}
 .trade-tabs{display:flex;gap:8px;margin:10px 0}.trade-tabs .btn{flex:1}
@@ -228,7 +229,7 @@ function placeDecor(){
 }
 function storeDecor(d){if(!d||!S.decor.includes(d))return;S.decorBag[d.k]++;S.decor=S.decor.filter(v=>v!==d);rebuildOcc();finishPlacement();updateHUD();save();toast('상점에 보관했어요. 무료로 다시 놓을 수 있어요')}
 function openShop(){finishPlacement();selId='shop';renderSheet();updateSlots()}
-function shopHTML(){return `<div class="top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>마음에 드는 장식으로 마을을 꾸며 보세요.</p><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length;return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${ic('gold')} ${d.price} <span>· ${d.size}×${d.size}칸</span></div><small>마을 ${owned} · 보관 ${bag}</small><button class="btn go" data-act="decor-buy" data-k="${k}" ${S.r.gold>=decorCost(k)?'':'disabled'}>${bag?'보관품 놓기':'자리 고르기'}</button></div>`}).join('')}</div><p class="shop-note">배치를 확정할 때만 금화를 써요. 이동과 보관은 무료이며, 장식은 일손을 쓰지 않아요.</p>`}
+function shopHTML(){return `<div class="top shop-top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>마음에 드는 장식으로 마을을 꾸며 보세요.</p><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length;return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${ic('gold')} ${d.price} <span>· ${d.size}×${d.size}칸</span></div><small>마을 ${owned} · 보관 ${bag}</small><button class="btn go" data-act="decor-buy" data-k="${k}" ${S.r.gold>=decorCost(k)?'':'disabled'}>${bag?'보관품 놓기':'자리 고르기'}</button></div>`}).join('')}</div><p class="shop-note">배치를 확정할 때만 금화를 써요. 이동과 보관은 무료이며, 장식은 일손을 쓰지 않아요.</p>`}
 function decorSheet(d){const def=DECOR[d.k];return `<div class="top"><img src="${DECORURL[d.k]}" alt=""><div><h2>${def.n}</h2><div class="lv">마을 장식 · ${def.size}×${def.size}칸</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${def.d}</p><div class="acts"><button class="btn go" data-act="decor-move">옮기기</button><button class="btn" data-act="decor-store">보관하기</button><button class="btn" data-act="shop">상점</button></div><p>이동과 보관은 무료예요. 보관한 장식은 상점에서 다시 놓을 수 있어요.</p>`}
 function decorConfirm(){
   const c=$('#confirm'),yes=$('#cyes'),d=decorDef(decorKind),moving=decorMoving();if(!d){c.hidden=true;return}
