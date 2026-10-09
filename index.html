@@ -597,14 +597,20 @@ function tick(){
 function onSeason(se,announce){if(se===curSeason)return;curSeason=se;SP=buildSprites(se);rebuildGround();if(announce)toast(['봄이 왔어요. 밀밭이 다시 자라요','여름이에요. 밀이 쑥쑥 자라요','가을이에요. 밀밭이 황금빛으로 물들어요','겨울이에요. 밀밭이 쉬어요. 빵집이 있으면 든든해요'][se])}
 
 /* ---------- actions ---------- */
-let mode='hand',ghost=null,selId=null,armDel=false,armReset=false;
+let mode='hand',ghost=null,movingId=null,selId=null,armDel=false,armReset=false;
+const movingBuilding=()=>mode==='move'?S.b.find(b=>b.id===movingId):null;
+function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&(!OCC[i]||OCC[i]===ignoreId)}
+function validAt(x,y,ignoreId=0){for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(!placeableCell(x+dx,y+dy,ignoreId))return false;return true}
+function finishPlacement(){mode='hand';movingId=null;ghost=null;closeSheet();updateConfirm();updateSlots()}
+function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
+function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${B[b.k].n}을(를) 옮겼어요`);updateHUD();save()}
+function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);finishPlacement();updateHUD();save()}
 function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;const now=performance.now();o.sh=now;o.hp--;const wx=x*TS+8,wy=y*TS+4;
   if(o.k==='rock'){S.r.stone+=2;S.st.stone+=2;floatTxt(wx,wy,'+2',RCOL.stone,'stone');chips(wx,wy+6,'#a9a49b')}
   else{S.r.wood+=2;S.st.wood+=2;floatTxt(wx,wy-6,'+2',RCOL.wood,'wood');chips(wx,wy+2,LF[curSeason][0])}
   if(o.hp<=0){S.o[i]=null;if(o.k==='rock'){S.r.stone+=2;S.st.stone+=2}else{S.r.wood+=2;S.st.wood+=2}chips(wx,wy+6,o.k==='rock'?'#8f897e':'#8b5a2b',8)}
   updateHUD();return true}
-function validAt(x,y){if(x<0||y<0||x+1>=MW||y+1>=MH)return false;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const i=(y+dy)*MW+x+dx;if(TILES[i]>1||S.o[i]||OCC[i])return false}return true}
-function build(){if(!ghost)return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);ghost=null;updateConfirm();updateHUD();save()}
+
 function upgrade(b){const c=upCost(b);if(!c||!can(c))return;pay(c);b.l++;S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
 function demolish(b){if(b.k==='hall')return;const c=B[b.k].cost;for(const k in c)S.r[k]+=Math.floor(c[k]/2);S.b=S.b.filter(x=>x!==b);rebuildOcc();staff();toast(`${B[b.k].n}을(를) 허물고 자재 절반을 돌려받았어요`);closeSheet();updateHUD();save()}
 function sell(i){const t=TRADES[i];if(S.r[t.k]<t.n)return;const g=Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));S.r[t.k]-=t.n;S.r.gold+=g;S.st.sold+=t.n;S.xp.trade+=g;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');updateHUD()}
@@ -639,18 +645,30 @@ function setQuestOpen(open){const q=$('#quests');q.classList.toggle('closed',!op
 $('#qhead').onclick=()=>setQuestOpen($('#quests').classList.contains('closed'));
 {let pref=null;try{pref=localStorage.getItem(SAVE+'-ui')}catch(e){}const open=pref?pref==='open':!(innerWidth<=520||innerHeight<=540);$('#quests').classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open)}
 $('#qlist').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)claim(b.dataset.q)});
-$('#cno').onclick=()=>{ghost=null;updateConfirm()};
-$('#cyes').onclick=build;
-$('#menu').onclick=()=>{selId='menu';armReset=false;renderSheet()};
+$('#cno').onclick=finishPlacement;
+$('#cyes').onclick=()=>{if(mode==='move')moveBuilding();else build()};
+$('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet()};
 
 /* ---------- hotbar ---------- */
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
 function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="hand" aria-pressed="true"><img class="th sq" src="${IURL.axe}" alt=""><span>채집</span><span class="cost">탭해서 수확</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
 function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m===mode);if(m==='hand')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
-function updateConfirm(){const c=$('#confirm');if(mode==='hand'||!ghost){c.hidden=true;return}const d=B[mode],ok=validAt(ghost.x,ghost.y),af=can(d.cost);c.hidden=false;
-  $('#cmsg').innerHTML=`${d.n} 짓기<small class="${ok&&af?'':'bad'}">${!ok?'여기엔 지을 수 없어요. 나무와 바위를 치우거나 다른 곳을 탭하세요':!af?'자원이 부족해요':'2×2칸을 차지해요'}</small>`;$('#cyes').disabled=!(ok&&af)}
+function updateConfirm(){
+  const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();
+  yes.textContent=mode==='move'?'이동':'짓기';
+  if(mode==='move'){
+    if(!b){c.hidden=true;return}
+    c.hidden=false;
+    const ok=ghost&&validAt(ghost.x,ghost.y,b.id),same=ghost&&ghost.x===b.x&&ghost.y===b.y;
+    const msg=!ghost?'옮길 곳을 탭하세요 · 이동 비용 없음':!ok?'여기엔 옮길 수 없어요. 빈 땅을 탭하세요':same?'현재 위치예요. 다른 곳을 탭하세요':'이 위치로 옮겨요 · 이동 비용 없음';
+    $('#cmsg').innerHTML=`${B[b.k].n} 옮기기<small class="${ghost&&(!ok||same)?'bad':''}">${msg}</small>`;yes.disabled=!ok||same;return;
+  }
+  if(mode==='hand'||!ghost){c.hidden=true;return}
+  const d=B[mode],ok=validAt(ghost.x,ghost.y),af=can(d.cost),unlocked=hallL()>=d.hall;c.hidden=false;
+  $('#cmsg').innerHTML=`${d.n} 짓기<small class="${ok&&af&&unlocked?'':'bad'}">${!ok?'여기엔 지을 수 없어요. 나무와 바위를 치우거나 다른 곳을 탭하세요':!unlocked?`마을회관 ${d.hall}레벨이 필요해요`:!af?'자원이 부족해요':'2×2칸을 차지해요'}</small>`;yes.disabled=!(ok&&af&&unlocked)
+}
 
 /* ---------- HUD ---------- */
 function fmtRate(v){if(Math.abs(v)<.05)return'\u00a0';return(v>0?'+':'')+v.toFixed(1)}
@@ -675,7 +693,7 @@ function openSheet(id){selId=id;armDel=false;renderSheet()}
 function closeSheet(){selId=null;sheet.hidden=true;sheet.dataset.v=''}
 function renderSheet(){let h='';
   if(selId==='menu'){h=`<div class="top"><h2>작은 영지</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
-  <ul class="help"><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드할 수 있어요. 시장에서는 자원을 팔 수 있어요.</li></ul>
+  <ul class="help"><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
   <div class="skillrow">${[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']].map(([k,n,c])=>`<div class="pill"><span>${n} <b style="font-family:var(--f-num)">Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
   <p>진행 상황은 이 기기에 자동으로 저장돼요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'한 번 더 누르면 처음부터 시작':'새로 시작'}</button></div>`}
   else{const b=S.b.find(b=>b.id===selId);if(!b){closeSheet();return}const d=B[b.k],c=upCost(b),p=prodOf(b),need=d.need;
@@ -686,13 +704,14 @@ function renderSheet(){let h='';
     if(b.k==='farm'&&season()===3)stats+=`<span class="tag no">겨울이라 쉬는 중</span>`;
     const max=b.k==='hall'?3:3;
     h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p><div class="stat">${stats}</div>
-    <div class="acts">${c?`<button class="btn go" data-act="up" ${can(c)?'':'disabled'}>업그레이드 ${Object.entries(c).map(([k,v])=>`${ic(k)}<span class="num">${v}</span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
+    <div class="acts">${c?`<button class="btn go" data-act="up" ${can(c)?'':'disabled'}>업그레이드 ${Object.entries(c).map(([k,v])=>`${ic(k)}<span class="num">${v}</span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
     if(b.k==='market'){const g=t=>Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));h+=`<h3>자원 팔기</h3><div class="trades">${TRADES.map((t,i)=>`<div class="trade">${ic(t.k)} ${RN[t.k]} ${t.n}개 → ${ic('gold')} <b class="num" style="font-family:var(--f-num)">${g(t)}</b><button class="btn" data-act="sell" data-i="${i}" ${S.r[t.k]>=t.n?'':'disabled'}>팔기</button></div>`).join('')}</div>`}
   }
   if(sheet.dataset.v!==h){sheet.innerHTML=h;sheet.dataset.v=h}sheet.hidden=false}
 sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act;const b=S.b.find(b=>b.id===selId);
   if(act==='close')closeSheet();
   else if(act==='up'&&b)upgrade(b);
+  else if(act==='move'&&b)beginMove(b);
   else if(act==='del'&&b){if(armDel)demolish(b);else{armDel=true;renderSheet()}}
   else if(act==='sell')sell(+a.dataset.i);
   else if(act==='reset'){if(armReset){try{localStorage.removeItem(SAVE)}catch(e){}start({fresh:true});closeSheet();toast('새 영지에서 다시 시작해요')}else{armReset=true;renderSheet()}}});
@@ -734,17 +753,18 @@ function draw(now){
       if(o.k==='rock'){ctx.drawImage(SP.rock,X+sx,Y,16,16);if(o.hp<4)stroke(ctx,[[X+7,Y+7],[X+6.4,Y+9],[X+8.4,Y+10],[X+7.5,Y+12]],'#67786c',.35)}
       else{const img=o.k==='pine'?SP.pine:SP.tree,w=img.width/ART,h=img.height/ART;ctx.drawImage(img,X+8-w/2+sx,Y+16-h,w,h)}}
     else if(d.b){const b=d.b,img=b.k==='farm'?SP.b.farm[Math.floor(S.time/9+b.id)%3]:SP.b[b.k],X=b.x*TS,top=b.y*TS+32-img.height/ART;
+      ctx.save();if(b.id===movingId)ctx.globalAlpha=.35;
       ctx.drawImage(img,X,top,img.width/ART,img.height/ART);
       if(b.l>1){const y=b.y*TS+30,w=b.l*2.8+2;roundBox(ctx,X+1,y-1.2,w,3.8,1.8,'#f8efd5e8','#ac94716e',.3);for(let i=0;i<b.l;i++)ellipse(ctx,X+3.4+i*2.8,y+.65,.75,.75,'#c49d5c')}
-      if(B[b.k].need&&!STAFF[b.id]){const bx=X+16,by=top+(img.inkTop||0)-4+Math.sin(now/450)*.7;softShadow(ctx,bx,by+3.8,5,1);ellipse(ctx,bx,by,4,4,'#fff8e6','#bca07b',.45);shape(ctx,[[bx-1,by+3.5],[bx,by+5],[bx+1,by+3.5]],'#fff8e6');stroke(ctx,[[bx,by-1.8],[bx,by+.5]],'#b47859',.7);ellipse(ctx,bx,by+2,.4,.4,'#b47859')}}
+      if(B[b.k].need&&!STAFF[b.id]){const bx=X+16,by=top+(img.inkTop||0)-4+Math.sin(now/450)*.7;softShadow(ctx,bx,by+3.8,5,1);ellipse(ctx,bx,by,4,4,'#fff8e6','#bca07b',.45);shape(ctx,[[bx-1,by+3.5],[bx,by+5],[bx+1,by+3.5]],'#fff8e6');stroke(ctx,[[bx,by-1.8],[bx,by+.5]],'#b47859',.7);ellipse(ctx,bx,by+2,.4,.4,'#b47859')}ctx.restore()}
     else{const v=d.v,f=v.moving?((now/170|0)%2):0;ctx.drawImage(PEOPLE[v.style||0][f],v.x-2,v.y-7.2,4,7.5)}
   }
   if(typeof selId==='number'&&mode==='hand'){const b=S.b.find(b=>b.id===selId);if(b){ctx.globalAlpha=.75+.15*Math.sin(now/350);roundBox(ctx,b.x*TS-.7,b.y*TS-.7,33.4,33.4,3,null,'#fff4cb',.8);ctx.globalAlpha=1}}
-  if(mode!=='hand'&&ghost){const ok=validAt(ghost.x,ghost.y)&&can(B[mode].cost),img=mode==='farm'?SP.b.farm[2]:SP.b[mode],X=ghost.x*TS,Y=ghost.y*TS;
-    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const tx=ghost.x+dx,ty=ghost.y+dy,i=ty*MW+tx,inside=tx>=0&&ty>=0&&tx<MW&&ty<MH,good=inside&&TILES[i]<=1&&!S.o[i]&&!OCC[i],cx=X+dx*16,cy=Y+dy*16;
+  if(mode!=='hand'&&ghost){const moving=movingBuilding(),kind=moving?moving.k:mode,ignoreId=moving?moving.id:0,ok=validAt(ghost.x,ghost.y,ignoreId)&&(moving||can(B[kind].cost)),img=kind==='farm'?SP.b.farm[2]:SP.b[kind],X=ghost.x*TS,Y=ghost.y*TS;
+    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const tx=ghost.x+dx,ty=ghost.y+dy,good=placeableCell(tx,ty,ignoreId),cx=X+dx*16,cy=Y+dy*16;
       roundBox(ctx,cx+.6,cy+.6,14.8,14.8,2,good?'#cde2ac66':'#d78c7388',good?'#f0f6da88':'#fff0deaa',.35);
       if(!good){stroke(ctx,[[cx+5,cy+5],[cx+11,cy+11]],'#fff3df',.7);stroke(ctx,[[cx+11,cy+5],[cx+5,cy+11]],'#fff3df',.7)}}
-    if(mode!=='farm'){ctx.globalAlpha=.7;ctx.drawImage(SP.yard[mode],X-4,Y+24,40,14)}
+    if(kind!=='farm'){ctx.globalAlpha=.7;ctx.drawImage(SP.yard[kind],X-4,Y+24,40,14)}
     ctx.globalAlpha=ok?.85:.55;ctx.drawImage(img,X,Y+32-img.height/ART,img.width/ART,img.height/ART);ctx.globalAlpha=1;
     roundBox(ctx,X-.25,Y-.25,32.5,32.5,2.8,null,ok?'#f7ffe2':'#ffe8d8',.7);
   }
@@ -767,7 +787,7 @@ function start(data){
   const fresh=!st;S=st||newState();
   TILES=genMap(S.seed).t;PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1)PATHS.push([x,y]);
   rebuildOcc();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
-  mode='hand';ghost=null;
+  mode='hand';ghost=null;movingId=null;
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
     document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});
     window.claude?.hot?.snapshot?.(()=>({state:serialize()}));}
