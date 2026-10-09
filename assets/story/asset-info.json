@@ -8,6 +8,14 @@
     "alphaZeroFraction": 0
   },
   {
+    "id": "ep00",
+    "file": "./assets/story/ep00.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 191884,
+    "alphaZeroFraction": 0
+  },
+  {
     "id": "ep01",
     "file": "./assets/story/ep01.webp",
     "width": 1200,

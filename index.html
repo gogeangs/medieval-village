@@ -1047,9 +1047,9 @@ function checkClue(b){lastClue=null;if(!b)return;
 /* Story art is requested only when its screen is used; it never joins the game loader. */
 function showSceneArt(n){
   const box=$('#scene-art');box.hidden=true;box.replaceChildren();
-  if(!Number.isInteger(n)||n<1||n>10)return;
+  if(!Number.isInteger(n)||n<0||n>10)return;
   const img=document.createElement('img');img.className='scene-art';img.width=1200;img.height=800;
-  img.alt=`${n}화 · ${EPISODES[n-1].t} 장면`;img.decoding='async';img.fetchPriority='low';
+  img.alt=`${n}화 · ${n?EPISODES[n-1].t:'발령 추첨'} 장면`;img.decoding='async';img.fetchPriority='low';
   img.onload=()=>{if(sceneEp===n&&box.firstElementChild===img)box.hidden=false};
   img.onerror=()=>{if(box.firstElementChild===img){box.hidden=true;box.replaceChildren()}};
   box.appendChild(img);img.src=`./assets/story/ep${String(n).padStart(2,'0')}.webp`;
