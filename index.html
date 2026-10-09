@@ -1004,7 +1004,8 @@ const SCENES={
  12:[['바르그','근무 중이지. 술 대신 우유다.'],['엘리스','(측정기를 들이밀며) 피노 씨, 당신… Lv 999?'],['피노','(한숨) 들켰네. 대신 훔친 건 다 돌려줬어요. 택배로.'],['엘리스','촌장님은 알고 계셨습니까?'],['나','피노 씨가 택배를 많이 보내는 건 알았어요.']],
  13:[[N,'무너지는 다리 아래로 엘리스가 떨어진다. 군터가 도끼를 한 번 휘두르자, 바람이 그녀를 들어 올린다.'],['군터','…바람이 세다.'],['엘리스','여러분은 대체 왜 여기 있는 겁니까?'],['마르타','싸움은 충분히 했단다. 이제는 처음 길을 나서는 아이들이 다치지 않게 지켜 주고 싶었어.'],['엘리스','(서류철을 덮으며) 보고서는… 내일 쓰죠. 여기서 조금 더 지내 보겠습니다.']],
  14:[[N,'눈보라 속 마을 입구. 마왕군 대열 앞에 빗자루를 든 내가 홀로 서 있다.'],['나','여긴 초보자 마을이에요. 여기 사람들은 제가 지킵니다.'],['브루노','(나를 뒤로 물리며) …그 말, 박력이 있군. 그럼 오늘은 내가 문을 지킨다.'],[N,'바르그가 앞치마를 풀고 나선다. 마왕군 전체가 무릎을 꿇는다.'],['마왕군','마, 마왕님?!'],['바르그','퇴직했다. 가게 예약은 다음 달부터 받는다. 돌아가라.'],['마르타','(작게) 저 아이, 진심이었어.']],
- 15:[['마르타','고맙다, 촌장님. 강해서가 아니라, 우리를 평범하게 대해 줘서.'],['엘리스','보고서는 이렇게 썼습니다. ‘초보자 마을, 이상 없음.’'],[N,'내 레벨 창이 깜빡인다. Lv 1 → Lv ???'],['마르타','(미소) 역시 그 사람 핏줄이구나.'],[N,'왕국의 편지가 도착한다. ‘초보자 마을에 왕국 모험가 학교를 세울 것.’'],[N,'— 시즌 1 끝. 시즌 2에서 계속됩니다 —']],
+ 15:[['마르타','고맙다, 촌장님. 강해서가 아니라, 우리를 평범하게 대해 줘서.'],['엘리스','보고서는 이렇게 썼습니다. ‘초보자 마을, 이상 없음.’'],[N,'짐을 정리하다 발령장을 처음으로 뒤집어 본다. 추천인 서명란에 낯익은 글씨가 있다.'],['나','…마르타 할머니?'],[N,'내 레벨 창이 깜빡인다. Lv 1 → Lv ???'],['마르타','(미소) 역시 그 사람 핏줄이구나.'],[N,'왕국의 편지가 도착한다. ‘초보자 마을에 왕국 모험가 학교를 세울 것.’'],[N,'— 시즌 1 끝. 시즌 2에서 계속됩니다 —']],
+ 0:[[N,'왕국 행정청, 신입 관리 발령 추첨의 날.'],['담당관','다음. 연수 성적 꼴찌, Lv1 신입.'],[N,'추첨함에서 나온 쪽지에는 이렇게 적혀 있다. ‘초보자 마을 촌장.’'],['동기들','(웅성웅성) 역대 촌장이 전부 석 달을 못 버티고 도망갔다는 그곳…?'],['담당관','…축하하네. 아니, 힘내게.'],[N,'나는 짐 가방 하나를 들고 왕국 변두리로 향한다. 발령장 뒷면은 아직 한 번도 뒤집어 보지 않았다.']],
 };
 const REVEALS={10:['marta'],12:['pino'],13:['gunter'],14:['bruno','barg']};
 const CLUES={
@@ -1026,16 +1027,20 @@ const CLUES={
        {id:'horn',home:'tavern',when:()=>isDusk(),t:'저녁 그림자 속 바르그의 두건이 뿔 모양으로 솟아 있다.'},
        {id:'quiet',home:'tavern',when:()=>season()===3,t:'겨울 늑대들이 선술집 앞에서만은 꼬리를 내리고 지나간다.'}],
 };
+CLUES.chief=[
+  {id:'roster',home:'hall',when:()=>S.claimed.includes('q2'),t:'회관 서랍 속 역대 촌장 명부. 재임 기간이 전부 석 달을 넘지 못했다. 사유 칸에는 하나같이 ‘개인 사정(공포)’.'},
+  {id:'draw',home:'hall',when:()=>isDusk()&&S.claimed.includes('q5'),t:'회관 창고에서 왕국 행정청 추첨함과 똑같은 상자를 발견했다. 안에는 쪽지가 한 장뿐이다. ‘초보자 마을 촌장.’'},
+  {id:'portrait',home:'house',when:()=>S.story.includes(10),t:'할머니 집 벽에 걸린 낡은 초상화. 젊은 마르타와 동료들 한가운데 선 용사의 얼굴이, 거울 속 나와 닮았다.'}];
 const LORE={marta:'전설의 대마법사 ‘잿불의 마르타’. 왕국을 세 번 구했다.',gunter:'검성 ‘일섬의 군터’. 도끼로 바꿔 든 뒤로 사람을 벤 적이 없다.',bruno:'전 왕국 기사단장 ‘철벽의 브루노’. 한 번도 성문을 내준 적이 없다.',pino:'전설의 대도 ‘그림자 피노’. 훔친 보물은 전부 주인에게 돌려보냈다.',barg:'은퇴한 마왕. 마왕성보다 선술집이 적성에 맞았다.'};
 function isDusk(){const t=(S.time%DAY)+Math.min(acc,.999);return t>=22}
 function duskAmt(){const t=(S.time%DAY)+Math.min(acc,.999);return t<22?0:t<24?(t-22)/2:t<29?1:Math.max(0,30-t)}
-function normalizeStory(d){d.story=Array.isArray(d.story)?[...new Set(d.story.filter(n=>Number.isInteger(n)&&n>=1&&n<=15))]:[];
+function normalizeStory(d){d.story=Array.isArray(d.story)?[...new Set(d.story.filter(n=>Number.isInteger(n)&&n>=0&&n<=15))]:[];
   const c=d.clues&&typeof d.clues==='object'?d.clues:{};d.clues={};for(const r in CLUES){const ok=new Set(CLUES[r].map(x=>x.id));d.clues[r]=Array.isArray(c[r])?[...new Set(c[r].filter(id=>ok.has(id)))]:[]}return d}
 const revealed=id=>Object.entries(REVEALS).some(([ep,ids])=>ids.includes(id)&&S.story.includes(+ep));
 let lastClue=null;
 function residentOf(b){if(b.k==='hall'||b.k==='farm')return null;return RESIDENTS.find(r=>r.home===b.k&&(r.id!=='marta'||b.k==='house'))||null}
 function checkClue(b){lastClue=null;if(!b)return;
-  for(const r in CLUES){const res=RESIDENTS.find(x=>x.id===r);if(!res||!resArrived(res))continue;
+  for(const r in CLUES){const res=r==='chief'?{n:'촌장의 비밀'}:RESIDENTS.find(x=>x.id===r);if(!res||(r!=='chief'&&!resArrived(res)))continue;
     for(const c of CLUES[r]){if(c.home!==b.k||S.clues[r].includes(c.id)||!c.when())continue;
       S.clues[r].push(c.id);lastClue={bid:b.id,r,c};const n=S.clues[r].length,all=CLUES[r].length;
       toast(`수상한 순간 발견! ${res.n} ${n}/${all}`);chips(b.x*TS+16,b.y*TS+6,'#c9a0f0',10);save();updateTabs();return}}}
@@ -1066,7 +1071,7 @@ function initStoryArt(){
 
 let sceneEp=0,sceneI=0,sceneTimer=null;
 function playEpisode(n){const lines=SCENES[n];if(!lines)return;sceneEp=n;sceneI=0;closeSheet();
-  $('#scene-no').textContent=`${n}화`;$('#scene-title').textContent=EPISODES[n-1].t;$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(n);
+  $('#scene-no').textContent=n?`${n}화`:'프롤로그';$('#scene-title').textContent=n?EPISODES[n-1].t:'발령 추첨';$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(n);
   if(!S.story.includes(n)){S.story.push(n);save()}sceneStep()}
 function sceneStep(){const lines=SCENES[sceneEp],body=$('#scene-body');
   if(sceneI<lines.length){const[who,t]=lines[sceneI++];const el=document.createElement('div');el.className='line'+(who?'':' narr');el.innerHTML=(who?`<b>${who}</b>`:'')+t.replace(/</g,'&lt;');body.appendChild(el);el.scrollIntoView({block:'nearest'});
@@ -1075,7 +1080,7 @@ function sceneStep(){const lines=SCENES[sceneEp],body=$('#scene-body');
       const num=el.querySelector('b');let k=0;clearInterval(sceneTimer);sceneTimer=setInterval(()=>{k++;num.textContent='Lv '+(k<14?Math.floor(Math.random()*900+99):999);if(k>=14)clearInterval(sceneTimer)},60);el.scrollIntoView({block:'nearest'})}
     $('#scene-next').textContent='닫기';return}
   closeScene()}
-function closeScene(){clearInterval(sceneTimer);$('#scene').hidden=true;sceneEp=0;updateHUD();updateTabs()}
+function closeScene(){const wasPrologue=sceneEp===0&&!S.claimed.length;clearInterval(sceneTimer);$('#scene').hidden=true;if(wasPrologue)setTimeout(()=>toast('나무를 탭해서 목재를 모아 보세요'),300);sceneEp=0;updateHUD();updateTabs()}
 $('#scene').addEventListener('click',e=>{if(e.target.closest('#scene-skip')){closeScene();return}sceneStep()});
 
 /* ---------- tabs and story screens ---------- */
@@ -1106,7 +1111,8 @@ function profileHTML(){const sk=[['farm','농사','#819853'],['build','건축','
   return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
   <div class="profile-hero"><div class="big">Lv1</div><div><b>신참 촌장</b><p>열심히 일해도 레벨이 오르지 않는 것 같다. 기분 탓이겠지?</p></div></div>
   <h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c])=>`<div class="pill"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
-  <h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div>`}
+  <h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div>
+  <h3 class="sec">촌장의 비밀 <small style="color:var(--ink-soft)">${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">나는 왜 이 마을로 오게 됐을까? 회관이나 이웃집에서 실마리를 찾아보자.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
 function peopleHTML(){
   let h=`<div class="top shop-top"><div><h2>주민 도감</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
   h+=`<div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r);
@@ -1120,6 +1126,7 @@ function peopleHTML(){
   return h}
 function storyHTML(){const next=Q.findIndex(q=>!S.claimed.includes(q.id));let from=0;
   let h=`<div class="top shop-top"><div><h2>시즌 1 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><ol class="acts-list">`;
+  h+=`<li><div class="act-h"><b>프롤로그</b></div><div class="ep done"><span class="no">0화</span><span class="t">발령 추첨<small>내가 초보자 마을 촌장이 된 날</small></span><button class="btn" data-act="replay" data-ep="0">${S.story.includes(0)?'다시 보기':'보기'}</button></div></li>`;
   for(const a of ACTS){h+=`<li><div class="act-h"><b>${a.n} ${a.t}</b></div>`;
     for(let i=from;i<a.to;i++){const q=Q[i],ep=EPISODES[i],got=S.claimed.includes(q.id),v=Math.min(q.v(),q.g),ready=!got&&v>=q.g,open=got||i===next;
       h+=`<div class="ep ${got?'done':ready?'ready':open?'':'locked'}"><span class="no">${ep.n}화</span><span class="t">${open?ep.t:'???'}<small>${got?q.t+' 완료':open?`${q.t} (${Math.floor(v)}/${q.g})`:'앞 이야기를 마치면 열려요'}</small></span>${ready?`<button class="claim" data-act="claim" data-q="${q.id}">보상</button>`:got?`<button class="btn" data-act="replay" data-ep="${ep.n}">다시 보기</button>`:'<span></span>'}</div>`}
@@ -1191,7 +1198,7 @@ function renderSheet(){let h='';
     if(need)stats+=`<span class="tag ${STAFF[b.id]?'ok':'no'}">일손 <span class="num">${need}</span> · ${STAFF[b.id]?'일하는 중':'일손 부족'}</span>`;
     if(b.k==='farm'&&season()===3)stats+=`<span class="tag no">겨울이라 쉬는 중</span>`;
     const max=b.k==='hall'?3:3;
-    h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p>${(()=>{const r=residentOf(b);return r&&resArrived(r)?`<div class="resident-of">사는 사람: ${r.n} · ${revealed(r.id)?'Lv 999':'Lv ???'} · 단서 ${resClues(r)}/${CLUES[r.id].length}</div>`:''})()}${lastClue&&lastClue.bid===b.id?`<div class="clue-found"><small>수상한 순간 · ${RESIDENTS.find(x=>x.id===lastClue.r).n}</small>${lastClue.c.t}</div>`:''}<div class="stat">${stats}</div>
+    h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p>${(()=>{const r=residentOf(b);return r&&resArrived(r)?`<div class="resident-of">사는 사람: ${r.n} · ${revealed(r.id)?'Lv 999':'Lv ???'} · 단서 ${resClues(r)}/${CLUES[r.id].length}</div>`:''})()}${lastClue&&lastClue.bid===b.id?`<div class="clue-found"><small>수상한 순간 · ${lastClue.r==='chief'?'촌장의 비밀':RESIDENTS.find(x=>x.id===lastClue.r).n}</small>${lastClue.c.t}</div>`:''}<div class="stat">${stats}</div>
     <div class="acts">${c?`<button class="btn go" data-act="up" ${can(c)?'':'disabled'}>업그레이드 ${Object.entries(c).map(([k,v])=>`${ic(k)}<span class="num">${v}</span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
     if(b.k==='market')h+=marketHTML();
   }
@@ -1305,7 +1312,8 @@ function start(data){
     document.addEventListener('visibilitychange',()=>{if(document.hidden){resetGesture();save()}});
     window.claude?.hot?.snapshot?.(()=>({state:serialize()}));}
   updateHUD();measureHud();centerOn(15*TS+16,12*TS+10);
-  if(fresh)setTimeout(()=>toast('나무를 탭해서 목재를 모아 보세요'),600);
+  if(!S.story.includes(0))setTimeout(()=>{if(!S.story.includes(0)&&$('#scene').hidden)playEpisode(0)},700);
+  else if(fresh)setTimeout(()=>toast('나무를 탭해서 목재를 모아 보세요'),600);
 }
 initStoryArt();
 beginIllustratedGame();
