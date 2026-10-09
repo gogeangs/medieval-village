@@ -1,0 +1,130 @@
+[
+  {
+    "id": "characters",
+    "file": "./assets/story/characters.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 241090,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep01",
+    "file": "./assets/story/ep01.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 319772,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep02",
+    "file": "./assets/story/ep02.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 274408,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep03",
+    "file": "./assets/story/ep03.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 267626,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep04",
+    "file": "./assets/story/ep04.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 261978,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep05",
+    "file": "./assets/story/ep05.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 299576,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep06",
+    "file": "./assets/story/ep06.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 320804,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep07",
+    "file": "./assets/story/ep07.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 282166,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep08",
+    "file": "./assets/story/ep08.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 261298,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep09",
+    "file": "./assets/story/ep09.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 290686,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep10",
+    "file": "./assets/story/ep10.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 289984,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "portrait-barg",
+    "file": "./assets/story/portrait-barg.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 59232,
+    "alphaZeroFraction": 0.4717
+  },
+  {
+    "id": "portrait-bruno",
+    "file": "./assets/story/portrait-bruno.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 69994,
+    "alphaZeroFraction": 0.406
+  },
+  {
+    "id": "portrait-gunter",
+    "file": "./assets/story/portrait-gunter.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 76802,
+    "alphaZeroFraction": 0.4449
+  },
+  {
+    "id": "portrait-marta",
+    "file": "./assets/story/portrait-marta.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 55710,
+    "alphaZeroFraction": 0.5208
+  },
+  {
+    "id": "portrait-pino",
+    "file": "./assets/story/portrait-pino.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 72740,
+    "alphaZeroFraction": 0.446
+  }
+]

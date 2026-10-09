@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tab-build",
+    "file": "./assets/ui/tab-build.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6678,
+    "alphaZeroFraction": 0.7178
+  },
+  {
+    "id": "tab-people",
+    "file": "./assets/ui/tab-people.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 9830,
+    "alphaZeroFraction": 0.4182
+  },
+  {
+    "id": "tab-shop",
+    "file": "./assets/ui/tab-shop.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 9042,
+    "alphaZeroFraction": 0.5051
+  },
+  {
+    "id": "tab-story",
+    "file": "./assets/ui/tab-story.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 7678,
+    "alphaZeroFraction": 0.4417
+  },
+  {
+    "id": "tab-village",
+    "file": "./assets/ui/tab-village.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 11782,
+    "alphaZeroFraction": 0.3278
+  }
+]

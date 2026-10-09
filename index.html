@@ -191,6 +191,17 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 @media(max-height:540px) and (orientation:landscape){.hud{width:min(620px,100%)}}
 @media(max-height:540px) and (orientation:landscape){.tabbar{width:min(100%,460px)}.tab{min-height:44px;grid-auto-flow:column;gap:5px;align-items:center}.tab .ti{font-size:17px}.goal{max-width:300px}}
 
+/* Keep illustration, dialogue and controls in separate rows on short screens. */
+.scene-card{display:flex;flex-direction:column;overflow:hidden;max-height:calc(100dvh - 42px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.scene-art-wrap{flex:none;margin:0 0 12px;overflow:hidden;border-radius:8px;background:#e0cfac}
+.scene-art{display:block;width:100%;height:auto;max-height:min(28dvh,280px);object-fit:contain}
+.scene-head,.scene-foot{flex:none}.scene-body{flex:0 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain}
+.scene-foot .btn{min-height:44px;flex:none}.scene-hint{min-width:0}
+.tab .ti{width:26px;height:26px;display:grid;place-items:center}
+.tab .ti>*{grid-area:1/1}.tab .tab-art{width:26px;height:26px;object-fit:contain;opacity:0;filter:drop-shadow(0 1px 1px #38271b70)}
+.tab .ti.art-ready .tab-art{opacity:1}.tab .ti.art-ready .ti-fallback{visibility:hidden}
+@media(max-height:540px) and (orientation:landscape){.tab .ti,.tab .tab-art{width:22px;height:22px}}
+
 </style>
 
 </head>
@@ -215,16 +226,17 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 
 <div class="build-dock" id="dock"><div class="bar-in drawer" id="hotbar" hidden></div>
   <nav class="tabbar" id="tabbar" aria-label="메뉴">
-    <button class="tab" data-tab="village" aria-pressed="true"><span class="ti" aria-hidden="true">⌂</span>마을</button>
-    <button class="tab" data-tab="build" aria-pressed="false"><span class="ti" aria-hidden="true">⚒</span>건설</button>
-    <button class="tab" data-tab="people" aria-pressed="false"><span class="ti" aria-hidden="true">☺</span>주민<i class="dot" hidden></i></button>
-    <button class="tab" data-tab="story" aria-pressed="false"><span class="ti" aria-hidden="true">✎</span>이야기<i class="dot" hidden></i></button>
-    <button class="tab" data-tab="shop" aria-pressed="false"><span class="ti" aria-hidden="true">✿</span>상점</button>
+    <button class="tab" data-tab="village" aria-pressed="true"><span class="ti" aria-hidden="true"><span class="ti-fallback">⌂</span><img class="tab-art" src="./assets/ui/tab-village.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>마을</button>
+    <button class="tab" data-tab="build" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">⚒</span><img class="tab-art" src="./assets/ui/tab-build.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>건설</button>
+    <button class="tab" data-tab="people" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">☺</span><img class="tab-art" src="./assets/ui/tab-people.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>주민<i class="dot" hidden></i></button>
+    <button class="tab" data-tab="story" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">✎</span><img class="tab-art" src="./assets/ui/tab-story.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>이야기<i class="dot" hidden></i></button>
+    <button class="tab" data-tab="shop" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">✿</span><img class="tab-art" src="./assets/ui/tab-shop.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>상점</button>
   </nav>
 </div>
 <div class="sheet" id="sheet" hidden></div>
 <div class="scene" id="scene" hidden role="dialog" aria-modal="true" aria-labelledby="scene-title">
   <div class="scene-card">
+    <div class="scene-art-wrap" id="scene-art" hidden></div>
     <div class="scene-head"><span id="scene-no"></span><h2 id="scene-title"></h2></div>
     <div class="scene-body" id="scene-body" aria-live="polite"></div>
     <div class="scene-foot"><button class="btn" id="scene-skip">건너뛰기</button><span class="scene-hint" id="scene-hint">화면을 탭하면 다음 대사</span><button class="btn go" id="scene-next">다음</button></div>
@@ -1026,9 +1038,34 @@ function checkClue(b){lastClue=null;if(!b)return;
     for(const c of CLUES[r]){if(c.home!==b.k||S.clues[r].includes(c.id)||!c.when())continue;
       S.clues[r].push(c.id);lastClue={bid:b.id,r,c};const n=S.clues[r].length,all=CLUES[r].length;
       toast(`수상한 순간 발견! ${res.n} ${n}/${all}`);chips(b.x*TS+16,b.y*TS+6,'#c9a0f0',10);save();updateTabs();return}}}
+/* Story art is requested only when its screen is used; it never joins the game loader. */
+function showSceneArt(n){
+  const box=$('#scene-art');box.hidden=true;box.replaceChildren();
+  if(!Number.isInteger(n)||n<1||n>10)return;
+  const img=document.createElement('img');img.className='scene-art';img.width=1200;img.height=800;
+  img.alt=`${n}화 · ${EPISODES[n-1].t} 장면`;img.decoding='async';img.fetchPriority='low';
+  img.onload=()=>{if(sceneEp===n&&box.firstElementChild===img)box.hidden=false};
+  img.onerror=()=>{if(box.firstElementChild===img){box.hidden=true;box.replaceChildren()}};
+  box.appendChild(img);img.src=`./assets/story/ep${String(n).padStart(2,'0')}.webp`;
+}
+function residentArt(r,here){
+  const fallback=THUMBURL[r.home];
+  return `<img class="ri" src="${here?'./assets/story/portrait-'+r.id+'.webp':fallback}" ${here?`data-art-fallback="${fallback}"`:''} alt="" loading="lazy" decoding="async">`;
+}
+function initStoryArt(){
+  const bar=$('#tabbar');
+  const tabReady=img=>img.parentElement.classList.toggle('art-ready',img.complete&&img.naturalWidth>0);
+  bar.addEventListener('load',e=>{if(e.target.matches('img.tab-art'))tabReady(e.target)},true);
+  bar.addEventListener('error',e=>{if(e.target.matches('img.tab-art'))e.target.parentElement.classList.remove('art-ready')},true);
+  bar.querySelectorAll('img.tab-art').forEach(tabReady);
+  $('#sheet').addEventListener('error',e=>{const img=e.target;if(!img.matches('img[data-art-fallback]'))return;
+    const fallback=img.dataset.artFallback;delete img.dataset.artFallback;img.src=fallback;
+  },true);
+}
+
 let sceneEp=0,sceneI=0,sceneTimer=null;
 function playEpisode(n){const lines=SCENES[n];if(!lines)return;sceneEp=n;sceneI=0;closeSheet();
-  $('#scene-no').textContent=`${n}화`;$('#scene-title').textContent=EPISODES[n-1].t;$('#scene-body').innerHTML='';$('#scene').hidden=false;
+  $('#scene-no').textContent=`${n}화`;$('#scene-title').textContent=EPISODES[n-1].t;$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(n);
   if(!S.story.includes(n)){S.story.push(n);save()}sceneStep()}
 function sceneStep(){const lines=SCENES[sceneEp],body=$('#scene-body');
   if(sceneI<lines.length){const[who,t]=lines[sceneI++];const el=document.createElement('div');el.className='line'+(who?'':' narr');el.innerHTML=(who?`<b>${who}</b>`:'')+t.replace(/</g,'&lt;');body.appendChild(el);el.scrollIntoView({block:'nearest'});
@@ -1073,7 +1110,7 @@ function peopleHTML(){
   let h=`<div class="top shop-top"><div><h2>주민 도감</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
   h+=`<div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r);
     const all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));
-    return `<div class="resident ${here?'':'away'}"><img class="ri" src="${THUMBURL[r.home]}" alt=""><div><h3>${here?r.n:'???'}</h3><p>${here?r.role+' · “'+r.line+'”':`${B[r.home].n}을(를) 지으면 이사 와요`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary style="font-size:12px;color:var(--ink-soft);cursor:pointer;margin-top:4px">모은 단서 보기</summary><ul style="margin:4px 0 0;padding-left:16px;font-size:12px;line-height:1.5">${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<div class="lore">${LORE[r.id]}</div>`:''}</div><div class="lvq">${here?(rev?'Lv 999':'Lv ???'):''}${here?`<small>단서 ${c}/${all}</small>`:''}</div></div>`}).join('')}</div>
+    return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><h3>${here?r.n:'???'}</h3><p>${here?r.role+' · “'+r.line+'”':`${B[r.home].n}을(를) 지으면 이사 와요`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary style="font-size:12px;color:var(--ink-soft);cursor:pointer;margin-top:4px">모은 단서 보기</summary><ul style="margin:4px 0 0;padding-left:16px;font-size:12px;line-height:1.5">${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<div class="lore">${LORE[r.id]}</div>`:''}</div><div class="lvq">${here?(rev?'Lv 999':'Lv ???'):''}${here?`<small>단서 ${c}/${all}</small>`:''}</div></div>`}).join('')}</div>
   <p class="shop-note" style="margin-top:10px">단서는 특정한 때에 건물을 탭하면 발견돼요. 저녁, 계절, 이야기 진행에 따라 보이는 것이 달라요.</p>`;
   const phase=visitorPhase(),m=currentVisit();
   h+=`<h3 class="sec">찾아온 손님</h3>`;
@@ -1269,8 +1306,10 @@ function start(data){
   updateHUD();measureHud();centerOn(15*TS+16,12*TS+10);
   if(fresh)setTimeout(()=>toast('나무를 탭해서 목재를 모아 보세요'),600);
 }
+initStoryArt();
 beginIllustratedGame();
 })();
 </script>
 </body>
 </html>
+

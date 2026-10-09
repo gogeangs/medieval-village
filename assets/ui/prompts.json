@@ -1,0 +1,42 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Season 1 original storybook art; canonical characters.webp reference",
+  "export": "128×128 transparent WebP quality 92",
+  "assets": [
+    {
+      "id": "tab-village",
+      "prompt": "Use case: stylized-concept. Create ONE small mobile-game navigation icon, square 1:1 with TRUE TRANSPARENT background. Subject: a single cozy little timber house with cream stone walls and a red terracotta roof, one dark arched doorway, simplified 3/4 view. Warm hand-painted storybook gouache brushwork matching the supplied village illustration, simplified bold silhouette, softly modeled material, few large shapes, clear when reduced to 26 pixels onscreen and exported at 128x128. Centered object fills 82% of square, full silhouette inside 9% padding. Muted warm medieval palette, dark chocolate-brown defining edges with a very fine pale parchment rim so it remains legible BOTH on medium-dark wooden brown (#76512e) AND pale parchment (#f5e7c5). No backing tile, no badge, no circular medallion, no text, no lettering, no banner, no watermark, no sparkles, no other objects, no scene. Not pixel art, not flat vector, not glossy plastic. Preserve alpha transparency; don't paint a checkerboard.",
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ]
+    },
+    {
+      "id": "tab-build",
+      "prompt": "Use case: stylized-concept. Create ONE small mobile-game navigation icon, square 1:1 with TRUE TRANSPARENT background. Subject: one sturdy carpenter's hammer, dark iron head and honey-brown wooden handle, diagonal upright silhouette, no second tool. Warm hand-painted storybook gouache brushwork matching the supplied village illustration, simplified bold silhouette, softly modeled material, few large shapes, clear when reduced to 26 pixels onscreen and exported at 128x128. Centered object fills 82% of square, full silhouette inside 9% padding. Muted warm medieval palette, dark chocolate-brown defining edges with a very fine pale parchment rim so it remains legible BOTH on medium-dark wooden brown (#76512e) AND pale parchment (#f5e7c5). No backing tile, no badge, no circular medallion, no text, no lettering, no banner, no watermark, no sparkles, no other objects, no scene. Not pixel art, not flat vector, not glossy plastic. Preserve alpha transparency; don't paint a checkerboard.",
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ]
+    },
+    {
+      "id": "tab-people",
+      "prompt": "Use case: stylized-concept. Create ONE small mobile-game navigation icon, square 1:1 with TRUE TRANSPARENT background. Subject: one friendly adult villager FACE AND SHOULDERS, warm peach skin, chestnut wavy hair, green shirt collar; simplified rounded portrait silhouette, no circle frame. Warm hand-painted storybook gouache brushwork matching the supplied village illustration, simplified bold silhouette, softly modeled material, few large shapes, clear when reduced to 26 pixels onscreen and exported at 128x128. Centered object fills 82% of square, full silhouette inside 9% padding. Muted warm medieval palette, dark chocolate-brown defining edges with a very fine pale parchment rim so it remains legible BOTH on medium-dark wooden brown (#76512e) AND pale parchment (#f5e7c5). No backing tile, no badge, no circular medallion, no text, no lettering, no banner, no watermark, no sparkles, no other objects, no scene. Not pixel art, not flat vector, not glossy plastic. Preserve alpha transparency; don't paint a checkerboard.",
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ]
+    },
+    {
+      "id": "tab-story",
+      "prompt": "Use case: stylized-concept. Create ONE small mobile-game navigation icon, square 1:1 with TRUE TRANSPARENT background. Subject: one open storybook, creamy parchment pages and dark moss-green leather cover, seen slightly from above, pages blank with subtle crease only. Warm hand-painted storybook gouache brushwork matching the supplied village illustration, simplified bold silhouette, softly modeled material, few large shapes, clear when reduced to 26 pixels onscreen and exported at 128x128. Centered object fills 82% of square, full silhouette inside 9% padding. Muted warm medieval palette, dark chocolate-brown defining edges with a very fine pale parchment rim so it remains legible BOTH on medium-dark wooden brown (#76512e) AND pale parchment (#f5e7c5). No backing tile, no badge, no circular medallion, no text, no lettering, no banner, no watermark, no sparkles, no other objects, no scene. Not pixel art, not flat vector, not glossy plastic. Preserve alpha transparency; don't paint a checkerboard.",
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ]
+    },
+    {
+      "id": "tab-shop",
+      "prompt": "Use case: stylized-concept. Create ONE small mobile-game navigation icon, square 1:1 with TRUE TRANSPARENT background. Subject: one terracotta flowerpot with a few rounded green leaves and exactly three simple golden-cream blossoms, compact recognizable silhouette. Warm hand-painted storybook gouache brushwork matching the supplied village illustration, simplified bold silhouette, softly modeled material, few large shapes, clear when reduced to 26 pixels onscreen and exported at 128x128. Centered object fills 82% of square, full silhouette inside 9% padding. Muted warm medieval palette, dark chocolate-brown defining edges with a very fine pale parchment rim so it remains legible BOTH on medium-dark wooden brown (#76512e) AND pale parchment (#f5e7c5). No backing tile, no badge, no circular medallion, no text, no lettering, no banner, no watermark, no sparkles, no other objects, no scene. Not pixel art, not flat vector, not glossy plastic. Preserve alpha transparency; don't paint a checkerboard.",
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ]
+    }
+  ]
+}
