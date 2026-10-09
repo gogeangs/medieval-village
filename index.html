@@ -256,9 +256,9 @@ function mk(w,h,fn){const c=document.createElement('canvas');c.width=w;c.height=
 const B={
   hall:{n:'마을회관',d:'마을의 중심이에요. 레벨을 올리면 주민이 더 살 수 있고 빵집과 선술집이 열려요.',cap:5,need:0},
   house:{n:'오두막',d:'주민이 사는 집이에요. 레벨마다 3명이 더 살 수 있어요.',cost:{wood:20},cap:3,need:0,hall:1,smoke:1},
-  farm:{n:'밀밭',d:'식량을 키워요. 겨울에는 땅이 얼어서 쉬어요.',cost:{wood:15},need:2,prod:{food:1.2},hall:1},
-  lumber:{n:'벌목소',d:'일꾼이 나무를 베어 목재를 모아요.',cost:{wood:25,stone:10},need:2,prod:{wood:.8},hall:1},
-  quarry:{n:'채석장',d:'언덕에서 돌을 캐 석재를 모아요.',cost:{wood:30},need:2,prod:{stone:.6},hall:1},
+  farm:{n:'밀밭',d:'식량을 키워요. 겨울에는 땅이 얼어서 쉬어요.',cost:{wood:15},need:2,prod:{food:1.5},hall:1},
+  lumber:{n:'벌목소',d:'일꾼이 나무를 베어 목재를 모아요.',cost:{wood:25,stone:10},need:2,prod:{wood:1.2},hall:1},
+  quarry:{n:'채석장',d:'언덕에서 돌을 캐 석재를 모아요.',cost:{wood:30},need:2,prod:{stone:1},hall:1},
   market:{n:'시장',d:'장사로 금화를 벌어요. 부족한 자원을 사고 남는 자원을 팔 수 있어요.',cost:{wood:40,stone:20},need:2,prod:{gold:.8},hall:1},
   bakery:{n:'빵집',d:'계절과 상관없이 빵을 구워요. 겨울을 나려면 꼭 필요해요.',cost:{wood:35,stone:30,gold:20},need:2,prod:{food:1.6},hall:2,smoke:1},
   tavern:{n:'선술집',d:'금화를 벌고, 소문이 나서 주민이 더 빨리 모여요.',cost:{wood:60,stone:40,gold:50},need:3,prod:{gold:1.6},hall:2,smoke:1},
@@ -743,13 +743,13 @@ function genMap(seed){
   for(let y=0;y<MH;y++){const rx=riverX(y);t[y*MW+rx]=2;t[y*MW+rx+1]=2}
   for(let x=0;x<MW-3;x++){const i=14*MW+x;t[i]=t[i]===2?3:1}
   for(let y=6;y<23;y++){const i=y*MW+19;if(!t[i])t[i]=1}
-  for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const i=y*MW+x;if(t[i])continue;const d=Math.hypot(x-15,y-12);if(d<5)continue;let pr=d>10?.42:d>7?.2:.08;if(x<riverX(y))pr+=.15;const r=R();if(r<pr)o[i]={k:R()<.35?'pine':'tree',hp:3};else if(r<pr+.035)o[i]={k:'rock',hp:4}}
+  for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const i=y*MW+x;if(t[i])continue;const d=Math.hypot(x-15,y-12);if(d<5)continue;let pr=d>10?.42:d>7?.2:.08;if(x<riverX(y))pr+=.15;const r=R();if(r<pr)o[i]={k:R()<.35?'pine':'tree',hp:3};else if(r<pr+.08)o[i]={k:'rock',hp:4}}
   return{t,o};
 }
 
 /* ---------- state ---------- */
 let S,TILES,OCC,DOCC,SP,curSeason=-1;
-function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:30,stone:10,food:25,gold:20},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
+function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:14,y:11,l:1},{id:2,k:'house',x:16,y:11,l:1}],nid:3,r:{wood:50,stone:30,food:40,gold:30},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
 function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;return normalizeRoads(normalizeStory(normalizeVisitors(normalizeDecor(d,m.t))),m.t)}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
@@ -851,7 +851,7 @@ function tick(){
   if(S.pop<c&&S.r.food>=5&&S.growT>=every){S.pop++;S.growT=0;const h=S.b[0];floatTxt(h.x*TS+16,h.y*TS+4,'+1','#cfe8ff','pop')}
   if(S.pop>c)S.pop=c;
   S.spawnT++;
-  if(S.spawnT>=20){S.spawnT=0;const n=S.o.filter(Boolean).length;if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i])continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()<.85?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
+  if(S.spawnT>=RESPAWN_EVERY){S.spawnT=0;const n=S.o.filter(Boolean).length;if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i])continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()>=RESPAWN_ROCK?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
   const se=season();if(se!==prevSe)onSeason(se,true);
   syncVils();updateHUD();
   if(S.time%5===0)save();
@@ -867,10 +867,11 @@ function finishPlacement(){if(mode==='road'&&roadDirty.size)scheduleGround(0);mo
 function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;decorMoveId=null;movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${B[b.k].n}을(를) 옮겼어요`);updateHUD();save()}
 function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);finishPlacement();updateHUD();save()}
+const HARVEST=3,RESPAWN_EVERY=10,RESPAWN_ROCK=.3;
 function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;const now=performance.now();o.sh=now;o.hp--;const wx=x*TS+8,wy=y*TS+4;
-  if(o.k==='rock'){S.r.stone+=2;S.st.stone+=2;floatTxt(wx,wy,'+2',RCOL.stone,'stone');chips(wx,wy+6,'#a9a49b')}
-  else{S.r.wood+=2;S.st.wood+=2;floatTxt(wx,wy-6,'+2',RCOL.wood,'wood');chips(wx,wy+2,LF[curSeason][0])}
-  if(o.hp<=0){S.o[i]=null;if(o.k==='rock'){S.r.stone+=2;S.st.stone+=2}else{S.r.wood+=2;S.st.wood+=2}chips(wx,wy+6,o.k==='rock'?'#8f897e':'#8b5a2b',8)}
+  if(o.k==='rock'){S.r.stone+=HARVEST;S.st.stone+=HARVEST;floatTxt(wx,wy,'+'+HARVEST,RCOL.stone,'stone');chips(wx,wy+6,'#a9a49b')}
+  else{S.r.wood+=HARVEST;S.st.wood+=HARVEST;floatTxt(wx,wy-6,'+'+HARVEST,RCOL.wood,'wood');chips(wx,wy+2,LF[curSeason][0])}
+  if(o.hp<=0){S.o[i]=null;if(o.k==='rock'){S.r.stone+=HARVEST;S.st.stone+=HARVEST}else{S.r.wood+=HARVEST;S.st.wood+=HARVEST}chips(wx,wy+6,o.k==='rock'?'#8f897e':'#8b5a2b',8)}
   updateHUD();return true}
 
 function upgrade(b){const c=upCost(b);if(!c||!can(c))return;pay(c);b.l++;S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
@@ -964,7 +965,7 @@ $('#cyes').onclick=()=>{if(mode==='road'){finishPlacement();toast('길을 다 �
 $('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet();updateTabs()};
 
 /* ---------- player-made dirt roads ---------- */
-const ROAD_COST=1;let BASE_TILES=null,roadDirty=new Map(),roadTimer=null;
+const ROAD_COST=0;let BASE_TILES=null,roadDirty=new Map(),roadTimer=null;
 function normalizeRoads(d,base){const seen=new Set();d.roads=(Array.isArray(d.roads)?d.roads:[]).filter(i=>Number.isInteger(i)&&i>=0&&i<MW*MH&&base[i]===0&&!seen.has(i)&&seen.add(i));return d}
 function applyRoads(){for(const i of S.roads)if(BASE_TILES[i]===0)TILES[i]=1;
   PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1)PATHS.push([x,y])}
@@ -972,7 +973,7 @@ const isPlayerRoad=i=>S.roads.includes(i);
 function scheduleGround(delay=900){clearTimeout(roadTimer);roadTimer=setTimeout(()=>{rebuildGround();roadDirty.clear()},delay)}
 function toggleRoad(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;const i=ty*MW+tx;
   if(isPlayerRoad(i)){if(OCC[i]||DOCC[i]){toast('건물이나 장식이 있는 길은 지울 수 없어요');return}
-    S.roads=S.roads.filter(v=>v!==i);TILES[i]=0;S.r.stone+=ROAD_COST;roadDirty.set(i,'grass');floatTxt(tx*TS+8,ty*TS+4,'+'+ROAD_COST,RCOL.stone,'stone')}
+    S.roads=S.roads.filter(v=>v!==i);TILES[i]=0;S.r.stone+=ROAD_COST;roadDirty.set(i,'grass');if(ROAD_COST)floatTxt(tx*TS+8,ty*TS+4,'+'+ROAD_COST,RCOL.stone,'stone')}
   else{if(BASE_TILES[i]!==0){toast(BASE_TILES[i]===1||BASE_TILES[i]===3?'이미 길이에요':'물 위에는 길을 낼 수 없어요');return}
     if(S.o[i]){toast('나무나 바위를 먼저 치워 주세요');return}
     if(OCC[i]||DOCC[i]){toast('건물이나 장식이 없는 땅에 놓아 주세요');return}
@@ -981,7 +982,7 @@ function toggleRoad(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;const i=ty*MW+tx
   applyRoads();scheduleGround();updateHUD();save()}
 function beginRoad(){finishPlacement();mode='road';setDrawer(false);updateSlots();updateConfirm();toast('길을 낼 칸을 하나씩 탭하세요')}
 function roadConfirm(){const c=$('#confirm');c.hidden=false;c.classList.add('compact');$('#cyes').textContent='완료';$('#cyes').disabled=false;$('#cno').hidden=true;
-  $('#cmsg').innerHTML=`흙길 ${S.roads.length}칸 · 석재 ${ROAD_COST}/칸<small>다시 탭하면 지우고 돌려받아요</small>`}
+  $('#cmsg').innerHTML=`흙길 ${S.roads.length}칸 · ${ROAD_COST?'석재 '+ROAD_COST+'/칸':'무료'}<small>${ROAD_COST?'다시 탭하면 지우고 돌려받아요':'놓은 길을 다시 탭하면 지워져요'}</small>`}
 function drawRoadOverlay(){
   for(const[i,kind]of roadDirty){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1.5,y*TS+1.5,13,13,4,kind==='path'?(curSeason===3?'#d2dacf':'#cfb887'):(GR[curSeason]||GR[0])[0],null,0)}
   if(mode==='road')for(const i of S.roads){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1,y*TS+1,14,14,3,null,'#fff4cbcc',.45)}}
@@ -1130,7 +1131,7 @@ let ROAD_THUMB=null;function roadThumb(){if(ROAD_THUMB)return ROAD_THUMB;const c
   g.fillStyle='#88a966';g.beginPath();g.ellipse(44,58,40,24,0,0,Math.PI*2);g.fill();g.lineCap='round';g.strokeStyle='#6c764b';g.lineWidth=22;g.beginPath();g.moveTo(12,70);g.quadraticCurveTo(44,40,78,48);g.stroke();
   g.strokeStyle='#cfb887';g.lineWidth=17;g.stroke();g.fillStyle='#a6a080';for(const[x,y]of[[30,56],[50,48],[64,50]]){g.beginPath();g.ellipse(x,y,3,2,0,0,Math.PI*2);g.fill()}return ROAD_THUMB=c.toDataURL()}
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
-function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>흙길</span><span class="cost">${ic('stone')}${ROAD_COST}/칸</span></button>`;
+function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>흙길</span><span class="cost">${ROAD_COST?ic('stone')+ROAD_COST+'/칸':'무료'}</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
   h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
 function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
