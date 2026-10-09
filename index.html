@@ -938,7 +938,7 @@ function updateHUD(){
 /* ---------- sheet ---------- */
 const sheet=$('#sheet');
 function openSheet(id){selId=id;armDel=false;tradeTab='buy';renderSheet()}
-function closeSheet(){selId=null;sheet.hidden=true;sheet.dataset.v=''}
+function closeSheet(){selId=null;sheet.scrollTop=0;sheet.hidden=true;sheet.dataset.v=''}
 function renderSheet(){let h='';
   if(selId==='menu'){h=`<div class="top"><h2>작은 영지</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
   <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>시장에서 금화로 자원을 사고, 아래 상점에서 장식을 골라 마을을 꾸며요. 장식은 탭해서 옮기거나 보관할 수 있어요.</li><li>방문객의 이야기를 듣고 물자를 나누거나 주민을 보내 도와주세요. 금화와 친밀도, 특별 장식을 받을 수 있어요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
