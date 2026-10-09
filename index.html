@@ -137,6 +137,47 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .slot.attention::after{content:'';position:absolute;right:5px;top:5px;width:8px;height:8px;border:1px solid #fff2cc;border-radius:50%;background:#c77b43}
 .sheet .shop-note a{color:inherit}
 
+/* Menu layout: profile + resources + settings on top, one goal line, five fixed tabs at the bottom. */
+.chief{appearance:none;pointer-events:auto;flex:none;display:grid;place-items:center;align-content:center;gap:1px;width:52px;min-height:44px;padding:4px 2px;border:2px solid #4d3a23;border-radius:9px;background:linear-gradient(#4f6b49,#36513a);color:#fff0c9;box-shadow:inset 0 0 0 1px #8fa56c,0 3px 0 #2c3b2b88;cursor:pointer;font-family:var(--f-ui)}
+.chief .chief-badge{font-size:10px;color:#d9e2b8;line-height:1}.chief b{font-size:16px;line-height:1.1;font-weight:400;letter-spacing:.5px}
+.chief:focus-visible,.goal button:focus-visible,.tab:focus-visible{outline:3px solid #ffe3a0;outline-offset:2px}
+.row2{align-items:center}
+.goal{pointer-events:auto;flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:6px;max-width:380px;background-color:#f1e3c2;background-image:linear-gradient(145deg,#fff5deaa,#e1cda144),url('./assets/illustrations/paper.webp');background-size:auto,280px 280px;border:2px solid #9e7c4e;border-radius:8px;box-shadow:0 3px 0 #513e2770,0 6px 14px #263e3233;padding:3px 4px 3px 0}
+.goal .goal-open{appearance:none;flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:6px;border:0;background:none;padding:6px 4px 6px 10px;font:13px var(--f-ui);color:var(--ink);text-align:left;cursor:pointer;min-height:36px}
+.goal .goal-open span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.goal .goal-open small{flex:none;color:var(--ink-soft);font-size:12px}
+.goal .goal-tag{flex:none;font-size:11px;color:#8a6a3e}
+.goal .claim{flex:none;color:#fff6dc;border:1px solid #57703b}
+.goal.done{border-color:#7f9a55}
+.build-dock{flex-direction:column;align-items:center;gap:8px}
+.drawer{width:min(100%,760px)}
+.tabbar{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:min(100%,520px);background:repeating-linear-gradient(2deg,#0000 0 9px,#3c25101c 10px,#0000 11px 21px),linear-gradient(#a87c48,#76512e);border:2px solid #4e3922;border-radius:14px;box-shadow:0 -2px 0 #d1ad72,inset 0 0 0 2px #c2996090,0 5px 18px #263c3255;padding:5px}
+.tab{appearance:none;position:relative;display:grid;justify-items:center;gap:1px;min-height:52px;padding:5px 2px 4px;border:0;border-radius:9px;background:none;color:#fbe9c3;font:13px var(--f-ui);cursor:pointer;text-shadow:0 1px #4f3a26}
+.tab .ti{font-size:20px;line-height:1.1;font-family:system-ui,'Apple Symbols','Segoe UI Symbol',sans-serif}
+.tab[aria-pressed="true"]{background-color:#f5e7c5;background-image:linear-gradient(#fff5d990,#e2c99344),url('./assets/illustrations/paper.webp');background-size:auto,220px 220px;color:#523e28;text-shadow:none;box-shadow:inset 0 0 0 1px #fff1cb,0 2px 2px #38271b4d}
+.tab .dot{position:absolute;top:5px;right:calc(50% - 22px);width:9px;height:9px;border:1px solid #fff2cc;border-radius:50%;background:#c4592f}
+.roster{display:grid;gap:8px;margin-top:12px}
+.resident{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px;background:#fff5dc85;border:1px solid #c9b68e;border-radius:9px}
+.resident .ri{width:52px;height:52px;object-fit:contain}
+.resident h3{margin:0;font-size:16px;font-weight:400}.resident p{margin:3px 0 0;font-size:12px;color:var(--ink-soft);line-height:1.45}
+.resident .lvq{font-size:17px;color:#6a4f2d;text-align:right;white-space:nowrap}.resident .lvq small{display:block;font-size:11px;color:var(--ink-soft)}
+.resident.away{opacity:.62}.resident.away .ri{filter:grayscale(1) brightness(.85)}
+.clue-meter{display:flex;gap:3px;margin-top:6px}.clue-meter i{width:14px;height:5px;border-radius:2px;background:#99845a33}.clue-meter i.on{background:#b9852e}
+.sheet h3.sec{margin:18px 0 8px;font-size:15px;font-weight:400;color:#6a5133}
+.visit-card{display:flex;align-items:center;gap:10px;padding:10px;background:#ecdfb87a;border:1px solid #c5b57c;border-radius:9px}.visit-card img{width:40px;height:64px;object-fit:contain;flex:none}.visit-card div{flex:1;min-width:0;font-size:13px}.visit-card .btn{flex:none}
+.acts-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.act-h{display:flex;align-items:baseline;gap:8px;margin:4px 0 6px}.act-h b{font-size:15px;font-weight:400;color:#6a5133}.act-h small{color:var(--ink-soft);font-size:12px}
+.ep{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 10px;border:1px solid #cdbb94;border-radius:8px;background:#fff6df80;font-size:13px}
+.ep+.ep{margin-top:6px}.ep .no{font-size:12px;color:#8a6a3e;min-width:30px}.ep .t{min-width:0}.ep .t small{display:block;color:var(--ink-soft);font-size:11px;margin-top:2px}
+.ep.locked{opacity:.55}.ep.ready{border-color:#7f9a55;background:#eef0d2a0}.ep.done .no{color:#6d8148}
+.profile-hero{display:flex;align-items:center;gap:14px;margin-top:12px;padding:12px;border-radius:10px;background:#e4d6b15e}
+.profile-hero .big{font-size:34px;line-height:1;color:#4f6b49}.profile-hero p{margin:4px 0 0;font-size:12px;color:var(--ink-soft)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:10px}.stats div{padding:8px 10px;border:1px solid #cdbb94;border-radius:8px;background:#fff6df80;font-size:12px;color:var(--ink-soft)}.stats b{display:block;font-size:17px;color:var(--ink);font-weight:400}
+.sheet{bottom:calc(var(--dock-height,64px) + 22px);max-height:calc(100dvh - var(--dock-height,64px) - 40px - env(safe-area-inset-top,0px))}
+.confirm{z-index:9}
+@media(max-width:400px){.topbar{gap:4px}.chief{width:38px;min-height:40px}.chief .chief-badge{display:none}.chief b{font-size:14px}.topbar .iconbtn{width:38px;min-width:38px}.res{padding:6px 1px}.chip{padding:0 2px;grid-template-columns:12px minmax(0,1fr);column-gap:2px}.chip img{width:12px;height:12px}.chip .n{font-size:14px;text-overflow:clip}.chip .r{font-size:9px}.tab{font-size:12px}.goal .goal-tag{display:none}}
+@media(max-height:540px) and (orientation:landscape){.hud{width:min(620px,100%)}}
+@media(max-height:540px) and (orientation:landscape){.tabbar{width:min(100%,460px)}.tab{min-height:44px;grid-auto-flow:column;gap:5px;align-items:center}.tab .ti{font-size:17px}.goal{max-width:300px}}
+
 </style>
 
 </head>
@@ -145,17 +186,9 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 
 <div class="hud" id="hud">
   <h1 class="brand">알고보니 초보자 마을이 Lv999</h1>
-  <div class="topbar"><div class="res" id="res"></div><button class="iconbtn" id="menu" aria-label="메뉴와 스킬">≡</button></div>
-  <div class="status">
-    <div class="pill skill farm"><span id="sk-farm"></span><div class="meter"><i id="skb-farm"></i></div></div>
-    <div class="pill skill build"><span id="sk-build"></span><div class="meter"><i id="skb-build"></i></div></div>
-    <div class="pill skill trade"><span id="sk-trade"></span><div class="meter"><i id="skb-trade"></i></div></div>
-  </div>
+  <div class="topbar"><button class="chief" id="chief" aria-label="촌장 정보와 스킬"><span class="chief-badge">촌장</span><b>Lv1</b></button><div class="res" id="res"></div><button class="iconbtn" id="menu" aria-label="설정">⚙</button></div>
   <div class="row2">
-    <section class="quests" id="quests">
-      <button class="qhead" id="qhead" aria-expanded="true"><span class="car">▼</span>퀘스트<span class="cnt" id="qcnt"></span></button>
-      <ul id="qlist"></ul>
-    </section>
+    <div class="goal" id="goal"></div>
     <span class="season" id="day"></span>
   </div>
 </div>
@@ -167,7 +200,15 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
   <button class="btn go" id="cyes">짓기</button>
 </div>
 
-<div class="build-dock"><div class="bar-in" id="hotbar"></div></div>
+<div class="build-dock" id="dock"><div class="bar-in drawer" id="hotbar" hidden></div>
+  <nav class="tabbar" id="tabbar" aria-label="메뉴">
+    <button class="tab" data-tab="village" aria-pressed="true"><span class="ti" aria-hidden="true">⌂</span>마을</button>
+    <button class="tab" data-tab="build" aria-pressed="false"><span class="ti" aria-hidden="true">⚒</span>건설</button>
+    <button class="tab" data-tab="people" aria-pressed="false"><span class="ti" aria-hidden="true">☺</span>주민<i class="dot" hidden></i></button>
+    <button class="tab" data-tab="story" aria-pressed="false"><span class="ti" aria-hidden="true">✎</span>이야기<i class="dot" hidden></i></button>
+    <button class="tab" data-tab="shop" aria-pressed="false"><span class="ti" aria-hidden="true">✿</span>상점</button>
+  </nav>
+</div>
 <div class="sheet" id="sheet" hidden></div>
 <div class="toast" id="toast" role="status"></div>
 
@@ -727,7 +768,7 @@ const cam={x:0,y:0};
 const K=()=>dpr*zoom;
 const css=()=>K()/dpr;
 function resize(){resetGesture();dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(innerWidth*dpr);cv.height=Math.round(innerHeight*dpr);clampCam();measureDock();if(started)measureHud()}
-function measureDock(){const dock=$('#hotbar');if(dock){DOCK_H=dock.getBoundingClientRect().height+12;document.documentElement.style.setProperty('--dock-height',(DOCK_H-12)+'px')}}
+function measureDock(){const dock=$('#dock');if(dock){const r=dock.getBoundingClientRect();DOCK_H=Math.max(0,innerHeight-r.top+4);document.documentElement.style.setProperty('--dock-height',Math.max(0,DOCK_H-16)+'px')}}
 function measureHud(){const r=$('#hud').getBoundingClientRect();HUD_H=r.bottom;document.documentElement.style.setProperty('--hud-h',HUD_H+'px')}
 let HUD_H=150,DOCK_H=110;
 function clampCam(){const vw=innerWidth/css(),vh=innerHeight/css();cam.x=Math.max(-vw*.35,Math.min(MW*TS-vw*.65,cam.x));cam.y=Math.max(-vh*.35,Math.min(MH*TS-vh*.55,cam.y))}
@@ -790,7 +831,7 @@ let mode='hand',ghost=null,movingId=null,decorKind=null,decorMoveId=null,selId=n
 const movingBuilding=()=>mode==='move'?S.b.find(b=>b.id===movingId):null;
 function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!DOCC[i]&&(!OCC[i]||OCC[i]===ignoreId)}
 function validAt(x,y,ignoreId=0){for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(!placeableCell(x+dx,y+dy,ignoreId))return false;return true}
-function finishPlacement(){mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots()}
+function finishPlacement(){mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();setDrawer(false);updateConfirm();updateSlots()}
 function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;decorMoveId=null;movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${B[b.k].n}을(를) 옮겼어요`);updateHUD();save()}
 function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${d.n}을(를) 지었어요`);finishPlacement();updateHUD();save()}
@@ -882,22 +923,66 @@ function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/T
   if(mode==='hand'){const guest=visitorAnchor();if(guest&&Math.abs(wx-guest.x)<=6&&wy>=guest.y-25&&wy<=guest.y-16){openVisitors();return}const hit=hitAt(wx,wy);if(hit){if(hit.visitor)openVisitors();else if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else harvest(hit.tx,hit.ty);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
   const size=mode==='decor'?DECOR[decorKind].size:2;ghost={x:Math.round(wx/TS-size/2),y:Math.round(wy/TS-size/2)};updateConfirm()}
 
-function setQuestOpen(open){const q=$('#quests');q.classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open);try{localStorage.setItem(SAVE+'-ui',open?'open':'closed')}catch(e){};requestAnimationFrame(measureHud)}
-$('#qhead').onclick=()=>setQuestOpen($('#quests').classList.contains('closed'));
-{let pref=null;try{pref=localStorage.getItem(SAVE+'-ui')}catch(e){}const open=pref?pref==='open':!(innerWidth<=520||innerHeight<=540);$('#quests').classList.toggle('closed',!open);$('#qhead').setAttribute('aria-expanded',open)}
-$('#qlist').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)claim(b.dataset.q)});
+$('#goal').addEventListener('click',e=>{const c=e.target.closest('[data-q]');if(c){claim(c.dataset.q);return}if(e.target.closest('.goal-open'))openTab('story')});
+$('#chief').onclick=()=>openTab('profile');
+$('#tabbar').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)openTab(t.dataset.tab)});
 $('#cno').onclick=finishPlacement;
 $('#cyes').onclick=()=>{if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
-$('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet()};
+$('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet();updateTabs()};
+
+/* ---------- tabs and story screens ---------- */
+const ACTS=[{n:'1막',t:'부임',to:3},{n:'2막',t:'수상한 일상',to:7},{n:'3막',t:'첫 번째 정체 공개',to:10},{n:'4막',t:'소문',to:13},{n:'5막',t:'재앙의 날',to:15}];
+const EPISODES=['평화로운 첫날','귀한 분','첫 밀밭','동네 바위가 무르다','평범한 자기소개','바람이 세다','허리 운동','평범한 냄비','닮은 사람','앞치마의 할머니','이상 없음','우유 한 잔','보고서는 내일','빗자루를 든 촌장','Lv 999의 마을'].map((t,i)=>({n:i+1,t}));
+const RESIDENTS=[
+  {id:'marta',n:'마르타 할머니',role:'회관 옆 오두막의 다정한 할머니',home:'house',always:true,line:'촌장님, 차 한잔 하고 가렴.'},
+  {id:'gunter',n:'군터 아저씨',role:'말수 적은 벌목꾼',home:'lumber',line:'…바람이 세다.'},
+  {id:'bruno',n:'브루노 아저씨',role:'크고 순한 석공',home:'quarry',line:'촌장은 밤에 잘 자는가.'},
+  {id:'pino',n:'피노',role:'수다스러운 떠돌이 상인',home:'market',line:'완전 평범한 물건만 팔아요.'},
+  {id:'barg',n:'바르그',role:'얼굴이 무서운 선술집 주인',home:'tavern',line:'근무 중이다. 우유 마셔라.'},
+];
+const CLUES_PER=5;
+const resArrived=r=>r.always||count(r.home)>0;
+const resClues=r=>Math.min(CLUES_PER,(S.clues&&S.clues[r.id]||[]).length);
+let drawerOpen=false;
+function setDrawer(open){drawerOpen=!!open;const d=$('#hotbar');if(d)d.hidden=!drawerOpen;measureDock();updateTabs()}
+function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode])return'build';if(selId==='profile'||selId==='menu')return'';return'village'}
+function updateTabs(){const tb=$('#tabbar');if(!tb||!S)return;const cur=currentTab();
+  tb.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.tab===cur));
+  const dots={people:typeof visitorPhase==='function'&&['ready','available'].includes(visitorPhase()),story:Q.some(q=>!S.claimed.includes(q.id)&&q.v()>=q.g)};
+  for(const k in dots){const d=tb.querySelector(`[data-tab="${k}"] .dot`);if(d)d.hidden=!dots[k]}}
+function openTab(t){
+  if(t==='village'){finishPlacement();return}
+  if(t==='build'){const was=drawerOpen&&!B[mode];finishPlacement();if(!was)setDrawer(true);return}
+  if(t==='shop'){openShop();return}
+  finishPlacement();selId=t;armReset=false;renderSheet();updateTabs()}
+function profileHTML(){const sk=[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']];
+  return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
+  <div class="profile-hero"><div class="big">Lv1</div><div><b>신참 촌장</b><p>열심히 일해도 레벨이 오르지 않는 것 같다. 기분 탓이겠지?</p></div></div>
+  <h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c])=>`<div class="pill"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
+  <h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div>`}
+function peopleHTML(){
+  let h=`<div class="top shop-top"><div><h2>주민 도감</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
+  h+=`<div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r);
+    return `<div class="resident ${here?'':'away'}"><img class="ri" src="${THUMBURL[r.home]}" alt=""><div><h3>${here?r.n:'???'}</h3><p>${here?r.role+' · “'+r.line+'”':`${B[r.home].n}을(를) 지으면 이사 와요`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${CLUES_PER}">${Array.from({length:CLUES_PER},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}</div><div class="lvq">${here?'Lv ???':''}${here?`<small>단서 ${c}/${CLUES_PER}</small>`:''}</div></div>`}).join('')}</div>`;
+  const phase=visitorPhase(),m=currentVisit();
+  h+=`<h3 class="sec">찾아온 손님</h3>`;
+  if(m){const g=FRIENDS[m.who];h+=`<div class="visit-card"><img src="${GUESTURL[m.who]}" alt=""><div><b>${g.n}</b> · ${g.role}<br>${visitorStatus()}</div><button class="btn ${['ready','available'].includes(phase)?'go':''}" data-act="visitors">이야기 보기</button></div>`}
+  else h+=`<div class="visit-card"><div>여섯 손님의 이야기를 모두 들었어요.</div><button class="btn" data-act="visitors">기록 보기</button></div>`;
+  return h}
+function storyHTML(){const next=Q.findIndex(q=>!S.claimed.includes(q.id));let from=0;
+  let h=`<div class="top shop-top"><div><h2>시즌 1 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><ol class="acts-list">`;
+  for(const a of ACTS){h+=`<li><div class="act-h"><b>${a.n} ${a.t}</b></div>`;
+    for(let i=from;i<a.to;i++){const q=Q[i],ep=EPISODES[i],got=S.claimed.includes(q.id),v=Math.min(q.v(),q.g),ready=!got&&v>=q.g,open=got||i===next;
+      h+=`<div class="ep ${got?'done':ready?'ready':open?'':'locked'}"><span class="no">${ep.n}화</span><span class="t">${open?ep.t:'???'}<small>${got?'다시 보기는 다음 업데이트에서 열려요':open?`${q.t} (${Math.floor(v)}/${q.g})`:'앞 이야기를 마치면 열려요'}</small></span>${ready?`<button class="claim" data-act="claim" data-q="${q.id}">보상</button>`:got?'<span>✓</span>':'<span></span>'}</div>`}
+    from=a.to;h+=`</li>`}
+  return h+`</ol>`}
 
 /* ---------- hotbar ---------- */
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
-function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="hand" aria-pressed="true"><img class="th sq" src="${IURL.axe}" alt=""><span>채집</span><span class="cost">탭해서 수확</span></button>`;
-  html+=`<button class="slot" data-m="shop" aria-pressed="false"><img class="th" src="${DECORURL.flowers}" alt=""><span>상점</span><span class="cost">장식 · 보관함</span></button>`;
-  html+=`<button class="slot" data-m="visitors" aria-pressed="false"><img class="th" src="${GUESTURL.carpenter}" alt=""><span>방문객</span><span class="cost" data-visitor-state>${visitorStatus()}</span></button>`;
+function buildHotbar(){const h=$('#hotbar');let html='';
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe(h);h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='shop'){openShop();return}if(m==='visitors'){openVisitors();return}if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
-function updateSlots(){document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m!=='hand'&&hallL()<B[m].hall){toast(`마을회관 ${B[m].hall}레벨이 되면 지을 수 있어요`);return}mode=(mode===m&&m!=='hand')?'hand':m;movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();updateConfirm();updateSlots();if(mode!=='hand')toast('지을 곳을 탭하세요')})}
+function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop')return;const locked=hallL()<B[m].hall;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=locked?`회관 Lv${B[m].hall}`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
   if(mode==='decor'){decorConfirm();return}
   const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();
@@ -922,23 +1007,25 @@ function updateHUD(){
   h+=`<div class="chip" aria-label="주민 ${S.pop}명, 수용 ${cap()}명">${ic('pop')}<span class="n">${S.pop}/${cap()}</span><span class="r">쉼 ${S.idle??0}</span></div>`;
   const re=$('#res');if(re.dataset.v!==h){re.innerHTML=h;re.dataset.v=h}
   $('#day').innerHTML=`<b>${day()}</b>일 · ${SEASONS[season()]}`;
-  for(const[k,n]of[['farm','농사'],['build','건축'],['trade','교역']]){$('#sk-'+k).textContent=`${n} ${lv(S.xp[k])}`;$('#skb-'+k).style.width=Math.round(lvp(S.xp[k])*100)+'%'}
-  const act=Q.filter(q=>!S.claimed.includes(q.id)).slice(0,4);
-  let qh=act.map(q=>{const v=Math.min(q.v(),q.g),done=v>=q.g;return`<li class="${done?'done':''}"><span class="box"></span><span>${q.t} <span class="pg">(${Math.floor(v)}/${q.g})</span></span>${done?`<button class="claim" data-q="${q.id}">보상</button>`:'<span></span>'}</li>`}).join('');
-  if(!act.length)qh='<li><span class="box"></span><span>모든 퀘스트를 끝냈어요. 영지를 마음껏 꾸며 보세요</span><span></span></li>';
-  const ql=$('#qlist');if(ql.dataset.v!==qh){ql.innerHTML=qh;ql.dataset.v=qh}
-  $('#qcnt').textContent=`${S.claimed.length}/${Q.length}`;
+  const q=Q.find(q=>!S.claimed.includes(q.id));let gh;
+  if(q){const v=Math.min(q.v(),q.g),done=v>=q.g,ep=EPISODES[Q.indexOf(q)];
+    gh=`<button class="goal-open" aria-label="이야기 열기"><span class="goal-tag">${ep.n}화</span><span>${q.t}</span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}">보상</button>`:''}`;
+    $('#goal').classList.toggle('done',done)}
+  else{gh=`<button class="goal-open"><span>시즌 1을 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
+  const ge=$('#goal');if(ge.dataset.v!==gh){ge.innerHTML=gh;ge.dataset.v=gh}
   updateSlots();updateConfirm();if(selId)renderSheet();
 }
 
 /* ---------- sheet ---------- */
 const sheet=$('#sheet');
 function openSheet(id){selId=id;armDel=false;tradeTab='buy';renderSheet()}
-function closeSheet(){selId=null;sheet.scrollTop=0;sheet.hidden=true;sheet.dataset.v=''}
+function closeSheet(){selId=null;sheet.scrollTop=0;sheet.hidden=true;sheet.dataset.v='';if(typeof updateTabs==='function')updateTabs()}
 function renderSheet(){let h='';
-  if(selId==='menu'){h=`<div class="top"><h2>알고보니 초보자 마을이 Lv999</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
-  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li>나무와 바위를 탭해서 목재와 석재를 모아요.</li><li>아래 건물을 고르고 빈 땅을 탭한 뒤 짓기를 누르세요.</li><li>시장에서 금화로 자원을 사고, 아래 상점에서 장식을 골라 마을을 꾸며요. 장식은 탭해서 옮기거나 보관할 수 있어요.</li><li>방문객의 이야기를 듣고 물자를 나누거나 주민을 보내 도와주세요. 금화와 친밀도, 특별 장식을 받을 수 있어요.</li><li>건물마다 일손이 필요해요. 오두막을 지으면 주민이 늘어나요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>건물을 탭하면 업그레이드하거나 옮길 수 있어요. 이동은 무료이며, 시장에서는 자원을 팔 수 있어요.</li></ul>
-  <div class="skillrow">${[['farm','농사','#819853'],['build','건축','#bd9759'],['trade','교역','#77929a']].map(([k,n,c])=>`<div class="pill"><span>${n} <b style="font-family:var(--f-num)">Lv ${lv(S.xp[k])}</b></span><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div></div>`).join('')}</div>
+  if(selId==='profile')h=profileHTML();
+  else if(selId==='people')h=peopleHTML();
+  else if(selId==='story')h=storyHTML();
+  else if(selId==='menu'){h=`<div class="top"><h2>설정</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
+  <ul class="help"><li>한 손가락으로 지도를 움직이고, 두 손가락을 벌리거나 오므려 확대·축소해요.</li><li><b>마을</b>: 나무와 바위를 탭해 목재와 석재를 모으고, 건물을 탭해 업그레이드하거나 옮겨요.</li><li><b>건설</b>: 건물을 고르고 빈 땅을 탭한 뒤 짓기를 눌러요. 건물마다 일손이 필요하고, 오두막을 지으면 주민이 늘어나요.</li><li><b>주민</b>: 이웃들의 정체(Lv ???)와 모은 단서를 보고, 찾아온 손님의 의뢰를 도와요.</li><li><b>이야기</b>: 목표를 이루면 다음 화가 열려요. 위쪽 목표 줄의 보상 버튼으로도 받을 수 있어요.</li><li><b>상점</b>: 금화로 장식을 사서 마을을 꾸며요. 자원 거래는 시장 건물을 탭해서 해요.</li><li>겨울에는 밀밭이 쉬어요. 식량을 미리 모으거나 빵집을 지으세요.</li><li>왼쪽 위 촌장 버튼에서 스킬과 마을 현황을 볼 수 있어요.</li></ul>
   <p>진행 상황은 이 기기에 자동으로 저장돼요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'한 번 더 누르면 처음부터 시작':'새로 시작'}</button></div>`}
   else if(selId==='visitors')h=visitorsHTML();
   else if(selId==='shop')h=shopHTML();
@@ -965,6 +1052,8 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
   else if(act==='buy'&&b?.k==='market')buy(+a.dataset.i);
   else if(act==='trade-tab'&&b?.k==='market'){tradeTab=a.dataset.tab==='sell'?'sell':'buy';renderSheet()}
   else if(act==='shop')openShop();
+  else if(act==='claim')claim(a.dataset.q);
+  else if(act==='tab')openTab(a.dataset.to);
   else if(act==='visitors')openVisitors();
   else if(act==='visitor-goods'&&selId==='visitors')acceptVisitor('goods',a.dataset.visit);
   else if(act==='visitor-workers'&&selId==='visitors')acceptVisitor('workers',a.dataset.visit);
