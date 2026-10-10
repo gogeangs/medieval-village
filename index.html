@@ -101,11 +101,23 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .sheet,.confirm{border-width:2px;border-radius:13px}.sheet h2{color:#4c3924;text-shadow:0 1px #fff3d3}.sheet .bprev{filter:drop-shadow(0 5px 2px #5b5c352d)}
 .btn{background:linear-gradient(#a37c4b,#805c35);border:1px solid #64492b;border-radius:7px;box-shadow:inset 0 1px #d6b177,0 2px 0 #5c432b;color:#fff2d0}.btn.go{background:linear-gradient(#8ba368,#637e47);border-color:#4d6738;box-shadow:inset 0 1px #bcc99a,0 2px 0 #476036}.btn:disabled{opacity:.45}
 .tag,.claim{border-radius:5px}.claim{background:#7b9357}.toast{background:#425a40f2;color:#fff0c8;border:1px solid #bdad79;border-radius:8px;box-shadow:0 5px 15px #263e323d}
-#art-loading{position:fixed;inset:0;z-index:999;display:grid;place-content:center;gap:18px;text-align:center;background:radial-gradient(ellipse at 50% 40%,#668254,#324b35);color:#f8ebc8;font:20px 'Jua',sans-serif}
-#art-loading .load-mark{margin:auto;width:54px;height:54px;border:3px solid #ddc68d55;border-top-color:#f4db9b;border-radius:50%;animation:load-turn 1.6s linear infinite}
+#art-loading{position:fixed;inset:0;z-index:999;display:grid;place-items:center;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));overflow:hidden;background:#324b35;color:#f8ebc8;font:20px 'Jua',sans-serif;text-align:center}
+#art-loading .load-bg{position:absolute;inset:-40px;background:radial-gradient(ellipse at 50% 40%,#668254,#324b35)}
+#art-loading .load-bg::after{content:"";position:absolute;inset:0;background:url(./assets/ui/loading.webp) center/cover;filter:blur(22px) saturate(1.1) brightness(.5);opacity:0;transition:opacity .6s}
+#art-loading.art-on .load-bg::after{opacity:1}
+#art-loading .load-card{position:relative;width:min(100%,440px);display:grid;gap:14px;justify-items:center}
+#art-loading .load-art{margin:0;width:100%;aspect-ratio:3/2;border-radius:14px;overflow:hidden;background:#4d6a45;border:3px solid #e9d39c;box-shadow:0 0 0 1px #6b4f2f,0 14px 34px #0f1d1290}
+#art-loading .load-art img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .6s,transform 1.2s ease-out}
+#art-loading.art-on .load-art img{opacity:1;transform:none}
+#art-loading .load-title{margin:4px 0 0;font:400 27px/1.2 'Jua',sans-serif;color:#fff3d2;text-shadow:0 2px 0 #3c2a19,0 3px 10px #0d1a0f99;letter-spacing:-.3px}
+#art-loading .load-title small{display:block;font-size:16px;color:#e8d7a6;margin-bottom:2px}
+#art-loading .load-title b{font-weight:400;color:#ffd66e}
+#art-loading .load-bar{width:min(78%,300px);height:10px;border-radius:6px;background:#1f301f99;border:1px solid #d4bd8466;overflow:hidden}
+#art-loading .load-bar i{display:block;height:100%;width:4%;border-radius:6px;background:linear-gradient(90deg,#d9b45c,#ffe39a);transition:width .25s}
 #art-loading small{font-size:13px;color:#d7ddbb}.load-retry{margin:auto;border:1px solid #d0b77b;border-radius:7px;padding:9px 18px;background:#725235;color:#fff0c8;font:15px 'Jua',sans-serif;cursor:pointer}
-@keyframes load-turn{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){#art-loading .load-mark{animation:none}}
+#art-loading .load-tip{margin:0;min-height:2.8em;max-width:340px;word-break:keep-all;font-size:15px;line-height:1.45;color:#f3e6c2;transition:opacity .3s}
+@media(max-height:560px) and (orientation:landscape){#art-loading .load-card{width:min(100%,780px);grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 18px}#art-loading .load-art{grid-row:1/5;width:auto;height:min(64vh,300px)}#art-loading .load-title{font-size:22px}}
+@media(prefers-reduced-motion:reduce){#art-loading *{transition:none!important}}
 @media(max-width:520px){.res{border-width:1px;border-radius:8px}.bar-in{border-radius:11px}.slot{border-radius:6px}.res .r{color:#827250}.sheet{max-height:calc(100dvh - 32px)}.iconbtn{border-width:1px}}
 
 
@@ -250,7 +262,7 @@ body.sheet-open .hud{visibility:hidden}
 </style>
 
 </head>
-<body data-art-loading><div id="art-loading" role="status" aria-live="polite"><div class="load-mark" aria-hidden="true"></div><div>초보자 마을을 준비하고 있어요</div><small id="art-progress">마을 그림을 불러오는 중…</small></div>
+<body data-art-loading><div id="art-loading" role="status" aria-live="polite"><div class="load-bg" aria-hidden="true"></div><div class="load-card"><figure class="load-art" aria-hidden="true"><img src="./assets/ui/loading.webp" width="840" height="560" alt="" fetchpriority="high" onload="document.getElementById('art-loading').classList.add('art-on')"></figure><h1 class="load-title"><small>알고보니</small>초보자 마을이 <b>Lv999</b></h1><div class="load-bar" aria-hidden="true"><i id="art-bar"></i></div><small id="art-progress">마을 그림을 불러오는 중…</small><p class="load-tip" id="load-tip">이 마을 주민들은 모두 평범합니다. 아마도.</p></div></div>
 <canvas id="cv" aria-label="마을 지도"></canvas>
 
 <div class="hud" id="hud">
@@ -677,12 +689,15 @@ async function loadPaintedSprites(){
     const finish=ok=>{if(ended)return;ended=true;clearTimeout(timer);im.onload=null;im.onerror=null;if(ok)PAINTED[id]=im;resolve(ok)};
     const timer=setTimeout(()=>finish(false),Math.min(7000,remaining));im.onload=()=>finish(true);im.onerror=()=>finish(false);im.src=m.url;
   });
-  async function worker(){while(cursor<entries.length){const entry=entries[cursor++];let ok=await loadOne(entry);if(!ok)ok=await loadOne(entry);if(!ok)failures.push(entry[0]);done++;const status=document.getElementById('art-progress');if(status)status.textContent=done+' / '+entries.length}}
+  async function worker(){while(cursor<entries.length){const entry=entries[cursor++];let ok=await loadOne(entry);if(!ok)ok=await loadOne(entry);if(!ok)failures.push(entry[0]);done++;const status=document.getElementById('art-progress');if(status)status.textContent=done+' / '+entries.length;const bar=document.getElementById('art-bar');if(bar)bar.style.width=Math.max(4,Math.round(done/entries.length*100))+'%'}}
   await Promise.all(Array.from({length:4},worker));warmUiSprites();return failures;
 }
+const LOAD_TIPS=['이 마을 주민들은 모두 평범합니다. 아마도.','마르타 할머니의 찻잔은 절대 식지 않아요.','군터 아저씨가 “바람이 세다”고 하면… 그냥 그런가 보다 해요.','피노의 물건은 전부 합법이에요. 아마도.','바르그가 우유를 권하면 사양하지 마세요.','브루노 아저씨는 오늘도 허리 운동 중이에요. 바위로.','소문이 100이 되면 조사관이 와요. 평범한 척하세요.','녹슨 냄비라도 버리지 마세요. 피노에게 감정을 맡겨 봐요.'];
 async function beginIllustratedGame(){
+  let tipI=Math.random()*LOAD_TIPS.length|0;const tipEl=document.getElementById('load-tip');if(tipEl)tipEl.textContent=LOAD_TIPS[tipI];
+  const tipT=setInterval(()=>{const el=document.getElementById('load-tip');if(!el){clearInterval(tipT);return}el.style.opacity=0;setTimeout(()=>{tipI=(tipI+1)%LOAD_TIPS.length;el.textContent=LOAD_TIPS[tipI];el.style.opacity=1},300)},2600);
   let failures=[];try{failures=await loadPaintedSprites()}catch(error){console.warn('Illustration loading fell back to procedural artwork.',error)}
-  document.getElementById('art-loading')?.remove();document.body.removeAttribute('data-art-loading');
+  clearInterval(tipT);document.getElementById('art-loading')?.remove();document.body.removeAttribute('data-art-loading');
   window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data??{});
   if(failures.length)setTimeout(()=>toast('일부 그림을 불러오지 못해 기본 그림으로 표시합니다'),1200);
 }
