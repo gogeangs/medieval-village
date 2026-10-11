@@ -134,5 +134,21 @@
     "height": 512,
     "bytes": 72740,
     "alphaZeroFraction": 0.446
+  },
+  {
+    "id": "characters-elise",
+    "file": "./assets/story/characters-elise.webp",
+    "width": 1024,
+    "height": 1024,
+    "bytes": 60842,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "portrait-elise",
+    "file": "./assets/story/portrait-elise.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 65400,
+    "alphaZeroFraction": 0.5194
   }
 ]

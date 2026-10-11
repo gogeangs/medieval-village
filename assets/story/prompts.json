@@ -144,6 +144,33 @@
         "assets/illustrations/hall.webp",
         "assets/illustrations/house.webp"
       ]
+    },
+    {
+      "id": "characters-elise",
+      "prompt": "Use case: illustration-story. Create ONE original character model sheet for the warm hand-painted medieval village game, square 1024x1024. The attached six-person canonical character sheet is a STYLE reference only: precisely match its illustrated faces, warm textured gouache/watercolor, softly inked organic contours, worn fabric material, natural human proportions and gentle comedy. Do not reproduce the six people. Subject: ONE new character ELISE, female royal inspector age 28. Neatly tied DARK NAVY-BLUE hair in a low tidy bun, a few subtly unruly wisps; thin round metal-rim glasses; attentive suspicious hazel eyes; composed principled face with a tiny awkward uncertain raised eyebrow. A fitted NAVY uniform coat with modest brass buttons, ivory collar, brown belt, subtle brass fictional royal crest (small fleur-shaped emblem, absolutely no writing), practical dark trousers and brown ankle boots. She holds a plain leather document folder under one arm and a small round BRASS MONSTER METER resembling a compass in the other hand. The meter has a simple needle and tick marks ONLY, no digits or letters. Full body head to boots visible, natural three-quarter frontal standing pose, centered, occupies 82% of height, unobstructed silhouette, no inset portraits or extra views. Plain warm ivory background to the edges, very faint contact shadow. Soft upper-left light. Original character, no existing franchise. NO text, labels, numbers, logos, speech bubbles, frame or border. Not anime, not pixel art, not flat vector, not glossy 3D. This will be the canonical reference for later scenes; keep outfit and face distinctive and readable.",
+      "referenceImages": [
+        "assets/story/characters.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "portrait-elise",
+      "prompt": "Use case: identity-preserve. Create ONE square resident portrait for a warm hand-painted medieval game. Reference image 1 is the CANONICAL ELISE design: retain her exact face, adult age28, dark navy hair tied in a low bun, round thin metal-rim glasses, hazel eyes, navy brass-button royal coat with tiny fleur-shaped crest, ivory collar, brown leather document folder and round brass compass-like monster meter. Reference image 2 is the existing Pino portrait: use the SAME waist-up framing, scale, brush texture and soft upper-left lighting, but do NOT depict Pino. Elise looks principled and suspicious with a slight awkward raised eyebrow, holding the blank folder against her torso and meter clearly visible near chest. Centered bust, head and shoulders completely in frame, arms end naturally at waist, 6% empty transparent padding. True transparent background with alpha, not a checkerboard or painted white. Clear silhouette, softly textured gouache/watercolor storybook illustration. No scenery, no labels, no lettering, no digits on dial, no text, speech bubble, watermark, border or frame. Not anime, not pixel art, not flat vector, not 3D. Exactly one woman; no extra panels.",
+      "referenceImages": [
+        "assets/story/characters-elise.webp",
+        "assets/story/portrait-pino.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 512,
+        "height": 512
+      }
     }
   ]
 }
