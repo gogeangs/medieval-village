@@ -36,5 +36,43 @@
       3,
       3
     ]
+  },
+  {
+    "id": "house-l2",
+    "file": "./assets/illustrations/levels/house-l2.webp",
+    "width": 512,
+    "height": 675,
+    "bytes": 88698,
+    "alphaZeroFraction": 0.1686,
+    "crop": [
+      4,
+      4,
+      504,
+      667
+    ],
+    "quality": 73,
+    "footprint": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": "house-l3",
+    "file": "./assets/illustrations/levels/house-l3.webp",
+    "width": 512,
+    "height": 690,
+    "bytes": 89882,
+    "alphaZeroFraction": 0.1344,
+    "crop": [
+      4,
+      4,
+      504,
+      682
+    ],
+    "quality": 64,
+    "footprint": [
+      2,
+      2
+    ]
   }
 ]

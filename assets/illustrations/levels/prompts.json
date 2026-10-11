@@ -1,7 +1,7 @@
 {
   "tool": "Built-in ImageGen",
   "style": "Warm painted storybook architecture; canonical level-one roof colors, materials, ornaments, near-frontal camera and upper-left light.",
-  "export": "512px-wide proportional WebP with original transparent alpha. Tight alpha>8 bounding crop, 4px transparent safety padding; WebP effort 6, alpha quality 100, highest tested quality from 88/85/82/79/76/73 within 90,000 bytes. No nonuniform stretching.",
+  "export": "512px-wide proportional WebP with transparent alpha. Tight alpha>8 crop, 4px transparent padding. Effort 6; color and alpha quality recorded per asset; maximum 90,000 bytes. No nonuniform stretching.",
   "assets": [
     {
       "id": "hall-l2",
@@ -42,6 +42,47 @@
       "footprint": [
         3,
         3
+      ]
+    },
+    {
+      "id": "house-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nBUILDING: house LEVEL TWO.\nIDENTITY: Warm terracotta-red curved roof tiles, ivory plaster with honey-brown timber beams, stone foundation and arched stone doorway with simple wooden door, blue glazed windows with wooden shutters, little white/yellow/orange flowers, stone chimney.\nFOOTPRINT AND COMPOSITION: Compact square 2-by-2 tile footprint, moderately portrait silhouette similar to the reference cottage. No wide side wing, keep all additions snugly within base width.\nUPGRADE: Repair and enlarge the original cottage upward with a clearly habitable SECOND-FLOOR ATTIC, a taller main roof and generous recognizable front dormer. Add flowering window boxes beneath the upper and lower windows. Preserve arched front door and stone steps, shutters and red tiled roof. One stone chimney, no sprawling wings. Modestly richer than level one.\nThe level-one roof already has a small dormer: make the upgrade visibly distinct with a taller habitable attic level and two extra small upper windows, while keeping the central dormer recognizable. Single portrait-oriented transparent sprite.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/house.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 73,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 675
+      },
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "house-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is the approved LEVEL TWO of this SAME building. Evolve it directly, preserve its three attic dormers and main structure; image1 anchors original identity.\nBUILDING: house LEVEL THREE.\nIDENTITY: Warm terracotta-red curved roof tiles, ivory plaster with honey-brown timber beams, stone foundation and arched stone doorway with simple wooden door, blue glazed windows with wooden shutters, little white/yellow/orange flowers, stone chimney.\nFOOTPRINT: Compact square 2-by-2 tile footprint, moderately portrait silhouette similar to the reference cottage. No wide side wing, keep all additions snugly within base width.\nUPGRADE: Build on the level-two attic cottage. EXACTLY TWO stone chimneys, a broader roofed front porch with slim timber posts and terracotta porch roof, climbing pink/red roses hugging the walls, a TINY low-fenced vegetable planter snugly along the front edge. The planter is self-contained in a timber box, foliage only inside, no earth patch, lawn or garden island. Retain warm timber/ivory walls, red roof, blue windows. Stately cozy family cottage, not a mansion.\nAll cottage and tiny front-porch planters remain one compact 2x2 footprint. Exactly two stone chimneys, do not keep a third one. Full silhouette portrait, no comparison panels.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/house.webp",
+        "assets/illustrations/levels/house-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 64,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 690
+      },
+      "footprint": [
+        2,
+        2
       ]
     }
   ]
