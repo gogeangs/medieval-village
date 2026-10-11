@@ -1,7 +1,7 @@
 {
   "tool": "Built-in ImageGen",
   "style": "Season 1 original storybook art; canonical characters.webp reference",
-  "export": "128×128 transparent WebP quality 92",
+  "export": "Tab icons: 128×128 transparent WebP quality 92; loading: 960×1200 opaque WebP quality 85. See per-asset settings.",
   "assets": [
     {
       "id": "tab-village",
@@ -37,6 +37,20 @@
       "referenceImages": [
         "assets/illustrations/house.webp"
       ]
+    },
+    {
+      "id": "loading",
+      "prompt": "Use case: illustration-story.\nAsset type: a finished portrait 4:5 loading-screen illustration for an original cozy medieval village game. Produce ONE full-bleed opaque vertical illustration, 1024 pixels wide by 1280 pixels high. NO typography or UI.\nInput images: Image 1 is the canonical six-person character design sheet: match each face, hair, body proportion and costume exactly. Image 2 is the canonical painting style and village architecture reference, not a composition to copy.\nScene: a welcoming sunlit spring village, warm green hills, grass and daisies, a winding ochre dirt lane leading into the background, red terracotta-roof timber cottages and the distinctive cream-stone blue-gray-roof CLOCKTOWER town hall, surrounded by trees. Gentle morning light from upper left; warm green, terracotta, cream and muted blue palette. Rich but legible hand-painted gouache and watercolor storybook illustration, textured brushwork, organic fine brown contours and expressive original faces. Match the reference, not anime, not pixel art, not flat vector, not smooth 3D.\nComposition: portrait cover-like village tableau WITHOUT words, lettering, borders or framing. Village and full clocktower occupy the upper half, six recognizable original characters gather naturally along the lane in the lower half, staggered in depth with all faces distinct, no one hidden. Keep every character and the top of the tower inside the canvas with comfortable 7% margin. Main young chief is slightly forward in the center, smiling with a pleasantly baffled expression, one hand scratching his curls. The five experienced villagers look calmly fond and amused, a warm ensemble welcome rather than an action scene. No duplicate characters. Show exactly these SIX people, no others:\n1. Chief: slim clean-shaven young man in mid twenties, short chestnut brown curls, moss-green waistcoat with toggles, loose ivory white shirt, tan trousers, brown boots.\n2. Marta: tiny round grandmother, silver-white hair in a bun, plum shawl and plum skirt, cream apron with small peach-pink flower print, holding her little teacup, warm knowing smile.\n3. Gunter: very tall lean middle-aged lumberjack, shaggy silver-gray hair completely covering his eyes, worn brown leather vest over beige shirt, gray-brown trousers, ordinary axe strapped on his back.\n4. Bruno: enormous broad gentle middle-aged man, short brown hair and beard, faded blue-gray overalls over ivory work shirt, old broad brown belt with brass fleur-shaped medallion.\n5. Pino: slim black-curly-haired merchant in his thirties, long dark forest-green scarf, ochre traveling coat, visibly loaded backpack with rolled blanket and simple cookware.\n6. Barg: large burly bearded innkeeper, burgundy-red kerchief with subtle tiny horn tips, charcoal shirt and weathered tan apron, stern eyebrows but kindly relaxed pose.\nMaintain the exact identifying features and clothing from reference 1. No readable letters, no numbers even on the clock (simple ticks only), no speech bubbles, no logos, no watermark, no painted border, no heroic armor or overt magic. The entire image is painted landscape and people, no blank strips. Soft cozy comedy and affection.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 960,
+        "height": 1200
+      }
     }
   ]
 }

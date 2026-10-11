@@ -38,5 +38,13 @@
     "height": 128,
     "bytes": 11782,
     "alphaZeroFraction": 0.3278
+  },
+  {
+    "id": "loading",
+    "file": "./assets/ui/loading.webp",
+    "width": 960,
+    "height": 1200,
+    "bytes": 341232,
+    "alphaZeroFraction": 0
   }
 ]
