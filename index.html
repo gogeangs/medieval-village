@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>알고보니 초보자 마을이 Lv999</title>
+<link rel="preload" as="image" href="./assets/ui/loading.webp" fetchpriority="high">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
@@ -105,6 +106,7 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 #art-loading .load-bg{position:absolute;inset:-40px;background:radial-gradient(ellipse at 50% 40%,#668254,#324b35)}
 #art-loading .load-bg::after{content:"";position:absolute;inset:0;background:url(./assets/ui/loading.webp) center/cover;filter:blur(22px) saturate(1.1) brightness(.5);opacity:0;transition:opacity .6s}
 #art-loading.art-on .load-bg::after{opacity:1}
+#art-loading.leaving{opacity:0;pointer-events:none;transition:opacity .4s}
 #art-loading .load-card{position:relative;width:min(100%,440px);min-width:0;display:grid;gap:10px;justify-items:center}
 #art-loading .load-art{margin:0;width:min(100%,336px,max(96px,calc((var(--load-vh) - 260px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * .8)));aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#4d6a45;border:3px solid #e9d39c;box-shadow:0 0 0 1px #6b4f2f,0 14px 34px #0f1d1290}
 #art-loading .load-art img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s}
@@ -700,8 +702,14 @@ async function beginIllustratedGame(){
   let tipI=Math.random()*LOAD_TIPS.length|0;const tipEl=document.getElementById('load-tip');if(tipEl)tipEl.textContent=LOAD_TIPS[tipI];
   const tipT=setInterval(()=>{const el=document.getElementById('load-tip');if(!el){clearInterval(tipT);return}el.style.opacity=0;setTimeout(()=>{tipI=(tipI+1)%LOAD_TIPS.length;el.textContent=LOAD_TIPS[tipI];el.style.opacity=1},300)},2600);
   let failures=[];try{failures=await loadPaintedSprites()}catch(error){console.warn('Illustration loading fell back to procedural artwork.',error)}
-  clearInterval(tipT);document.getElementById('art-loading')?.remove();document.body.removeAttribute('data-art-loading');
+  // Keep the title art on screen long enough to be seen, even when the sprites come from cache.
+  const box=document.getElementById('art-loading'),cover=box?.querySelector('.load-art img');
+  if(box){const bar=document.getElementById('art-bar');if(bar)bar.style.width='100%';
+    if(cover&&!cover.complete)await Promise.race([new Promise(r=>{cover.addEventListener('load',r,{once:true});cover.addEventListener('error',r,{once:true})}),new Promise(r=>setTimeout(r,2500))]);
+    const minShow=cover&&cover.naturalWidth?1800:700,left=minShow-performance.now();if(left>0)await new Promise(r=>setTimeout(r,left));}
+  clearInterval(tipT);document.body.removeAttribute('data-art-loading');
   window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data??{});
+  if(box){box.classList.add('leaving');setTimeout(()=>box.remove(),420)}
   if(failures.length)setTimeout(()=>toast('일부 그림을 불러오지 못해 기본 그림으로 표시합니다'),1200);
 }
 
