@@ -327,6 +327,206 @@
           "centering": "transparent padding to 128×128"
         }
       }
+    },
+    {
+      "id": "daily-chop",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: One small honey-brown TREE STUMP with ONE simple iron hand axe embedded diagonally in its top; short handle angles upward. Broad readable stump, few roots, one large axe blade, no scattered logs.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 25,
+            "top": 61,
+            "width": 1215,
+            "height": 1193
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-mine",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: One rounded angular gray ROCK with ONE short wooden-handled iron PICKAXE resting diagonally on top. Pick has a broad crescent iron head. Large clean forms, no stones scattered outside.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 0,
+            "top": 19,
+            "width": 1248,
+            "height": 1235
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-talk",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: TWO small cream ceramic TEACUPS facing each other, one on left and one on right, their large handles point inward and nearly touch, clearly distinct cups with brown tea, slightly staggered. No tray, no saucers, no speech bubbles, no extra cup.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 0,
+            "top": 23,
+            "width": 1222,
+            "height": 1198
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-visitor",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: ONE friendly HANDSHAKE of exactly TWO rounded human hands, one warm beige and one warm brown skin tone, with small cuffs in ivory and moss green. Bold simplified storybook anatomy, clearly clasped palms with one thumb above, no jewelry, no arms beyond cuffs, no extra fingers.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 30,
+            "top": 46,
+            "width": 1206,
+            "height": 1144
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-build",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: ONE carpenter hammer lying diagonally across ONE short thick WOOD PLANK. Dark iron hammer head, honey wooden handle, broad golden-brown plank with two simple grain lines; no nails or extra tools.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 0,
+            "top": 23,
+            "width": 1234,
+            "height": 1231
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-trade",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: ONE small antique BRASS BALANCE SCALE with two clearly visible broad shallow weighing pans hanging from a simple horizontal crossbar over a central upright and stable small base. Thick supports; simplify tiny chains into thick single links. Both pans level, no coins or numbers.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 0,
+            "top": 37,
+            "width": 1220,
+            "height": 1191
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-crisis",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: ONE stout WOODEN SHIELD in front of ONE worn straw BROOM tilted across behind it. Brown plank shield with a simple broad iron edge and no crest; the broom handle and broad straw bristles clearly visible diagonally above and below the shield. Compact single crossed-tool emblem, no swords.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 39,
+            "top": 17,
+            "width": 1180,
+            "height": 1237
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
+    },
+    {
+      "id": "daily-grad",
+      "prompt": "Use case: stylized-concept. Make ONE original cozy medieval game UI icon as a single cohesive centered emblem, square 1:1, genuine transparent alpha background. Input images are STYLE references only: match the warm hand-painted watercolor/gouache materials of the pot, the bold hand-inked brown outline and small-scale simplicity of the hammer, and the town hall's sister village architecture. Do not copy unrelated reference objects into this icon.\nFinal export is 128x128 and it will be seen at only 24–32 pixels: choose a very bold recognizable silhouette, thick warm dark-brown edge, a fine pale cream edge highlight for legibility on dark wood, a handful of big color shapes, minimal internal detail, no fine filigree or texture noise. Consistent gentle lighting from upper left, shaded lower right, muted terracotta/cream/moss-green/antique brass palette, tactile brush strokes. Combined subject bounding box occupies approximately 80% of square, equal clear 10% margins, all parts connected or clustered tightly, complete silhouette uncut. Real alpha transparency, no background and no painted checkerboard; barely any shadow.\nNO text, numbers, writing, logo, watermark, frame, border circle, background disc, backing tile, ground or scene. Not emoji, not flat vector, not pixel art, not anime, not glossy 3D. Reference look simplified for mobile, not photorealism.\nSUBJECT: ONE soft medieval moss-green cap with a large short cream feather, resting partly over ONE small rolled parchment scroll tied with a plain reddish ribbon. A medieval adventurer graduation symbol, not a mortarboard. Hat is the dominant silhouette, no writing on the scroll.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "width": 128,
+        "height": 128,
+        "normalization": {
+          "sourceAlphaBounds": {
+            "left": 0,
+            "top": 69,
+            "width": 1240,
+            "height": 1161
+          },
+          "subjectMaxPixels": 102,
+          "centering": "transparent padding to 128×128"
+        }
+      }
     }
   ]
 }

@@ -102,5 +102,69 @@
     "height": 128,
     "bytes": 5906,
     "alphaZeroFraction": 0.6857
+  },
+  {
+    "id": "daily-chop",
+    "file": "./assets/ui/icons/daily-chop.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5864,
+    "alphaZeroFraction": 0.7084
+  },
+  {
+    "id": "daily-mine",
+    "file": "./assets/ui/icons/daily-mine.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6028,
+    "alphaZeroFraction": 0.6678
+  },
+  {
+    "id": "daily-talk",
+    "file": "./assets/ui/icons/daily-talk.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 4964,
+    "alphaZeroFraction": 0.7668
+  },
+  {
+    "id": "daily-visitor",
+    "file": "./assets/ui/icons/daily-visitor.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5276,
+    "alphaZeroFraction": 0.7194
+  },
+  {
+    "id": "daily-build",
+    "file": "./assets/ui/icons/daily-build.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6082,
+    "alphaZeroFraction": 0.6571
+  },
+  {
+    "id": "daily-trade",
+    "file": "./assets/ui/icons/daily-trade.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 7204,
+    "alphaZeroFraction": 0.6895
+  },
+  {
+    "id": "daily-crisis",
+    "file": "./assets/ui/icons/daily-crisis.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5772,
+    "alphaZeroFraction": 0.7202
+  },
+  {
+    "id": "daily-grad",
+    "file": "./assets/ui/icons/daily-grad.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6276,
+    "alphaZeroFraction": 0.6599
   }
 ]
