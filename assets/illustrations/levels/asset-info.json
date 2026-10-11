@@ -74,5 +74,43 @@
       2,
       2
     ]
+  },
+  {
+    "id": "lumber-l2",
+    "file": "./assets/illustrations/levels/lumber-l2.webp",
+    "width": 512,
+    "height": 439,
+    "bytes": 81856,
+    "alphaZeroFraction": 0.1796,
+    "crop": [
+      4,
+      4,
+      504,
+      431
+    ],
+    "quality": 85,
+    "footprint": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": "lumber-l3",
+    "file": "./assets/illustrations/levels/lumber-l3.webp",
+    "width": 512,
+    "height": 596,
+    "bytes": 86302,
+    "alphaZeroFraction": 0.3093,
+    "crop": [
+      4,
+      4,
+      504,
+      588
+    ],
+    "quality": 82,
+    "footprint": [
+      2,
+      2
+    ]
   }
 ]

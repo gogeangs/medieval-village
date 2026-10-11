@@ -84,6 +84,47 @@
         2,
         2
       ]
+    },
+    {
+      "id": "lumber-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nBUILDING: lumber LEVEL TWO.\nIDENTITY: Moss/olive-green curved tiled roofs, honey-brown timber posts and cream plaster, central wooden double door under crossed-axes PICTOGRAM sign, small dormer with flower box, attached log storage, stone chimney and warm amber lantern.\nFOOTPRINT AND COMPOSITION: Compact square 2-by-2 tile footprint. Near-square to slightly portrait total silhouette; auxiliary machinery is tucked within a compact base, no elongated industrial sprawl.\nUPGRADE: Grow the reference lumber lodge into a neat covered woodworking WORKSHOP. Extend the existing green roof across an open work bay, add a LARGE TIMBER SAW FRAME with one long visible steel saw blade and timber bench, orderly stacked raw logs under the roof. Keep the dormer, crossed-axes symbol sign and central lodge identity visible. Workshop is compact and professionally repaired, no waterwheel yet.\nKeep the workshop SAW FRAME plainly visible: rectangular timber frame enclosing one long steel toothed blade over a workbench. Clear compact near-square silhouette. No ground texture or loose scatter.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/lumber.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 439
+      },
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "lumber-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is approved LEVEL TWO of this SAME lumber workshop. Build directly on its green lodge and covered saw bay; image1 anchors original identity.\nBUILDING: lumber LEVEL THREE.\nIDENTITY: Moss/olive-green curved tiled roofs, honey-brown timber posts and cream plaster, central wooden double door under crossed-axes PICTOGRAM sign, small dormer with flower box, attached log storage, stone chimney and warm amber lantern.\nFOOTPRINT: Compact square 2-by-2 tile footprint. Near-square to slightly portrait total silhouette; auxiliary machinery is tucked within a compact base, no elongated industrial sprawl.\nUPGRADE: Build on the level-two workshop with a small clearly recognizable VERTICAL WOODEN WATERWHEEL mechanically connected by a visible wooden axle/gear to the saw frame. Show only the mill mechanism, NO stream, flowing water, pond or ground. Add a tall neatly squared firewood rack/tower under an elevated green lean-to and a compact wooden lifting crane with short boom and hanging empty hook. All mechanisms attached closely to this one lumber workshop, within the same base width. Keep green tiles, timber/cream walls and crossed-axes sign.\nCompose machinery in DEPTH and HEIGHT rather than spreading out: one vertical waterwheel snug at the side of saw bay, tall firewood rack behind the frame, short crane rising from rear support. Clear wheel, saw, wood tower and crane silhouettes, all fully visible, compact coherent workshop. No stream or ground beneath wheel, no floating detached components.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/lumber.webp",
+        "assets/illustrations/levels/lumber-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 596
+      },
+      "footprint": [
+        2,
+        2
+      ]
     }
   ]
 }
