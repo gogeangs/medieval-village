@@ -1625,7 +1625,7 @@ function graduate(t){const a=S.academy,match=t.by===t.apt,fv=Math.min(30,(S.favo
  const grad={id:a.uid++,n:t.n,by:t.by,apt:t.apt,g,lv,cls,away:null};a.grads.push(grad);S.r.gold+=G.gold;S.favor[t.by]=(S.favor[t.by]||0)+1;dailyBump('grad');if(G.rumor)addRumor(G.rumor);
  const by=RESIDENTS.find(r=>r.id===t.by),note=match?`${ACAD_APT[t.apt].cls}의 길을 찾았다!`:`${ACAD_APT[t.apt].cls} 지망생이었는데 ${cls}가 되었다. ${ACAD_QUIRK[t.by]}`;
  save();renderSheet();updateTabs();
- if(g==='S'&&sheet.hidden&&$('#scene').hidden)setTimeout(()=>{if(!$('#scene').hidden||!sheet.hidden){gradCard(grad,note);return}playCustom('졸업식',`${t.n} · S 등급`,[['',`${by.n.split(' ')[0]} 문하의 ${t.n}, 수석 졸업. Lv ${lv}.`],['',note],[by.n.split(' ')[0],match?'…제법이군.':'…원하던 길은 아니었겠지만, 잘 해낼 거다.'],['','왕국 신문 1면: ‘신예 ${t.n}, 평범한 시골 마을 출신?’'],['',`금화 +${G.gold} · 소문 +${rumorShow(G.rumor)}`]])},300);
+ if(g==='S'&&sheet.hidden&&$('#scene').hidden)setTimeout(()=>{if(!$('#scene').hidden||!sheet.hidden){gradCard(grad,note);return}playCustom('졸업식',`${t.n} · S 등급`,[['',`${by.n.split(' ')[0]} 문하의 ${t.n}, 수석 졸업. Lv ${lv}.`],['',note],[by.n.split(' ')[0],match?'…제법이군.':'…원하던 길은 아니었겠지만, 잘 해낼 거다.'],['',`왕국 신문 1면: ‘신예 ${t.n}, 평범한 시골 마을 출신?’`],['',`금화 +${G.gold} · 소문 +${rumorShow(G.rumor)}`]])},300);
  else gradCard(grad,note)}
 function gradCard(g,note){document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive';
  el.innerHTML=`<span class="gbadge g${g.g}">${g.g}</span><span><small>졸업! ${RESIDENTS.find(r=>r.id===g.by).n.split(' ')[0]} 문하 · ${g.cls}</small><b>${g.n} · Lv ${g.lv}</b><em>${note} 금화 +${GRADE[g.g].gold}</em></span>`;
