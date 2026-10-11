@@ -1,0 +1,67 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Warm hand-painted storybook watercolor matching assets/items and assets/ui/tab-*; upper-left light, brown contours, simple mobile silhouettes.",
+  "export": "800×500 opaque WebP quality 80; pale parchment background.",
+  "assets": [
+    {
+      "id": "help-tap",
+      "prompt": "Use case: illustration-story / wordless mobile-game help diagram. ONE landscape illustration, exact 8:5 aspect ratio, designed for export at 800x500. Original warm hand-painted storybook watercolor/gouache, softly inked brown contours, simple large forms. Match the existing reference game icons' material, colors, upper-left lighting and gentle brushwork. Warm wood brown, moss green, cream, terracotta, blue-gray. Background is a uniform SOLID pale parchment color #f6ecd4 across the whole canvas; no paper stains, texture noise, horizon or scenery beyond the few necessary subjects. Keep clear 7% margins.\nIf a hand appears, use exactly ONE cute rounded cartoon human hand with warm peach skin, a short plain ivory shirt cuff, no body or face. It should be anatomically coherent, simple and friendly, not realistic, no extra fingers. Any visible hand uses this same design.\nExplain actions ONLY with broad clear hand-painted direction ARROWS and a few tiny golden four-point SPARKLES. No letters, text, numbers, labels, speech bubbles, logo or watermark anywhere; do not paint a device screen, outer border, ornamental frame or background disc. No pixel art, anime, flat vector or smooth 3D. Plenty of blank parchment for visual breathing room. Foreground subjects gently textured but not dense or fussy.\nSCENE: A single squat leafy green village TREE on the left-center, entire tree visible from canopy to roots, with warm-brown trunk. On its right, ONE cartoon hand points its index finger leftward and gently touches the trunk, thumb and three other fingers naturally curled. A small golden contact sparkle sits precisely at the fingertip touching the bark. Three chunky little WOOD CHIPS jump UPWARD from that contact area above/right of the trunk, following one short curved upward arrow. Show a clear tap-and-harvest action, not chopping: no axe, no injured character, no hand holding a chip. Tree, hand and chips are the only main subjects on blank parchment.",
+      "referenceImages": [
+        "assets/items/pot.webp",
+        "assets/ui/tab-build.webp",
+        "assets/ui/tab-village.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 80,
+        "width": 800,
+        "height": 500
+      }
+    },
+    {
+      "id": "help-pinch",
+      "prompt": "Use case: illustration-story / wordless mobile-game help diagram. ONE landscape illustration, exact 8:5 aspect ratio, designed for export at 800x500. Original warm hand-painted storybook watercolor/gouache, softly inked brown contours, simple large forms. Match the existing reference game icons' material, colors, upper-left lighting and gentle brushwork. Warm wood brown, moss green, cream, terracotta, blue-gray. Background is a uniform SOLID pale parchment color #f6ecd4 across the whole canvas; no paper stains, texture noise, horizon or scenery beyond the few necessary subjects. Keep clear 7% margins.\nIf a hand appears, use exactly ONE cute rounded cartoon human hand with warm peach skin, a short plain ivory shirt cuff, no body or face. It should be anatomically coherent, simple and friendly, not realistic, no extra fingers. Any visible hand uses this same design.\nExplain actions ONLY with broad clear hand-painted direction ARROWS and a few tiny golden four-point SPARKLES. No letters, text, numbers, labels, speech bubbles, logo or watermark anywhere; do not paint a device screen, outer border, ornamental frame or background disc. No pixel art, anime, flat vector or smooth 3D. Plenty of blank parchment for visual breathing room. Foreground subjects gently textured but not dense or fussy.\nSCENE: Input image 1 is the HAND, PARCHMENT BACKGROUND and painting-style reference: preserve that hand design, cuff, contour weight and warm color. Do not include its tree or wood chips unless requested. Other input images are village architecture and material style references only.\nA clearly readable pinch-to-ZOOM diagram laid out left to right. At left, a SMALL simplified square village map with a blue-gray clocktower, one red roof cottage, green grass and ochre path. At right, the SAME map in the SAME orientation and containing the SAME landmarks, approximately TWICE the width and height, so magnification is obvious. Between the maps a short right-pointing brown arrow indicates small map becomes large map. Over the lower-middle of the larger map is exactly ONE rounded cartoon hand viewed from above/back: thumb extended to lower-left and index finger extended to upper-right in a wide open pinch, other three fingers curled into the palm; no V sign, no second hand. Two broad curved moss-green arrows start near the fingertips and point OUTWARD AWAY from each other, one toward lower-left and one toward upper-right, unmistakably spreading the thumb and index. Map and hand do not cover arrowheads. No text, plus/minus signs, or numbers.",
+      "referenceImages": [
+        "assets/ui/help/help-tap.webp",
+        "assets/ui/tab-village.webp",
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 80,
+        "width": 800,
+        "height": 500
+      }
+    },
+    {
+      "id": "help-build",
+      "prompt": "Use case: illustration-story / wordless mobile-game help diagram. ONE landscape illustration, exact 8:5 aspect ratio, designed for export at 800x500. Original warm hand-painted storybook watercolor/gouache, softly inked brown contours, simple large forms. Match the existing reference game icons' material, colors, upper-left lighting and gentle brushwork. Warm wood brown, moss green, cream, terracotta, blue-gray. Background is a uniform SOLID pale parchment color #f6ecd4 across the whole canvas; no paper stains, texture noise, horizon or scenery beyond the few necessary subjects. Keep clear 7% margins.\nIf a hand appears, use exactly ONE cute rounded cartoon human hand with warm peach skin, a short plain ivory shirt cuff, no body or face. It should be anatomically coherent, simple and friendly, not realistic, no extra fingers. Any visible hand uses this same design.\nExplain actions ONLY with broad clear hand-painted direction ARROWS and a few tiny golden four-point SPARKLES. No letters, text, numbers, labels, speech bubbles, logo or watermark anywhere; do not paint a device screen, outer border, ornamental frame or background disc. No pixel art, anime, flat vector or smooth 3D. Plenty of blank parchment for visual breathing room. Foreground subjects gently textured but not dense or fussy.\nSCENE: Input image 1 is the HAND, PARCHMENT BACKGROUND and painting-style reference: preserve that hand design, cuff, contour weight and warm color. Do not include its tree or wood chips unless requested. Other input images are village architecture and material style references only.\nTHREE evenly spaced, clearly separated vignettes arranged LEFT TO RIGHT on one blank pale parchment canvas, no visible panel frames, two broad brown arrows in the gaps. Left vignette: a single upright building-selection card showing a large red-roof timber COTTAGE picture only, no writing or price, warm golden sparkle at its corner indicating selected. Middle vignette: a simple EMPTY square grassy building plot from above, straight edges parallel to the canvas and a faint 2-by-2 grid; ONE rounded cartoon hand with ivory cuff taps the center with its index finger, one small contact sparkle. No building on that empty plot yet. Right vignette: the SAME red-roof cottage now standing fully built on a matching grassy plot; below it a small plain moss-green rectangular wooden confirmation button with no marking, with a golden confirmation sparkle and a short upward arrow toward the completed building. Use exactly ONE hand in the entire image, located only at the middle plot. Make card-selection, ground-tap, confirmed-built result understandable with pictures and arrows only.",
+      "referenceImages": [
+        "assets/ui/help/help-tap.webp",
+        "assets/ui/tab-village.webp",
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 80,
+        "width": 800,
+        "height": 500
+      }
+    },
+    {
+      "id": "help-claim",
+      "prompt": "Use case: illustration-story / wordless mobile-game help diagram. ONE landscape illustration, exact 8:5 aspect ratio, designed for export at 800x500. Original warm hand-painted storybook watercolor/gouache, softly inked brown contours, simple large forms. Match the existing reference game icons' material, colors, upper-left lighting and gentle brushwork. Warm wood brown, moss green, cream, terracotta, blue-gray. Background is a uniform SOLID pale parchment color #f6ecd4 across the whole canvas; no paper stains, texture noise, horizon or scenery beyond the few necessary subjects. Keep clear 7% margins.\nIf a hand appears, use exactly ONE cute rounded cartoon human hand with warm peach skin, a short plain ivory shirt cuff, no body or face. It should be anatomically coherent, simple and friendly, not realistic, no extra fingers. Any visible hand uses this same design.\nExplain actions ONLY with broad clear hand-painted direction ARROWS and a few tiny golden four-point SPARKLES. No letters, text, numbers, labels, speech bubbles, logo or watermark anywhere; do not paint a device screen, outer border, ornamental frame or background disc. No pixel art, anime, flat vector or smooth 3D. Plenty of blank parchment for visual breathing room. Foreground subjects gently textured but not dense or fussy.\nSCENE: Input image 1 is the HAND, PARCHMENT BACKGROUND and painting-style reference: preserve that hand design, cuff, contour weight and warm color. Do not include its tree or wood chips unless requested. Other input images are village architecture and material style references only.\nA clear LEFT-TO-RIGHT reward-claim sequence with three related large subjects and only arrows/sparkles, on blank parchment. At left, a short WOOD-FRAMED GOAL PROGRESS BAR completely filled with solid moss-green all the way to its right endpoint; one golden sparkle at that filled end, no numerals or tick marks. A curved arrow leads to the center-right: an OPEN little brown wooden TREASURE CHEST with antique-brass bands and soft warm gold light inside. ONE rounded cartoon hand with ivory cuff taps the front rim of the chest, fingertip contact sparkle. From the open chest a single illustrated STORY CARD pops UPWARD diagonally into the upper-right area following a short up arrow; the card shows a tiny friendly village scene with a red-roof cottage and blue-gray clocktower, no words, no card stats, no lettering. Card must be clearly separated from the open lid, fully inside image. A few golden sparkles show the story reward appearing; no coins or other loot.",
+      "referenceImages": [
+        "assets/ui/help/help-tap.webp",
+        "assets/ui/tab-village.webp",
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 80,
+        "width": 800,
+        "height": 500
+      }
+    }
+  ]
+}

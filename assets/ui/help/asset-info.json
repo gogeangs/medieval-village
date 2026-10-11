@@ -1,0 +1,34 @@
+[
+  {
+    "id": "help-tap",
+    "file": "./assets/ui/help/help-tap.webp",
+    "width": 800,
+    "height": 500,
+    "bytes": 31310,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "help-pinch",
+    "file": "./assets/ui/help/help-pinch.webp",
+    "width": 800,
+    "height": 500,
+    "bytes": 40022,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "help-build",
+    "file": "./assets/ui/help/help-build.webp",
+    "width": 800,
+    "height": 500,
+    "bytes": 38538,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "help-claim",
+    "file": "./assets/ui/help/help-claim.webp",
+    "width": 800,
+    "height": 500,
+    "bytes": 28632,
+    "alphaZeroFraction": 0
+  }
+]
