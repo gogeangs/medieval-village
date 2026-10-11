@@ -188,5 +188,43 @@
       3,
       2
     ]
+  },
+  {
+    "id": "bakery-l2",
+    "file": "./assets/illustrations/levels/bakery-l2.webp",
+    "width": 512,
+    "height": 648,
+    "bytes": 88334,
+    "alphaZeroFraction": 0.2239,
+    "crop": [
+      4,
+      4,
+      504,
+      640
+    ],
+    "quality": 82,
+    "footprint": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": "bakery-l3",
+    "file": "./assets/illustrations/levels/bakery-l3.webp",
+    "width": 512,
+    "height": 686,
+    "bytes": 84434,
+    "alphaZeroFraction": 0.2129,
+    "crop": [
+      4,
+      4,
+      504,
+      678
+    ],
+    "quality": 76,
+    "footprint": [
+      2,
+      2
+    ]
   }
 ]

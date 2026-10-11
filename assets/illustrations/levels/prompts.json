@@ -207,6 +207,47 @@
         3,
         2
       ]
+    },
+    {
+      "id": "bakery-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nBUILDING: bakery LEVEL TWO.\nIDENTITY: Terracotta-red tiled roof, cream plaster and honey-brown timbers, arched wooden doorway to the right, red-and-cream striped window awning on left above golden bread display, a bread-loaf pictogram hanging sign, warm red-brick oven at right, stone chimney.\nFOOTPRINT AND COMPOSITION: Compact square 2-by-2 tile footprint, moderately portrait like the reference. Preserve the main frontage and fit all additions inside its base width.\nUPGRADE: Improve the original bakery with a LARGER clearly visible STONE OVEN CHIMNEY, a generous fresh-bread window display of loaves beneath the same red/cream striped awning. Refine the brick oven opening with warm baked amber glow, organize its wood storage. Preserve original red roof, dormer, loaf pictogram sign, doorway and signature palette. Still a small village bakery, not yet a full two-storey building.\nEmphasize the new substantially larger oven chimney, richer organized bread display and well-built brick oven while preserving the exact Lv1 bakery arrangement. The window awning stays RED-and-CREAM, distinct from market orange. Warm bread loaf icon only, no shop lettering. Compact portrait composition, one bakery, true transparent alpha.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/bakery.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 648
+      },
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "bakery-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is approved LEVEL TWO of this SAME bakery. Evolve its exact red roof, striped awning, door and side brick oven; image1 anchors original identity.\nBUILDING: bakery LEVEL THREE.\nIDENTITY: Terracotta-red tiled roof, cream plaster and honey-brown timbers, arched wooden doorway to the right, red-and-cream striped window awning on left above golden bread display, a bread-loaf pictogram hanging sign, warm red-brick oven at right, stone chimney.\nFOOTPRINT: Compact square 2-by-2 tile footprint, moderately portrait like the reference. Preserve the main frontage and fit all additions inside its base width.\nUPGRADE: Grow the level-two bakery into a clear TWO-STOREY bakery with upper timber-framed windows beneath the familiar red tiled roof. A small golden BREAD-LOAF-shaped finial sits on the roof ridge, decorative object with no lettering. A tiny front terrace with ONE round wooden cafe table and two small chairs sits tightly against the facade on an attached wooden porch deck; no separate pavement, earth or ground platform. Keep red/cream striped bread-window awning, side oven, chimney, loaf pictogram sign and rich bread display.\nClear TWO-STOREY facade with a row of upper-floor windows between the ground-floor awning and red roof, plus the familiar dormer. One small sculpted golden loaf finial on ridge, not a sign with words. Compact front table and two chairs fit INSIDE the facade width, integrated attached porch deck only, NO ground patch or detached pavement. Total opaque height under 1.75 times its width. Full silhouette including hanging loaf sign inside frame with transparent margin.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/bakery.webp",
+        "assets/illustrations/levels/bakery-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 76,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 686
+      },
+      "footprint": [
+        2,
+        2
+      ]
     }
   ]
 }
