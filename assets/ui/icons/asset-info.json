@@ -1,0 +1,106 @@
+[
+  {
+    "id": "talk",
+    "file": "./assets/ui/icons/talk.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5512,
+    "alphaZeroFraction": 0.7009
+  },
+  {
+    "id": "favor",
+    "file": "./assets/ui/icons/favor.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5546,
+    "alphaZeroFraction": 0.6645
+  },
+  {
+    "id": "lock",
+    "file": "./assets/ui/icons/lock.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5608,
+    "alphaZeroFraction": 0.689
+  },
+  {
+    "id": "worker",
+    "file": "./assets/ui/icons/worker.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5682,
+    "alphaZeroFraction": 0.71
+  },
+  {
+    "id": "winter",
+    "file": "./assets/ui/icons/winter.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 4998,
+    "alphaZeroFraction": 0.7722
+  },
+  {
+    "id": "rumor",
+    "file": "./assets/ui/icons/rumor.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6036,
+    "alphaZeroFraction": 0.6908
+  },
+  {
+    "id": "village",
+    "file": "./assets/ui/icons/village.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6778,
+    "alphaZeroFraction": 0.6075
+  },
+  {
+    "id": "academy",
+    "file": "./assets/ui/icons/academy.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5500,
+    "alphaZeroFraction": 0.7665
+  },
+  {
+    "id": "festival",
+    "file": "./assets/ui/icons/festival.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6506,
+    "alphaZeroFraction": 0.7158
+  },
+  {
+    "id": "appraise",
+    "file": "./assets/ui/icons/appraise.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5244,
+    "alphaZeroFraction": 0.744
+  },
+  {
+    "id": "cart",
+    "file": "./assets/ui/icons/cart.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6066,
+    "alphaZeroFraction": 0.6868
+  },
+  {
+    "id": "reward",
+    "file": "./assets/ui/icons/reward.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 6166,
+    "alphaZeroFraction": 0.6335
+  },
+  {
+    "id": "timer",
+    "file": "./assets/ui/icons/timer.webp",
+    "width": 128,
+    "height": 128,
+    "bytes": 5906,
+    "alphaZeroFraction": 0.6857
+  }
+]
