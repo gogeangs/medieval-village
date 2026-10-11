@@ -1,0 +1,215 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Season 1 original warm hand-painted storybook art; canonical characters.webp reference",
+  "export": "256×256 transparent WebP quality 87; upper-left lighting",
+  "assets": [
+    {
+      "id": "pot",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges. ITEM pot: a single battered rusty brown iron cooking pot, round belly, two small side handles, chipped rim, visible open interior from a slightly elevated three-quarter angle. No lid, no food and no extra utensils. Hidden identity is a holy grail: just a very faint warm golden reflection INSIDE the empty bowl, easy to miss. Humble village cookware, not a ornate goblet.",
+      "referenceImages": [
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "broom",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One worn straw broom with a slightly crooked plain wooden handle and frayed golden straw tied with twine. Leaning gently diagonally, complete handle to bristle tips visible. Hidden identity is a legendary cleaning captain's staff: one tiny pale-gold glimmer at the handle knot, no jewels, no elaborate staff design. A broom, not a weapon.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "scarf",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One hand-knitted muted rust-red wool scarf folded in a loose S, both fringed ends visible, chunky simple stitches and a couple of repairs. Hidden fire resistance: a tiny ember-shaped orange stitched motif only at one end and a faint warm glint on it. No flames floating around it, no person or mannequin.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "spoon",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One old pewter eating spoon, plain oval bowl with a small chipped/notched edge, worn short handle. Slight diagonal angle, entire spoon visible. Hidden identity is a fragment of a holy sword's hilt: a modest crossguard-like ridge in the handle and one faint silver glint. It must still clearly be a humble spoon, no complete sword.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "boot",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One SINGLE weathered brown leather village work boot, floppy cuff, patches, old laces and rounded worn toe, side three-quarter view. Hidden seven-league boot: a small faint wing-shaped worn embossing near the ankle, just a tiny soft pale-blue glint. Not a pair, no detached real wings.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "pebble",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One smooth rounded oval river pebble, warm gray-green and tawny stone, polished by water, clearly a small stone not a chicken egg. One very thin natural-looking hairline crack along part of its side gives a barely visible muted amber glow, hinting a sleeping dragon egg. No hatchling, scales or big opening.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "bell",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One old dented rural cowbell, simple rusty iron with small leather hanging loop and visible dark clapper, three-quarter view. Hidden identity is the demon army's summons bell: a barely perceptible deep burgundy-red reflection inside its lower opening. No skulls, no dramatic aura or symbols.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "key",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One single rusty old skeleton key, plain long iron shaft and two rectangular teeth, simple oval bow. At the bow is one small worn crown-shaped embossing with a faint golden glint, hinting at a royal treasury. No other keys, no keyring, no gemstones, no written marks.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "cup",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One cracked cream earthenware teacup with a small handle, no saucer, seen slightly from above. Thin subtle crack in the glaze, old tea stain. Hidden time-stopping cup: a SHORT pale warm curl of steam remains suspended motionless just over the cup, one tiny glint within it, no clock or time symbols. Single cup only, soft silhouette clear even on transparent background.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "hammer",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: Only the detached HEAD of an old blacksmith's hammer, heavy weathered dark iron block with rounded battered striking faces and an EMPTY rectangular handle socket clearly visible. Absolutely no wooden handle or handle stub. Hint of the smithing god: one tiny warm forge-orange glint deep in the empty socket, otherwise humble metal.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "map",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One stained parchment map scroll partly unrolled, curled edges and old water stains. Simple hand-painted winding path and a few pictorial hills/tree marks with one tiny softly glowing secret route line. NO place names, letters, numbers, compass letters or writing-like marks. No pen, ribbon or second object. It should read instantly as a humble village map.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "quill",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One worn ivory feather quill pen, slightly frayed barbs, plain pointed brownish writing tip, diagonally centered. Hidden phoenix feather: just the upper feather tip has a faint orange-gold warmth, one tiny ember glint, not actually on fire. No inkwell or paper.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "button",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One large old round wooden sewing button with exactly FOUR threading holes, thick simple rim, visible warm wood grain and scuffs. Hidden giant king's garment button: substantial chunky thickness and one faint cool glint in a hole; no giant or crown engraving, no thread spool or extra objects.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "flute",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One plain handmade wooden folk flute, honey-brown wood with six finger holes, small simple mouthpiece, aged grain, diagonally arranged, complete instrument visible. Hidden dragon-calling flute: one tiny faint turquoise glimmer at the last finger hole and an almost imperceptible scale-shaped wood grain near its end. No dragon, notes, musical symbols, decorative tassels or separate objects.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "sock",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One SINGLE old knitted village sock, dull moss-gray wool with a darned heel and one clear small hole at the toe, no foot in it. Soft folded curve, entire silhouette visible. Hidden invisibility sock: the lower toe portion gradually becomes genuinely SEMI-TRANSPARENT in the alpha channel, knit still faintly visible, while the cuff and heel stay opaque; no checkerboard or background painted into it. One tiny pale glint at transition. Must remain clearly a humble holey sock.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "badge",
+      "prompt": "Use case: stylized-concept. One inventory item icon for an original cozy medieval hand-painted storybook game. Square canvas with TRUE transparent alpha background, no painted backdrop or checkerboard. One ordinary rustic object only, centered and fully inside generous 10% transparent padding; longest dimension occupies 80% of square, clean legible silhouette when reduced to 256x256. Warm gouache/watercolor brush texture and softly inked dark-brown edges match the supplied existing game illustration, but simplify tiny surface noise and use clear large forms. Soft light from UPPER LEFT, subtle lower-right shading and only an extremely faint small contact shadow. Object should look mundane and worn; exactly one understated magical hint, no spectacular effects, no aura cloud. Not pixel art, anime, flat vector, glossy 3D or photorealistic. No letters, numbers, writing, logos, words, speech bubble, badge background, decorative frame or border. Object fills most of the square without touching edges.  Reference pot gives matching inventory rendering, upper-left light, scale and texture ONLY; do NOT include the pot. ITEM: One small weathered rusty metal clothing badge, rounded shield shape with worn edges and a partly eroded embossed royal knight-captain emblem: simple fleur-like mark and two modest laurel sprigs, no words or numbers. Mostly rusty dull iron, only one tiny spot of warm brass glint suggests former honor. No ribbon, medal stand, box or other objects. Mundane rusted pin, not flashy jewelry.",
+      "referenceImages": [
+        "assets/items/pot.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 256,
+        "height": 256
+      }
+    }
+  ]
+}

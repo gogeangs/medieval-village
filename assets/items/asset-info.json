@@ -1,0 +1,130 @@
+[
+  {
+    "id": "pot",
+    "file": "./assets/items/pot.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 20360,
+    "alphaZeroFraction": 0.4756
+  },
+  {
+    "id": "broom",
+    "file": "./assets/items/broom.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 13608,
+    "alphaZeroFraction": 0.8224
+  },
+  {
+    "id": "scarf",
+    "file": "./assets/items/scarf.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 25476,
+    "alphaZeroFraction": 0.4731
+  },
+  {
+    "id": "spoon",
+    "file": "./assets/items/spoon.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 10836,
+    "alphaZeroFraction": 0.8021
+  },
+  {
+    "id": "boot",
+    "file": "./assets/items/boot.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 21906,
+    "alphaZeroFraction": 0.5157
+  },
+  {
+    "id": "pebble",
+    "file": "./assets/items/pebble.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 16242,
+    "alphaZeroFraction": 0.5741
+  },
+  {
+    "id": "bell",
+    "file": "./assets/items/bell.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 17686,
+    "alphaZeroFraction": 0.6091
+  },
+  {
+    "id": "key",
+    "file": "./assets/items/key.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 12456,
+    "alphaZeroFraction": 0.801
+  },
+  {
+    "id": "cup",
+    "file": "./assets/items/cup.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 18898,
+    "alphaZeroFraction": 0.5992
+  },
+  {
+    "id": "hammer",
+    "file": "./assets/items/hammer.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 17430,
+    "alphaZeroFraction": 0.5941
+  },
+  {
+    "id": "map",
+    "file": "./assets/items/map.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 21648,
+    "alphaZeroFraction": 0.5121
+  },
+  {
+    "id": "quill",
+    "file": "./assets/items/quill.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 15316,
+    "alphaZeroFraction": 0.7374
+  },
+  {
+    "id": "button",
+    "file": "./assets/items/button.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 20940,
+    "alphaZeroFraction": 0.4893
+  },
+  {
+    "id": "flute",
+    "file": "./assets/items/flute.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 9850,
+    "alphaZeroFraction": 0.8231
+  },
+  {
+    "id": "sock",
+    "file": "./assets/items/sock.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 21308,
+    "alphaZeroFraction": 0.6048
+  },
+  {
+    "id": "badge",
+    "file": "./assets/items/badge.webp",
+    "width": 256,
+    "height": 256,
+    "bytes": 20584,
+    "alphaZeroFraction": 0.5386
+  }
+]
