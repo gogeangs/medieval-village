@@ -150,5 +150,43 @@
       3,
       2
     ]
+  },
+  {
+    "id": "market-l2",
+    "file": "./assets/illustrations/levels/market-l2.webp",
+    "width": 512,
+    "height": 238,
+    "bytes": 46856,
+    "alphaZeroFraction": 0.1661,
+    "crop": [
+      4,
+      4,
+      504,
+      230
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": "market-l3",
+    "file": "./assets/illustrations/levels/market-l3.webp",
+    "width": 512,
+    "height": 257,
+    "bytes": 54918,
+    "alphaZeroFraction": 0.1558,
+    "crop": [
+      4,
+      4,
+      504,
+      249
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
   }
 ]

@@ -166,6 +166,47 @@
         3,
         2
       ]
+    },
+    {
+      "id": "market-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nCRITICAL: LANDSCAPE 3:2 canvas with a LOW WIDE horizontal market frontage, actual sprite width at least 1.4 times height. Do not inherit the tall crop of image1.\nBUILDING: market LEVEL TWO.\nIDENTITY: Honey-brown wooden counters and posts, iconic warm terracotta-orange and creamy-ivory STRIPED fabric awning, apples, bread and cabbage, brass balance scales, hanging lantern, wicker baskets and wooden crates.\nFOOTPRINT AND COMPOSITION: LOW WIDE 3-by-2 tile footprint. Landscape silhouette, opaque width at least 1.4 times height. Wide horizontal market frontage, shallow depth, everything within the same base.\nUPGRADE: Expand the original single striped-awning stall into TWO adjoining counter bays, each beneath matching orange-and-ivory striped awnings on shared wooden posts. Fill the compact counters with generous distinct fruit, vegetables, bread, baskets and crates. Retain brass scales and lantern. Clearly one connected market structure, not two separate objects. No pitched permanent hall roof yet.\nExactly TWO adjoining awning bays, each recognizable as an expanded version of original stall. Shared posts and continuous joined counter, fruit/bread/vegetables organized into large readable shapes. No dirt, ground slab, shadow, passersby or lettering.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/market.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 238
+      },
+      "footprint": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "market-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is approved LEVEL TWO of this SAME market. Evolve its two connected counter bays directly; image1 anchors original colors, props and texture.\nCRITICAL: LANDSCAPE 3:2 sprite, actual structure width at least 1.4 times height. The market hall must be LOW AND BROAD, not a tall house.\nBUILDING: market LEVEL THREE.\nIDENTITY: Honey-brown wooden counters and posts, iconic warm terracotta-orange and creamy-ivory STRIPED fabric awning, apples, bread and cabbage, brass balance scales, hanging lantern, wicker baskets and wooden crates.\nFOOTPRINT: LOW WIDE 3-by-2 tile footprint. Landscape silhouette, opaque width at least 1.4 times height. Wide horizontal market frontage, shallow depth, everything within the same base.\nUPGRADE: Grow those two adjoining stalls into one SMALL ROOFED MARKET HALL with warm terracotta pitched tiles and the familiar orange/ivory striped awnings retained above a broad row of display counters. Modest colorful triangular fabric bunting, abundant fruits, breads and folded colorful cloth bolts. Short thick wooden columns, honey-brown timber, welcoming open frontage, no walls hiding wares. Large organized market with LOW broad roof, not tower-like. No text on flags or stall signs.\nThe tiled permanent roof is ABOVE the retained orange/cream striped awnings, on short timber supports. Cloth bolts plainly visible alongside the food so this reads as a thriving general market. All bunting stays below the roof peak or hugs the structure width; no poles extending sideways. True transparent background and no floor shadow.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/market.webp",
+        "assets/illustrations/levels/market-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 257
+      },
+      "footprint": [
+        3,
+        2
+      ]
     }
   ]
 }
