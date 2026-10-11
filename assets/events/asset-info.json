@@ -1,0 +1,42 @@
+[
+  {
+    "id": "crisis-wolves",
+    "file": "./assets/events/crisis-wolves.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 309038,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "crisis-storm",
+    "file": "./assets/events/crisis-storm.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 276110,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "crisis-bandits",
+    "file": "./assets/events/crisis-bandits.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 277432,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "crisis-boars",
+    "file": "./assets/events/crisis-boars.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 264130,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "festival",
+    "file": "./assets/events/festival.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 255540,
+    "alphaZeroFraction": 0
+  }
+]

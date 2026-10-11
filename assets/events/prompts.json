@@ -1,0 +1,77 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Season 1 original warm hand-painted storybook art; canonical characters.webp reference",
+  "export": "1200×800 WebP quality 85",
+  "assets": [
+    {
+      "id": "crisis-wolves",
+      "prompt": "Use case: illustration-story. ONE full-bleed LANDSCAPE 3:2 1200x800 original cozy medieval game event illustration. Reference 1 is the canonical cast and reference 2 existing story illustration. Same exact hand-painted warm storybook gouache/watercolor, organic softly inked contours, worn cloth textures, facial proportions, soft warm light. Character identities: chief slim25 chestnut CURLY hair clean-shaven, moss-green vest, loose ivory shirt, tan trousers; Marta tiny round silver bun floral cream apron plum shawl/skirt; Gunter tall thin, shaggy SILVER bangs over eyes, brown worn leather vest, ordinary wood axe; Bruno huge gentle brown-bearded man in faded blue-gray overalls and brass knight belt; Pino slim black curly hair, long green scarf, ocher coat, loaded backpack; Barg bulky dark beard, BURGUNDY headscarf with small horn bumps, dark shirt, tan apron. Keep exact reference clothing and faces. Village has cream-and-timber BLUE-GRAY clocktower hall, red tiled cottages, green grass and dirt paths, wheat field. Comical 'oh no!' moment but safe and cozy, no injury/blood/cruelty, no terrifying monsters. No letters, numerals, written signs, text, logo, speech bubbles, frames, manga effect lines or watermark. Not pixel art, anime, flat vector or glossy3D. Clear main action and faces in upper75%, lowerquarter calm continuous foreground. Use broad painterly foliage masses instead of excessive tiny noisy leaves, preserving texture. SCENE: Forest edge beside village entrance. A small pack of four gray wolves approaches along a dirt path, then hesitates visibly: ears sideways, one paw held up, puzzled slightly sheepish expressions, mouths closed rather than snarling. The young green-vest chief stands facing them at the gate, gripping a shabby straw broom in both hands, knees slightly shaking, nervous brave face. Only the chief and four wolves, no other villagers. Blue-gray clocktower, red cottage and wheat field visible beyond gate. Warm late-afternoon light, comic stalemate, no contact or combat. Show chief's face in three-quarter view and the wolves' uncertainty clearly.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "crisis-storm",
+      "prompt": "Use case: illustration-story. ONE full-bleed LANDSCAPE 3:2 1200x800 original cozy medieval game event illustration. Reference 1 is the canonical cast and reference 2 existing story illustration. Same exact hand-painted warm storybook gouache/watercolor, organic softly inked contours, worn cloth textures, facial proportions, soft warm light. Character identities: chief slim25 chestnut CURLY hair clean-shaven, moss-green vest, loose ivory shirt, tan trousers; Marta tiny round silver bun floral cream apron plum shawl/skirt; Gunter tall thin, shaggy SILVER bangs over eyes, brown worn leather vest, ordinary wood axe; Bruno huge gentle brown-bearded man in faded blue-gray overalls and brass knight belt; Pino slim black curly hair, long green scarf, ocher coat, loaded backpack; Barg bulky dark beard, BURGUNDY headscarf with small horn bumps, dark shirt, tan apron. Keep exact reference clothing and faces. Village has cream-and-timber BLUE-GRAY clocktower hall, red tiled cottages, green grass and dirt paths, wheat field. Comical 'oh no!' moment but safe and cozy, no injury/blood/cruelty, no terrifying monsters. No letters, numerals, written signs, text, logo, speech bubbles, frames, manga effect lines or watermark. Not pixel art, anime, flat vector or glossy3D. Clear main action and faces in upper75%, lowerquarter calm continuous foreground. Use broad painterly foliage masses instead of excessive tiny noisy leaves, preserving texture. SCENE: Dark approaching storm clouds and strong wind across the familiar village. The young chief in moss vest clings with both arms to the wooden eave of a small storehouse roof, still safely braced by his boots on a stable ladder; loose roof PLANKS lift and fly to the RIGHT. Leaves, hanging cloth and grass all bend to the RIGHT with the gust. Farther back at the right of the scene stands Gunter in unchanged leather vest with plain axe on his back, completely unbothered. ONLY Gunter's silver hair streams to the LEFT, visibly opposite every other windblown element; his long bangs still obscure his eyes. Comic weather anomaly, no one hurt. Warm amber windows and a shaft of light keep it cozy despite gray sky. Chief and Gunter are the only people. Do not make the roof or ladder collapse; single instant of emergency.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "crisis-bandits",
+      "prompt": "Use case: illustration-story. ONE full-bleed LANDSCAPE 3:2 1200x800 original cozy medieval game event illustration. Reference 1 is the canonical cast and reference 2 existing story illustration. Same exact hand-painted warm storybook gouache/watercolor, organic softly inked contours, worn cloth textures, facial proportions, soft warm light. Character identities: chief slim25 chestnut CURLY hair clean-shaven, moss-green vest, loose ivory shirt, tan trousers; Marta tiny round silver bun floral cream apron plum shawl/skirt; Gunter tall thin, shaggy SILVER bangs over eyes, brown worn leather vest, ordinary wood axe; Bruno huge gentle brown-bearded man in faded blue-gray overalls and brass knight belt; Pino slim black curly hair, long green scarf, ocher coat, loaded backpack; Barg bulky dark beard, BURGUNDY headscarf with small horn bumps, dark shirt, tan apron. Keep exact reference clothing and faces. Village has cream-and-timber BLUE-GRAY clocktower hall, red tiled cottages, green grass and dirt paths, wheat field. Comical 'oh no!' moment but safe and cozy, no injury/blood/cruelty, no terrifying monsters. No letters, numerals, written signs, text, logo, speech bubbles, frames, manga effect lines or watermark. Not pixel art, anime, flat vector or glossy3D. Clear main action and faces in upper75%, lowerquarter calm continuous foreground. Use broad painterly foliage masses instead of excessive tiny noisy leaves, preserving texture. SCENE: Exactly THREE masked human bandits in shabby brown/gray traveling clothes are midway climbing over a low village stone wall toward a small locked iron-banded money chest just INSIDE the wall. They suddenly freeze with nervous comical expressions visible above dark cloth masks, one awkwardly balancing on the wall, another gripping its edge; no drawn weapons. INSIDE the yard, Barg in his everyday dark shirt and TAN APRON quietly looks up at them. He raises the edge of his BURGUNDY HEADSCARF with one hand by just a little, revealing only the tip of one small horn and his unimpressed eyebrow. His dark beard and bulky physique match the reference. Warm afternoon, blue-gray clocktower and red cottages/wheat beyond; no chief or other residents. Money chest, three thieves and Barg's lifted headscarf all clear. No violence, no fearsome demon transformation.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "crisis-boars",
+      "prompt": "Use case: illustration-story. ONE full-bleed LANDSCAPE 3:2 1200x800 original cozy medieval game event illustration. Reference 1 is the canonical cast and reference 2 existing story illustration. Same exact hand-painted warm storybook gouache/watercolor, organic softly inked contours, worn cloth textures, facial proportions, soft warm light. Character identities: chief slim25 chestnut CURLY hair clean-shaven, moss-green vest, loose ivory shirt, tan trousers; Marta tiny round silver bun floral cream apron plum shawl/skirt; Gunter tall thin, shaggy SILVER bangs over eyes, brown worn leather vest, ordinary wood axe; Bruno huge gentle brown-bearded man in faded blue-gray overalls and brass knight belt; Pino slim black curly hair, long green scarf, ocher coat, loaded backpack; Barg bulky dark beard, BURGUNDY headscarf with small horn bumps, dark shirt, tan apron. Keep exact reference clothing and faces. Village has cream-and-timber BLUE-GRAY clocktower hall, red tiled cottages, green grass and dirt paths, wheat field. Comical 'oh no!' moment but safe and cozy, no injury/blood/cruelty, no terrifying monsters. No letters, numerals, written signs, text, logo, speech bubbles, frames, manga effect lines or watermark. Not pixel art, anime, flat vector or glossy3D. Clear main action and faces in upper75%, lowerquarter calm continuous foreground. Use broad painterly foliage masses instead of excessive tiny noisy leaves, preserving texture. SCENE: A group of four ordinary brown wild boars rushes toward a golden village wheat field from the path. At the field opening, huge gentle BRUNO in faded BLUE-GRAY OVERALLS, ivory shirt, short brown beard and old knight belt stands calmly with ARMS CROSSED, eyes half-closed and mouth in an unmistakable relaxed YAWN. He completely blocks the entrance without effort. The boars are mid-trot and starting to look unsure, little tusks but no aggression or collision, no damage or injuries. Bruno dominates by scale, not threatening posture. The clocktower hall and red cottages beyond warm wheat and rustic fence. Chief absent. Cozy comic scale mismatch in warm daylight. Keep all boars' faces and Bruno's yawn visible.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "festival",
+      "prompt": "Use case: illustration-story. ONE full-bleed LANDSCAPE 3:2 1200x800 original cozy medieval game event illustration. Reference 1 is the canonical cast and reference 2 existing story illustration. Same exact hand-painted warm storybook gouache/watercolor, organic softly inked contours, worn cloth textures, facial proportions, soft warm light. Character identities: chief slim25 chestnut CURLY hair clean-shaven, moss-green vest, loose ivory shirt, tan trousers; Marta tiny round silver bun floral cream apron plum shawl/skirt; Gunter tall thin, shaggy SILVER bangs over eyes, brown worn leather vest, ordinary wood axe; Bruno huge gentle brown-bearded man in faded blue-gray overalls and brass knight belt; Pino slim black curly hair, long green scarf, ocher coat, loaded backpack; Barg bulky dark beard, BURGUNDY headscarf with small horn bumps, dark shirt, tan apron. Keep exact reference clothing and faces. Village has cream-and-timber BLUE-GRAY clocktower hall, red tiled cottages, green grass and dirt paths, wheat field. Comical 'oh no!' moment but safe and cozy, no injury/blood/cruelty, no terrifying monsters. No letters, numerals, written signs, text, logo, speech bubbles, frames, manga effect lines or watermark. Not pixel art, anime, flat vector or glossy3D. Clear main action and faces in upper75%, lowerquarter calm continuous foreground. Use broad painterly foliage masses instead of excessive tiny noisy leaves, preserving texture. SCENE: A lively seasonal village festival at SUNSET in the square right in front of the blue-gray CLOCKTOWER HALL. Flower garlands drape between buildings, warm lanterns hang overhead, food stalls offer bread and fruit, a cheerful crowd of ordinary adult guests mingles in the background. In foreground exactly the SIX canonical characters, all visibly laughing warmly together: young moss-vest chief near the center; tiny Marta holds her teacup; tall thin gray-banged Gunter with axe on back; huge Bruno in blue-gray overalls; black-curly-haired Pino with LONG GREEN SCARF and backpack minding a rustic stall at one side; bulky Barg in burgundy kerchief and tan apron. Keep all six distinct and recognizable, no Elise in this festival. Their group shares one friendly moment despite doing small festival tasks. Warm amber and rose dusk, plentiful food, no writing on stall signs (leave signs blank or pictorial only). No duplicate main characters. Faces and Marta's cup/Pino's stall handwork above lower quarter; simple festive square foreground.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 85,
+        "width": 1200,
+        "height": 800
+      }
+    }
+  ]
+}
