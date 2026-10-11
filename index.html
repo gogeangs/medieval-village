@@ -322,6 +322,8 @@ body.sheet-open .hud{visibility:hidden}
 .exps{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.btn.exp{display:grid;gap:1px;padding:6px 4px;font-size:12px}.btn.exp small{font-size:10px;color:#fff2d0!important;opacity:.95}.btn.exp .ui-ic{width:12px;height:12px;vertical-align:-2px}
 .gbadge{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;font-size:16px;color:#fff;flex:none}.gS{background:linear-gradient(135deg,#f0c94f,#c58a1d);box-shadow:0 0 8px #f3c75a}.gA{background:#7a9b4f}.gB{background:#6f8fa8}.gC{background:#a08f78}
 .arrive .gbadge{width:48px;height:48px;font-size:24px}.arrive.letter img{width:48px;height:48px;border:0;border-radius:0;background:none;object-fit:contain}
+.line.has-pic{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:8px;align-items:start}.line.has-pic b{grid-column:2}.line .sp-pic{grid-row:1/3;width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:1.5px solid #c8b28a;background:#e8dcc0}
+.lore-d summary{font-size:12px;color:#8a6d3b;cursor:pointer;min-height:30px;padding:6px 0}.fav-note{display:inline-flex;align-items:center;gap:2px}
 </style>
 
 </head>
@@ -359,7 +361,7 @@ body.sheet-open .hud{visibility:hidden}
     <div class="scene-art-wrap" id="scene-art" hidden></div>
     <div class="scene-head"><span id="scene-no"></span><h2 id="scene-title"></h2></div>
     <div class="scene-body" id="scene-body" aria-live="polite"></div>
-    <div class="scene-foot"><button class="btn" id="scene-skip">건너뛰기</button><span class="scene-hint" id="scene-hint">화면을 탭하면 다음 대사</span><button class="btn go" id="scene-next">다음</button></div>
+    <div class="scene-foot"><button class="btn" id="scene-skip">건너뛰기</button><span class="scene-hint" id="scene-hint" aria-hidden="true">▸ ▸</span><button class="btn go" id="scene-next">다음</button></div>
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
@@ -1153,22 +1155,22 @@ function drawRoadOverlay(){
 /* ---------- season 1 scenes, reveals and clues ---------- */
 const N='';
 const SCENES={
- 1:[[N,'초보자 마을에 도착한 첫날. 빈집 창문은 전부 닫혀 있고, 굴뚝 연기는 딱 한 곳에서만 오른다.'],['마르타','어서 오렴, 새 촌장님. 차가 딱 알맞게 식었단다.'],['나','저… 여기 주민이 할머니 혼자세요?'],['마르타','다들 떠났지. 촌장들이 석 달을 못 버티고 도망가니까.'],['나','저는 안 도망가요. 레벨은 1이지만 성실하거든요.'],['마르타','(찻잔을 내려놓으며) …그 말, 오래 기다렸단다.'],[N,'할머니의 찻잔에서는 한참이 지나도 김이 멈추지 않는다.']],
- 2:[[N,'오두막 두 채를 짓느라 도끼질만 백 번째. 나무는 아직 멀쩡하다.'],['마르타','촌장님, 나무는 결을 따라 베는 거란다.'],[N,'톡. 할머니가 손가락으로 치자 나무가 장작 열두 개로 가지런히 쌓인다.'],['나','와… 요령이 엄청나시네요!'],['마르타','호호, 오래 살다 보면 다 늘어. 집이 생겼으니 사람도 올 게다.'],[N,'마르타 머리 위의 Lv ???가 한순간 지직거린다.']],
- 3:[[N,'첫 밀밭을 일군 날, 할머니와 둘이서 작은 잔치를 연다.'],['마르타','이 마을에 다시 밀 냄새가 나다니. 고맙다, 촌장님.'],[N,'그때, 하늘을 거대한 비룡이 가린다.'],['나','할머니, 숨으세요! 제가… 제가 막을게요!'],[N,'나는 빗자루를 들고 할머니 앞을 막아선다. 다리가 후들거린다.'],['마르타','(작게) …얘야, 잠깐 눈 좀 감으렴.'],[N,'딱. 하늘이 붉게 달아오르고, 비룡이 통구이가 되어 밀밭 옆에 떨어진다.'],['마르타','잔치 음식이 하나 늘었구나. 얼른 앉아라.']],
- 4:[[N,'벌목소를 지은 다음 날 아침, 안개 속에서 도끼를 멘 남자가 나타난다.'],['나','안녕하세요! 길을 잃으셨어요?'],['군터','…바람이 이쪽으로 불었다.'],['나','그럼 여기서 지내세요. 마침 벌목소가 비어 있거든요.'],[N,'군터는 대답 대신 벌목소 앞에 조용히 짐을 내려놓는다.'],['마르타','(찻잔 너머로 미소) 오랜만이구나, 바람 녀석.']],
- 5:[[N,'군터가 도끼를 한 번 휘두르자 뒤쪽 나무 열 그루가 동시에 기운다.'],['나','방금 열 그루가 한꺼번에…?'],['군터','…바람이 세다.'],['나','저도 도끼 좀 빌려 주세요. 바위 캐러 가야 해서요.'],['군터','안 된다. 촌장은 다치면 안 된다.'],[N,'군터가 내 손에 나무 숟가락을 쥐여 준다. 다음 날 아침, 바위들이 반듯하게 쪼개져 있다.']],
- 6:[[N,'주민이 여덟 명이 된 밤, 숲에서 늑대 떼가 내려온다.'],['나','다들 집에 들어가세요! 여긴 제가 지킬게요!'],[N,'나는 또 빗자루를 든다. 늑대들이 이빨을 드러낸다.'],['군터','…촌장. 뒤로.'],[N,'도끼가 한 번 허공을 가른다. 회오리바람이 일어 늑대 떼가 다치지 않은 채 숲 너머로 날아간다.'],['군터','…바람이 세다.'],['마르타','(박수) 녹슬지 않았구나.']],
- 7:[[N,'채석장을 지은 날 밤, 비가 억수같이 쏟아진다. 마을 입구에 거대한 그림자가 앉아 있다.'],['나','괜찮으세요? 감기 걸려요!'],['브루노','…지켜야 할 문을 찾고 있었다. 오래.'],['나','그럼 우리 마을 문을 지켜 주세요. 대신 따뜻한 데서 주무셔야 해요.'],[N,'군터가 등불을 들고, 마르타가 담요를 들고 달려온다.'],['브루노','(나를 내려다보며) …촌장은 밤에 잘 자는가.'],['나','아저씨가 오셨으니 이제 잘 잘 것 같아요.']],
- 8:[[N,'회관을 넓히던 날, 굴러떨어지는 바위를 브루노가 맨손으로 받친다. 나는 그 뒤에 주저앉아 있다.'],['나','아, 아저씨! 괜찮으세요?'],['브루노','허리 운동이다. 매일 하는.'],['브루노','회관이 커졌군. 지킬 게 늘었다. 좋다.'],[N,'바위에는 커다란 손바닥 자국이 움푹 찍혀 있다.']],
- 9:[[N,'빵집에서 첫 빵 냄새가 퍼지자, 그 냄새를 따라 산적 떼가 몰려온다.'],['산적 두목','빵이랑 금고, 전부 내놔라!'],['나','(브루노 다리 뒤에서) 아, 안 돼요! 우리 마을 빵이에요!'],['브루노','촌장이 안 된다고 했다.'],[N,'브루노가 팔짱을 낀 채 문 앞에 서 있을 뿐인데, 산적들이 보이지 않는 벽에 부딪혀 하나둘 나동그라진다.'],['산적 두목','처, 철벽의… 브루노?!'],['브루노','지금은 석공이다. 빵은 줄 서서 사라.']],
- 10:[[N,'시장 문을 연 날, 짐을 산더미처럼 진 상인이 제일 먼저 좌판을 편다.'],['피노','안녕하세요, 촌장님! 개업 선물로 이 냄비 드릴게요. 완전 평범한 냄비예요.'],['나','냄비에서 빛이 나는데요?'],['피노','요즘 냄비는 다 그래요. 대신 누가 물어보면 시장에서 샀다고 하세요.'],[N,'게시판에는 피노와 똑같은 얼굴의 수배 전단이 붙어 있다.'],['피노','(전단을 스윽 떼어 주머니에 넣으며) 세상에 닮은 사람 많아요.'],['브루노','(군터에게 작게) …저 녀석.'],['군터','…바람이 수상하다.']],
- 11:[['엘리스','왕국 감찰관 엘리스입니다. 이 마을 주변 몬스터 수치가 0이라 조사 나왔습니다.'],['나','여기가 원래 평화로운 곳이라서요!'],[N,'조사 첫날, 낡은 다리가 무너지며 엘리스가 계곡 아래로 떨어진다.'],[N,'군터가 도끼를 한 번 휘두르자, 바람이 그녀를 부드럽게 들어 올린다.'],['군터','…바람이 세다.'],['엘리스','(서류철을 꼭 쥐고) 바람이… 아래에서 위로요?'],['마르타','이 동네 바람이 원래 그렇단다.'],['엘리스','…보고서는 내일 쓰죠. 며칠 더 지내 보겠습니다.']],
- 12:[[N,'주민이 스물다섯 명이 된 날, 엘리스가 광장 한가운데서 측정기를 꺼낸다.'],['엘리스','오늘은 정식으로 측정하겠습니다. 피노 씨부터.'],[N,'측정기가 빨갛게 폭주하며 김을 뿜는다.'],['엘리스','피노 씨, 당신… Lv 999?'],['피노','(한숨) 들켰네. 대신 훔친 건 다 돌려줬어요. 택배로.'],[N,'피노의 등짐에서 ‘반송’ 꼬리표가 붙은 상자가 우르르 쏟아진다.'],['엘리스','촌장님은 알고 계셨습니까?'],['나','피노 씨가 택배를 많이 보내는 건 알았어요.']],
- 13:[[N,'선술집 문을 연 날, 험상궂은 남자가 앞치마를 두르고 카운터 뒤에 선다.'],['바르그','어서 와라. 근무 중이라 술은 안 판다. 우유다.'],[N,'손님들이 얼어붙는다. 엘리스는 구석에서 측정기를 몰래 꺼낸다.'],['나','와, 우유 좋아요! 한 잔 주세요.'],['바르그','(잔을 내밀며) …너는 나를 무서워하지 않는군.'],['마르타','(반갑게) 어머, 너도 왔구나. 오래 걸렸네.'],['엘리스','(측정기를 들여다보다 조용히 집어넣으며) …오늘은 고장인가 봐요.']],
- 14:[[N,'눈보라 속 마을 입구. 마왕군 대열 앞에 빗자루를 든 내가 홀로 서 있다.'],['나','여긴 초보자 마을이에요. 여기 사람들은 제가 지킵니다.'],['브루노','(나를 뒤로 물리며) …그 말, 박력이 있군. 그럼 오늘은 내가 문을 지킨다.'],[N,'바르그가 앞치마를 풀고 나선다. 마왕군 전체가 무릎을 꿇는다.'],['마왕군','마, 마왕님?!'],['바르그','퇴직했다. 가게 예약은 다음 달부터 받는다. 돌아가라.'],['마르타','(작게) 저 아이, 진심이었어.']],
- 15:[['마르타','고맙다, 촌장님. 강해서가 아니라, 우리를 평범하게 대해 줘서.'],['엘리스','보고서는 이렇게 썼습니다. ‘초보자 마을, 이상 없음.’'],[N,'짐을 정리하다 발령장을 처음으로 뒤집어 본다. 추천인 서명란에 낯익은 글씨가 있다.'],['나','…마르타 할머니?'],[N,'내 레벨 창이 깜빡인다. Lv 1 → Lv ???'],['마르타','(미소) 역시 그 사람 핏줄이구나.'],[N,'왕국의 편지가 도착한다. ‘초보자 마을에 왕국 모험가 학교를 세울 것.’'],[N,'— 시즌 1 끝. 시즌 2에서 계속됩니다 —']],
- 0:[[N,'왕국 행정청, 신입 관리 발령 추첨의 날.'],['담당관','다음. 연수 성적 꼴찌, Lv1 신입.'],[N,'추첨함에서 나온 쪽지에는 이렇게 적혀 있다. ‘초보자 마을 촌장.’'],['동기들','(웅성웅성) 역대 촌장이 전부 석 달을 못 버티고 도망갔다는 그곳…?'],['담당관','…축하하네. 아니, 힘내게.'],[N,'나는 짐 가방 하나를 들고 왕국 변두리로 향한다. 발령장 뒷면은 아직 한 번도 뒤집어 보지 않았다.']],
+ 1:[[N,'텅 빈 마을. 굴뚝 연기는 단 한 곳.'],['마르타','어서 오렴. 차가 딱 알맞게 식었단다.'],['나','저는 안 도망가요. Lv1이지만요!'],['마르타','…그 말, 오래 기다렸단다.']],
+ 2:[[N,'도끼질 백 번째. 나무는 멀쩡하다.'],['마르타','나무는 결을 따라 베는 거란다.'],[N,'톡. 장작 열두 개가 가지런히 쌓인다.'],['마르타','호호, 오래 살면 다 늘어.']],
+ 3:[[N,'첫 밀밭 잔치에 비룡이 나타났다!'],['나','할머니, 숨으세요! 제가 막을게요!'],[N,'딱. 비룡이 통구이가 되어 떨어진다.'],['마르타','음식이 하나 늘었구나. 앉아라.']],
+ 4:[[N,'안개 속, 도끼를 멘 남자.'],['군터','…바람이 이쪽으로 불었다.'],['나','그럼 벌목소에서 지내세요!'],['마르타','오랜만이구나, 바람 녀석.']],
+ 5:[[N,'도끼 한 번에 나무 열 그루가 쓰러진다.'],['군터','…바람이 세다.'],['나','저도 도끼 좀…'],['군터','안 된다. (나무 숟가락을 쥐여 준다)']],
+ 6:[[N,'늑대 떼! 나는 빗자루를 든다.'],['군터','…촌장. 뒤로.'],[N,'회오리바람. 늑대들이 숲 너머로 날아간다.'],['마르타','녹슬지 않았구나.']],
+ 7:[[N,'비 오는 밤, 입구에 거인이 앉아 있다.'],['브루노','…지켜야 할 문을 찾고 있었다.'],['나','그럼 우리 마을 문을 지켜 주세요!'],['브루노','…촌장은 밤에 잘 자는가.']],
+ 8:[[N,'굴러오는 바위를 브루노가 맨손으로 받친다.'],['나','아저씨, 괜찮으세요?!'],['브루노','허리 운동이다. 매일 하는.']],
+ 9:[[N,'빵 냄새를 따라 산적 떼가 왔다.'],['나','(다리 뒤에서) 우리 빵이에요!'],[N,'브루노가 서 있기만 해도 산적들이 나동그라진다.'],['산적','처, 철벽의 브루노?!']],
+ 10:[[N,'시장 첫날, 수상한 상인이 왔다.'],['피노','개업 선물! 완전 평범한 냄비예요.'],['나','냄비가 빛나는데요?'],['피노','(수배 전단을 떼며) 닮은 사람 많아요.']],
+ 11:[['엘리스','감찰관 엘리스. 몬스터 수치 0, 조사합니다.'],[N,'다리가 무너지고, 바람이 그녀를 들어 올린다.'],['군터','…바람이 세다.'],['엘리스','…보고서는 내일 쓰죠.']],
+ 12:[[N,'엘리스가 광장에서 측정기를 꺼낸다.'],['엘리스','피노 씨… Lv 999?!'],['피노','들켰네. 훔친 건 다 돌려줬어요. 택배로.'],['나','택배를 많이 보내시긴 했죠.']],
+ 13:[[N,'선술집 주인은 얼굴이 무섭다.'],['바르그','근무 중이다. 우유다.'],['나','와, 우유 좋아요!'],['바르그','…너는 나를 무서워하지 않는군.']],
+ 14:[[N,'눈보라 속 마왕군. 빗자루를 든 나.'],['나','여기 사람들은 제가 지킵니다!'],[N,'바르그가 앞치마를 푼다. 마왕군이 무릎을 꿇는다.'],['바르그','퇴직했다. 돌아가라.']],
+ 15:[['마르타','고맙다. 우리를 평범하게 대해 줘서.'],['엘리스','보고서: ‘초보자 마을, 이상 없음.’'],[N,'발령장 뒷면 추천인 서명… 마르타.'],[N,'Lv 1 → Lv ??? · 시즌 1 끝']],
+ 0:[[N,'신입 발령 추첨의 날.'],['담당관','연수 꼴찌… 초보자 마을 촌장.'],['동기들','석 달도 못 버틴다는 그곳?'],[N,'발령장 뒷면은 아직 보지 않았다.']],
 };
 const REVEALS={3:['marta'],6:['gunter'],9:['bruno'],12:['pino'],14:['barg']};
 const CLUES={
@@ -1236,11 +1238,12 @@ function initStoryArt(){
 }
 
 let sceneEp=0,sceneI=0,sceneTimer=null;
+const SPEAKER_PIC={'마르타':'marta','군터':'gunter','브루노':'bruno','피노':'pino','바르그':'barg','엘리스':'elise'};
 function playEpisode(n){const lines=SCENES[n];if(!lines)return;sceneEp=n;sceneI=0;closeSheet();
   $('#scene-no').textContent=n?`${n}화`:'프롤로그';$('#scene-title').textContent=n?EPISODES[n-1].t:'발령 추첨';$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(n);
   if(!S.story.includes(n)){S.story.push(n);save()}sceneStep()}
 function sceneStep(){const lines=SCENES[sceneEp],body=$('#scene-body');
-  if(sceneI<lines.length){const[who,t]=lines[sceneI++];const el=document.createElement('div');el.className='line'+(who?'':' narr');el.innerHTML=(who?`<b>${who}</b>`:'')+t.replace(/</g,'&lt;');body.appendChild(el);el.scrollIntoView({block:'nearest'});
+  if(sceneI<lines.length){const[who,t]=lines[sceneI++];const el=document.createElement('div');el.className='line'+(who?'':' narr');const pid=SPEAKER_PIC[who];el.innerHTML=(pid?`<img class="sp-pic" src="./assets/story/portrait-${pid}.webp" alt="">`:'')+(who?`<b>${who}</b>`:'')+t.replace(/</g,'&lt;');if(pid)el.classList.add('has-pic');body.appendChild(el);el.scrollIntoView({block:'nearest'});
     $('#scene-next').textContent=sceneI>=lines.length&&!REVEALS[sceneEp]?'닫기':'다음';return}
   const rv=REVEALS[sceneEp];if(rv&&!body.querySelector('.reveal')){for(const id of rv){const r=RESIDENTS.find(x=>x.id===id);const el=document.createElement('div');el.className='reveal';el.innerHTML=`<small>알고보니…</small>${r.n}<b>Lv ???</b>`;body.appendChild(el);
       const num=el.querySelector('b');let k=0;clearInterval(sceneTimer);sceneTimer=setInterval(()=>{k++;num.textContent='Lv '+(k<14?Math.floor(Math.random()*900+99):999);if(k>=14)clearInterval(sceneTimer)},60);el.scrollIntoView({block:'nearest'})}
@@ -1363,7 +1366,7 @@ function popItem(it){const el=document.createElement('div');el.className='item-p
 function onDeplete(kind,wx,wy){dailyBump(kind==='rock'?'mine':'chop');if(Math.random()<.1){const it=findItem('harvest');if(it)floatTxt(wx,wy-8,'?',  '#fff3c4')}}
 function appraise(id){if(S.items[id]!=='found')return;if(!RESIDENTS.find(r=>r.id==='pino')||!resArrived(RESIDENTS.find(r=>r.id==='pino'))){toast('시장을 지으면 피노가 감정해 줘요');return}if(S.r.gold<APPRAISE_COST){toast('금화가 부족해요');return}
  S.r.gold-=APPRAISE_COST;S.items[id]='known';const it=ITEMS.find(x=>x.id===id);S.r.gold+=25;save();updateHUD();
- playCustom('감정 결과',it.f,[['피노','이거요? 흠… 평범한 '+it.f+'… 잠깐만요.'],['','(피노의 손이 미세하게 떨린다.)'],['피노','알고보니 이건… ‘'+it.t+'’예요.'],['',it.d],['피노','감정비 받고, 보관료는 제가 낼게요. 금화 +25. 대신 아무한테도 말하지 마세요.']])}
+ playCustom('감정 결과',it.f,[['피노','알고보니 이건… ‘'+it.t+'’!'],['',it.d],['피노','보관료 금화 +25. 비밀이에요.']])}
 function pinoCart(){if(!count('market')){toast('시장을 지으면 피노의 수레가 열려요');return}if(S.cartDay===todayKey()){toast('피노의 수레는 하루에 한 번만 열려요');return}if(S.r.gold<CART_COST){toast('금화가 부족해요');return}
  const it=ITEMS.filter(x=>!S.items[x.id]);if(!it.length){toast('수레에 남은 물건이 없어요. 전부 모으셨네요!');return}S.r.gold-=CART_COST;S.cartDay=todayKey();findItem('cart');updateHUD();renderSheet()}
 function itemsHTML(){const n=ITEMS.filter(x=>S.items[x.id]).length,k=ITEMS.filter(x=>S.items[x.id]==='known').length,cartOk=count('market')&&S.cartDay!==todayKey();
@@ -1374,7 +1377,7 @@ function itemsHTML(){const n=ITEMS.filter(x=>S.items[x.id]).length,k=ITEMS.filte
 const favorStars=id=>Math.min(5,Math.floor((S.favor[id]||0)/3));
 function talk(id){const r=RESIDENTS.find(x=>x.id===id);if(!r||!resArrived(r))return;const tier=Math.min(2,Math.floor((S.favor[id]||0)/5)),pool=TALK[id][tier],line=pool[Math.random()*pool.length|0];
  const first=S.talked[id]!==todayKey();if(first){S.talked[id]=todayKey();S.favor[id]=(S.favor[id]||0)+1;dailyBump('talk')}
- toast(`${r.n}: “${line}”${first?' · 친밀도 +1':''}`);save();renderSheet()}
+ toast(`${r.n.split(' ')[0]}: “${line}”${first?' ♥+1':''}`);save();renderSheet()}
 function favorLeft(id){return Math.max(0,FAVOR_COOLDOWN-(S.time-(S.favorAt[id]??-1e9)))}
 function askFavor(id){const f=FAVORS[id],r=RESIDENTS.find(x=>x.id===id);if(!f||!r||!resArrived(r))return;if(favorLeft(id)>0){toast('조금 쉬었다가 다시 부탁해요');return}
  S.favorAt[id]=S.time;const got=f.run();addRumor(f.rumor);S.favor[id]=(S.favor[id]||0)+1;save();updateHUD();toast(`${r.n}: “${f.line}” ${got}`)}
@@ -1406,11 +1409,11 @@ function meChance(){return Math.min(.8,.45+.05*(S.crisis.done||0)+.05*S.clues.ch
 function resolveCrisis(by){const def=crisisDef();if(!def)return;const reward=()=>{for(const k in def.reward)S.r[k]+=def.reward[k]};
  S.crisis.id=null;S.crisis.next=S.time+CRISIS_EVERY;closeSheet();
  if(by==='me'){if(Math.random()<meChance()){reward();S.crisis.done++;for(const r of RESIDENTS)if(resArrived(r))S.favor[r.id]=(S.favor[r.id]||0)+1;dailyBump('crisis');
-   playCustom('위기 해결',def.n,[['','나는 빗자루를 들고 마을 입구에 섰다. 손이 덜덜 떨렸다.'],['','…어째서인지 '+josa(def.n,'이','가')+' 슬금슬금 물러갔다.'],['','뒤를 돌아보니 주민들이 모두 창문 뒤에서 지켜보고 있었다.'],['마르타','(작게) 저 아이, 진심이구나.'],['',`보상: ${Object.entries(def.reward).map(([k,v])=>`${RN[k]} +${v}`).join(', ')} · 모두의 친밀도 +1`]],EVENT_ART('crisis-'+def.id))}
+   playCustom('위기 해결',def.n,[['','빗자루를 든 나. '+josa(def.n,'이','가')+' 슬금슬금 물러갔다.'],['마르타','(창문 뒤에서) 저 아이, 진심이구나.'],['',`보상: ${Object.entries(def.reward).map(([k,v])=>`${RN[k]} +${v}`).join(', ')} · 모두의 친밀도 +1`]],EVENT_ART('crisis-'+def.id))}
   else{const lost=[];for(const k in def.loss){const n=Math.floor(S.r[k]*def.loss[k]*.5);S.r[k]-=n;if(n)lost.push(`${RN[k]} -${n}`)}
    playCustom('위기','버티지 못했다',[['','빗자루가 부러졌다.'],['','피해를 절반으로 줄였지만 '+(lost.join(', ')||'다행히 잃은 건 없었다')+'.'],['브루노','다음엔 부르라고 했지.']],EVENT_ART('crisis-'+def.id))}}
  else{const r=RESIDENTS.find(x=>x.id===by),h=HANDLERS[by];if(!r||!h||!resArrived(r))return;reward();S.crisis.done++;S.favor[by]=(S.favor[by]||0)+1;dailyBump('crisis');addRumor(h.rumor);
-  playCustom('위기 해결',def.n,[['나',r.n+', 부탁드려요!'],['',h.line],[r.n.split(' ')[0],'평범하게 처리했다.'],['',`보상: ${Object.entries(def.reward).map(([k,v])=>`${RN[k]} +${v}`).join(', ')} · 소문 +${h.rumor}`]],EVENT_ART('crisis-'+def.id))}
+  playCustom('위기 해결',def.n,[['',h.line],[r.n.split(' ')[0],'평범하게 처리했다.'],['',`보상: ${Object.entries(def.reward).map(([k,v])=>`${RN[k]} +${v}`).join(', ')} · 소문 +${h.rumor}`]],EVENT_ART('crisis-'+def.id))}
  save();updateHUD();updateAlert()}
 function updateAlert(){const el=$('#alert');if(!el||!S)return;let html='';
  if(S.inspect.active)html=`<img class="al-pic round" src="./assets/story/portrait-elise.webp" alt=""><b>${inspectorName()} 도착</b><span class="al-go">응대 ›</span>`;
@@ -1422,7 +1425,7 @@ const rnd=([a,b])=>a+Math.floor(Math.random()*(b-a+1));
 function acadTick(){const a=S.academy;if(!acadOpen())return;
  if(!a.next)a.next=S.time+10;
  if(S.time>=a.next&&a.wait.length<3){const apt=Object.keys(ACAD_APT)[Math.random()*5|0],pool=ACAD_NAMES.filter(n=>!a.wait.some(t=>t.n===n)&&!a.train.some(t=>t.n===n)),n=pool[Math.random()*pool.length|0]||ACAD_NAMES[0],wish=ACAD_APT[apt].wish[Math.random()*3|0];
-  a.wait.push({n,apt,wish});a.next=S.time+ACAD_EVERY;toast(`모험가 지망생 ${josa(n,'이','가')} 찾아왔어요: “${wish}”`);updateTabs()}
+  a.wait.push({n,apt,wish});a.next=S.time+ACAD_EVERY;toast(`지망생 ${n} 도착`);updateTabs()}
  for(const t of a.train.slice())if(S.time>=t.end){a.train=a.train.filter(x=>x!==t);graduate(t)}
  for(const g of a.grads)if(g.away&&S.time>=g.away.end)expedReturn(g);
  if(a.grads.length&&S.time>=a.letterAt){if(a.letterAt)letter();a.letterAt=S.time+LETTER_EVERY}}
@@ -1436,7 +1439,7 @@ function gradCard(g,note){document.querySelector('.arrive')?.remove();const el=d
  el.innerHTML=`<span class="gbadge g${g.g}">${g.g}</span><span><small>졸업! ${RESIDENTS.find(r=>r.id===g.by).n.split(' ')[0]} 문하 · ${g.cls}</small><b>${g.n} · Lv ${g.lv}</b><em>${note} 금화 +${GRADE[g.g].gold}</em></span>`;
  const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=()=>{bye();openTab('people');setSub('people','acad')};document.body.appendChild(el);setTimeout(bye,7000)}
 function sendExped(id,dest){const g=S.academy.grads.find(x=>x.id===id),E=EXPEDS[dest];if(!g||!E||g.away)return;if(S.academy.grads.filter(x=>x.away).length>=3){toast('원정은 동시에 3명까지 보낼 수 있어요');return}
- g.away={d:dest,end:S.time+E.t};expPick=null;toast(`${josa(g.n,'이','가')} ${E.n}(으)로 떠났어요. ${E.t}초 뒤 돌아와요`);save();renderSheet()}
+ g.away={d:dest,end:S.time+E.t};expPick=null;toast(`${g.n} → ${E.n} · ${E.t}초`);save();renderSheet()}
 function expedReturn(g){const E=EXPEDS[g.away.d],dn=E.n;g.away=null;const ok=Math.random()<E.ok[g.g];let msg,it=null;
  if(ok){const gold=rnd(E.gold);S.r.gold+=gold;for(const k in E.r)S.r[k]+=E.r[k];msg=`금화 +${gold}${Object.entries(E.r).map(([k,v])=>` · ${RN[k]} +${v}`).join('')}`;if(Math.random()<E.item)it=findItem('exped')}
  else{S.r.food+=15;msg=EXP_FAIL[Math.random()*EXP_FAIL.length|0]+' 식량 +15'}
@@ -1446,11 +1449,11 @@ function letter(){const gs=S.academy.grads;if(!gs.length)return;const g=gs[Math.
  document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive letter';el.innerHTML=`<img src="${UI_IC('daily-grad')}" alt=""><span><small>졸업생의 편지 · ${g.n} (${g.cls})</small><em>“${LETTERS[g.by]}”</em><b>동봉된 금화 +${gift}</b></span>`;
  const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=bye;document.body.appendChild(el);setTimeout(bye,8000)}
 function acadAssign(i,by){const a=S.academy,t=a.wait[i],r=RESIDENTS.find(x=>x.id===by);if(!t||!r||!resArrived(r))return;if(a.train.some(x=>x.by===by)){toast(`${josa(r.n,'은','는')} 이미 누군가를 가르치고 있어요`);return}
- a.wait.splice(i,1);acadPick=null;a.train.push({...t,by,end:S.time+ACAD_TRAIN});toast(`${josa(t.n,'을','를')} ${r.n}에게 맡겼어요. ${ACAD_TRAIN}초 뒤 졸업해요`);save();renderSheet()}
+ a.wait.splice(i,1);acadPick=null;a.train.push({...t,by,end:S.time+ACAD_TRAIN});toast(`${t.n} → ${r.n.split(' ')[0]} · ${ACAD_TRAIN}초`);save();renderSheet()}
 const PORT=id=>`<img class="mini-pic" src="./assets/story/portrait-${id}.webp" alt="">`;
 function acadHTML(){const a=S.academy;if(!acadOpen())return`<h3 class="sec">${UI('academy')}초보 모험가 아카데미</h3><p class="shop-note">${UI('lock')}6화 이후 열려요</p>`;
  const here=RESIDENTS.filter(resArrived),busy=new Set(a.train.map(t=>t.by)),away=a.grads.filter(g=>g.away).length;
- let h=`<h3 class="sec">${UI('academy')}초보 모험가 아카데미 <small>졸업생 ${a.grads.length}명</small></h3><p class="shop-note">지망생의 말을 듣고 어울리는 스승을 골라 주세요. 잘 맞으면 높은 등급으로 졸업해요.</p>`;
+ let h=`<h3 class="sec">${UI('academy')}초보 모험가 아카데미 <small>졸업생 ${a.grads.length}명</small></h3>`;
  h+=a.wait.length?a.wait.map((t,i)=>`<div class="acad ${acadPick===i?'open':''}"><div class="acad-who"><b>${t.n}</b><small>모험가 지망생</small></div><p class="wish">“${t.wish}”</p>${acadPick===i?`<div class="mentors">${here.map(r=>`<button class="mentor" data-act="acad" data-i="${i}" data-by="${r.id}" ${busy.has(r.id)?'disabled':''}>${PORT(r.id)}<span>${r.n.split(' ')[0]}</span>${busy.has(r.id)?'<small>가르치는 중</small>':`<small>친밀 ${'★'.repeat(favorStars(r.id))||'·'}</small>`}</button>`).join('')}</div>`:`<button class="btn go" data-act="acad-pick" data-i="${i}">스승 고르기</button>`}</div>`).join(''):'<p class="shop-note">곧 또 찾아와요</p>';
  if(a.train.length)h+=`<div class="acad-train">${a.train.map(t=>`<div class="tr">${PORT(t.by)}<span><b>${t.n}</b> 훈련 중</span><span class="tbar"><i style="width:${Math.round((1-Math.max(0,t.end-S.time)/ACAD_TRAIN)*100)}%"></i></span><small>${UI('timer')}${Math.max(0,t.end-S.time)}</small></div>`).join('')}</div>`;
  if(a.grads.length){h+=`<h3 class="sec">졸업생 <small>원정 ${away}/3</small></h3><div class="grads">${a.grads.slice().reverse().slice(0,8).map(g=>`<div class="grad"><span class="gbadge g${g.g}">${g.g}</span><div class="gi"><b>${g.n}</b><small>${g.cls} · Lv ${g.lv} · ${RESIDENTS.find(r=>r.id===g.by)?.n.split(' ')[0]||''} 문하</small></div>${g.away?`<small class="away">${EXPEDS[g.away.d].n} ${UI('timer')}${Math.max(0,g.away.end-S.time)}</small>`:expPick===g.id?'':`<button class="btn" data-act="exp-pick" data-id="${g.id}" ${away>=3?'disabled':''}>원정</button>`}${expPick===g.id&&!g.away?`<div class="exps">${Object.entries(EXPEDS).map(([k,E])=>`<button class="btn exp" data-act="exped" data-id="${g.id}" data-d="${k}"><b>${E.n}</b><small>${UI('timer')}${E.t}초 · 성공 ${Math.round(E.ok[g.g]*100)}%</small></button>`).join('')}</div>`:''}</div>`).join('')}</div>`}
@@ -1466,7 +1469,7 @@ function dailyHTML(){ensureDaily();return `<section class="daily"><div class="ac
 function lifeHTML(){const here=RESIDENTS.filter(resArrived);
  return `<div class="rumor"><div class="rumor-h"><b>${UI('rumor')}소문 게이지</b><small>${Math.round(S.rumor)} / 100</small></div><div class="rumor-track"><div class="rumor-bar"><i style="width:${S.rumor}%"></i></div><img class="rumor-elise" src="./assets/story/portrait-elise.webp" alt="" style="left:${Math.max(0,Math.min(100,S.rumor))}%"><img class="rumor-goal" src="${UI_IC('village')}" alt=""></div></div>
  <h3 class="sec">이웃</h3><div class="neigh">${here.map(r=>{const talked=S.talked[r.id]===todayKey(),rev=resArrived(r),f=FAVORS[r.id],left=favorLeft(r.id);return `<div class="nb"><img class="nb-pic" src="./assets/story/portrait-${r.id}.webp" alt="" loading="lazy" decoding="async"><div class="nb-body"><div class="nb-h"><b>${r.n}</b><span class="stars" aria-label="친밀도 ${S.favor[r.id]||0}">${'★'.repeat(favorStars(r.id))}${'☆'.repeat(5-favorStars(r.id))}</span></div>
- <div class="nb-btns"><button class="btn" data-act="talk" data-id="${r.id}">${UI('talk')}${talked?'또 대화':'대화'}</button>${rev?`<button class="btn go" data-act="favor" data-id="${r.id}" ${left?'disabled':''}>${UI('favor')}${f.t}${left?` · ${UI('timer')}${left}`:''}</button>`:`<button class="btn" disabled aria-label="정체를 알면 부탁할 수 있어요">${UI('lock')}부탁</button>`}</div>${rev?`<small>${f.d} · 소문 ${f.rumor>0?'+':''}${f.rumor}</small>`:''}</div></div>`}).join('')}</div>`}
+ <div class="nb-btns"><button class="btn" data-act="talk" data-id="${r.id}">${UI('talk')}${talked?'또 대화':'대화'}</button>${rev?`<button class="btn go" data-act="favor" data-id="${r.id}" ${left?'disabled':''}>${UI('favor')}${f.t}${left?` · ${UI('timer')}${left}`:''}</button>`:`<button class="btn" disabled aria-label="정체를 알면 부탁할 수 있어요">${UI('lock')}부탁</button>`}</div>${rev?`<small class="fav-note">${UI('rumor')}${f.rumor>0?'+':''}${f.rumor}</small>`:''}</div></div>`}).join('')}</div>`}
 /* festivals */
 function festival(prevSe){if(day()<=2)return;const score=S.decor.length*10+S.b.length*3+Math.floor(S.roads.length/2)+S.pop+ITEMS.filter(x=>S.items[x.id]).length*2;
  const tier=score>=120?2:score>=60?1:0,names=['조촐한','흥겨운','전설적인'],gold=[20,50,100][tier],guests=Math.max(3,Math.floor(score/4));S.r.gold+=gold;let it=null;if(tier>=1)it=findItem('fest');
@@ -1534,8 +1537,8 @@ function openTab(t){
   if(t==='shop'){openShop();return}
   finishPlacement();selId=t;armReset=false;renderSheet();updateTabs()}
 function profileHTML(){const sk=[['farm','농사','#819853',`식량 생산 +${(lv(S.xp.farm)-1)*5}%`],['build','건축','#bd9759','생산 보너스 없음'],['trade','교역','#77929a',`금화 생산 +${(lv(S.xp.trade)-1)*5}% · 판매가 +${(lv(S.xp.trade)-1)*10}%`]];
-  return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="profile-hero"><div class="big">Lv1</div><div><b>신참 촌장</b><p>레벨이 안 오르는 건… 기분 탓이겠지?</p></div></div><h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c,effect])=>`<div class="pill"><div class="skill-title"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><small>다음 단계 ${Math.round(lvp(S.xp[k])*100)}%</small></div><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div><small>${effect}</small></div>`).join('')}</div><h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div><h3 class="sec">촌장의 비밀 <small>${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul class="help">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">아직 찾은 실마리가 없어요.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
-function peopleHTML(){return `<div class="top shop-top"><div><h2>주민</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('people')}<section data-sub="neigh">${visitorInviteHTML()}${lifeHTML()}</section><section data-sub="roster"><div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r),all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><div class="resident-title"><h3>${here?r.n:'아직 만나지 못한 이웃'}</h3>${here?`<span class="lvq">${rev?'Lv 999':'Lv ???'}</span>`:''}</div>${here?`<p class="resident-role">${r.role}</p>`:""}<p>${here?`“${r.line}”`:`${objectName(B[r.home].n)} 지으면 이사 와요.`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary>모은 단서 보기</summary><ul>${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<div class="lore">${LORE[r.id]}</div>`:''}</div></div>`}).join('')}</div></section><section data-sub="acad">${acadHTML()}</section>`}
+  return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="profile-hero"><div class="big">Lv1</div><div><b>신참 촌장</b></div></div><h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c,effect])=>`<div class="pill"><div class="skill-title"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><small>다음 단계 ${Math.round(lvp(S.xp[k])*100)}%</small></div><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div><small>${effect}</small></div>`).join('')}</div><h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div><h3 class="sec">촌장의 비밀 <small>${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul class="help">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">아직 찾은 실마리가 없어요.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
+function peopleHTML(){return `<div class="top shop-top"><div><h2>주민</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('people')}<section data-sub="neigh">${visitorInviteHTML()}${lifeHTML()}</section><section data-sub="roster"><div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r),all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><div class="resident-title"><h3>${here?r.n:'아직 만나지 못한 이웃'}</h3>${here?`<span class="lvq">${rev?'Lv 999':'Lv ???'}</span>`:''}</div><p>${here?`“${r.line}”`:`${objectName(B[r.home].n)} 지으면 이사 와요.`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary>모은 단서 보기</summary><ul>${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<details class="lore-d"><summary>정체 보기</summary><div class="lore">${LORE[r.id]}</div></details>`:''}</div></div>`}).join('')}</div></section><section data-sub="acad">${acadHTML()}</section>`}
 function storyHTML(){const next=nextQuest();let from=0;
  const card=(n,title,state,extra='')=>`<button class="ep-card ${state}" ${state==='locked'?'disabled':`data-act="${state==='ready'?'claim':'replay'}" ${state==='ready'?`data-q="${Q[n-1].id}"`:`data-ep="${n}"`}`} aria-label="${n?n+'화':'프롤로그'} ${state==='locked'?'잠김':title}"><img src="${EP_THUMB(n)}" alt="" loading="lazy" decoding="async" width="360" height="240" onerror="this.onerror=null;this.style.display='none'"><span class="ep-no">${n?n+'화':'0화'}</span>${state==='locked'?`<span class="ep-lock">${UI('lock','big')}</span>`:`<span class="ep-t">${title}</span>`}${extra}</button>`;
  let h=`<div class="top shop-top"><div><h2>시즌 1 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화 완료</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('story')}<section data-sub="today">${storyTodayHTML()}${dailyHTML()}</section><section data-sub="eps"><div class="act-h"><b>프롤로그</b></div><div class="ep-grid">${card(0,'발령 추첨','done')}</div>`;
