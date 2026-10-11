@@ -3,16 +3,16 @@
     "id": "hall-l2",
     "file": "./assets/illustrations/levels/hall-l2.webp",
     "width": 512,
-    "height": 552,
-    "bytes": 73756,
-    "alphaZeroFraction": 0.4629,
+    "height": 716,
+    "bytes": 86924,
+    "alphaZeroFraction": 0.416,
     "crop": [
       4,
       4,
       504,
-      544
+      708
     ],
-    "quality": 88,
+    "quality": 85,
     "footprint": [
       3,
       3
@@ -22,16 +22,16 @@
     "id": "hall-l3",
     "file": "./assets/illustrations/levels/hall-l3.webp",
     "width": 512,
-    "height": 551,
-    "bytes": 82102,
-    "alphaZeroFraction": 0.4341,
+    "height": 732,
+    "bytes": 88624,
+    "alphaZeroFraction": 0.3897,
     "crop": [
       4,
       4,
       504,
-      543
+      724
     ],
-    "quality": 88,
+    "quality": 82,
     "footprint": [
       3,
       3
