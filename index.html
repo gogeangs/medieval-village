@@ -584,7 +584,7 @@ function art(w,h,fn){return mk(w*ART,h*ART,(_,g)=>{g.scale(ART,ART);g.lineCap='r
 /* Building footprints (tiles) and level looks. */
 const FP={hall:[3,3],house:[2,2],farm:[3,2],lumber:[2,2],quarry:[3,2],market:[3,2],bakery:[2,2],tavern:[3,2]};
 const fp=k=>FP[k]||[2,2],LV_SCALE={1:.8,2:.9,3:1},PAINTED_LV={};
-function levelSprite(base,kind,l,custom){const[fw]=fp(kind),W=fw*16,k=W/32*(custom?1:LV_SCALE[l]||1),bw=base.width/ART*k,bh=base.height/ART*k,head=!custom&&l>=2?8:0,H=bh+head;
+function levelSprite(base,kind,l,custom){const[fw]=fp(kind),W=fw*16,wide=fw===3&&kind!=='hall'&&kind!=='farm',k=custom?W/32:(wide&&l===1?1:W/32*(LV_SCALE[l]||1)),bw=base.width/ART*k,bh=base.height/ART*k,head=!custom&&l>=2?8:0,H=bh+head;
   const pr0=base.paintRect||{x:0,y:base.inkTop||0,w:base.width/ART,h:base.height/ART-(base.inkTop||0)},ox=(W-bw)/2,oy=H-bh,pr={x:ox+pr0.x*k,y:oy+pr0.y*k,w:pr0.w*k,h:pr0.h*k};
   const c=art(W,H,g=>{g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';g.drawImage(base,ox,oy,bw,bh);if(custom||l<2)return;
     const cx=pr.x+pr.w*.5,top=pr.y+1,gold=l>=3;
