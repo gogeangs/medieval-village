@@ -309,8 +309,8 @@ body.sheet-open .hud{visibility:hidden}
 .btn .ui-ic{width:20px;height:20px}.claim .ui-ic{width:24px;height:24px;margin:0}.ep-badge .ui-ic{width:16px;height:16px;margin:0}.bc .ui-ic{width:13px;height:13px;margin:0;vertical-align:-2px}
 .sec .ui-ic,.rumor-h .ui-ic{width:22px;height:22px;vertical-align:-5px}img.rumor-goal{width:24px;height:24px;object-fit:contain}
 .help-pics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}.help-pics figure{margin:0;display:grid;gap:4px;text-align:center}.help-pics figure.wide{grid-column:1/-1}.help-pics img{width:100%;height:auto;border-radius:8px;background:#f3e6c8}.help-pics figcaption{font-size:12px;color:#6b5a40}
-.coach{position:fixed;left:50%;bottom:calc(var(--dock-height,64px) + 30px);z-index:25;transform:translateX(-50%);display:grid;justify-items:center;gap:2px;width:min(78vw,300px);padding:8px 8px 10px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dfee;box-shadow:0 8px 22px #2b201555;font:inherit;font-size:15px;color:#4a3720;cursor:pointer;animation:coachIn .35s ease-out}
-.coach img{width:100%;height:auto;border-radius:9px}.coach.out{opacity:0;transition:opacity .3s}@keyframes coachIn{from{opacity:0;transform:translate(-50%,16px)}}
+.coach{position:fixed;left:50%;bottom:calc(var(--dock-height,64px) + 24px);z-index:25;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:min(86vw,300px);padding:6px 12px 6px 6px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dfee;box-shadow:0 8px 22px #2b201555;font:inherit;font-size:15px;color:#4a3720;cursor:pointer;animation:coachIn .35s ease-out}
+.coach img{width:96px;height:auto;border-radius:8px;flex:none}.coach.out{opacity:0;transition:opacity .3s}@keyframes coachIn{from{opacity:0;transform:translate(-50%,16px)}}
 .arrive{position:fixed;left:50%;top:calc(var(--hud-h,120px) + 10px);z-index:26;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:min(92vw,360px);padding:8px 12px 8px 8px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dff2;box-shadow:0 8px 22px #2b201555;font:inherit;color:#4a3720;text-align:left;cursor:pointer;animation:coachIn .4s ease-out}
 .arrive img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid #c8b28a;background:#e8dcc0;flex:none}.arrive span{display:grid;gap:1px;min-width:0}.arrive small{font-size:12px;color:#8a6d3b}.arrive b{font-size:17px;font-weight:400}.arrive em{font-style:normal;font-size:13px;color:#6b5a40}.arrive.out{opacity:0;transition:opacity .3s}
 .lv-preview{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 4px;padding:8px;border:1px dashed #c8b28a;border-radius:10px;background:#fff5dd80}.lv-preview img{height:64px;width:auto;max-width:42%;object-fit:contain}.lv-preview img.next{height:72px;filter:drop-shadow(0 0 6px #f3c75a88)}.lv-preview span{font-size:22px;color:#8a6d3b}.lv-preview small{font-size:12px;color:#6b5a40}
@@ -324,6 +324,12 @@ body.sheet-open .hud{visibility:hidden}
 .arrive .gbadge{width:48px;height:48px;font-size:24px}.arrive.letter img{width:48px;height:48px;border:0;border-radius:0;background:none;object-fit:contain}
 .line.has-pic{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:8px;align-items:start}.line.has-pic b{grid-column:2}.line .sp-pic{grid-row:1/3;width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:1.5px solid #c8b28a;background:#e8dcc0}
 .lore-d summary{font-size:12px;color:#8a6d3b;cursor:pointer;min-height:30px;padding:6px 0}.fav-note{display:inline-flex;align-items:center;gap:2px}
+.drawer#hotbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;gap:5px}.drawer#hotbar .slot{min-width:0;flex:none}.drawer#hotbar .slot .th{height:38px;width:42px}.drawer#hotbar .slot .build-hint{font-size:10px}
+@media(min-width:620px){.drawer#hotbar{grid-template-columns:repeat(8,minmax(0,1fr))}}
+@media(max-height:540px) and (orientation:landscape){.drawer#hotbar{grid-template-columns:repeat(8,minmax(0,1fr))}.drawer#hotbar .slot .build-hint{display:none}}
+.goal .gq-label{display:none;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.goal.flash .gq-label{display:block;flex:1 1 auto}.goal.flash .gbar{display:none}
+.btn.short{opacity:.8;filter:saturate(.6)}.btn .lack{color:#ffd0c4;text-decoration:underline wavy #ff9a85 1px}
+.chip:last-child .r img.ui-ic{display:inline-block!important}.chip .r.up{color:#4f7a31}.chip .r.neg{color:#a13e26}.chip .r{font-size:12px!important}.chip .r .ui-ic{width:13px;height:13px;margin:0 1px 0 0;vertical-align:-2px}.goal-stack .season{font-size:12px!important}
 </style>
 
 </head>
@@ -904,7 +910,10 @@ function genMap(seed){
 
 /* ---------- state ---------- */
 let S,TILES,OCC,DOCC,SP,curSeason=-1;
-function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:13,y:10,l:1},{id:2,k:'house',x:17,y:11,l:1}],nid:3,r:{wood:50,stone:30,food:40,gold:30},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
+function newState(){const seed=(Math.random()*1e9)|0;const m=genMap(seed);seedStarterTrees(m);return{seed,o:m.o,decor:[],decorBag:Object.fromEntries(Object.keys(DECOR).map(k=>[k,0])),decorNext:1,visitors:{done:[],visitAt:0,job:null,ready:null},b:[{id:1,k:'hall',x:13,y:10,l:1},{id:2,k:'house',x:17,y:11,l:1}],nid:3,r:{wood:50,stone:30,food:40,gold:30},pop:3,xp:{farm:0,build:0,trade:0},st:{wood:0,stone:0,sold:0},claimed:[],time:0,growT:0,starveT:0,spawnT:0}}
+function seedStarterTrees(m){const used=new Set();for(const[bx,by,w,h]of[[13,10,3,3],[17,11,2,2]])for(let y=by-1;y<=by+h;y++)for(let x=bx-1;x<=bx+w;x++)used.add(y*MW+x);
+  const c=[];for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const i=y*MW+x,d=Math.hypot(x-15,y-11.5);if(d<3.5||d>5.6||m.t[i]||m.o[i]||used.has(i))continue;c.push([d+((x*7+y*13)%5)*.07,i])}
+  c.sort((a,b)=>a[0]-b[0]);let n=0;for(const[,i]of c){if(n>=5)break;const x=i%MW,y=i/MW|0;if([...used].some(j=>Math.abs(j%MW-x)<1&&Math.abs((j/MW|0)-y)<1))continue;m.o[i]={k:n%2?'pine':'tree',hp:3};used.add(i);n++}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
 function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;d.cartDay=typeof d.cartDay==='string'?d.cartDay:'';return normalizeLife(normalizeRoads(normalizeStory(normalizeVisitors(normalizeDecor(d,m.t))),m.t))}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
@@ -927,7 +936,8 @@ let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
 function bonus(k){return k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1}
 function prodOf(b){const P=B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={};for(const k in P)o[k]=P[k]*b.l*bonus(k);return o}
-function rates(){const r={wood:0,stone:0,food:-S.pop*.12,gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
+const foodUse=()=>S.claimed.length?S.pop*.12:0;
+function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
 
 /* ---------- quests ---------- */
 const Q=[
@@ -999,7 +1009,7 @@ function tick(){
   const prevSe=season();
   S.time+=1;tickVisitors();staff();
   for(const b of S.b){const p=prodOf(b);for(const k in p){S.r[k]+=p[k];if(k==='food')S.xp.farm+=p[k]*.6;if(k==='gold')S.xp.trade+=p[k]*.4}}
-  S.r.food-=S.pop*.12;
+  S.r.food-=foodUse();
   if(S.r.food<0){S.r.food=0;S.starveT++;if(S.starveT>=8&&S.pop>1){S.pop--;S.starveT=0;toast('식량이 떨어져 주민 한 명이 마을을 떠났어요')}}else S.starveT=0;
   const c=cap();S.growT++;
   const every=count('tavern')?3:5;
@@ -1028,13 +1038,13 @@ function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${objectName(B[b.k].n)} 옮겼어요`);updateHUD();save()}
 function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||hallL()<d.hall)return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);dailyBump('build');rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${objectName(d.n)} 지었어요`);finishPlacement();updateHUD();save()}
 const HARVEST=3,RESPAWN_EVERY=10,RESPAWN_ROCK=.3;
-function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;const now=performance.now();o.sh=now;o.hp--;const wx=x*TS+8,wy=y*TS+4;
+function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;document.querySelector('.coach')?.remove();const now=performance.now();o.sh=now;o.hp--;const wx=x*TS+8,wy=y*TS+4;
   if(o.k==='rock'){S.r.stone+=HARVEST;S.st.stone+=HARVEST;floatTxt(wx,wy,'+'+HARVEST,RCOL.stone,'stone');chips(wx,wy+6,'#a9a49b')}
   else{S.r.wood+=HARVEST;S.st.wood+=HARVEST;floatTxt(wx,wy-6,'+'+HARVEST,RCOL.wood,'wood');chips(wx,wy+2,LF[curSeason][0])}
   if(o.hp<=0){S.o[i]=null;onDeplete(o.k,wx,wy);if(o.k==='rock'){S.r.stone+=HARVEST;S.st.stone+=HARVEST}else{S.r.wood+=HARVEST;S.st.wood+=HARVEST}chips(wx,wy+6,o.k==='rock'?'#8f897e':'#8b5a2b',8)}
   updateHUD();return true}
 
-function upgrade(b){const c=upCost(b);if(!c||!can(c))return;pay(c);b.l++;b.glow=performance.now();dailyBump('build');S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
+function upgrade(b){const c=upCost(b);if(!c)return;if(!can(c)){toast(`${missingCost(c)} 부족해요`);return}pay(c);b.l++;b.glow=performance.now();dailyBump('build');S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
 function demolish(b){if(b.k==='hall')return;const c=B[b.k].cost;for(const k in c)S.r[k]+=Math.floor(c[k]/2);S.b=S.b.filter(x=>x!==b);rebuildOcc();staff();toast(`${objectName(B[b.k].n)} 허물고 자재 절반을 돌려받았어요`);closeSheet();updateHUD();save()}
 const salePrice=t=>Math.round(t.g*(1+.1*(lv(S.xp.trade)-1)));
 const purchasePrice=t=>Math.max({wood:10,stone:15,food:8}[t.k],Math.ceil(salePrice(t)*1.8));
@@ -1249,7 +1259,7 @@ function sceneStep(){const lines=SCENES[sceneEp],body=$('#scene-body');
       const num=el.querySelector('b');let k=0;clearInterval(sceneTimer);sceneTimer=setInterval(()=>{k++;num.textContent='Lv '+(k<14?Math.floor(Math.random()*900+99):999);if(k>=14)clearInterval(sceneTimer)},60);el.scrollIntoView({block:'nearest'})}
     $('#scene-next').textContent='닫기';return}
   closeScene()}
-function closeScene(){const wasPrologue=sceneEp===0&&!S.claimed.length;clearInterval(sceneTimer);$('#scene').hidden=true;if(wasPrologue)setTimeout(()=>coach('help-tap','나무를 톡! 목재를 모아요'),300);sceneEp=0;updateHUD();updateTabs()}
+function closeScene(){const wasPrologue=sceneEp===0&&!S.claimed.length;setTimeout(flashGoal,200);clearInterval(sceneTimer);$('#scene').hidden=true;if(wasPrologue)setTimeout(()=>coach('help-tap','나무를 톡! 목재를 모아요'),300);sceneEp=0;updateHUD();updateTabs()}
 $('#scene').addEventListener('click',e=>{if(e.target.closest('#scene-skip')){closeScene();return}sceneStep()});
 
 /* ---------- village life: items, favors, crises, rumor, academy, daily board, talk, festivals ---------- */
@@ -1273,11 +1283,11 @@ const ITEMS=[
 ];
 const APPRAISE_COST=10,CART_COST=30;
 const FAVORS={
- marta:{t:'따뜻한 빵 바구니',d:'식량 +60',rumor:10,line:'얼른 먹어라. 겨울은 길단다.',run:()=>{S.r.food+=60;return'식량 +60'}},
- gunter:{t:'한 줄 벌목',d:'마을 근처 나무 최대 6그루를 한 번에',rumor:8,line:'…바람이 세다.',run:()=>{const h=S.b.find(b=>b.k==='hall')||S.b[0],list=[];S.o.forEach((o,i)=>{if(o&&o.k!=='rock')list.push([Math.hypot(i%MW-h.x,(i/MW|0)-h.y),i])});list.sort((a,b)=>a[0]-b[0]);let n=0;for(const[,i]of list.slice(0,6)){S.o[i]=null;n++}const w=n*12;S.r.wood+=w;S.st.wood+=w;return`나무 ${n}그루, 목재 +${w}`}},
+ marta:{t:'빵 바구니',d:'식량 +60',rumor:10,line:'얼른 먹어라. 겨울은 길단다.',run:()=>{S.r.food+=60;return'식량 +60'}},
+ gunter:{t:'한번에 벌목',d:'마을 근처 나무 최대 6그루를 한 번에',rumor:8,line:'…바람이 세다.',run:()=>{const h=S.b.find(b=>b.k==='hall')||S.b[0],list=[];S.o.forEach((o,i)=>{if(o&&o.k!=='rock')list.push([Math.hypot(i%MW-h.x,(i/MW|0)-h.y),i])});list.sort((a,b)=>a[0]-b[0]);let n=0;for(const[,i]of list.slice(0,6)){S.o[i]=null;n++}const w=n*12;S.r.wood+=w;S.st.wood+=w;return`나무 ${n}그루, 목재 +${w}`}},
  bruno:{t:'맨손 채석',d:'석재 +45',rumor:4,line:'허리 운동이다.',run:()=>{S.r.stone+=45;S.st.stone+=45;return'석재 +45'}},
  pino:{t:'수상한 거래',d:'금화 +45',rumor:5,line:'출처는 묻지 마세요. 합법이에요. 아마도.',run:()=>{S.r.gold+=45;return'금화 +45'}},
- barg:{t:'조용한 한마디',d:'떠도는 소문을 잠재워요 · 금화 +10',rumor:-30,line:'떠드는 놈들은 내가 잘 타일렀다.',run:()=>{S.r.gold+=10;return'소문 -30, 금화 +10'}},
+ barg:{t:'소문 잠재우기',d:'떠도는 소문을 잠재워요 · 금화 +10',rumor:-30,line:'떠드는 놈들은 내가 잘 타일렀다.',run:()=>{S.r.gold+=10;return'소문 -30, 금화 +10'}},
 };
 const FAVOR_COOLDOWN=90;
 const TALK={
@@ -1398,7 +1408,7 @@ function crisisDef(){return CRISES.find(c=>c.id===S.crisis.id)}
 function crisisTick(){const c=S.crisis;
  if(c.id){if(S.time>=c.end){const def=crisisDef();const lost=[];for(const k in def.loss){const n=Math.floor(S.r[k]*def.loss[k]);S.r[k]-=n;if(n)lost.push(`${RN[k]} -${n}`)}c.id=null;c.next=S.time+CRISIS_EVERY;if(selId==='crisis')closeSheet();toast(`${josa(def.n,'을','를')} 막지 못했어요. ${lost.join(', ')||'다행히 피해는 없었어요'}`);updateAlert()}return}
  if(day()<4||S.inspect.active||!$('#scene').hidden)return;if(!c.next){c.next=S.time+20;return}
- if(S.time>=c.next){const def=CRISES[Math.random()*CRISES.length|0];c.id=def.id;c.end=S.time+CRISIS_TIME;toast(`위기! ${def.d}`);updateAlert()}}
+ if(S.time>=c.next){const def=CRISES[Math.random()*CRISES.length|0];c.id=def.id;c.end=S.time+CRISIS_TIME;updateAlert()}}
 function crisisHTML(){const def=crisisDef();if(!def)return'';const left=Math.max(0,S.crisis.end-S.time);
  const opts=RESIDENTS.filter(resArrived).map(r=>`<button class="btn choice" data-act="crisis-pick" data-by="${r.id}"><b>${r.n}에게 부탁</b><small>확실하게 해결 · 소문 +${HANDLERS[r.id].rumor}</small></button>`).join('');
  const meOdds=Math.round(meChance()*100);
@@ -1498,10 +1508,10 @@ const SUBS={
 const SUB={people:'neigh',story:'today',shop:'decor'};
 try{const v=JSON.parse(localStorage.getItem('jy-subtabs')||'{}');for(const k in SUB)if(SUBS[k].some(([x])=>x===v[k]))SUB[k]=v[k]}catch(e){}
 function subDot(tab,k){if(!S)return false;
-  if(tab==='people'&&k==='neigh')return typeof visitorPhase==='function'&&['ready','available'].includes(visitorPhase());
+  if(tab==='people'&&k==='neigh')return typeof visitorPhase==='function'&&visitorPhase()==='ready';
   if(tab==='people'&&k==='acad')return !!(S.academy&&acadOpen()&&S.academy.wait.length);
   if(tab==='story'&&k==='today')return questReady(nextQuest())||!!(S.daily&&dailyReady());
-  if(tab==='shop'&&k==='items')return ITEMS.some(x=>S.items[x.id]==='found')&&count('market')>0&&S.r.gold>=APPRAISE_COST;
+  if(tab==='shop'&&k==='items')return false;
   return false}
 function segHTML(tab){return `<div class="seg" role="tablist">${SUBS[tab].map(([k,n])=>`<button role="tab" class="seg-b" data-act="seg" data-tab="${tab}" data-k="${k}" aria-selected="${SUB[tab]===k}">${n}${subDot(tab,k)?'<i class="seg-dot" aria-label="새 소식"></i>':''}</button>`).join('')}</div>`}
 function setSub(tab,k){if(!SUBS[tab]||!SUBS[tab].some(([x])=>x===k))return;SUB[tab]=k;try{localStorage.setItem('jy-subtabs',JSON.stringify(SUB))}catch(e){}sheet.scrollTop=0;renderSheet()}
@@ -1529,9 +1539,9 @@ function setDrawer(open){drawerOpen=!!open;const d=$('#hotbar');if(d)d.hidden=!d
 function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode]||mode==='road')return'build';if(['profile','menu','resources','food-help'].includes(selId))return'';return'village'}
 function updateTabs(){const tb=$('#tabbar');if(!tb||!S)return;const cur=currentTab();document.body.classList.toggle('placing',mode!=='hand'||drawerOpen);
   tb.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.tab===cur));
-  const dots={people:typeof visitorPhase==='function'&&['ready','available'].includes(visitorPhase())||!!(S.academy&&acadOpen()&&S.academy.wait.length&&S.academy.train.length<RESIDENTS.filter(resArrived).length),story:questReady(nextQuest())||!!(S.daily&&dailyReady())};
+  const dots={people:typeof visitorPhase==='function'&&visitorPhase()==='ready',story:questReady(nextQuest())||!!(S.daily&&dailyReady())};
   for(const k in dots){const d=tb.querySelector(`[data-tab="${k}"] .dot`);if(d)d.hidden=!dots[k]}}
-function openTab(t){
+function openTab(t){document.querySelector('.coach')?.remove();
   if(t==='village'){finishPlacement();return}
   if(t==='build'){const was=drawerOpen&&!B[mode];finishPlacement();if(!was)setDrawer(true);return}
   if(t==='shop'){openShop();return}
@@ -1556,7 +1566,8 @@ function questReady(q){return !!q&&q===nextQuest()&&q.v()>=q.g}
 function missingCost(cost){return Object.entries(cost||{}).filter(([k,v])=>S.r[k]<v).map(([k,v])=>`${RN[k]} ${Math.ceil(v-S.r[k])}`).join(' · ')}
 function buildingChips(kind){const d=B[kind],out=[];for(const[k,v]of Object.entries(d.prod||{}))out.push(`<span class="bc">${ic(k)}+${(v*bonus(k)).toFixed(1)}</span>`);if(d.cap)out.push(`<span class="bc">${ic('pop')}+${d.cap}</span>`);if(d.need)out.push(`<span class="bc" title="일손">${UI('worker')}${d.need}</span>`);if(kind==='farm')out.push(`<span class="bc" title="겨울 휴업">${UI('winter')}쉼</span>`);return out.join('')}
 function buildingFacts(kind){const d=B[kind],facts=[];for(const[k,v]of Object.entries(d.prod||{}))facts.push(`${RN[k]} +${(v*bonus(k)).toFixed(1)}/초`);if(d.cap)facts.push(`수용 인원 +${d.cap}명`);if(d.need)facts.push(`일손 ${d.need}명`);if(kind==='farm')facts.push('겨울 휴업');if(kind==='bakery')facts.push('사계절 생산');if(kind==='tavern')facts.push('주민 유입 촉진');return facts.join(' · ')}
-function chooseBuilding(kind){if(!B[kind])return;if(hallL()<B[kind].hall){toast(`마을회관 Lv${B[kind].hall}부터 지을 수 있어요`);return}finishPlacement();mode=kind;setDrawer(false);updateSlots();updateConfirm()}
+function nearestFree(kind){const k=css(),cx=Math.floor((cam.x+innerWidth/2/k)/TS),cy=Math.floor((cam.y+innerHeight*.45/k)/TS);for(let r=0;r<16;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=cx+dx,y=cy+dy;if(validAt(x,y,0,kind))return{x,y}}return null}
+function chooseBuilding(kind){if(!B[kind])return;if(hallL()<B[kind].hall){toast(`마을회관 Lv${B[kind].hall}부터 지을 수 있어요`);return}finishPlacement();mode=kind;ghost=nearestFree(kind);setDrawer(false);updateSlots();updateConfirm();if(ghost)keepPlacementVisible()}
 function openMarket(){finishPlacement();if(count('market')){SUB.shop='market';selId='shop';tradeTab='buy';renderSheet();updateSlots()}else chooseBuilding('market')}
 function placementSafeRect(){const landscape=innerWidth>innerHeight&&innerHeight<=540;const h=$('#hud').getBoundingClientRect(),c=$('#confirm').getBoundingClientRect();return {left:landscape?Math.min(h.right+8,innerWidth-180):12,right:innerWidth-12,top:landscape?12:h.bottom+8,bottom:Math.max(80,c.top-8)}}
 function keepPlacementVisible(){
@@ -1599,16 +1610,18 @@ function updateConfirm(){
 
 /* ---------- HUD ---------- */
 function fmtRate(v){if(Math.abs(v)<.05)return'\u00a0';return(v>0?'+':'')+v.toFixed(1)}
+let lastGoal=null,goalT=0;
+function flashGoal(){const g=$('#goal');if(!g)return;g.classList.add('flash');clearTimeout(goalT);goalT=setTimeout(()=>g.classList.remove('flash'),4200)}
 function updateHUD(){
   const r=rates();let h='';
-  for(const k of RES)h+=`<button class="chip" aria-label="${RN[k]} ${exactNumber(S.r[k])}개 · 초당 ${r[k].toFixed(2)} · 자세히 보기">${ic(k)}<span class="n">${compactNumber(S.r[k])}</span><span class="r ${r[k]<0?'neg':''}">${Math.abs(r[k])<.05?'—':fmtRate(r[k])+'/초'}</span></button>`;
-  h+=`<button class="chip" aria-label="주민 ${S.pop}명, 수용 ${cap()}명 · 자세히 보기">${ic('pop')}<span class="n">${compactNumber(S.pop)}/${compactNumber(cap())}</span><span class="r">쉼 ${S.idle??0}</span></button>`;
+  for(const k of RES)h+=`<button class="chip" aria-label="${RN[k]} ${exactNumber(S.r[k])}개 · 초당 ${r[k].toFixed(2)} · 자세히 보기">${ic(k)}<span class="n">${compactNumber(S.r[k])}</span><span class="r ${r[k]<0?'neg':r[k]>=.05?'up':''}">${Math.abs(r[k])<.05?'·':(r[k]>0?'▲':'▼')+Math.abs(r[k]).toFixed(1)}</span></button>`;
+  h+=`<button class="chip" aria-label="주민 ${S.pop}명, 수용 ${cap()}명 · 자세히 보기">${ic('pop')}<span class="n">${compactNumber(S.pop)}/${compactNumber(cap())}</span><span class="r" title="쉬는 일손">${UI('worker')}${S.idle??0}</span></button>`;
   const re=$('#res');if(re.dataset.v!==h){re.innerHTML=h;re.dataset.v=h}
   $('#day').innerHTML=`<b>${day()}</b>일 · ${SEASONS[season()]}${isDusk()?' · 저녁':''}`;
   const q=nextQuest();let gh;
   if(q){const v=Math.min(q.v(),q.g),done=questReady(q),ep=EPISODES[Q.indexOf(q)];
-    gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
-    $('#goal').classList.toggle('done',done)}
+    gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
+    $('#goal').classList.toggle('done',done);if(lastGoal!==q.id){lastGoal=q.id;flashGoal()}}
   else{gh=`<button class="goal-open"><span>시즌 1을 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
   const ge=$('#goal');if(ge.dataset.v!==gh){ge.innerHTML=gh;ge.dataset.v=gh}
   const shortage=r.food<0&&S.r.food<=Math.max(5,-r.food*30);$('#food-alert').hidden=!shortage;
@@ -1640,7 +1653,7 @@ function renderSheet(){let h='';document.querySelector('.coach')?.remove();
     if(b.k==='farm'&&season()===3)stats+=`<span class="tag no">겨울이라 쉬는 중</span>`;
     const max=b.k==='hall'?3:3;
     h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p>${(()=>{const r=residentOf(b);return r&&resArrived(r)?`<div class="resident-of">사는 사람: ${r.n} · ${revealed(r.id)?'Lv 999':'Lv ???'} · 단서 ${resClues(r)}/${CLUES[r.id].length}</div>`:''})()}${lastClue&&lastClue.bid===b.id?`<div class="clue-found"><small>수상한 순간 · ${lastClue.r==='chief'?'촌장의 비밀':RESIDENTS.find(x=>x.id===lastClue.r).n}</small>${lastClue.c.t}</div>`:''}<div class="stat">${stats}</div>
-    ${c?`<div class="lv-preview" aria-label="업그레이드하면 모습이 바뀌어요"><img src="${lvThumb(b.k,b.l)}" alt=""><span>›</span><img class="next" src="${lvThumb(b.k,b.l+1)}" alt=""><small>Lv ${b.l+1}</small></div>`:''}<div class="acts">${c?`<button class="btn go" data-act="up" ${can(c)?'':'disabled'}>업그레이드 ${Object.entries(c).map(([k,v])=>`${ic(k)}<span class="num">${v}</span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
+    ${c?`<div class="lv-preview" aria-label="업그레이드하면 모습이 바뀌어요"><img src="${lvThumb(b.k,b.l)}" alt=""><span>›</span><img class="next" src="${lvThumb(b.k,b.l+1)}" alt=""><small>Lv ${b.l+1}</small></div>`:''}<div class="acts">${c?`<button class="btn go ${can(c)?'':'short'}" data-act="up">업그레이드 ${Object.entries(c).map(([k,v])=>`<span class="${S.r[k]<v?'lack':''}">${ic(k)}<span class="num">${v}</span></span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
     if(b.k==='market')h+=marketHTML();
   }
   sheet.dataset.sub=SUB[selId]||'';
@@ -1745,6 +1758,9 @@ function draw(now){
   floats=floats.filter(f=>now-f.born<1100);
   for(const f of floats){const t=(now-f.born)/1100,sx=f.wx*k-ox,sy=f.wy*k-oy-t*28*dpr;ctx.globalAlpha=t>.7?(1-t)/.3:1;const w=ctx.measureText(f.txt).width,isz=f.icon?Math.round(14*dpr):0,tx=sx-(w+isz+(f.icon?4*dpr:0))/2;
     if(f.icon)ctx.drawImage(ICON[f.icon],tx,sy-isz/2,isz,isz);ctx.lineWidth=3*dpr;ctx.strokeStyle='#6e725bef';ctx.strokeText(f.txt,tx+(f.icon?isz+4*dpr:0),sy);ctx.fillStyle=f.col;ctx.fillText(f.txt,tx+(f.icon?isz+4*dpr:0),sy)}
+  if(S&&S.st.wood===0&&$('#scene').hidden&&mode==='hand'){let best=null,bd=1e9;const cx=cam.x+vw/2,cy=cam.y+vh/2;for(let i=0;i<S.o.length;i++){const o=S.o[i];if(!o||o.k==='rock')continue;const x=(i%MW)*TS+8,y=(i/MW|0)*TS+8,d=Math.hypot(x-cx,y-cy);if(d<bd){bd=d;best=[x,y]}}
+    if(best){const sx=best[0]*k-ox,sy=best[1]*k-oy,p=(now%1200)/1200,r=(10+p*12)*dpr;ctx.globalAlpha=1-p;ctx.lineWidth=3*dpr;ctx.strokeStyle='#fff6c8';ctx.beginPath();ctx.arc(sx,sy,r,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
+      const bob=Math.sin(now/220)*4*dpr,ay=sy-30*dpr+bob,w=9*dpr;ctx.beginPath();ctx.moveTo(sx-w,ay-w*1.2);ctx.lineTo(sx+w,ay-w*1.2);ctx.lineTo(sx,ay+w*.6);ctx.closePath();ctx.fillStyle='#fff3c4';ctx.fill();ctx.lineWidth=2*dpr;ctx.strokeStyle='#8a5a2b';ctx.stroke()}}
   bubbles=bubbles.filter(b=>now-b.born<4600);
   if(bubbles.length){const bf=Math.round(12*dpr);ctx.font=`400 ${bf}px "Jua", sans-serif`;
    for(const b of bubbles){const t=(now-b.born)/4600;ctx.globalAlpha=t<.06?t/.06:t>.85?(1-t)/.15:1;
@@ -1772,7 +1788,8 @@ function start(data){
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
     document.addEventListener('visibilitychange',()=>{if(document.hidden){resetGesture();save()}});
     window.claude?.hot?.snapshot?.(()=>({state:serialize()}));}
-  updateHUD();measureHud();centerOn(15*TS+16,12*TS+10);
+  updateHUD();measureHud();{let t=null,bd=1e9;if(fresh)for(let i=0;i<S.o.length;i++){const o=S.o[i];if(!o||o.k==='rock')continue;const d=Math.hypot(i%MW-14.5,(i/MW|0)-11.5);if(d<bd){bd=d;t=i}}
+   if(t!==null&&bd<7)centerOn(((t%MW)*TS+8+14.5*TS)/2,((t/MW|0)*TS+8+11.5*TS)/2+6);else centerOn(15*TS+16,12*TS+10)}
   if(!S.story.includes(0))setTimeout(()=>{if(!S.story.includes(0)&&$('#scene').hidden)playEpisode(0)},700);
   else if(fresh)setTimeout(()=>coach('help-tap','나무를 톡! 목재를 모아요'),600);
 }
