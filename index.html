@@ -314,6 +314,14 @@ body.sheet-open .hud{visibility:hidden}
 .arrive{position:fixed;left:50%;top:calc(var(--hud-h,120px) + 10px);z-index:26;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:min(92vw,360px);padding:8px 12px 8px 8px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dff2;box-shadow:0 8px 22px #2b201555;font:inherit;color:#4a3720;text-align:left;cursor:pointer;animation:coachIn .4s ease-out}
 .arrive img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid #c8b28a;background:#e8dcc0;flex:none}.arrive span{display:grid;gap:1px;min-width:0}.arrive small{font-size:12px;color:#8a6d3b}.arrive b{font-size:17px;font-weight:400}.arrive em{font-style:normal;font-size:13px;color:#6b5a40}.arrive.out{opacity:0;transition:opacity .3s}
 .lv-preview{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 4px;padding:8px;border:1px dashed #c8b28a;border-radius:10px;background:#fff5dd80}.lv-preview img{height:64px;width:auto;max-width:42%;object-fit:contain}.lv-preview img.next{height:72px;filter:drop-shadow(0 0 6px #f3c75a88)}.lv-preview span{font-size:22px;color:#8a6d3b}.lv-preview small{font-size:12px;color:#6b5a40}
+.acad{display:grid;gap:6px}.acad-who{display:flex;align-items:baseline;gap:8px}.acad .wish{margin:0;padding:6px 10px;border-radius:10px;background:#fff6df;border:1px solid #d9c49a;font-size:13px;color:#4a3720}.acad .btn.go{justify-self:start}
+.mentors{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.mentor{display:grid;justify-items:center;gap:1px;padding:4px 2px;border:1px solid #c8b28a;border-radius:8px;background:#fff8e6;font:inherit;font-size:12px;color:#4a3720;cursor:pointer}.mentor:disabled{opacity:.45}.mentor small{font-size:10px;color:#8a6d3b}
+.mini-pic{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 15%;background:#e8dcc0;border:1px solid #c8b28a}.tr .mini-pic{width:30px;height:30px}
+.acad-train .tr{display:grid;grid-template-columns:30px auto minmax(40px,1fr) auto;align-items:center;gap:8px}.tbar{height:7px;border-radius:4px;background:#d9c9a3;overflow:hidden}.tbar i{display:block;height:100%;background:#8ba368}
+.grads{display:grid;gap:6px}.grad{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:8px;padding:7px 9px;border:1px solid #ccb98e;border-radius:8px;background:#fff5dd8c}.grad .gi{display:grid}.grad small{font-size:11px;color:#6b5a40}.grad .away{color:#526c3b}.grad .btn{font-size:12px;padding:6px 10px;min-height:36px}
+.exps{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.btn.exp{display:grid;gap:1px;padding:6px 4px;font-size:12px}.btn.exp small{font-size:10px;color:#fff2d0!important;opacity:.95}.btn.exp .ui-ic{width:12px;height:12px;vertical-align:-2px}
+.gbadge{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;font-size:16px;color:#fff;flex:none}.gS{background:linear-gradient(135deg,#f0c94f,#c58a1d);box-shadow:0 0 8px #f3c75a}.gA{background:#7a9b4f}.gB{background:#6f8fa8}.gC{background:#a08f78}
+.arrive .gbadge{width:48px;height:48px;font-size:24px}.arrive.letter img{width:48px;height:48px;border:0;border-radius:0;background:none;object-fit:contain}
 </style>
 
 </head>
@@ -1300,9 +1308,20 @@ const INSPECT=[
  {q:'벌목소 나무가 전부 한 방향으로 쓰러져 있어요.',a:[['그쪽으로 바람이 불어서요',2],['군터 아저씨가 베셨어요. 한 번에',0],['나무들이 사이가 좋아서요',1]]},
 ];
 const ACAD_NAMES=['토미','리아','벤','소라','카일','미나','오토','하나','펠릭스','유나','잭','루루','니코','세라','다온','브릭'];
-const ACAD_CLASS=['견습 전사','견습 마법사','견습 궁수','견습 도적','견습 성직자'];
-const ACAD_QUIRK={marta:'마법이 크게 늘었다. 대신 불만 보면 “얼른 앉아라”를 외친다.',gunter:'검을 휘두르면 바람이 분다. 말수가 줄었다.',bruno:'성문 하나는 혼자 막는다. 매일 허리 운동을 한다.',pino:'물건값을 기막히게 깎는다. 지갑을 세 번 확인하는 버릇이 생겼다.',barg:'몬스터들이 이유 없이 길을 비켜 준다. 우유를 좋아하게 됐다.'};
-const ACAD_TRAIN=60,ACAD_EVERY=45;
+const ACAD_APT={
+ marta:{cls:'마법사',wish:['불을 마음대로 다뤄 보고 싶어요','책 읽는 게 제일 좋아요','할머니들이 끓이는 차가 좋아요']},
+ gunter:{cls:'검사',wish:['바람처럼 빨라지고 싶어요','말은 적게, 칼은 빠르게!','나무 베는 소리가 좋아요']},
+ bruno:{cls:'기사',wish:['누군가를 지켜 주고 싶어요','힘이라면 자신 있어요','밤새 보초 서도 안 졸아요']},
+ pino:{cls:'도적',wish:['몰래 움직이는 게 특기예요','흥정하는 게 재밌어요','자물쇠만 보면 손이 근질근질해요']},
+ barg:{cls:'조련사',wish:['동물이랑 금방 친해져요','무서운 사람이 하나도 안 무서워요','우유를 제일 좋아해요']},
+};
+const ACAD_QUIRK={marta:'불만 보면 “얼른 앉아라”를 외친다.',gunter:'검을 휘두르면 바람이 분다. 말수가 줄었다.',bruno:'매일 허리 운동을 한다.',pino:'지갑을 세 번 확인하는 버릇이 생겼다.',barg:'몬스터들이 길을 비켜 준다. 우유를 좋아하게 됐다.'};
+const GRADE={S:{lv:[250,400],gold:60,rumor:8},A:{lv:[120,249],gold:35,rumor:3},B:{lv:[50,119],gold:20,rumor:0},C:{lv:[10,49],gold:10,rumor:0}};
+const EXPEDS={forest:{n:'근처 숲',t:45,ok:{S:1,A:1,B:.95,C:.8},gold:[15,30],r:{wood:20},item:.12},dungeon:{n:'옛 던전',t:90,ok:{S:1,A:.9,B:.7,C:.45},gold:[40,70],r:{stone:30},item:.35},castle:{n:'마왕성 터',t:150,ok:{S:.95,A:.7,B:.4,C:.15},gold:[100,160],r:{},item:.65}};
+const EXP_FAIL=['길을 잃고 감자 한 자루만 들고 왔다.','보물 상자인 줄 알았는데 미믹이었다. 신발 한 짝을 잃었다.','던전 입구에서 도시락만 먹고 왔다.','길에서 만난 할머니 짐을 들어 드리다 하루가 갔다.'];
+const LETTERS={marta:'선생님, 오늘 용을 만났는데 저도 모르게 “얼른 앉아라”라고 했어요. 용이 앉았어요.',gunter:'…바람이 셉니다. 잘 지냅니다.',bruno:'성문 지키기 대회에서 우승했습니다. 허리는 매일 풀고 있어요.',pino:'선생님 덕분에 Lv 300을 넘었어요. 그런데 왜 아직도 지갑을 세 번 확인하게 될까요?',barg:'제가 키우는 몬스터들이 우유만 마셔요. 괜찮은 거죠?'};
+const ACAD_TRAIN=60,ACAD_EVERY=45,LETTER_EVERY=150;
+let acadPick=null,expPick=null;
 const UI_IC=k=>`./assets/ui/icons/${k}.webp`,UI=(k,cls='')=>`<img class="ui-ic ${cls}" src="${UI_IC(k)}" alt="" aria-hidden="true">`;
 const DAILY_ART=Object.fromEntries(['chop','mine','talk','visitor','build','trade','crisis','grad'].map(k=>[k,UI_IC('daily-'+k)]));
 const pips=(p,g)=>g<=6?`<span class="pips">${Array.from({length:g},(_,i)=>`<i class="${i<p?'on':''}"></i>`).join('')}</span>`:`<small>${p}/${g}</small>`;
@@ -1328,7 +1347,11 @@ function normalizeLife(d){
  d.rumor=Number.isFinite(d.rumor)?Math.max(0,Math.min(100,d.rumor)):0;
  const c=obj(d.crisis);d.crisis={next:Number.isFinite(c.next)?c.next:0,id:CRISES.some(x=>x.id===c.id)?c.id:null,end:Number.isFinite(c.end)?c.end:0,done:Number.isFinite(c.done)?c.done:0};
  const ins=obj(d.inspect);d.inspect=ins.active&&Array.isArray(ins.q)&&ins.q.every(i=>INSPECT[i])?{active:true,q:ins.q.slice(0,3),i:Math.min(3,ins.i|0),score:ins.score|0}:{active:false};
- const ac=obj(d.academy);d.academy={next:Number.isFinite(ac.next)?ac.next:0,wait:Array.isArray(ac.wait)?ac.wait.filter(t=>t&&typeof t.n==='string').slice(0,3):[],train:Array.isArray(ac.train)?ac.train.filter(t=>t&&FAVORS[t.by]&&Number.isFinite(t.end)):[],grads:Array.isArray(ac.grads)?ac.grads.filter(g=>g&&typeof g.n==='string').slice(-60):[]};
+ const ac=obj(d.academy),aptOf=t=>ACAD_APT[t.apt]?t.apt:Object.keys(ACAD_APT)[hashStr(String(t.n))%5],wishOf=t=>typeof t.wish==='string'?t.wish:ACAD_APT[aptOf(t)].wish[0];
+ d.academy={next:Number.isFinite(ac.next)?ac.next:0,letterAt:Number.isFinite(ac.letterAt)?ac.letterAt:0,uid:Number.isFinite(ac.uid)?ac.uid:1,
+  wait:Array.isArray(ac.wait)?ac.wait.filter(t=>t&&typeof t.n==='string').slice(0,3).map(t=>({n:t.n,apt:aptOf(t),wish:wishOf(t)})):[],
+  train:Array.isArray(ac.train)?ac.train.filter(t=>t&&FAVORS[t.by]&&Number.isFinite(t.end)).map(t=>({n:t.n,apt:aptOf(t),wish:wishOf(t),by:t.by,end:t.end})):[],
+  grads:Array.isArray(ac.grads)?ac.grads.filter(g=>g&&typeof g.n==='string').slice(-60).map((g,i)=>({id:Number.isFinite(g.id)?g.id:1000+i,n:g.n,by:FAVORS[g.by]?g.by:'marta',apt:aptOf(g),g:GRADE[g.g]?g.g:'B',lv:Number.isFinite(g.lv)?g.lv:50,cls:typeof g.cls==='string'?g.cls:'모험가',away:g.away&&EXPEDS[g.away.d]&&Number.isFinite(g.away.end)?{d:g.away.d,end:g.away.end}:null})):[]};
  const dl=obj(d.daily);d.daily=dl.date&&Array.isArray(dl.tasks)?{date:dl.date,tasks:dl.tasks.filter(t=>DAILY_POOL.some(p=>p.k===t.k)).map(t=>({k:t.k,p:t.p|0,c:!!t.c}))}:{date:'',tasks:[]};
  d.fests=Array.isArray(d.fests)?d.fests.slice(-20):[];
  return d}
@@ -1395,20 +1418,43 @@ function updateAlert(){const el=$('#alert');if(!el||!S)return;let html='';
  if(el.dataset.v!==html){el.innerHTML=html;el.dataset.v=html}el.hidden=!html;if(typeof measureHud==='function')measureHud()}
 /* academy */
 const acadOpen=()=>S.claimed.includes('q5');
+const rnd=([a,b])=>a+Math.floor(Math.random()*(b-a+1));
 function acadTick(){const a=S.academy;if(!acadOpen())return;
  if(!a.next)a.next=S.time+10;
- if(S.time>=a.next&&a.wait.length<3){const n=ACAD_NAMES[(hashStr(S.seed+':'+a.grads.length+':'+a.wait.length+':'+S.time)%ACAD_NAMES.length)],cls=ACAD_CLASS[Math.random()*ACAD_CLASS.length|0];a.wait.push({n,cls});a.next=S.time+ACAD_EVERY;toast(`초보 모험가 ${josa(n,'이','가')} 아카데미에 찾아왔어요 (${cls})`);updateTabs()}
- for(const t of a.train.slice()){if(S.time>=t.end){a.train=a.train.filter(x=>x!==t);const lv=20+Math.floor(Math.random()*80);a.grads.push({n:t.n,cls:t.cls,by:t.by,lv});S.r.gold+=20;S.favor[t.by]=(S.favor[t.by]||0)+1;dailyBump('grad');
-   const by=RESIDENTS.find(r=>r.id===t.by);toast(`${t.n} 졸업! Lv ${lv}. ${ACAD_QUIRK[t.by]} 금화 +20`);
-   if(a.grads.length%3===0)setTimeout(()=>{if($('#scene').hidden)playCustom('왕국 소식',`${t.n}의 활약`,[['','왕국 신문 1면.'],['',`‘신예 용사 ${t.n}, 하루 만에 던전 셋을 정리… Lv ${lv+300} 돌파’`],['',`‘수련 장소를 묻자 “평범한 시골 마을에서요. 거기 ${by.n.split(' ')[0]} 씨가 좀…”이라며 말끝을 흐려’`],['','신문을 본 엘리스가 조용히 소문 게이지를 적어 넣는다. 소문 +5']]);addRumor(5)},400)}}}
+ if(S.time>=a.next&&a.wait.length<3){const apt=Object.keys(ACAD_APT)[Math.random()*5|0],pool=ACAD_NAMES.filter(n=>!a.wait.some(t=>t.n===n)&&!a.train.some(t=>t.n===n)),n=pool[Math.random()*pool.length|0]||ACAD_NAMES[0],wish=ACAD_APT[apt].wish[Math.random()*3|0];
+  a.wait.push({n,apt,wish});a.next=S.time+ACAD_EVERY;toast(`모험가 지망생 ${josa(n,'이','가')} 찾아왔어요: “${wish}”`);updateTabs()}
+ for(const t of a.train.slice())if(S.time>=t.end){a.train=a.train.filter(x=>x!==t);graduate(t)}
+ for(const g of a.grads)if(g.away&&S.time>=g.away.end)expedReturn(g);
+ if(a.grads.length&&S.time>=a.letterAt){if(a.letterAt)letter();a.letterAt=S.time+LETTER_EVERY}}
+function graduate(t){const a=S.academy,match=t.by===t.apt,fv=Math.min(30,(S.favor[t.by]||0)*3),score=(match?60:15)+fv+Math.random()*25,g=score>=85?'S':score>=65?'A':score>=40?'B':'C',G=GRADE[g],lv=rnd(G.lv),cls=ACAD_APT[t.by].cls;
+ const grad={id:a.uid++,n:t.n,by:t.by,apt:t.apt,g,lv,cls,away:null};a.grads.push(grad);S.r.gold+=G.gold;S.favor[t.by]=(S.favor[t.by]||0)+1;dailyBump('grad');if(G.rumor)addRumor(G.rumor);
+ const by=RESIDENTS.find(r=>r.id===t.by),note=match?`${ACAD_APT[t.apt].cls}의 길을 찾았다!`:`${ACAD_APT[t.apt].cls} 지망생이었는데 ${cls}가 되었다. ${ACAD_QUIRK[t.by]}`;
+ save();renderSheet();updateTabs();
+ if(g==='S'&&sheet.hidden&&$('#scene').hidden)setTimeout(()=>{if(!$('#scene').hidden||!sheet.hidden){gradCard(grad,note);return}playCustom('졸업식',`${t.n} · S 등급`,[['',`${by.n.split(' ')[0]} 문하의 ${t.n}, 수석 졸업. Lv ${lv}.`],['',note],[by.n.split(' ')[0],match?'…제법이군.':'…원하던 길은 아니었겠지만, 잘 해낼 거다.'],['','왕국 신문 1면: ‘신예 ${t.n}, 평범한 시골 마을 출신?’'],['',`금화 +${G.gold} · 소문 +${G.rumor}`]])},300);
+ else gradCard(grad,note)}
+function gradCard(g,note){document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive';
+ el.innerHTML=`<span class="gbadge g${g.g}">${g.g}</span><span><small>졸업! ${RESIDENTS.find(r=>r.id===g.by).n.split(' ')[0]} 문하 · ${g.cls}</small><b>${g.n} · Lv ${g.lv}</b><em>${note} 금화 +${GRADE[g.g].gold}</em></span>`;
+ const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=()=>{bye();openTab('people');setSub('people','acad')};document.body.appendChild(el);setTimeout(bye,7000)}
+function sendExped(id,dest){const g=S.academy.grads.find(x=>x.id===id),E=EXPEDS[dest];if(!g||!E||g.away)return;if(S.academy.grads.filter(x=>x.away).length>=3){toast('원정은 동시에 3명까지 보낼 수 있어요');return}
+ g.away={d:dest,end:S.time+E.t};expPick=null;toast(`${josa(g.n,'이','가')} ${E.n}(으)로 떠났어요. ${E.t}초 뒤 돌아와요`);save();renderSheet()}
+function expedReturn(g){const E=EXPEDS[g.away.d],dn=E.n;g.away=null;const ok=Math.random()<E.ok[g.g];let msg,it=null;
+ if(ok){const gold=rnd(E.gold);S.r.gold+=gold;for(const k in E.r)S.r[k]+=E.r[k];msg=`금화 +${gold}${Object.entries(E.r).map(([k,v])=>` · ${RN[k]} +${v}`).join('')}`;if(Math.random()<E.item)it=findItem('exped')}
+ else{S.r.food+=15;msg=EXP_FAIL[Math.random()*EXP_FAIL.length|0]+' 식량 +15'}
+ save();updateHUD();if(!it){document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive';el.innerHTML=`<span class="gbadge g${g.g}">${g.g}</span><span><small>${dn} 원정에서 돌아왔어요</small><b>${g.n} ${ok?'· 성공!':'· 실패…'}</b><em>${msg}</em></span>`;
+  const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=bye;document.body.appendChild(el);setTimeout(bye,6000)}else toast(`${g.n}: ${dn} 원정 성공! ${msg}`)}
+function letter(){const gs=S.academy.grads;if(!gs.length)return;const g=gs[Math.random()*gs.length|0],gift=rnd([10,30]);S.r.gold+=gift;save();updateHUD();
+ document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive letter';el.innerHTML=`<img src="${UI_IC('daily-grad')}" alt=""><span><small>졸업생의 편지 · ${g.n} (${g.cls})</small><em>“${LETTERS[g.by]}”</em><b>동봉된 금화 +${gift}</b></span>`;
+ const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=bye;document.body.appendChild(el);setTimeout(bye,8000)}
 function acadAssign(i,by){const a=S.academy,t=a.wait[i],r=RESIDENTS.find(x=>x.id===by);if(!t||!r||!resArrived(r))return;if(a.train.some(x=>x.by===by)){toast(`${josa(r.n,'은','는')} 이미 누군가를 가르치고 있어요`);return}
- a.wait.splice(i,1);a.train.push({...t,by,end:S.time+ACAD_TRAIN});toast(`${josa(t.n,'을','를')} ${r.n}에게 맡겼어요. ${ACAD_TRAIN}초 뒤 졸업해요`);save();renderSheet()}
-function acadHTML(){const a=S.academy;if(!acadOpen())return`<h3 class="sec">${UI('academy')}초보 모험가 아카데미</h3><p class="shop-note">${UI('lock')}5화 이후 열려요</p>`;
- const here=RESIDENTS.filter(resArrived),busy=new Set(a.train.map(t=>t.by));
- return `<h3 class="sec">${UI('academy')}초보 모험가 아카데미 <small>졸업생 ${a.grads.length}명</small></h3>
- ${a.wait.length?a.wait.map((t,i)=>`<div class="acad"><div><b>${t.n}</b> <small>${t.cls} · Lv 1</small></div><div class="acad-btns">${here.map(r=>`<button class="btn" data-act="acad" data-i="${i}" data-by="${r.id}" ${busy.has(r.id)?'disabled':''}>${r.n.split(' ')[0]}</button>`).join('')}</div></div>`).join(''):'<p class="shop-note">곧 또 찾아와요</p>'}
- ${a.train.length?`<div class="acad-train">${a.train.map(t=>`<div>${t.n} · ${RESIDENTS.find(r=>r.id===t.by).n.split(' ')[0]}에게 훈련 중 <small>${Math.max(0,t.end-S.time)}초</small></div>`).join('')}</div>`:''}
- ${a.grads.length?`<details><summary>졸업생 도감 (${a.grads.length})</summary><ul class="grad-list">${a.grads.slice().reverse().map(g=>`<li><b>${g.n}</b> ${g.cls} · Lv ${g.lv} · ${RESIDENTS.find(r=>r.id===g.by)?.n.split(' ')[0]||''} 문하<br><small>${ACAD_QUIRK[g.by]||''}</small></li>`).join('')}</ul></details>`:''}`}
+ a.wait.splice(i,1);acadPick=null;a.train.push({...t,by,end:S.time+ACAD_TRAIN});toast(`${josa(t.n,'을','를')} ${r.n}에게 맡겼어요. ${ACAD_TRAIN}초 뒤 졸업해요`);save();renderSheet()}
+const PORT=id=>`<img class="mini-pic" src="./assets/story/portrait-${id}.webp" alt="">`;
+function acadHTML(){const a=S.academy;if(!acadOpen())return`<h3 class="sec">${UI('academy')}초보 모험가 아카데미</h3><p class="shop-note">${UI('lock')}6화 이후 열려요</p>`;
+ const here=RESIDENTS.filter(resArrived),busy=new Set(a.train.map(t=>t.by)),away=a.grads.filter(g=>g.away).length;
+ let h=`<h3 class="sec">${UI('academy')}초보 모험가 아카데미 <small>졸업생 ${a.grads.length}명</small></h3><p class="shop-note">지망생의 말을 듣고 어울리는 스승을 골라 주세요. 잘 맞으면 높은 등급으로 졸업해요.</p>`;
+ h+=a.wait.length?a.wait.map((t,i)=>`<div class="acad ${acadPick===i?'open':''}"><div class="acad-who"><b>${t.n}</b><small>모험가 지망생</small></div><p class="wish">“${t.wish}”</p>${acadPick===i?`<div class="mentors">${here.map(r=>`<button class="mentor" data-act="acad" data-i="${i}" data-by="${r.id}" ${busy.has(r.id)?'disabled':''}>${PORT(r.id)}<span>${r.n.split(' ')[0]}</span>${busy.has(r.id)?'<small>가르치는 중</small>':`<small>친밀 ${'★'.repeat(favorStars(r.id))||'·'}</small>`}</button>`).join('')}</div>`:`<button class="btn go" data-act="acad-pick" data-i="${i}">스승 고르기</button>`}</div>`).join(''):'<p class="shop-note">곧 또 찾아와요</p>';
+ if(a.train.length)h+=`<div class="acad-train">${a.train.map(t=>`<div class="tr">${PORT(t.by)}<span><b>${t.n}</b> 훈련 중</span><span class="tbar"><i style="width:${Math.round((1-Math.max(0,t.end-S.time)/ACAD_TRAIN)*100)}%"></i></span><small>${UI('timer')}${Math.max(0,t.end-S.time)}</small></div>`).join('')}</div>`;
+ if(a.grads.length){h+=`<h3 class="sec">졸업생 <small>원정 ${away}/3</small></h3><div class="grads">${a.grads.slice().reverse().slice(0,8).map(g=>`<div class="grad"><span class="gbadge g${g.g}">${g.g}</span><div class="gi"><b>${g.n}</b><small>${g.cls} · Lv ${g.lv} · ${RESIDENTS.find(r=>r.id===g.by)?.n.split(' ')[0]||''} 문하</small></div>${g.away?`<small class="away">${EXPEDS[g.away.d].n} ${UI('timer')}${Math.max(0,g.away.end-S.time)}</small>`:expPick===g.id?'':`<button class="btn" data-act="exp-pick" data-id="${g.id}" ${away>=3?'disabled':''}>원정</button>`}${expPick===g.id&&!g.away?`<div class="exps">${Object.entries(EXPEDS).map(([k,E])=>`<button class="btn exp" data-act="exped" data-id="${g.id}" data-d="${k}"><b>${E.n}</b><small>${UI('timer')}${E.t}초 · 성공 ${Math.round(E.ok[g.g]*100)}%</small></button>`).join('')}</div>`:''}</div>`).join('')}</div>`}
+ return h}
 /* daily board */
 function ensureDaily(){const k=todayKey();if(S.daily.date===k&&S.daily.tasks.length)return;const pool=DAILY_POOL.filter(p=>!p.need||p.need()),h=hashStr(k+':'+S.seed),picked=[];
  for(let i=0;picked.length<3&&i<pool.length*3;i++){const p=pool[(h+i*7)%pool.length];if(!picked.includes(p))picked.push(p)}S.daily={date:k,tasks:picked.map(p=>({k:p.k,p:0,c:false}))}}
@@ -1571,7 +1617,7 @@ function updateHUD(){
 const sheet=$('#sheet');
 function openSheet(id){selId=id;armDel=false;tradeTab='buy';if(typeof id==='number')checkClue(S.b.find(b=>b.id===id));renderSheet()}
 function closeSheet(){selId=null;sheet.scrollTop=0;sheet.hidden=true;sheet.dataset.v='';sheet.dataset.view='';$('#sheet-scrim').hidden=true;document.body.classList.remove('sheet-open');if(typeof updateTabs==='function')updateTabs()}
-function renderSheet(){let h='';
+function renderSheet(){let h='';document.querySelector('.coach')?.remove();
   if(selId==='profile')h=profileHTML();
   else if(selId==='people')h=peopleHTML();
   else if(selId==='story')h=storyHTML();
@@ -1625,7 +1671,7 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
 sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a||!S)return;const act=a.dataset.act,id=a.dataset.id;
   if(act==='seg'){setSub(a.dataset.tab,a.dataset.k);return}
   if(act==='talk')talk(id);else if(act==='favor')askFavor(id);else if(act==='crisis-pick')resolveCrisis(a.dataset.by);else if(act==='inspect-ans')answerInspect(+a.dataset.j);
-  else if(act==='appraise')appraise(id);else if(act==='pino-cart')pinoCart();else if(act==='acad')acadAssign(+a.dataset.i,a.dataset.by);else if(act==='daily'){claimDaily(a.dataset.k);renderSheet()}});
+  else if(act==='appraise')appraise(id);else if(act==='pino-cart')pinoCart();else if(act==='acad')acadAssign(+a.dataset.i,a.dataset.by);else if(act==='acad-pick'){acadPick=+a.dataset.i;renderSheet()}else if(act==='exp-pick'){expPick=+a.dataset.id;renderSheet()}else if(act==='exped')sendExped(+a.dataset.id,a.dataset.d);else if(act==='daily'){claimDaily(a.dataset.k);renderSheet()}});
 
 /* ---------- render ---------- */
 let last=performance.now(),acc=0,smokeT=0;
