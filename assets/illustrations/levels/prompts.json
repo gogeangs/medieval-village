@@ -248,6 +248,47 @@
         2,
         2
       ]
+    },
+    {
+      "id": "tavern-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nCRITICAL OUTPUT: LANDSCAPE 3:2 canvas. Expand the reference tavern HORIZONTALLY into a broad roadhouse for 3 tiles wide by 2 deep. Opaque building silhouette width at least 1.3 times height, not a portrait asset inside a wide empty canvas.\nBUILDING: tavern LEVEL TWO.\nIDENTITY: Slate-blue curved tiled roof, warm cream plaster and honey-brown timber, warm amber windows with wooden shutters and flower boxes, stone-arched wooden doorway, wooden tankard PICTOGRAM sign, stout brown barrels and timber bench.\nFOOTPRINT AND COMPOSITION: WIDE 3-by-2 tile footprint. LANDSCAPE opaque silhouette with width at least 1.25 times its height even at level three. Broad low storeys and attached side bay create width; no narrow tower, all props within the base.\nUPGRADE: Enlarge the recognizable tavern horizontally with a warm FRONT TERRACE attached to the building, low wooden rail and deck, several grouped ale barrels and ONE hanging amber lantern. Keep the blue roof and front dormer, tankard pictogram sign, stone doorway and warm windows. Broad welcoming roadhouse, no extra tall floors yet, no ground or paving outside the structural terrace.\nWide blue tiled roof, broad cream/timber frontage with two additional warm shuttered windows, one familiar central dormer. Front wooden terrace spans facade, grouped barrels and a bench fit within railing, ONE hanging lantern, tankard pictogram sign tucked close to wall. No ground or shadows underneath, transparent cutout.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/tavern.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 332
+      },
+      "footprint": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "tavern-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is approved LEVEL TWO of this SAME broad tavern. Evolve it directly into a grand village inn, keeping its materials, broad porch and familiar entrance.\nCRITICAL COMPOSITION: one LANDSCAPE 3:2 sprite. Entire opaque inn plus stable must be at least 1.25 times WIDER THAN TALL. Three storeys must be visible, but do NOT make a tall narrow building: use a very broad main facade, compact-height floors and a low attached stable stretching the width within one 3x2 footprint.\nBUILDING: tavern LEVEL THREE.\nIDENTITY: Slate-blue curved tiled roof, warm cream plaster and honey-brown timber, warm amber windows with wooden shutters and flower boxes, stone-arched wooden doorway, wooden tankard PICTOGRAM sign, stout brown barrels and timber bench.\nFOOTPRINT: WIDE 3-by-2 tile footprint. LANDSCAPE opaque silhouette with width at least 1.25 times its height even at level three. Broad low storeys and attached side bay create width; no narrow tower, all props within the base.\nUPGRADE: Build on the level-two tavern to a clear THREE-STOREY INN with broad horizontally proportioned floors, recognizable slate-blue tiled roof and cream/timber facade. A chain of small amber LANTERNS follows the eaves. Attach a SMALL OPEN STABLE beneath a low blue-tile lean-to at one side, empty stalls and straw only (no animals or people). Maintain the front terrace, barrels and tankard pictogram. The inn plus stable makes a landscape silhouette wider than tall; compact storey height, wide facade, no castle tower. All fit the wide base.\nThree readable storeys: ground-floor tavern door/windows, second-floor horizontal row of warm shuttered windows, third-floor shorter horizontal window row beneath the low broad slate-blue roof. Lantern chain hugs eaves; small stable attached at one side, two EMPTY stalls with straw, no horse. Preserve front barrels, terrace and tankard pictogram. Whole building inside frame, no ground, no outside shadows, true transparent alpha.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/tavern.webp",
+        "assets/illustrations/levels/tavern-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 331
+      },
+      "footprint": [
+        3,
+        2
+      ]
     }
   ]
 }

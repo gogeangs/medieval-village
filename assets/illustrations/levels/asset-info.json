@@ -226,5 +226,43 @@
       2,
       2
     ]
+  },
+  {
+    "id": "tavern-l2",
+    "file": "./assets/illustrations/levels/tavern-l2.webp",
+    "width": 512,
+    "height": 332,
+    "bytes": 64284,
+    "alphaZeroFraction": 0.2094,
+    "crop": [
+      4,
+      4,
+      504,
+      324
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": "tavern-l3",
+    "file": "./assets/illustrations/levels/tavern-l3.webp",
+    "width": 512,
+    "height": 331,
+    "bytes": 66256,
+    "alphaZeroFraction": 0.2445,
+    "crop": [
+      4,
+      4,
+      504,
+      323
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
   }
 ]
