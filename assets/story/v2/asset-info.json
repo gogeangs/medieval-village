@@ -62,5 +62,29 @@
     "height": 800,
     "bytes": 259298,
     "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep10",
+    "file": "./assets/story/v2/ep10.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 255920,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep12",
+    "file": "./assets/story/v2/ep12.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 254822,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep13",
+    "file": "./assets/story/v2/ep13.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 243508,
+    "alphaZeroFraction": 0
   }
 ]
