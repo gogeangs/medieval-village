@@ -281,6 +281,7 @@ body.sheet-open .hud{visibility:hidden}
 .ep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:6px 0 14px}
 .ep-card{position:relative;display:block;padding:0;border:2px solid #c8b28a;border-radius:10px;overflow:hidden;background:#d9c9a3;aspect-ratio:3/2;cursor:pointer;font:inherit;color:#fff6df}
 .ep-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ep-card{background:radial-gradient(circle at 30% 30%,#efe0bb,#cdb888)}.today-card.art{background:#6b5a40}
 .ep-card::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,#1c140bcc)}
 .ep-card .ep-no{position:absolute;top:5px;left:5px;z-index:1;font-size:11px;padding:1px 6px;border-radius:5px;background:#2b2015b0}
 .ep-card .ep-t{position:absolute;left:7px;right:7px;bottom:6px;z-index:1;font-size:13px;line-height:1.25;text-align:left;text-shadow:0 1px 2px #000a}
@@ -310,6 +311,8 @@ body.sheet-open .hud{visibility:hidden}
 .help-pics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}.help-pics figure{margin:0;display:grid;gap:4px;text-align:center}.help-pics figure.wide{grid-column:1/-1}.help-pics img{width:100%;height:auto;border-radius:8px;background:#f3e6c8}.help-pics figcaption{font-size:12px;color:#6b5a40}
 .coach{position:fixed;left:50%;bottom:calc(var(--dock-height,64px) + 30px);z-index:25;transform:translateX(-50%);display:grid;justify-items:center;gap:2px;width:min(78vw,300px);padding:8px 8px 10px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dfee;box-shadow:0 8px 22px #2b201555;font:inherit;font-size:15px;color:#4a3720;cursor:pointer;animation:coachIn .35s ease-out}
 .coach img{width:100%;height:auto;border-radius:9px}.coach.out{opacity:0;transition:opacity .3s}@keyframes coachIn{from{opacity:0;transform:translate(-50%,16px)}}
+.arrive{position:fixed;left:50%;top:calc(var(--hud-h,120px) + 10px);z-index:26;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:min(92vw,360px);padding:8px 12px 8px 8px;border:2px solid #d9b45c;border-radius:14px;background:#fff6dff2;box-shadow:0 8px 22px #2b201555;font:inherit;color:#4a3720;text-align:left;cursor:pointer;animation:coachIn .4s ease-out}
+.arrive img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid #c8b28a;background:#e8dcc0;flex:none}.arrive span{display:grid;gap:1px;min-width:0}.arrive small{font-size:12px;color:#8a6d3b}.arrive b{font-size:17px;font-weight:400}.arrive em{font-style:normal;font-size:13px;color:#6b5a40}.arrive.out{opacity:0;transition:opacity .3s}
 </style>
 
 </head>
@@ -896,16 +899,16 @@ const Q=[
   {id:'q1',t:'나무 베어 목재 10개',g:10,v:()=>S.st.wood,r:{gold:10}},
   {id:'q2',t:'오두막 2채 짓기',g:2,v:()=>count('house'),r:{wood:15}},
   {id:'q3',t:'밀밭 일구기',g:1,v:()=>count('farm'),r:{food:20}},
+  {id:'q6',t:'벌목소 짓기',g:1,v:()=>count('lumber'),r:{stone:15}},
   {id:'q4',t:'바위 깨서 석재 10개',g:10,v:()=>S.st.stone,r:{gold:10}},
   {id:'q5',t:'주민 8명 모으기',g:8,v:()=>S.pop,r:{gold:20}},
-  {id:'q6',t:'벌목소 짓기',g:1,v:()=>count('lumber'),r:{stone:15}},
   {id:'q7',t:'채석장 짓기',g:1,v:()=>count('quarry'),r:{wood:20}},
-  {id:'q8',t:'시장 열기',g:1,v:()=>count('market'),r:{gold:30}},
-  {id:'q9',t:'시장에서 자원 30개 팔기',g:30,v:()=>S.st.sold,r:{gold:20}},
   {id:'q10',t:'마을회관 2레벨',g:2,v:()=>hallL(),r:{wood:40,stone:40}},
   {id:'q11',t:'빵집 열기',g:1,v:()=>count('bakery'),r:{gold:30}},
-  {id:'q12',t:'선술집 열기',g:1,v:()=>count('tavern'),r:{gold:50}},
+  {id:'q8',t:'시장 열기',g:1,v:()=>count('market'),r:{gold:30}},
+  {id:'q9',t:'시장에서 자원 30개 팔기',g:30,v:()=>S.st.sold,r:{gold:20}},
   {id:'q13',t:'주민 25명 모으기',g:25,v:()=>S.pop,r:{gold:100}},
+  {id:'q12',t:'선술집 열기',g:1,v:()=>count('tavern'),r:{gold:50}},
   {id:'q14',t:'첫 겨울 이겨내기',g:1,v:()=>day()>20?1:0,r:{gold:60}},
   {id:'q15',t:'마을회관 3레벨',g:3,v:()=>hallL(),r:{gold:200}},
 ];
@@ -1113,24 +1116,24 @@ function drawRoadOverlay(){
 /* ---------- season 1 scenes, reveals and clues ---------- */
 const N='';
 const SCENES={
- 1:[['마르타','촌장님, 나무는 결을 따라 베는 거란다.'],[N,'톡. 나무 한 그루가 장작 열두 개로 가지런히 쌓인다.'],['나','와, 요령이 좋으시네요!'],['마르타','호호, 오래 살다 보면 다 늘어.'],[N,'마르타 머리 위의 Lv ???가 한순간 지직거린다.']],
- 2:[['아이','촌장님은 레벨이 몇이에요?'],['나','1이야. 이제 막 시작했거든.'],[N,'마을 전체가 조용해진다.'],['주민들','…귀하다. 너무 귀하다.'],['마르타','다들 조심해. 촌장님은 넘어지면 다치신단다.']],
- 3:[['마르타','이 마을에 다시 밀밭이 생기다니. 예전엔 다들 싸우느라 씨 뿌릴 틈이 없었지.'],['나','전쟁이라도 있었어요?'],['마르타','…아니, 이웃끼리 소소하게. 그런데 밀 내음은 여전하구나.'],['마르타','고맙다, 촌장님. 오래 기다렸단다.']],
- 4:[[N,'내가 곡괭이로 낑낑대는 사이, 옆집 아이가 조약돌을 튕기자 바위가 두 쪽으로 갈라진다.'],['나','여기 바위는 유난히 무르네요.'],['아이 엄마','(아이 입을 막으며) 네, 여기 특산이에요. 말랑 바위.'],['아이 엄마','(작게) 촌장님 앞에서는 살살 하랬지.']],
- 5:[['주민 1','저는 전 왕궁 마법… 왕궁 근처에서 감자를 팔았어요.'],['주민 2','저는 용을 잡… 용을 잡지는 못하고 구경만 했어요.'],['주민 3','저는 그냥 농부예요. 진짜예요. 진짜로요.'],['나','다들 재미있게 사셨네요!']],
- 6:[[N,'군터가 도끼를 한 번 휘두르자 뒤쪽 나무 열 그루가 동시에 기운다.'],['나','방금 열 그루가 한꺼번에…?'],['군터','…바람이 세다.'],['나','그럼 저도 도끼 좀 빌려 주세요.'],['군터','안 된다. 촌장은 다치면 안 된다. (나무 숟가락을 쥐여 준다)']],
- 7:[[N,'굴러떨어지는 바위를 브루노가 맨손으로 받친다. 나는 그 뒤에 주저앉아 있다.'],['나','아, 아저씨! 괜찮으세요?'],['브루노','허리 운동이다. 매일 하는.'],['브루노','…촌장은 밤에 잘 자는가. 누군가를 지키는 게 버릇이라, 물어보는 거다.'],['나','여기 온 뒤로는 아주 잘 자요.'],['브루노','그럼 됐다.']],
- 8:[['피노','촌장님, 개업 기념으로 이 냄비 드릴게요. 완전 평범한 냄비예요.'],['나','냄비에서 빛이 나는데요?'],['피노','요즘 냄비는 다 그래요. 대신 누가 물어보면 시장에서 샀다고 하세요.']],
- 9:[[N,'마을 게시판에 현상수배 전단. ‘그림자 피노, 현상금 1억 골드.’ 얼굴이 피노와 똑같다.'],['나','피노 씨, 이 수배자 얼굴이…'],['피노','세상에 닮은 사람 많아요. 저도 매일 놀라요.'],['피노','(전단을 스윽 떼어 주머니에 넣는다) 자, 오늘 목재는 제가 비싸게 살게요.']],
- 10:[[N,'회관 2레벨 잔치날. 잔치상 너머 하늘을 거대한 비룡이 가린다.'],['나','다들 대피하세요! 비룡이에요!'],['마르타','얼른 앉아라, 얘들아. 잔치 음식 식는다.'],[N,'딱. 하늘이 달아오르고, 비룡이 통구이가 되어 장터에 떨어진다.'],[N,'나는 기절한다. 깨어나 보니 주민들이 입을 맞춘다.'],['주민들','촌장님, 불꽃놀이 예뻤죠?'],['마르타','(나에게만 작게) 우리 다 여기서 조용히 늙고 싶었단다. 촌장님이 그걸 지켜 주면 돼.']],
- 11:[['엘리스','왕국 감찰관 엘리스입니다. 이 마을 주변 몬스터 수치가 0이라 조사 나왔습니다.'],['나','여기가 원래 평화로운 곳이라서요.'],[N,'뒤에서 주민 전원이 동시에 호미질을 시작한다. 밭도 없는 곳에서.'],['엘리스','…범상치 않군요.']],
- 12:[['바르그','근무 중이지. 술 대신 우유다.'],['엘리스','(측정기를 들이밀며) 피노 씨, 당신… Lv 999?'],['피노','(한숨) 들켰네. 대신 훔친 건 다 돌려줬어요. 택배로.'],['엘리스','촌장님은 알고 계셨습니까?'],['나','피노 씨가 택배를 많이 보내는 건 알았어요.']],
- 13:[[N,'무너지는 다리 아래로 엘리스가 떨어진다. 군터가 도끼를 한 번 휘두르자, 바람이 그녀를 들어 올린다.'],['군터','…바람이 세다.'],['엘리스','여러분은 대체 왜 여기 있는 겁니까?'],['마르타','싸움은 충분히 했단다. 이제는 처음 길을 나서는 아이들이 다치지 않게 지켜 주고 싶었어.'],['엘리스','(서류철을 덮으며) 보고서는… 내일 쓰죠. 여기서 조금 더 지내 보겠습니다.']],
+ 1:[[N,'초보자 마을에 도착한 첫날. 빈집 창문은 전부 닫혀 있고, 굴뚝 연기는 딱 한 곳에서만 오른다.'],['마르타','어서 오렴, 새 촌장님. 차가 딱 알맞게 식었단다.'],['나','저… 여기 주민이 할머니 혼자세요?'],['마르타','다들 떠났지. 촌장들이 석 달을 못 버티고 도망가니까.'],['나','저는 안 도망가요. 레벨은 1이지만 성실하거든요.'],['마르타','(찻잔을 내려놓으며) …그 말, 오래 기다렸단다.'],[N,'할머니의 찻잔에서는 한참이 지나도 김이 멈추지 않는다.']],
+ 2:[[N,'오두막 두 채를 짓느라 도끼질만 백 번째. 나무는 아직 멀쩡하다.'],['마르타','촌장님, 나무는 결을 따라 베는 거란다.'],[N,'톡. 할머니가 손가락으로 치자 나무가 장작 열두 개로 가지런히 쌓인다.'],['나','와… 요령이 엄청나시네요!'],['마르타','호호, 오래 살다 보면 다 늘어. 집이 생겼으니 사람도 올 게다.'],[N,'마르타 머리 위의 Lv ???가 한순간 지직거린다.']],
+ 3:[[N,'첫 밀밭을 일군 날, 할머니와 둘이서 작은 잔치를 연다.'],['마르타','이 마을에 다시 밀 냄새가 나다니. 고맙다, 촌장님.'],[N,'그때, 하늘을 거대한 비룡이 가린다.'],['나','할머니, 숨으세요! 제가… 제가 막을게요!'],[N,'나는 빗자루를 들고 할머니 앞을 막아선다. 다리가 후들거린다.'],['마르타','(작게) …얘야, 잠깐 눈 좀 감으렴.'],[N,'딱. 하늘이 붉게 달아오르고, 비룡이 통구이가 되어 밀밭 옆에 떨어진다.'],['마르타','잔치 음식이 하나 늘었구나. 얼른 앉아라.']],
+ 4:[[N,'벌목소를 지은 다음 날 아침, 안개 속에서 도끼를 멘 남자가 나타난다.'],['나','안녕하세요! 길을 잃으셨어요?'],['군터','…바람이 이쪽으로 불었다.'],['나','그럼 여기서 지내세요. 마침 벌목소가 비어 있거든요.'],[N,'군터는 대답 대신 벌목소 앞에 조용히 짐을 내려놓는다.'],['마르타','(찻잔 너머로 미소) 오랜만이구나, 바람 녀석.']],
+ 5:[[N,'군터가 도끼를 한 번 휘두르자 뒤쪽 나무 열 그루가 동시에 기운다.'],['나','방금 열 그루가 한꺼번에…?'],['군터','…바람이 세다.'],['나','저도 도끼 좀 빌려 주세요. 바위 캐러 가야 해서요.'],['군터','안 된다. 촌장은 다치면 안 된다.'],[N,'군터가 내 손에 나무 숟가락을 쥐여 준다. 다음 날 아침, 바위들이 반듯하게 쪼개져 있다.']],
+ 6:[[N,'주민이 여덟 명이 된 밤, 숲에서 늑대 떼가 내려온다.'],['나','다들 집에 들어가세요! 여긴 제가 지킬게요!'],[N,'나는 또 빗자루를 든다. 늑대들이 이빨을 드러낸다.'],['군터','…촌장. 뒤로.'],[N,'도끼가 한 번 허공을 가른다. 회오리바람이 일어 늑대 떼가 다치지 않은 채 숲 너머로 날아간다.'],['군터','…바람이 세다.'],['마르타','(박수) 녹슬지 않았구나.']],
+ 7:[[N,'채석장을 지은 날 밤, 비가 억수같이 쏟아진다. 마을 입구에 거대한 그림자가 앉아 있다.'],['나','괜찮으세요? 감기 걸려요!'],['브루노','…지켜야 할 문을 찾고 있었다. 오래.'],['나','그럼 우리 마을 문을 지켜 주세요. 대신 따뜻한 데서 주무셔야 해요.'],[N,'군터가 등불을 들고, 마르타가 담요를 들고 달려온다.'],['브루노','(나를 내려다보며) …촌장은 밤에 잘 자는가.'],['나','아저씨가 오셨으니 이제 잘 잘 것 같아요.']],
+ 8:[[N,'회관을 넓히던 날, 굴러떨어지는 바위를 브루노가 맨손으로 받친다. 나는 그 뒤에 주저앉아 있다.'],['나','아, 아저씨! 괜찮으세요?'],['브루노','허리 운동이다. 매일 하는.'],['브루노','회관이 커졌군. 지킬 게 늘었다. 좋다.'],[N,'바위에는 커다란 손바닥 자국이 움푹 찍혀 있다.']],
+ 9:[[N,'빵집에서 첫 빵 냄새가 퍼지자, 그 냄새를 따라 산적 떼가 몰려온다.'],['산적 두목','빵이랑 금고, 전부 내놔라!'],['나','(브루노 다리 뒤에서) 아, 안 돼요! 우리 마을 빵이에요!'],['브루노','촌장이 안 된다고 했다.'],[N,'브루노가 팔짱을 낀 채 문 앞에 서 있을 뿐인데, 산적들이 보이지 않는 벽에 부딪혀 하나둘 나동그라진다.'],['산적 두목','처, 철벽의… 브루노?!'],['브루노','지금은 석공이다. 빵은 줄 서서 사라.']],
+ 10:[[N,'시장 문을 연 날, 짐을 산더미처럼 진 상인이 제일 먼저 좌판을 편다.'],['피노','안녕하세요, 촌장님! 개업 선물로 이 냄비 드릴게요. 완전 평범한 냄비예요.'],['나','냄비에서 빛이 나는데요?'],['피노','요즘 냄비는 다 그래요. 대신 누가 물어보면 시장에서 샀다고 하세요.'],[N,'게시판에는 피노와 똑같은 얼굴의 수배 전단이 붙어 있다.'],['피노','(전단을 스윽 떼어 주머니에 넣으며) 세상에 닮은 사람 많아요.'],['브루노','(군터에게 작게) …저 녀석.'],['군터','…바람이 수상하다.']],
+ 11:[['엘리스','왕국 감찰관 엘리스입니다. 이 마을 주변 몬스터 수치가 0이라 조사 나왔습니다.'],['나','여기가 원래 평화로운 곳이라서요!'],[N,'조사 첫날, 낡은 다리가 무너지며 엘리스가 계곡 아래로 떨어진다.'],[N,'군터가 도끼를 한 번 휘두르자, 바람이 그녀를 부드럽게 들어 올린다.'],['군터','…바람이 세다.'],['엘리스','(서류철을 꼭 쥐고) 바람이… 아래에서 위로요?'],['마르타','이 동네 바람이 원래 그렇단다.'],['엘리스','…보고서는 내일 쓰죠. 며칠 더 지내 보겠습니다.']],
+ 12:[[N,'주민이 스물다섯 명이 된 날, 엘리스가 광장 한가운데서 측정기를 꺼낸다.'],['엘리스','오늘은 정식으로 측정하겠습니다. 피노 씨부터.'],[N,'측정기가 빨갛게 폭주하며 김을 뿜는다.'],['엘리스','피노 씨, 당신… Lv 999?'],['피노','(한숨) 들켰네. 대신 훔친 건 다 돌려줬어요. 택배로.'],[N,'피노의 등짐에서 ‘반송’ 꼬리표가 붙은 상자가 우르르 쏟아진다.'],['엘리스','촌장님은 알고 계셨습니까?'],['나','피노 씨가 택배를 많이 보내는 건 알았어요.']],
+ 13:[[N,'선술집 문을 연 날, 험상궂은 남자가 앞치마를 두르고 카운터 뒤에 선다.'],['바르그','어서 와라. 근무 중이라 술은 안 판다. 우유다.'],[N,'손님들이 얼어붙는다. 엘리스는 구석에서 측정기를 몰래 꺼낸다.'],['나','와, 우유 좋아요! 한 잔 주세요.'],['바르그','(잔을 내밀며) …너는 나를 무서워하지 않는군.'],['마르타','(반갑게) 어머, 너도 왔구나. 오래 걸렸네.'],['엘리스','(측정기를 들여다보다 조용히 집어넣으며) …오늘은 고장인가 봐요.']],
  14:[[N,'눈보라 속 마을 입구. 마왕군 대열 앞에 빗자루를 든 내가 홀로 서 있다.'],['나','여긴 초보자 마을이에요. 여기 사람들은 제가 지킵니다.'],['브루노','(나를 뒤로 물리며) …그 말, 박력이 있군. 그럼 오늘은 내가 문을 지킨다.'],[N,'바르그가 앞치마를 풀고 나선다. 마왕군 전체가 무릎을 꿇는다.'],['마왕군','마, 마왕님?!'],['바르그','퇴직했다. 가게 예약은 다음 달부터 받는다. 돌아가라.'],['마르타','(작게) 저 아이, 진심이었어.']],
  15:[['마르타','고맙다, 촌장님. 강해서가 아니라, 우리를 평범하게 대해 줘서.'],['엘리스','보고서는 이렇게 썼습니다. ‘초보자 마을, 이상 없음.’'],[N,'짐을 정리하다 발령장을 처음으로 뒤집어 본다. 추천인 서명란에 낯익은 글씨가 있다.'],['나','…마르타 할머니?'],[N,'내 레벨 창이 깜빡인다. Lv 1 → Lv ???'],['마르타','(미소) 역시 그 사람 핏줄이구나.'],[N,'왕국의 편지가 도착한다. ‘초보자 마을에 왕국 모험가 학교를 세울 것.’'],[N,'— 시즌 1 끝. 시즌 2에서 계속됩니다 —']],
  0:[[N,'왕국 행정청, 신입 관리 발령 추첨의 날.'],['담당관','다음. 연수 성적 꼴찌, Lv1 신입.'],[N,'추첨함에서 나온 쪽지에는 이렇게 적혀 있다. ‘초보자 마을 촌장.’'],['동기들','(웅성웅성) 역대 촌장이 전부 석 달을 못 버티고 도망갔다는 그곳…?'],['담당관','…축하하네. 아니, 힘내게.'],[N,'나는 짐 가방 하나를 들고 왕국 변두리로 향한다. 발령장 뒷면은 아직 한 번도 뒤집어 보지 않았다.']],
 };
-const REVEALS={10:['marta'],12:['pino'],13:['gunter'],14:['bruno','barg']};
+const REVEALS={3:['marta'],6:['gunter'],9:['bruno'],12:['pino'],14:['barg']};
 const CLUES={
  marta:[{id:'tea',home:'house',when:()=>S.claimed.includes('q1'),t:'찻잔이 하루 종일 김을 뿜는다. 아무도 다시 데우지 않았는데.'},
         {id:'bloom',home:'house',when:()=>season()===3,t:'한겨울인데 할머니 화분에만 꽃이 활짝 피어 있다.'},
@@ -1153,11 +1156,12 @@ const CLUES={
 CLUES.chief=[
   {id:'roster',home:'hall',when:()=>S.claimed.includes('q2'),t:'회관 서랍 속 역대 촌장 명부. 재임 기간이 전부 석 달을 넘지 못했다. 사유 칸에는 하나같이 ‘개인 사정(공포)’.'},
   {id:'draw',home:'hall',when:()=>isDusk()&&S.claimed.includes('q5'),t:'회관 창고에서 왕국 행정청 추첨함과 똑같은 상자를 발견했다. 안에는 쪽지가 한 장뿐이다. ‘초보자 마을 촌장.’'},
-  {id:'portrait',home:'house',when:()=>S.story.includes(10),t:'할머니 집 벽에 걸린 낡은 초상화. 젊은 마르타와 동료들 한가운데 선 용사의 얼굴이, 거울 속 나와 닮았다.'}];
+  {id:'portrait',home:'house',when:()=>S.story.includes(12),t:'할머니 집 벽에 걸린 낡은 초상화. 젊은 마르타와 동료들 한가운데 선 용사의 얼굴이, 거울 속 나와 닮았다.'}];
 const LORE={marta:'전설의 대마법사 ‘잿불의 마르타’. 왕국을 세 번 구했다.',gunter:'검성 ‘일섬의 군터’. 도끼로 바꿔 든 뒤로 사람을 벤 적이 없다.',bruno:'전 왕국 기사단장 ‘철벽의 브루노’. 한 번도 성문을 내준 적이 없다.',pino:'전설의 대도 ‘그림자 피노’. 훔친 보물은 전부 주인에게 돌려보냈다.',barg:'은퇴한 마왕. 마왕성보다 선술집이 적성에 맞았다.'};
 function isDusk(){const t=(S.time%DAY)+Math.min(acc,.999);return t>=22}
 function duskAmt(){const t=(S.time%DAY)+Math.min(acc,.999);return t<22?0:t<24?(t-22)/2:t<29?1:Math.max(0,30-t)}
 function normalizeStory(d){d.story=Array.isArray(d.story)?[...new Set(d.story.filter(n=>Number.isInteger(n)&&n>=0&&n<=15))]:[];
+  if(d.storyV!==2){const cl=Array.isArray(d.claimed)?d.claimed:[];d.story=[...(d.story.includes(0)?[0]:[]),...Q.map((q,i)=>cl.includes(q.id)?i+1:0).filter(Boolean)];d.storyV=2}
   const c=d.clues&&typeof d.clues==='object'?d.clues:{};d.clues={};for(const r in CLUES){const ok=new Set(CLUES[r].map(x=>x.id));d.clues[r]=Array.isArray(c[r])?[...new Set(c[r].filter(id=>ok.has(id)))]:[]}return d}
 const revealed=id=>Object.entries(REVEALS).some(([ep,ids])=>ids.includes(id)&&S.story.includes(+ep));
 let lastClue=null;
@@ -1168,6 +1172,7 @@ function checkClue(b){lastClue=null;if(!b)return;
       S.clues[r].push(c.id);lastClue={bid:b.id,r,c};const n=S.clues[r].length,all=CLUES[r].length;
       toast(`수상한 순간 발견! ${res.n} ${n}/${all}`);chips(b.x*TS+16,b.y*TS+6,'#c9a0f0',10);save();updateTabs();return}}}
 /* Story art is requested only when its screen is used; it never joins the game loader. */
+const EP_ART=n=>EP_V2.has(n)?`./assets/story/v2/ep${String(n).padStart(2,'0')}.webp`:`./assets/story/ep${String({8:7,11:13}[n]??n).padStart(2,'0')}.webp`;
 function showSceneArt(n,url){
   const box=$('#scene-art');box.hidden=true;box.replaceChildren();
   if(url){const img=document.createElement('img');img.className='scene-art';img.width=1200;img.height=800;img.alt='';img.decoding='async';const ep=sceneEp;img.onload=()=>{if(sceneEp===ep&&box.firstElementChild===img)box.hidden=false};img.onerror=()=>{if(box.firstElementChild===img){box.hidden=true;box.replaceChildren()}};box.appendChild(img);img.src=url;return}
@@ -1176,7 +1181,7 @@ function showSceneArt(n,url){
   img.alt=`${n}화 · ${n?EPISODES[n-1].t:'발령 추첨'} 장면`;img.decoding='async';img.fetchPriority='low';
   img.onload=()=>{if(sceneEp===n&&box.firstElementChild===img)box.hidden=false};
   img.onerror=()=>{if(box.firstElementChild===img){box.hidden=true;box.replaceChildren()}};
-  box.appendChild(img);img.src=`./assets/story/ep${String(n).padStart(2,'0')}.webp`;
+  box.appendChild(img);img.src=EP_ART(n);
 }
 function residentArt(r,here){
   const fallback=THUMBURL[r.home];
@@ -1319,7 +1324,7 @@ function talk(id){const r=RESIDENTS.find(x=>x.id===id);if(!r||!resArrived(r))ret
  const first=S.talked[id]!==todayKey();if(first){S.talked[id]=todayKey();S.favor[id]=(S.favor[id]||0)+1;dailyBump('talk')}
  toast(`${r.n}: “${line}”${first?' · 친밀도 +1':''}`);save();renderSheet()}
 function favorLeft(id){return Math.max(0,FAVOR_COOLDOWN-(S.time-(S.favorAt[id]??-1e9)))}
-function askFavor(id){const f=FAVORS[id],r=RESIDENTS.find(x=>x.id===id);if(!f||!r||!revealed(id))return;if(favorLeft(id)>0){toast('조금 쉬었다가 다시 부탁해요');return}
+function askFavor(id){const f=FAVORS[id],r=RESIDENTS.find(x=>x.id===id);if(!f||!r||!resArrived(r))return;if(favorLeft(id)>0){toast('조금 쉬었다가 다시 부탁해요');return}
  S.favorAt[id]=S.time;const got=f.run();addRumor(f.rumor);S.favor[id]=(S.favor[id]||0)+1;save();updateHUD();toast(`${r.n}: “${f.line}” ${got}`)}
 /* rumor and inspector */
 function addRumor(n){S.rumor=Math.max(0,Math.min(100,S.rumor+n));if(S.rumor>=100&&!S.inspect.active)startInspect()}
@@ -1330,8 +1335,8 @@ function inspectHTML(){const ins=S.inspect;if(!ins.active)return'';const head=`<
 function answerInspect(j){const ins=S.inspect;if(!ins.active)return;const Qn=INSPECT[ins.q[ins.i]];ins.score+=Qn.a[j][1];ins.i++;
  if(ins.i<3){save();renderSheet();return}
  const pass=ins.score>=4;S.inspect={active:false};closeSheet();
- if(pass){S.rumor=20;S.r.gold+=30;playCustom('조사 결과','이상 없음',[[inspectorName(),'…알겠습니다. 평범한 시골 마을이군요.'],['','서류에 ‘이상 없음’ 도장이 쾅 찍힌다.'],['','뒤에서 주민들이 동시에 숨을 내쉰다. 금화 +30, 소문 20으로 줄었어요.']],'./assets/story/ep11.webp')}
- else{const fee=Math.min(30,Math.floor(S.r.gold));S.r.gold-=fee;S.rumor=50;playCustom('조사 결과','수상함',[[inspectorName(),'…수상하군요. 아주 수상해요.'],['','조사 수수료로 금화 '+fee+'을 냈어요. 소문은 50으로 남았어요.'],['마르타','(작게) 다음엔 더 평범하게 하자꾸나.']],'./assets/story/ep11.webp')}
+ if(pass){S.rumor=20;S.r.gold+=30;playCustom('조사 결과','이상 없음',[[inspectorName(),'…알겠습니다. 평범한 시골 마을이군요.'],['','서류에 ‘이상 없음’ 도장이 쾅 찍힌다.'],['','뒤에서 주민들이 동시에 숨을 내쉰다. 금화 +30, 소문 20으로 줄었어요.']],'./assets/events/inspect.webp')}
+ else{const fee=Math.min(30,Math.floor(S.r.gold));S.r.gold-=fee;S.rumor=50;playCustom('조사 결과','수상함',[[inspectorName(),'…수상하군요. 아주 수상해요.'],['','조사 수수료로 금화 '+fee+'을 냈어요. 소문은 50으로 남았어요.'],['마르타','(작게) 다음엔 더 평범하게 하자꾸나.']],'./assets/events/inspect.webp')}
  save();updateHUD();updateAlert()}
 /* crises */
 function crisisDef(){return CRISES.find(c=>c.id===S.crisis.id)}
@@ -1385,7 +1390,7 @@ function dailyHTML(){ensureDaily();return `<section class="daily"><div class="ac
 /* neighbours: rumor bar, talk, favors */
 function lifeHTML(){const here=RESIDENTS.filter(resArrived);
  return `<div class="rumor"><div class="rumor-h"><b>${UI('rumor')}소문 게이지</b><small>${Math.round(S.rumor)} / 100</small></div><div class="rumor-track"><div class="rumor-bar"><i style="width:${S.rumor}%"></i></div><img class="rumor-elise" src="./assets/story/portrait-elise.webp" alt="" style="left:${Math.max(0,Math.min(100,S.rumor))}%"><img class="rumor-goal" src="${UI_IC('village')}" alt=""></div></div>
- <h3 class="sec">이웃</h3><div class="neigh">${here.map(r=>{const talked=S.talked[r.id]===todayKey(),rev=revealed(r.id),f=FAVORS[r.id],left=favorLeft(r.id);return `<div class="nb"><img class="nb-pic" src="./assets/story/portrait-${r.id}.webp" alt="" loading="lazy" decoding="async"><div class="nb-body"><div class="nb-h"><b>${r.n}</b><span class="stars" aria-label="친밀도 ${S.favor[r.id]||0}">${'★'.repeat(favorStars(r.id))}${'☆'.repeat(5-favorStars(r.id))}</span></div>
+ <h3 class="sec">이웃</h3><div class="neigh">${here.map(r=>{const talked=S.talked[r.id]===todayKey(),rev=resArrived(r),f=FAVORS[r.id],left=favorLeft(r.id);return `<div class="nb"><img class="nb-pic" src="./assets/story/portrait-${r.id}.webp" alt="" loading="lazy" decoding="async"><div class="nb-body"><div class="nb-h"><b>${r.n}</b><span class="stars" aria-label="친밀도 ${S.favor[r.id]||0}">${'★'.repeat(favorStars(r.id))}${'☆'.repeat(5-favorStars(r.id))}</span></div>
  <div class="nb-btns"><button class="btn" data-act="talk" data-id="${r.id}">${UI('talk')}${talked?'또 대화':'대화'}</button>${rev?`<button class="btn go" data-act="favor" data-id="${r.id}" ${left?'disabled':''}>${UI('favor')}${f.t}${left?` · ${UI('timer')}${left}`:''}</button>`:`<button class="btn" disabled aria-label="정체를 알면 부탁할 수 있어요">${UI('lock')}부탁</button>`}</div>${rev?`<small>${f.d} · 소문 ${f.rumor>0?'+':''}${f.rumor}</small>`:''}</div></div>`}).join('')}</div>`}
 /* festivals */
 function festival(prevSe){if(day()<=2)return;const score=S.decor.length*10+S.b.length*3+Math.floor(S.roads.length/2)+S.pop+ITEMS.filter(x=>S.items[x.id]).length*2;
@@ -1395,10 +1400,14 @@ function festival(prevSe){if(day()<=2)return;const score=S.decor.length*10+S.b.l
 /* shared event card (reuses the scene overlay without touching story progress) */
 function playCustom(no,title,lines,art){SCENES.custom=lines;sceneEp='custom';sceneI=0;closeSheet();$('#scene-no').textContent=no;$('#scene-title').textContent=title;$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(-1,art);sceneStep()}
 const EVENT_ART=k=>`./assets/events/${k}.webp`,ITEM_ART=id=>`./assets/items/${id}.webp`;
-function lifeTick(){ensureDaily();crisisTick();acadTick();updateAlert();chatterTick()}
+function meetTick(){if(!Array.isArray(S.met))S.met=RESIDENTS.filter(resArrived).map(r=>r.id);for(const r of RESIDENTS){if(S.met.includes(r.id)||!resArrived(r))continue;S.met.push(r.id);save();arriveCard(r);sayOnMap(r.id,r.line);updateTabs();break}}
+function arriveCard(r){document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive';el.innerHTML=`<img src="./assets/story/portrait-${r.id}.webp" alt=""><span><small>새 이웃이 이사 왔어요</small><b>${r.n}</b><em>“${r.line}”</em></span>`;
+  const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=()=>{bye();openTab('people');setSub('people','neigh')};document.body.appendChild(el);setTimeout(bye,7000)}
+function lifeTick(){ensureDaily();crisisTick();acadTick();meetTick();updateAlert();chatterTick()}
 
 
-const EP_THUMB=n=>`./assets/story/thumbs/ep${String(n).padStart(2,'0')}.webp`;
+const EP_V2=new Set([1,2,3,4,5,6,7,9,10,12,13]),EP_REUSE={8:7,11:13},nn=n=>String(n).padStart(2,'0');
+const EP_THUMB=n=>EP_V2.has(n)?`./assets/story/v2/thumbs/ep${nn(n)}.webp`:`./assets/story/thumbs/ep${nn(EP_REUSE[n]??n)}.webp`;
 const QUEST_ICON={q1:'wood',q4:'stone',q5:'pop',q9:'gold',q13:'pop'},QUEST_THUMB={q2:'house',q3:'farm',q6:'lumber',q7:'quarry',q8:'market',q10:'hall',q11:'bakery',q12:'tavern',q15:'hall'};
 function questIcon(q){if(QUEST_ICON[q.id])return ic(QUEST_ICON[q.id],'qi');if(QUEST_THUMB[q.id]&&THUMBURL[QUEST_THUMB[q.id]])return `<img class="qi" src="${THUMBURL[QUEST_THUMB[q.id]]}" alt="">`;return `<img class="qi" src="${UI_IC('winter')}" alt="">`}
 const rewardIcons=r=>Object.entries(r).map(([k,v])=>`<span class="rw">${ic(k)}${v}</span>`).join('');
@@ -1420,14 +1429,14 @@ function segHTML(tab){return `<div class="seg" role="tablist">${SUBS[tab].map(([
 function setSub(tab,k){if(!SUBS[tab]||!SUBS[tab].some(([x])=>x===k))return;SUB[tab]=k;try{localStorage.setItem('jy-subtabs',JSON.stringify(SUB))}catch(e){}sheet.scrollTop=0;renderSheet()}
 function storyTodayHTML(){const q=nextQuest();if(!q)return `<div class="today-card done"><b>시즌 1 완결</b></div>`;
   const i=Q.indexOf(q),ep=EPISODES[i],v=Math.min(q.v(),q.g),ready=questReady(q);
-  return `<div class="today-card art ${ready?'ready':''}"><img class="today-bg" src="${EP_THUMB(ep.n)}" alt="" decoding="async"><div class="today-in"><small class="today-tag">${ep.n}화 · ${ep.t}</small><div class="today-goal">${questIcon(q)}<div class="meter"><i style="width:${Math.round(v/q.g*100)}%"></i></div><b>${Math.floor(v)}/${q.g}</b></div><small class="today-what">${q.t}</small>${ready?`<button class="btn go" data-act="claim" data-q="${q.id}">${UI('reward')}보상 받고 보기</button>`:''}</div></div>`}
+  return `<div class="today-card art ${ready?'ready':''}"><img class="today-bg" src="${EP_THUMB(ep.n)}" alt="" decoding="async" onerror="this.onerror=null;this.style.display='none'"><div class="today-in"><small class="today-tag">${ep.n}화 · ${ep.t}</small><div class="today-goal">${questIcon(q)}<div class="meter"><i style="width:${Math.round(v/q.g*100)}%"></i></div><b>${Math.floor(v)}/${q.g}</b></div><small class="today-what">${q.t}</small>${ready?`<button class="btn go" data-act="claim" data-q="${q.id}">${UI('reward')}보상 받고 보기</button>`:''}</div></div>`}
 function shopTabsHTML(){const full=shopHTML(),cut=full.indexOf('<div class="shop-note-link">'),head=full.slice(0,cut),rest=full.slice(cut).replace(/^<div class="shop-note-link">.*?<\/button><\/div>/s,'');
   const market=count('market')?marketHTML():`<div class="today-card"><b>시장이 아직 없어요</b><small>시장을 지으면 목재·석재·식량을 사고팔 수 있어요. 피노도 이사 와요.</small><button class="btn go" data-act="choose-build" data-k="market">시장 지을 곳 고르기</button></div>`;
   return head.replace('<h2>장식 상점</h2>','<h2>상점</h2>')+segHTML('shop')+`<section data-sub="decor">${rest}</section><section data-sub="market">${market}</section><section data-sub="items">${itemsHTML()}</section>`}
 
 /* ---------- tabs and story screens ---------- */
-const ACTS=[{n:'1막',t:'부임',to:3},{n:'2막',t:'수상한 일상',to:7},{n:'3막',t:'첫 번째 정체 공개',to:10},{n:'4막',t:'소문',to:13},{n:'5막',t:'재앙의 날',to:15}];
-const EPISODES=['평화로운 첫날','귀한 분','첫 밀밭','동네 바위가 무르다','평범한 자기소개','바람이 세다','허리 운동','평범한 냄비','닮은 사람','앞치마의 할머니','이상 없음','우유 한 잔','보고서는 내일','빗자루를 든 촌장','Lv 999의 마을'].map((t,i)=>({n:i+1,t}));
+const ACTS=[{n:'1막',t:'남아 있던 사람',to:3},{n:'2막',t:'숲에서 온 사람',to:6},{n:'3막',t:'비를 맞고 온 사람',to:9},{n:'4막',t:'수상한 상인',to:12},{n:'5막',t:'무서운 손님',to:15}];
+const EPISODES=['텅 빈 마을','장작은 결을 따라','잔치와 비룡','길 잃은 나무꾼','바람이 세다','숲의 늑대','비 오는 밤의 손님','허리 운동','닫히지 않는 문','완전 평범한 상인','감찰관 엘리스','측정기가 울린 날','무서운 손님','빗자루를 든 촌장','Lv 999의 마을'].map((t,i)=>({n:i+1,t}));
 const RESIDENTS=[
   {id:'marta',n:'마르타 할머니',role:'회관 옆 오두막의 다정한 할머니',home:'house',always:true,line:'촌장님, 차 한잔 하고 가렴.'},
   {id:'gunter',n:'군터 아저씨',role:'말수 적은 벌목꾼',home:'lumber',line:'…바람이 세다.'},
@@ -1453,7 +1462,7 @@ function profileHTML(){const sk=[['farm','농사','#819853',`식량 생산 +${(l
   return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="profile-hero"><div class="big">Lv1</div><div><b>신참 촌장</b><p>레벨이 안 오르는 건… 기분 탓이겠지?</p></div></div><h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c,effect])=>`<div class="pill"><div class="skill-title"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><small>다음 단계 ${Math.round(lvp(S.xp[k])*100)}%</small></div><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div><small>${effect}</small></div>`).join('')}</div><h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div><h3 class="sec">촌장의 비밀 <small>${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul class="help">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">아직 찾은 실마리가 없어요.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
 function peopleHTML(){return `<div class="top shop-top"><div><h2>주민</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('people')}<section data-sub="neigh">${visitorInviteHTML()}${lifeHTML()}</section><section data-sub="roster"><div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r),all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><div class="resident-title"><h3>${here?r.n:'아직 만나지 못한 이웃'}</h3>${here?`<span class="lvq">${rev?'Lv 999':'Lv ???'}</span>`:''}</div>${here?`<p class="resident-role">${r.role}</p>`:""}<p>${here?`“${r.line}”`:`${objectName(B[r.home].n)} 지으면 이사 와요.`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary>모은 단서 보기</summary><ul>${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<div class="lore">${LORE[r.id]}</div>`:''}</div></div>`}).join('')}</div></section><section data-sub="acad">${acadHTML()}</section>`}
 function storyHTML(){const next=nextQuest();let from=0;
- const card=(n,title,state,extra='')=>`<button class="ep-card ${state}" ${state==='locked'?'disabled':`data-act="${state==='ready'?'claim':'replay'}" ${state==='ready'?`data-q="${Q[n-1].id}"`:`data-ep="${n}"`}`} aria-label="${n?n+'화':'프롤로그'} ${state==='locked'?'잠김':title}"><img src="${EP_THUMB(n)}" alt="" loading="lazy" decoding="async" width="360" height="240"><span class="ep-no">${n?n+'화':'0화'}</span>${state==='locked'?`<span class="ep-lock">${UI('lock','big')}</span>`:`<span class="ep-t">${title}</span>`}${extra}</button>`;
+ const card=(n,title,state,extra='')=>`<button class="ep-card ${state}" ${state==='locked'?'disabled':`data-act="${state==='ready'?'claim':'replay'}" ${state==='ready'?`data-q="${Q[n-1].id}"`:`data-ep="${n}"`}`} aria-label="${n?n+'화':'프롤로그'} ${state==='locked'?'잠김':title}"><img src="${EP_THUMB(n)}" alt="" loading="lazy" decoding="async" width="360" height="240" onerror="this.onerror=null;this.style.display='none'"><span class="ep-no">${n?n+'화':'0화'}</span>${state==='locked'?`<span class="ep-lock">${UI('lock','big')}</span>`:`<span class="ep-t">${title}</span>`}${extra}</button>`;
  let h=`<div class="top shop-top"><div><h2>시즌 1 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화 완료</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('story')}<section data-sub="today">${storyTodayHTML()}${dailyHTML()}</section><section data-sub="eps"><div class="act-h"><b>프롤로그</b></div><div class="ep-grid">${card(0,'발령 추첨','done')}</div>`;
  for(const a of ACTS){h+=`<div class="act-h"><b>${a.n} ${a.t}</b></div><div class="ep-grid">`;for(let i=from;i<a.to;i++){const q=Q[i],ep=EPISODES[i],got=S.claimed.includes(q.id),current=q===next,ready=questReady(q),v=Math.min(q.v(),q.g);
    const state=got?'done':ready?'ready':current?'current':'locked';
@@ -1677,7 +1686,7 @@ function start(data){
   resetGesture();
   let st=null;
   try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)st=load(raw)}}catch(e){st=null}
-  const fresh=!st;S=st||newState();normalizeStory(S);normalizeLife(S);if(typeof S.cartDay!=='string')S.cartDay='';
+  const fresh=!st;S=st||newState();normalizeStory(S);normalizeLife(S);if(!Array.isArray(S.met))S.met=RESIDENTS.filter(resArrived).map(r=>r.id);if(typeof S.cartDay!=='string')S.cartDay='';
   TILES=genMap(S.seed).t;BASE_TILES=TILES.slice();normalizeRoads(S,BASE_TILES);roadDirty.clear();applyRoads();
   rebuildOcc();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
   mode='hand';ghost=null;movingId=null;decorKind=null;decorMoveId=null;
