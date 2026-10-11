@@ -1198,7 +1198,7 @@ const SCENES={
  12:[[N,'엘리스가 광장에서 측정기를 꺼낸다.'],['엘리스','피노 씨… Lv 999?!'],['피노','들켰네. 훔친 건 다 돌려줬어요. 택배로.'],['나','택배를 많이 보내시긴 했죠.']],
  13:[[N,'선술집 주인은 얼굴이 무섭다.'],['바르그','근무 중이다. 우유다.'],['나','와, 우유 좋아요!'],['바르그','…너는 나를 무서워하지 않는군.']],
  14:[[N,'눈보라 속 마왕군. 빗자루를 든 나.'],['나','여기 사람들은 제가 지킵니다!'],[N,'바르그가 앞치마를 푼다. 마왕군이 무릎을 꿇는다.'],['바르그','퇴직했다. 돌아가라.']],
- 15:[['마르타','고맙다. 우리를 평범하게 대해 줘서.'],['엘리스','보고서: ‘초보자 마을, 이상 없음.’'],[N,'발령장 뒷면 추천인 서명… 마르타.'],[N,'Lv 1 → Lv ??? · 시즌 1 끝']],
+ 15:[['마르타','고맙다. 우리를 평범하게 대해 줘서.'],['엘리스','보고서: ‘초보자 마을, 이상 없음.’'],[N,'발령장 뒷면 추천인 서명… 마르타.'],[N,'Lv 1 → Lv ??? · 이야기 끝']],
  0:[[N,'신입 발령 추첨의 날.'],['담당관','연수 꼴찌… 초보자 마을 촌장.'],['동기들','석 달도 못 버틴다는 그곳?'],[N,'발령장 뒷면은 아직 보지 않았다.']],
 };
 const REVEALS={3:['marta'],6:['gunter'],9:['bruno'],12:['pino'],14:['barg']};
@@ -1551,7 +1551,7 @@ function subDot(tab,k){if(!S)return false;
   return false}
 function segHTML(tab){return `<div class="seg" role="tablist">${SUBS[tab].map(([k,n])=>`<button role="tab" class="seg-b" data-act="seg" data-tab="${tab}" data-k="${k}" aria-selected="${SUB[tab]===k}">${n}${subDot(tab,k)?'<i class="seg-dot" aria-label="새 소식"></i>':''}</button>`).join('')}</div>`}
 function setSub(tab,k){if(!SUBS[tab]||!SUBS[tab].some(([x])=>x===k))return;SUB[tab]=k;try{localStorage.setItem('jy-subtabs',JSON.stringify(SUB))}catch(e){}sheet.scrollTop=0;renderSheet()}
-function storyTodayHTML(){const q=nextQuest();if(!q)return `<div class="today-card done"><b>시즌 1 완결</b></div>`;
+function storyTodayHTML(){const q=nextQuest();if(!q)return `<div class="today-card done"><b>이야기 완결</b></div>`;
   const i=Q.indexOf(q),ep=EPISODES[i],v=Math.min(q.v(),q.g),ready=questReady(q);
   return `<div class="today-card art ${ready?'ready':''}"><img class="today-bg" src="${EP_THUMB(ep.n)}" alt="" decoding="async" onerror="this.onerror=null;this.style.display='none'"><div class="today-in"><small class="today-tag">${ep.n}화 · ${ep.t}</small><div class="today-goal">${questIcon(q)}<div class="meter"><i style="width:${Math.round(v/q.g*100)}%"></i></div><b>${Math.floor(v)}/${q.g}</b></div><small class="today-what">${q.t}</small>${ready?`<button class="btn go" data-act="claim" data-q="${q.id}">${UI('reward')}보상 받고 보기</button>`:''}</div></div>`}
 function shopTabsHTML(){const full=shopHTML(),cut=full.indexOf('<div class="shop-note-link">'),head=full.slice(0,cut),rest=full.slice(cut).replace(/^<div class="shop-note-link">.*?<\/button><\/div>/s,'');
@@ -1587,7 +1587,7 @@ function profileHTML(){const sk=[['farm','농사','#819853',`식량 생산 +${(l
 function peopleHTML(){return `<div class="top shop-top"><div><h2>주민</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('people')}<section data-sub="neigh">${visitorInviteHTML()}${lifeHTML()}</section><section data-sub="roster"><div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r),all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><div class="resident-title"><h3>${here?r.n:'아직 만나지 못한 이웃'}</h3>${here?`<span class="lvq">${rev?'Lv 999':'Lv ???'}</span>`:''}</div><p>${here?`“${r.line}”`:`${objectName(B[r.home].n)} 지으면 이사 와요.`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary>모은 단서 보기</summary><ul>${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<details class="lore-d"><summary>정체 보기</summary><div class="lore">${LORE[r.id]}</div></details>`:''}</div></div>`}).join('')}</div></section><section data-sub="acad">${acadHTML()}</section>`}
 function storyHTML(){const next=nextQuest();let from=0;
  const card=(n,title,state,extra='')=>`<button class="ep-card ${state}" ${state==='locked'?'disabled':`data-act="${state==='ready'?'claim':'replay'}" ${state==='ready'?`data-q="${Q[n-1].id}"`:`data-ep="${n}"`}`} aria-label="${n?n+'화':'프롤로그'} ${state==='locked'?'잠김':title}"><img src="${EP_THUMB(n)}" alt="" loading="lazy" decoding="async" width="360" height="240" onerror="this.onerror=null;this.style.display='none'"><span class="ep-no">${n?n+'화':'0화'}</span>${state==='locked'?`<span class="ep-lock">${UI('lock','big')}</span>`:`<span class="ep-t">${title}</span>`}${extra}</button>`;
- let h=`<div class="top shop-top"><div><h2>시즌 1 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화 완료</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('story')}<section data-sub="today">${storyTodayHTML()}${dailyHTML()}</section><section data-sub="eps"><div class="act-h"><b>프롤로그</b></div><div class="ep-grid">${card(0,'발령 추첨','done')}</div>`;
+ let h=`<div class="top shop-top"><div><h2>마을 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화 완료</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('story')}<section data-sub="today">${storyTodayHTML()}${dailyHTML()}</section><section data-sub="eps"><div class="act-h"><b>프롤로그</b></div><div class="ep-grid">${card(0,'발령 추첨','done')}</div>`;
  for(const a of ACTS){h+=`<div class="act-h"><b>${a.n} ${a.t}</b></div><div class="ep-grid">`;for(let i=from;i<a.to;i++){const q=Q[i],ep=EPISODES[i],got=S.claimed.includes(q.id),current=q===next,ready=questReady(q),v=Math.min(q.v(),q.g);
    const state=got?'done':ready?'ready':current?'current':'locked';
    h+=card(ep.n,ep.t,state,state==='ready'?`<span class="ep-badge">${UI('reward')}</span>`:state==='current'?`<span class="ep-prog"><i style="width:${Math.round(v/q.g*100)}%"></i></span>`:'')}
@@ -1658,7 +1658,7 @@ function updateHUD(){
   if(q){const v=Math.min(q.v(),q.g),done=questReady(q),ep=EPISODES[Q.indexOf(q)];
     gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
     $('#goal').classList.toggle('done',done);if(lastGoal!==q.id){lastGoal=q.id;flashGoal()}}
-  else{gh=`<button class="goal-open"><span>시즌 1을 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
+  else{gh=`<button class="goal-open"><span>이야기를 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
   const ge=$('#goal');if(ge.dataset.v!==gh){ge.innerHTML=gh;ge.dataset.v=gh}
   const shortage=r.food<0&&S.r.food<=Math.max(5,-r.food*30);$('#food-alert').hidden=!shortage;
   if(shortage)$('#food-alert-text').textContent=S.r.food<1?(S.pop>1?'식량이 없어요 · 주민이 떠날 수 있어요':'식량이 없어요 · 주민이 늘지 못해요'):'식량이 부족해지고 있어요 · 미리 준비하세요';
