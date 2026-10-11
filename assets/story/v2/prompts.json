@@ -79,6 +79,90 @@
         "width": 1200,
         "height": 800
       }
+    },
+    {
+      "id": "ep05",
+      "title": "바람이 세다",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (2 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nGUNTER: tall thin middle-aged lumberjack, long shaggy silver-gray bangs completely covering his eyes, long weathered face, worn brown leather vest over dusty beige shirt, dark practical trousers and boots; ordinary woodcutting axe normally slung on back.\nSCENE:\nEXACTLY TWO PEOPLE, chief and Gunter, NO MARTA or other person. A quiet forest clearing in daylight. GUNTER on the left has just finished ONE casual swing of his ordinary axe, relaxed posture and shaggy silver hair fluttering. Across the background, exactly TEN clearly separate trees are all simultaneously beginning to fall in the SAME direction, their trunks leaning in parallel after the single swing. Space the ten falling trunks so the synchronized row reads instantly; simple distant foliage beyond, no extra foreground trunks confusing the ten. They fall safely AWAY from the people into an empty clearing, no crushed animals or injuries. CHIEF on the right stands wide-eyed with jaw dropped; he holds ONE humble WOODEN SPOON clearly in his hand at chest height — NOT an axe or weapon. The wooden spoon looks absurdly small next to this display of force. Natural dust/leaves and a soft wind arc, no anime action lines or writing. Keep faces, spoon, axe and falling tree row above bottom quarter.\nPaint scenery with controlled broad watercolor masses, not excessive high-frequency noise or tiny speckled foliage.\nRevision: Edit this finished game scene only in the falling-tree row behind the two men. There are currently EIGHT clearly visible falling trunks. Recompose that row as exactly TEN separate falling trees, each with its own visible cut stump and trunk leaning to the right in the same direction. Use ten slightly narrower trunks across the same band from behind Gunter's right side to just left of the chief, evenly separated so all TEN cut points can be counted without hidden trunks. No labels or numbered markers. Preserve the two people completely unchanged: Gunter left with silver bangs hiding eyes, brown vest, one axe; young green-vest chief right with surprised face holding a wooden spoon. Same village, light and warm watercolor storybook finish. No other people, no injuries, no writing. Landscape3:2.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "gunter"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep06",
+      "title": "숲의 늑대",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (3 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nGUNTER: tall thin middle-aged lumberjack, long shaggy silver-gray bangs completely covering his eyes, long weathered face, worn brown leather vest over dusty beige shirt, dark practical trousers and boots; ordinary woodcutting axe normally slung on back.\nSCENE:\nEXACTLY THREE HUMAN PEOPLE: chief, Marta, Gunter. Sunset forest path leading toward the village. CHIEF in the foreground bravely but shakily blocks the path with a worn straw BROOM, frightened but unharmed. Behind and slightly to one side, GUNTER casually completes one light axe swing; his silver hair streams in the wind. A HUGE swirling gust lifts a pack of FIVE WOLVES gently over the far forest away from the village, carried on visible soft spirals of leaves and air. The wolves are completely unhurt, fur intact, round startled comic faces and paws splayed like surprised swimmers; no impact, no pain, no collisions or sharp debris. The axe never touches an animal. Place the wind and wolves where they do not hide Gunter's face or chief. MARTA in the distance near the village side stands visibly clapping her hands with an approving warm smile. No other people. This is Gunter's quiet overwhelming power reveal, safe whimsical magical wind, not violent animal suffering.\nPaint scenery with controlled broad watercolor masses, not excessive high-frequency noise or tiny speckled foliage.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta",
+        "gunter"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep07",
+      "title": "비 오는 밤의 손님",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (4 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nGUNTER: tall thin middle-aged lumberjack, long shaggy silver-gray bangs completely covering his eyes, long weathered face, worn brown leather vest over dusty beige shirt, dark practical trousers and boots; ordinary woodcutting axe normally slung on back.\nBRUNO: enormous broad middle-aged man, gentle round friendly face, short brown hair and short brown beard, faded blue-gray overalls over beige work shirt, wide old brown belt with worn brass fleur-shaped knight-order medallion.\nSCENE:\nEXACTLY FOUR PEOPLE: chief, Marta, Gunter, Bruno. Rainy night at the village entrance. Newly arrived BRUNO, a huge gentle man in soaked blue-gray overalls, sits upright in a muddy puddle beside the lane, slouched from exhaustion and DROWSING with a sleepy peaceful half-smile. Clearly resting asleep, not wounded or collapsed: relaxed shoulders, gently nodding head, no bruises. An exceptionally LARGE ordinary blacksmith HAMMER lies on the ground at his side, not on his body. CHIEF stands beside him, holding an open old-fashioned umbrella over Bruno's head with a concerned kind expression. GUNTER holds a warm amber lantern to illuminate them, axe on his back. MARTA hurries toward them with a large folded wool BLANKET in both arms, ready to wrap Bruno warmly. Every face visible; four people total. Cool blue rain contrasts with lantern warmth and a distant lit cottage doorway. Cozy care and shelter, no other people or animals, no tragedy.\nPaint scenery with controlled broad watercolor masses, not excessive high-frequency noise or tiny speckled foliage.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta",
+        "gunter",
+        "bruno"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep09",
+      "title": "닫히지 않는 문",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CANONICAL RESIDENT CAST (4 residents, plus exactly 3 anonymous bandit antagonists explicitly required in this episode; no one else):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nGUNTER: tall thin middle-aged lumberjack, long shaggy silver-gray bangs completely covering his eyes, long weathered face, worn brown leather vest over dusty beige shirt, dark practical trousers and boots; ordinary woodcutting axe normally slung on back.\nBRUNO: enormous broad middle-aged man, gentle round friendly face, short brown hair and short brown beard, faded blue-gray overalls over beige work shirt, wide old brown belt with worn brass fleur-shaped knight-order medallion.\nSCENE:\nFOUR canonical residents ONLY: chief, Marta, Gunter, Bruno. In addition, exactly THREE anonymous masked BANDITS are required antagonists in this scene; no other human extras. Clear daytime at a plain wooden fence gate. BRUNO stands serenely at the gate with ARMS FOLDED, blue-gray overalls and old knight-order belt; he doesn't strike or touch anyone. The THREE approaching bandits have just bounced to a harmless stop against an invisible wall in front of him: one sits surprised on the ground, one stumbles backward into a seated landing, the third leans away with arms flailing. Comic bafflement, no injuries, no weapons hitting people, no blood. Bandits wear plain muted gray/tan hoods and simple cloth masks; none resembles a canonical resident. A faint translucent EMPTY KNIGHT-ARMOR OUTLINE radiates directly behind Bruno, echoing his stance, suggesting his former identity; this is a single magical aura, not a second person, no face inside armor. CHIEF hides behind Bruno's leg, peeking out nervously, curls and green vest visible. On the safe village side in the background, MARTA and GUNTER casually drink tea while watching, calmly amused. All four resident faces visible. The wooden gate itself is open, all villagers safe behind Bruno; no passerby or hidden crowds.\nPaint scenery with controlled broad watercolor masses, not excessive high-frequency noise or tiny speckled foliage.\nRevision: Edit this completed illustration with ONE change only: make the empty knight-armor aura behind Bruno subtle and faint. Replace the thick bright neon yellow outlines and the straight radial rays with a very pale low-opacity warm gray-gold WATERCOLOR silhouette of EMPTY armor, as if a barely visible old memory in sunlight. No occupant, no face or eyes inside helmet. No glowing stroke borders and no comic effect rays. It should remain just perceptible behind Bruno but never compete with his face. Preserve the exact four canonical residents and three bandits, every identity, outfit, pose, scale and placement, gate, architecture, warm lighting and painterly style completely unchanged. No other people, text, labels, speech bubbles or frames. Landscape3:2.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta",
+        "gunter",
+        "bruno"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      },
+      "additionalSceneCharacters": {
+        "anonymousBandits": 3
+      }
     }
   ]
 }
