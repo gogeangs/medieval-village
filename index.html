@@ -187,6 +187,7 @@ body{background:#3f5a37}.n,.num,.pg,.r{font-variant-numeric:tabular-nums}
 .profile-hero{display:flex;align-items:center;gap:14px;margin-top:12px;padding:12px;border-radius:10px;background:#e4d6b15e}
 .profile-hero .profile-pic{width:64px;height:64px;flex:none;border-radius:50%;object-fit:cover;object-position:50% 12%;border:2px solid #c8b28a;background:#e8dcc0}.ph-text{display:grid;gap:4px;min-width:0;justify-items:start}.ph-name{font-size:20px;font-weight:400;overflow-wrap:anywhere}.ph-text small{display:flex;align-items:baseline;gap:6px;color:var(--ink-soft);font-size:13px}.profile-hero .ph-text .big{font-size:18px}.ph-edit{min-height:36px!important;padding:5px 12px;font-size:13px}
 .name-dlg{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:#20180f88}.name-card{width:min(100%,320px);display:grid;justify-items:center;gap:12px;padding:20px 18px 18px;background:#f6ecd2;border:2px solid #7d5a35;border-radius:14px;box-shadow:0 10px 30px #0006}.name-card img{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 12%;border:2px solid #c8b28a;background:#e8dcc0}.name-card h3{margin:0;font-weight:400;font-size:19px;color:#3f2f1c;text-align:center;text-wrap:balance}.name-card input{width:100%;font:inherit;font-size:18px;text-align:center;padding:10px 12px;border:2px solid #b9a079;border-radius:9px;background:#fffaf0;color:#3f2f1c}.name-card input:focus{outline:3px solid #8ba368;outline-offset:1px}.name-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}.name-acts .btn{justify-content:center}
+.placement-link{display:block;margin-top:2px;font-size:12px;color:#5f7c45}.bc.link{font-size:11px;white-space:normal;overflow-wrap:anywhere;color:#5f7c45}
 .rank-card{display:grid;gap:8px;padding:12px;border-radius:10px;background:#e4d6b15e}.rank-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;text-align:center}.rank-steps li{display:grid;justify-items:center;gap:4px;font-size:11px;color:var(--ink-soft);min-width:0}.rank-steps li span{overflow-wrap:anywhere;word-break:keep-all}.rank-steps i{width:18px;height:18px;border-radius:50%;border:2px solid var(--c);background:#f6ecd2}.rank-steps li.done i,.rank-steps li.on i{background:var(--c)}.rank-steps li.on{color:var(--ink);font-weight:700}.rank-steps li.on i{box-shadow:0 0 0 3px #fff4cb}.rank-now,.rank-next{margin:0;font-size:13px;line-height:1.5}.rank-now b,.rank-next b{font-size:15px;font-weight:400}.rank-need{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.rank-need li{display:flex;justify-content:space-between;gap:6px;padding:6px 8px;border-radius:7px;background:#f6ecd2;font-size:12px;color:var(--ink-soft)}.rank-need li.ok{color:#4f6b37;background:#e3ebcf}.rank-need b{font-weight:400;font-variant-numeric:tabular-nums}
 .lm-art{width:56px!important;height:64px!important;object-fit:contain!important}.lm-pips{display:flex;gap:6px;margin-top:10px}.lm-pips i{flex:1;height:7px;border-radius:4px;background:#d8c9a6}.lm-pips i.on{background:#7f9a59}
 .zone-art{width:56px!important;height:56px!important;border-radius:50%;object-fit:cover!important;border:2px solid #c8b28a;background:#e8dcc0}.zone-desc{margin:12px 0 8px;font-size:14px;line-height:1.6}.zone-perk{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 12px;border-radius:9px;background:#e4d6b15e;font-size:14px}.zone-perk b{font-weight:400;color:#6b7544}.zone-cost{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0 4px;font-size:16px}.zone-cost span{display:inline-flex;align-items:center;gap:4px}.zone-note{margin:12px 0 0;font-size:13px;color:var(--ink-soft);text-align:center}.zone-note.warn{color:#9c3b27}.zone-go{width:100%;margin-top:12px;justify-content:center}
@@ -398,9 +399,12 @@ const B={
   quarry:{n:'채석장',d:'언덕에서 돌을 캐 석재를 모아요.',cost:{wood:30},need:2,prod:{stone:1},hall:1},
   market:{n:'시장',d:'장사로 금화를 벌어요. 부족한 자원을 사고 남는 자원을 팔 수 있어요.',cost:{wood:40,stone:20},need:2,prod:{gold:.8},hall:1},
   bakery:{n:'빵집',d:'계절과 상관없이 빵을 구워요. 겨울을 나려면 꼭 필요해요.',cost:{wood:35,stone:30,gold:20},need:2,prod:{food:1.6},hall:2,smoke:1},
+  mill:{n:'방앗간',d:'옆에 붙은 밀밭의 식량 생산을 늘려요. 한 칸 떨어진 곳까지 이어져요.',cost:{wood:50,stone:30},need:1,hall:2,link:{to:['farm'],max:3}},
+  smithy:{n:'대장간',d:'옆에 붙은 벌목소·채석장의 생산을 늘리고, 모든 건물 업그레이드 비용을 10% 깎아 줘요.',cost:{wood:40,stone:50,gold:30},need:2,hall:2,smoke:1,link:{to:['lumber','quarry'],max:4}},
+  ranch:{n:'목장',d:'옆에 붙은 밀밭에서 꼴을 받아 양을 키워요. 밀밭이 붙을수록 금화를 더 벌어요. 식량을 조금 먹어요.',cost:{wood:45,gold:25},need:2,hall:2,prod:{gold:.4},link:{to:['farm'],max:2}},
   tavern:{n:'선술집',d:'금화를 벌고, 소문이 나서 주민이 더 빨리 모여요.',cost:{wood:60,stone:40,gold:50},need:3,prod:{gold:1.6},hall:2,smoke:1},
 };
-const ORDER=['house','farm','lumber','quarry','market','bakery','tavern'];
+const ORDER=['house','farm','lumber','quarry','market','bakery','tavern','mill','smithy','ranch'];
 const HALLUP=[null,{wood:80,stone:60,gold:60},{wood:160,stone:140,gold:200}];
 const RES=['wood','stone','food','gold'];
 const RN={wood:'목재',stone:'석재',food:'식량',gold:'금화'};
@@ -688,7 +692,7 @@ function lantern(g,x,y){woodBeam(g,[x,y-1],[x,y+.35],.2);roundBox(g,x-.55,y,1.1,
 function chimneyArt(g,x,y,se){const p=[[x,y],[x+2.9,y+.35],[x+2.9,y+12],[x,y+11.5]];shape(g,p,'#c4b390','#75664d',.25);shape(g,[[x+2.9,y+.35],[x+4,y-.25],[x+4,y+11.4],[x+2.9,y+12]],'#9e8e70','#75664d',.2);for(let i=1;i<8;i++){stroke(g,[[x,y+i*1.4],[x+2.9,y+.35+i*1.4]],'#8e7c6055',.2);stroke(g,[[x+(i%2?1:2),y+.3+i*1.4],[x+(i%2?1:2),y+1.5+i*1.4]],'#8e7c6066',.15)}shape(g,[[x-.4,y-.4],[x+2.9,y],[x+4.4,y-.65],[x+1,y-1]],se===3?'#f3f3e7':'#e1d1aa','#887458',.2);ellipse(g,x+1.8,y-.35,1,.27,'#594c37')}
 function fence(g,x,y,w){for(const off of[1.3,3])woodBeam(g,[x,y+off],[x+w,y+off],.4);for(let i=0;i<=w;i+=3.5){roundBox(g,x+i-.35,y, .7,4.1,.15,'#a58250','#554b31',.18);ellipse(g,x+i,y,.4,.2,'#dfbf82')}}
 function cottageArt(se,kind='house'){return art(32,44,g=>{
-  const pal=kind==='lumber'?TILE_ROOF.green:kind==='tavern'?TILE_ROOF.blue:TILE_ROOF.red;softShadow(g,17,40,15,3);
+  const pal=kind==='lumber'?TILE_ROOF.green:kind==='tavern'||kind==='smithy'?TILE_ROOF.blue:kind==='mill'?TILE_ROOF.brown:TILE_ROOF.red;softShadow(g,17,40,15,3);
   // Front and right wall have separate planes and lighting, including their details.
   g.save();g.transform(1,.18,0,1,2,22);plaster(g,0,0,21,14);woodBeam(g,[.2,3.4],[20.7,3.4],.7);
   windowArt(g,2.2,5,3.1,4.4);doorway(g,10,4.4,4.4,9);windowArt(g,17.1,5,2.2,4);planter(g,1.4,10.1,4.7,se);planter(g,16.6,9.7,3.6,se);steps(g,9.4,13.8,5.7);lantern(g,8.2,5.7);g.restore();
@@ -700,6 +704,9 @@ function cottageArt(se,kind='house'){return art(32,44,g=>{
   chimneyArt(g,22.4,4,se);pot(g,3,38,se,21);barrel(g,26.8,35.3);pot(g,24.4,40,se,8);
   if(kind==='bakery'){woodBeam(g,[25.7,28],[31,28],.35);roundBox(g,27.4,28.7,4.3,3.4,.4,'#594934','#a88655',.28);ellipse(g,29.6,30.3,1.65,.7,'#dca460');for(let i=0;i<3;i++)stroke(g,[[28.6+i*.65,29.8],[28.3+i*.65,30.4]],'#f7dc9e',.2);for(let i=0;i<5;i++)shape(g,[[9+i*1.1,30],[10.1+i*1.1,30.2],[10.4+i*1.1,32],[9.3+i*1.1,31.8]],i%2?'#efe1b9':'#c27951','#885f3d',.1)}
   if(kind==='tavern'){woodBeam(g,[27,27],[31,27],.3);roundBox(g,28.1,27.6,3.3,4,.5,'#d8b774','#665235',.3);roundBox(g,28.8,28.3,1.5,2,.25,'#a56d32');curve(g,30.2,28.6,31,28.3,31,30,30.1,30,'#946332',.27);barrel(g,5.5,38.4)}
+  if(kind==='mill'){ellipse(g,27.5,31,4.6,4.6,'#b7ab92','#5f574a',.4);ellipse(g,27.5,31,1.3,1.3,'#7a6d58');for(let i=0;i<6;i++){const a=i/6*Math.PI*2;stroke(g,[[27.5+Math.cos(a)*1.4,31+Math.sin(a)*1.4],[27.5+Math.cos(a)*4.2,31+Math.sin(a)*4.2]],'#8c8270',.3)}for(const[x,y]of[[2,37.5],[5,38.6],[3.4,35.6]]){roundBox(g,x,y,3.2,3.4,1.2,'#e8d7aa','#8f7647',.3);stroke(g,[[x+.6,y+.7],[x+2.6,y+.7]],'#8f7647',.25)}}
+  if(kind==='smithy'){roundBox(g,10.4,29.4,4,4.2,.6,'#f19a3a');ellipse(g,12.4,32.4,1.6,1,'#ffd27a');shape(g,[[24,37],[30.5,37],[29.6,38.6],[27.8,38.6],[28.4,41],[26,41],[26.6,38.6],[24.8,38.6]],'#5a5e63','#2f3236',.3);stroke(g,[[24.3,37.1],[30.2,37.1]],'#9aa1a8',.25);for(let i=0;i<3;i++)roundBox(g,1.5+i*.6,36.6+i*1.1,5.5,1,.3,'#6f7378','#3d4044',.2)}
+  if(kind==='ranch'){fence(g,.5,36.5,8);fence(g,23,37,8.5);for(const[x,y]of[[3.5,39.6],[27.5,40.2]]){ellipse(g,x,y,2.3,1.6,'#f4efe2','#8b8170',.3);ellipse(g,x+2.1,y-.5,.9,.8,'#4a4038');for(const dx of[-1.2,1])stroke(g,[[x+dx,y+1.2],[x+dx,y+2.2]],'#4a4038',.3)}roundBox(g,24.5,32.5,5,2.6,.5,'#d8b45a','#9c7a35',.25)}
   if(kind==='lumber'){for(const [x,y]of[[1,38],[3.6,39.1],[2.2,36.5]]){roundBox(g,x,y,6,2,.6,'#7a5834','#57452a',.2);ellipse(g,x+5.6,y+1,.8,.95,'#d4ae70','#775332',.2);ellipse(g,x+5.6,y+1,.45,.6,null,'#a87a42',.15)}}
 })}
 function townHallArt(se){return art(32,52,g=>{
@@ -781,7 +788,7 @@ function installPaintedPeople(){
   }
 }
 function smokeOrigin(b){
-  const im=SP?bImg(b):null,r=im?.paintRect,anchor={house:[.75,.035],bakery:[.73,.025],tavern:[.75,.025]}[b.k],jitter=Math.random()*2-1;
+  const im=SP?bImg(b):null,r=im?.paintRect,anchor={house:[.75,.035],bakery:[.73,.025],tavern:[.75,.025],smithy:[.75,.035]}[b.k],jitter=Math.random()*2-1;
   if(!r||!anchor)return{x:bCX(b)+8+jitter,y:b.y*TS-4};
   return{x:b.x*TS+r.x+r.w*anchor[0]+jitter,y:bBase(b)-im.height/ART+r.y+r.h*anchor[1]};
 }
@@ -819,9 +826,9 @@ function buildSprites(se){
   s.water=art(16,16,g=>roundBox(g,0,0,16,16,0,snow?'#a3c2c2':'#83b5b3'));
   s.bridge=art(16,16,g=>{roundBox(g,0,1,16,14,1,'#ad916a');for(let i=0;i<6;i++){roundBox(g,i*2.8,1.8,2.5,12.4,.3,wash(g,i*2.8,2,2.5,12,'#d6bd90','#b59a73'),'#8c75532e',.2);curve(g,i*2.8+.7,3,i*2.8+.4,5,i*2.8+1.6,8,i*2.8+1,12,'#a58b653f',.2)}for(const y of[2,14]){stroke(g,[[0,y],[16,y]],'#806e55',1.5);stroke(g,[[0,y-.4],[16,y-.4]],snow?'#eef2e8':'#d2bc90',.5);for(const x of[1,15])roundBox(g,x-.65,y-1.8,1.3,3.7,.4,'#b29870')}});
   s.tree=paintedSprite('tree',se)||broadleafArt(se);s.pine=paintedSprite('pine',se)||pineArt(se);s.rock=paintedSprite('rock',se)||rockArt(se);
-  for(const kind of['house','lumber','bakery','tavern'])s.b[kind]=paintedSprite(kind,se)||cottageArt(se,kind);
+  for(const kind of['house','lumber','bakery','tavern','mill','smithy','ranch'])s.b[kind]=paintedSprite(kind,se)||cottageArt(se,kind);
   s.b.hall=paintedSprite('hall',se)||townHallArt(se);s.b.market=paintedSprite('market',se)||marketArt(se);s.b.quarry=paintedSprite('quarry',se)||quarryArt(se);s.b.farm=[0,1,2].map(i=>paintedSprite('farm',se,i)||farmArt(se,i));
-  for(const kind of['hall','house','lumber','quarry','market','bakery','tavern'])s.yard[kind]=yardArt(kind,se);
+  for(const kind of['hall','house','lumber','quarry','market','bakery','tavern','mill','smithy','ranch'])s.yard[kind]=yardArt(kind,se);
   for(const k of Object.keys(FRIENDS))s.visitors[k]=paintedSprite('guest-'+k)||visitorFallback(k);
   for(const k of Object.keys(DECOR))s.decor[k]=paintedSprite('decor-'+k)||decorFallback(k);
   return s;
@@ -945,12 +952,29 @@ const season=()=>Math.floor(S.time/DAY/5)%4;
 const can=c=>Object.entries(c||{}).every(([k,v])=>S.r[k]>=v);
 const pay=c=>{for(const k in c)S.r[k]-=c[k]};
 const give=c=>{for(const k in c)S.r[k]+=c[k]};
-function upCost(b){if(b.k==='hall')return HALLUP[b.l]||null;if(b.l>=3)return null;const c={};for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*1.6*b.l);return c}
+function upCost(b){if(b.k==='hall'){const h=HALLUP[b.l];if(!h)return null;if(!smithyOn())return h;const c={};for(const k in h)c[k]=Math.ceil(h[k]*.9);return c}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*1.6*b.l*m);return c}
 function cap(){let c=zoneCap();for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
 function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()}
-function prodOf(b){const P=B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b);for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb;return o}
+function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm;if(b.k==='ranch')o.food=-.3*b.l;return o}
+function linkTags(b){let t='';if(B[b.k].link){const ls=linksOf(b),L=B[b.k].link;const names=L.to.map(k=>LINK_NAME[k]).join('·');
+  t+=`<span class="tag ${ls.length?'ok':'no'}">연결 ${names} <span class="num">${ls.length} / ${L.max}</span></span>`;
+  if(b.k!=='ranch')t+=`<span class="tag">이어진 건물 생산 <span class="num">+${Math.round(linkPer(b.l)*100)}%</span></span>`;if(b.k==='ranch')t+=`<span class="tag">${ic('food')}<span class="num">-${(.3*b.l).toFixed(1)}</span>/초</span>`;if(b.k==='smithy')t+=`<span class="tag">업그레이드 비용 <span class="num">-10%</span></span>`}
+ const s=linkFrom(b);if(s)t+=`<span class="tag ok">${B[s.k].n} 연결 <span class="num">+${Math.round(linkPer(s.l)*100)}%</span></span>`;return t}
+function linkPreview(k,x,y){const tmp={k,x,y,l:1,id:-1};if(B[k].link){const n=linksOf(tmp).length,L=B[k].link;return n?`${L.to.map(t=>LINK_NAME[t]).join('·')} ${n}개와 이어져요`:`${L.to.map(t=>LINK_NAME[t]).join('·')} 옆에 지어야 효과가 있어요`}
+ const src=S.b.filter(s=>(s.k==='mill'&&k==='farm')||(s.k==='ranch'&&k==='farm')||(s.k==='smithy'&&(k==='lumber'||k==='quarry'))).find(s=>bGap(s,tmp)<=LINK_GAP&&linksOf(s).length<B[s.k].link.max);return src?`${B[src.k].n}와(과) 이어져요`:''}
+function linkPairs(){const out=[];if(mode==='hand'&&typeof selId==='number'){const b=S.b.find(x=>x.id===selId);if(!b)return out;if(B[b.k].link)for(const o of linksOf(b))out.push([b,o]);for(const s of S.b)if(s!==b&&B[s.k].link&&linksOf(s).includes(b))out.push([s,b]);return out}
+ if(B[mode]&&ghost&&mode!=='move'){const tmp={k:mode,x:ghost.x,y:ghost.y,l:1,id:-1};if(B[mode].link)for(const o of linksOf(tmp))out.push([tmp,o]);for(const s of S.b)if(B[s.k].link&&B[s.k].link.to.includes(mode)&&bGap(s,tmp)<=LINK_GAP)out.push([s,tmp])}return out}
+function drawLinks(now){const ps=linkPairs();if(!ps.length)return;const c=b=>[b.x*TS+fp(b.k)[0]*8,b.y*TS+fp(b.k)[1]*8];ctx.save();ctx.setLineDash([2,2]);ctx.lineDashOffset=-now/80;
+ for(const[a,b]of ps){const[x1,y1]=c(a),[x2,y2]=c(b);stroke(ctx,[[x1,y1],[x2,y2]],'#5b4632aa',1.4);stroke(ctx,[[x1,y1],[x2,y2]],'#ffe08a',.8);ellipse(ctx,x2,y2,1.6,1.6,'#ffe08a','#5b4632',.3)}ctx.restore()}
+const LINK_GAP=1,LINK_NAME={farm:'밀밭',lumber:'벌목소',quarry:'채석장'};
+function bGap(a,b){const[aw,ah]=fp(a.k),[bw,bh]=fp(b.k);return Math.max(Math.max(0,b.x-(a.x+aw),a.x-(b.x+bw)),Math.max(0,b.y-(a.y+ah),a.y-(b.y+bh)))}
+function linksOf(src,list=S.b){const L=B[src.k]&&B[src.k].link;if(!L)return[];return list.filter(o=>o!==src&&o.id!==src.id&&L.to.includes(o.k)&&bGap(src,o)<=LINK_GAP).sort((a,b)=>bGap(src,a)-bGap(src,b)||a.id-b.id).slice(0,L.max)}
+const linkPer=l=>.1+.05*l;
+function linkFrom(b){let best=null;for(const s of S.b){if(!((s.k==='mill'&&b.k==='farm')||(s.k==='smithy'&&(b.k==='lumber'||b.k==='quarry'))))continue;if(!STAFF[s.id]||!linksOf(s).includes(b))continue;if(!best||s.l>best.l)best=s}return best}
+const linkMul=b=>{const s=linkFrom(b);return s?1+linkPer(s.l):1};
+const smithyOn=()=>S.b.some(x=>x.k==='smithy'&&STAFF[x.id]);
 const foodUse=()=>S.claimed.length?S.pop*.12*(lmDone('well')?.85:1):0;
 function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
 
@@ -1776,7 +1800,7 @@ function exactNumber(value){return Math.floor(value).toLocaleString('ko-KR')}
 function nextQuest(){return Q.find(q=>!S.claimed.includes(q.id))}
 function questReady(q){return !!q&&q===nextQuest()&&q.v()>=q.g}
 function missingCost(cost){return Object.entries(cost||{}).filter(([k,v])=>S.r[k]<v).map(([k,v])=>`${RN[k]} ${Math.ceil(v-S.r[k])}`).join(' · ')}
-function buildingChips(kind){const d=B[kind],out=[];for(const[k,v]of Object.entries(d.prod||{}))out.push(`<span class="bc">${ic(k)}+${(v*bonus(k)).toFixed(1)}</span>`);if(d.cap)out.push(`<span class="bc">${ic('pop')}+${d.cap}</span>`);if(d.need)out.push(`<span class="bc" title="일손">${UI('worker')}${d.need}</span>`);if(kind==='farm')out.push(`<span class="bc" title="겨울 휴업">${UI('winter')}쉼</span>`);return out.join('')}
+function buildingChips(kind){const d=B[kind],out=[];for(const[k,v]of Object.entries(d.prod||{}))out.push(`<span class="bc">${ic(k)}+${(v*bonus(k)).toFixed(1)}</span>`);if(d.cap)out.push(`<span class="bc">${ic('pop')}+${d.cap}</span>`);if(d.need)out.push(`<span class="bc" title="일손">${UI('worker')}${d.need}</span>`);if(kind==='farm')out.push(`<span class="bc" title="겨울 휴업">${UI('winter')}쉼</span>`);if(d.link)out.push(`<span class="bc link" title="${d.link.to.map(k=>LINK_NAME[k]).join('·')} 옆에 지어요">+${d.link.to.map(k=>({farm:'밀밭',lumber:'벌목',quarry:'채석'})[k]).join('/')}</span>`);return out.join('')}
 function buildingFacts(kind){const d=B[kind],facts=[];for(const[k,v]of Object.entries(d.prod||{}))facts.push(`${RN[k]} +${(v*bonus(k)).toFixed(1)}/초`);if(d.cap)facts.push(`수용 인원 +${d.cap}명`);if(d.need)facts.push(`일손 ${d.need}명`);if(kind==='farm')facts.push('겨울 휴업');if(kind==='bakery')facts.push('사계절 생산');if(kind==='tavern')facts.push('주민 유입 촉진');return facts.join(' · ')}
 function nearestFree(kind){const k=css(),cx=Math.floor((cam.x+innerWidth/2/k)/TS),cy=Math.floor((cam.y+innerHeight*.45/k)/TS);for(let r=0;r<16;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=cx+dx,y=cy+dy;if(validAt(x,y,0,kind))return{x,y}}return null}
 function chooseBuilding(kind){if(!B[kind])return;if(hallL()<B[kind].hall){toast(`마을회관 Lv${B[kind].hall}부터 지을 수 있어요`);return}finishPlacement();mode=kind;ghost=nearestFree(kind);setDrawer(false);updateSlots();updateConfirm();if(ghost)keepPlacementVisible()}
@@ -1816,8 +1840,8 @@ function updateConfirm(){
  if(mode==='hand'||!B[mode]){c.hidden=true;return}
  const d=B[mode],ok=ghost&&validAt(ghost.x,ghost.y),af=can(d.cost),unlocked=hallL()>=d.hall;c.hidden=false;
  const warnings=[];if(mode==='farm'&&season()===3)warnings.push('겨울에는 생산을 쉬어요');if(d.need>(S.idle??0))warnings.push(`일손 ${d.need-(S.idle??0)}명 부족`);
- const msg=!ghost?'빈 땅을 탭하세요':!ok?'나무·바위·건물이 없는 곳을 골라 주세요':!unlocked?`마을회관 Lv${d.hall}이 필요해요`:!af?missingCost(d.cost)+' 부족':'이 위치에 지어요';
- $('#cmsg').innerHTML=`<div class="placement-title"><b>${d.n} 짓기</b><span class="cost">${costHTML(d.cost)}</span></div><small class="placement-facts">${buildingChips(mode)}</small><small class="placement-state ${ghost&&(!ok||!af||!unlocked)||warnings.length?'bad':''}">${msg}${warnings.length?' · '+warnings.join(' · '):''}</small>`;yes.disabled=!(ok&&af&&unlocked)
+ const lk=ghost?linkPreview(mode,ghost.x,ghost.y):'';const msg=!ghost?'빈 땅을 탭하세요':!ok?'나무·바위·건물이 없는 곳을 골라 주세요':!unlocked?`마을회관 Lv${d.hall}이 필요해요`:!af?missingCost(d.cost)+' 부족':'이 위치에 지어요';
+ $('#cmsg').innerHTML=`<div class="placement-title"><b>${d.n} 짓기</b><span class="cost">${costHTML(d.cost)}</span></div><small class="placement-facts">${buildingChips(mode)}</small>${lk?`<small class="placement-link">${lk}</small>`:''}<small class="placement-state ${ghost&&(!ok||!af||!unlocked)||warnings.length?'bad':''}">${msg}${warnings.length?' · '+warnings.join(' · '):''}</small>`;yes.disabled=!(ok&&af&&unlocked)
 }
 
 /* ---------- HUD ---------- */
@@ -1865,6 +1889,7 @@ function renderSheet(){let h='';document.querySelector('.coach')?.remove();
     if(d.cap)stats+=`<span class="tag">${ic('pop')}주민 <span class="num">+${d.cap*b.l}</span></span>`;
     if(need)stats+=`<span class="tag ${STAFF[b.id]?'ok':'no'}">일손 <span class="num">${need}</span> · ${STAFF[b.id]?'일하는 중':'일손 부족'}</span>`;
     if(b.k==='farm'&&season()===3)stats+=`<span class="tag no">겨울이라 쉬는 중</span>`;
+    stats+=linkTags(b);
     const max=b.k==='hall'?3:3;
     h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p>${(()=>{const r=residentOf(b);return r&&resArrived(r)?`<div class="resident-of">사는 사람: ${r.n} · ${revealed(r.id)?'Lv 999':'Lv ???'} · 단서 ${resClues(r)}/${CLUES[r.id].length}</div>`:''})()}${lastClue&&lastClue.bid===b.id?`<div class="clue-found"><small>수상한 순간 · ${lastClue.r==='chief'?'촌장의 비밀':RESIDENTS.find(x=>x.id===lastClue.r).n}</small>${lastClue.c.t}</div>`:''}<div class="stat">${stats}</div>
     ${c?`<div class="lv-preview" aria-label="업그레이드하면 모습이 바뀌어요"><img src="${lvThumb(b.k,b.l)}" alt=""><span>›</span><img class="next" src="${lvThumb(b.k,b.l+1)}" alt=""><small>Lv ${b.l+1}</small></div>`:''}<div class="acts">${c?`<button class="btn go ${can(c)?'':'short'}" data-act="up">업그레이드 ${Object.entries(c).map(([k,v])=>`<span class="${S.r[k]<v?'lack':''}">${ic(k)}<span class="num">${v}</span></span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
@@ -1961,6 +1986,7 @@ function draw(now){
   drawRankFlag(now);
   drawFog(now);
   if(guest)visitorMarker(guest,now);
+  drawLinks(now);
   if(typeof selId==='number'&&mode==='hand'){const b=S.b.find(b=>b.id===selId);if(b){const[fw,fh]=fp(b.k);ctx.globalAlpha=.75+.15*Math.sin(now/350);roundBox(ctx,b.x*TS-.7,b.y*TS-.7,fw*16+1.4,fh*16+1.4,3,null,'#fff4cb',.8);ctx.globalAlpha=1}}
   if(mode==='hand'&&typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(d){const size=DECOR[d.k].size*TS;roundBox(ctx,d.x*TS-.5,d.y*TS-.5,size+1,size+1,2.8,null,'#fff4cb',.8)}}
   if(mode==='decor')drawDecorGhost();
