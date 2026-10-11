@@ -1,0 +1,48 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Warm painted storybook architecture; canonical level-one roof colors, materials, ornaments, near-frontal camera and upper-left light.",
+  "export": "512px-wide proportional WebP with original transparent alpha. Tight alpha>8 bounding crop, 4px transparent safety padding; WebP effort 6, alpha quality 100, highest tested quality from 88/85/82/79/76/73 within 90,000 bytes. No nonuniform stretching.",
+  "assets": [
+    {
+      "id": "hall-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nBUILDING: hall LEVEL TWO.\nIDENTITY: Cream limestone and honey-brown timber beams; blue-gray/slate-blue tiled roofs; central square clock tower, blue pennant and two blue floral-emblem banners; arched wooden double door, daisies in stone planters. Clock has simple hands and small ticks only, NO digits or letters.\nFOOTPRINT AND COMPOSITION: Broad stately main hall on a square 3-by-3 tile footprint. Tall clock tower allowed. Overall silhouette moderately portrait, total width about 80 percent of height. Side additions stay inside the foundation width.\nUPGRADE: Keep the recognizable original central hall and clock tower. Add a modest roofed wing on EACH SIDE, continuing the same limestone, timber and blue tiles. Raise the central clock tower by ONE extra masonry storey with a narrow arched window below the clock. Renew worn details, broader welcoming entrance, retain existing small flower planters and the original banners. This is an improved village hall, not yet a castle.\nReturn a single portrait-oriented transparent sprite, no comparison panels.\nRevision: Edit this exact transparent town-hall sprite: add the requested TWO SIDE WINGS, which are missing as distinct extensions. Keep this whole central clocktower hall unchanged, but attach a LOW one-storey limestone-and-timber annex at its LEFT and another matching annex at its RIGHT. Each wing has its OWN separate low blue-gray tiled roof starting below the main roof eaves, plus two small arched windows. The result must have an obviously broader foundation and stepped roof silhouette: low wing / central tall hall / low wing. Those little dormers on the main roof are NOT substitutes for wings. Widen the canvas to contain the new complete building; overall opaque width approximately 85-95% of total height. Single integrated 3x3-footprint town hall, whole silhouette inside frame, transparent margin, no cutoffs. Keep the existing taller clocktower, flag, clock, banners, entrance, warm upper-left light, original painterly texture and near-frontal camera. No terrain, ground, ground shadow, people, labels, digits, writing or background. TRUE TRANSPARENT ALPHA.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/hall.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 552
+      },
+      "footprint": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "hall-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is the approved LEVEL TWO of this SAME building. Evolve image2 directly, retain its central hall and both lower wings; image1 anchors original identity.\nBUILDING: hall LEVEL THREE.\nIDENTITY: Cream limestone and honey-brown timber beams; blue-gray/slate-blue tiled roofs; central square clock tower, blue pennant and two blue floral-emblem banners; arched wooden double door, daisies in stone planters. Clock has simple hands and small ticks only, NO digits or letters.\nFOOTPRINT: Broad stately main hall on a square 3-by-3 tile footprint. Tall clock tower allowed. Overall silhouette moderately portrait, total width about 80 percent of height. Side additions stay inside the foundation width.\nUPGRADE: Build upon the level-two expanded hall and taller central tower. Grand yet cozy stone entrance staircase, several royal-blue fabric flags on compact poles, lustrous GOLDEN CLOCK FACE with plain dark hands and ticks, no numerals. Two small lush enclosed garden planter beds immediately beside the entrance, integrated within the base width, no soil ground plane around the building. More refined stonework and trim, same roofs and core hall. No new giant towers or unrelated buildings.\nKeep level-two broad stepped roof silhouette and proportions. Golden clock face must visibly differ from the previous ivory face. Use a broad portrait composition, full structure inside transparent canvas, no panels.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/hall.webp",
+        "assets/illustrations/levels/hall-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 551
+      },
+      "footprint": [
+        3,
+        3
+      ]
+    }
+  ]
+}
