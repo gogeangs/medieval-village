@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ep01",
+    "file": "./assets/story/v2/ep01.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 298844,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep02",
+    "file": "./assets/story/v2/ep02.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 283692,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep03",
+    "file": "./assets/story/v2/ep03.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 319964,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep04",
+    "file": "./assets/story/v2/ep04.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 278556,
+    "alphaZeroFraction": 0
+  }
+]

@@ -1,0 +1,84 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Season 1 v2: warm hand-painted storybook watercolor/gouache, canonical characters.webp and characters-elise.webp; only each episode's specified cast.",
+  "export": "1200×800 opaque WebP quality 87",
+  "assets": [
+    {
+      "id": "ep01",
+      "title": "텅 빈 마을",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (2 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nSCENE:\nEXACTLY TWO PEOPLE, chief and Marta, and NO other person anywhere. Late sunset at the entrance of an almost abandoned village. CHIEF arrives in the foreground left with ONE plain travel bag in one hand, looking toward Marta with tired, hesitant hope. Three-quarter face visible, green vest and curls clear. The empty cottages have tightly closed wooden shutters, weeds, overgrown edges and a slightly neglected lane. In front of the distant clocktower hall, only ONE small cottage is inhabited: its chimney emits a single warm ribbon of smoke, while every other chimney is cold. At its open doorway on the right, MARTA waits with a welcoming smile, holding TWO distinct steaming teacups, one in each hand, offering comfort. The doorway has a soft warm interior glow but no other occupants. Wide quiet empty space between chief and Marta emphasizes the lonely village, joined by the inviting dirt path and sunset light. Wistful but warm first meeting, not a flourishing populated town.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep02",
+      "title": "장작은 결을 따라",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (2 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nSCENE:\nEXACTLY TWO PEOPLE, chief and Marta. Bright daytime in the backyard of Marta's red-roof cottage. CHIEF on the left holds an ordinary axe away from anyone, his shirt sleeves rolled, visibly sweaty from hard work, beside a stubborn completely unsplit log on a chopping stump. He stares in open-mouthed delighted amazement at MARTA on the right. Marta cheerfully chuckles and lightly touches a separate upright length of wood with one fingertip. It effortlessly becomes TWELVE split firewood billets dropping into an unnaturally tidy stack at her side. Make the twelve pieces visibly countable as FOUR layers of THREE split logs, same-sized chunky billets: bottom three layers (nine logs) already stacked, top three logs hovering just above aligned positions as they settle. Show the log ends clearly; no other loose firewood piles that confuse the count. A tiny warm glimmer at her fingertip is enough, no huge magic effects. The chief's stubborn log remains unsplit. Comedy is her effortless help versus his sweat. No other residents.\nRevision: Edit the supplied illustration with one strictly local correction: the stack at the right currently has FIFTEEN large firewood billets (four rows on the ground plus one hovering row). Remove exactly ONE grounded row of THREE billets. The finished stack must have exactly TWELVE large billets total: NINE grounded billets arranged as THREE rows of THREE, plus the existing THREE hovering billets in one row just above. Make the shortened grounded stack sit naturally on the same ground; fill the small space left by the removed row with the unchanged cottage background. Preserve both people, their canonical faces and clothing, their poses, the axe, unsplit chopping log, composition, lighting, painterly texture, cottage and all other details unchanged. Do not add people, text or marks. Landscape 3:2.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep03",
+      "title": "잔치와 비룡",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (2 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nSCENE:\nEXACTLY TWO HUMAN PEOPLE, chief and Marta; ONE fantastical wyvern. Their FIRST small wheat-harvest feast in the village: a humble small table set for two with bread, a little harvest basket and two cups; a modest golden wheat patch and blue-gray town hall beyond. A huge winged WYVERN above the table blocks much of the sky. CHIEF tumbles backward onto the grass in comic surprise, hands flung up, body clearly unhurt. MARTA calmly raises ONE hand, her silver bun and floral apron unchanged, eyes glow orange. A powerful beautiful ribbon of orange fire rises from her fingertip and curls AROUND the wyvern in the sky, enclosing it without burning its body or damaging it. The wyvern looks startled and harmlessly suspended rather than agonized; intact scales and wings, no wounds, no fire on skin. Marta's expression is serenely practical, as if telling someone to sit down and finish dinner. First reveal of her immense magic, overwhelming scale but warm and funny. Do NOT add feast guests or other villagers.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "ep04",
+      "title": "길 잃은 나무꾼",
+      "prompt": "Use case: illustration-story. ONE original narrative game illustration in landscape 3:2, export 1200x800 WebP. Match the supplied existing game art: warm hand-painted storybook gouache/watercolor, organic brown ink contours, textured rustic fabric/wood/stone, expressive grounded original faces. Not pixel art, not anime, not flat vector, not glossy 3D or photorealistic. Preserve the canonical faces, hair and costumes from the character reference sheet.\nREFERENCE RULE: the character sheet may show people not yet present in the story. It is a DESIGN reference, NEVER permission to include the whole lineup. The existing scene reference is for brushwork and village architecture only, NOT its people or composition. Render ONLY the explicitly allowed cast below; no extras, background passersby, people in windows, silhouettes of bystanders, duplicated people or reflections of additional people.\nVillage architecture: cream-stone clocktower town hall with blue-gray roofs, red-roof timber cottages, green grass and dirt lanes. Cozy observational comedy with an affectionate tone. No readable writing, letters, numbers, logos, speech bubbles, watermark, outer frame or border. Clocks have simple hands and dots only. No injury, blood, bruises, burning skin, dead animals, weapons hitting bodies, distressing gore or cruelty. Fantasy danger stays gentle and comic.\nImportant faces, hand gestures and story props belong in the upper three quarters; lower quarter is simple continuous foreground/legs that can sit behind game dialogue. Leave breathing room around heads and hands.\n\nONLY ALLOWED CAST (3 people):\nCHIEF: slim young man age 25, clean-shaven youthful face, short chestnut-brown curly hair, moss-green toggle waistcoat over loose ivory-white shirt, tan trousers and brown boots; innocent, earnest.\nMARTA: tiny short round elderly grandmother, silver-white hair in a tidy bun, kind round face, muted plum shawl and skirt, cream apron with small peach and pink floral pattern, brown shoes.\nGUNTER: tall thin middle-aged lumberjack, long shaggy silver-gray bangs completely covering his eyes, long weathered face, worn brown leather vest over dusty beige shirt, dark practical trousers and boots; ordinary woodcutting axe normally slung on back.\nSCENE:\nEXACTLY THREE PEOPLE: chief, Marta, Gunter. Misty early morning at the forest edge, outside a newly built rustic lumber shed with a modest green roof and neatly stored wood. GUNTER has just arrived and stands quietly near the doorway, his ordinary axe strapped across his back, long shaggy silver hair hiding his eyes. He gives a small awkward nod rather than a grand gesture. CHIEF stands facing him with a warm grin, extending ONE empty hand in welcome. MARTA stands a short distance behind the chief, holding a teacup and giving Gunter a knowing recognition smile. Show all three faces distinctly and the chief's offered hand. Cool pale morning mist around trees, warm subtle light from the little shed. Arrival and quiet recognition, no other people, no residents not yet arrived.\nPaint scenery with controlled broad watercolor masses, not excessive high-frequency noise or tiny speckled foliage.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/ep01.webp"
+      ],
+      "characters": [
+        "chief",
+        "marta",
+        "gunter"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "width": 1200,
+        "height": 800
+      }
+    }
+  ]
+}
