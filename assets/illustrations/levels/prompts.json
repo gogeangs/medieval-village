@@ -125,6 +125,47 @@
         2,
         2
       ]
+    },
+    {
+      "id": "quarry-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nCRITICAL OUTPUT COMPOSITION: LANDSCAPE 3:2 canvas, one LOW WIDE quarry sprite. Do NOT inherit the tall/narrow crop of the Lv1 reference; footprint now spans three tiles wide and only two deep. The actual rocky structure must be distinctly wider than tall, not simply a portrait asset with transparent space beside it.\nBUILDING: quarry LEVEL TWO.\nIDENTITY: Light gray-beige angular quarry rocks with small moss crevices, dark central mine opening reinforced with thick honey-brown timber and iron bands, warm hanging lantern, minecart and iron rail hardware. Rock formation is the building itself; no surrounding terrain slab.\nFOOTPRINT AND COMPOSITION: A LOW WIDE 3-by-2 tile footprint. LANDSCAPE silhouette, actual opaque artwork width at least 1.35 times height. Widen the rocky excavation horizontally, never a tall narrow mountain. All props within its flat front base width.\nUPGRADE: Spread the recognizable rocky mine low and wide. Add sturdy timber SCAFFOLDING across the rock face and a short set of CART RAILS leading out from the dark entrance, a squat cart loaded with rough stones, compact storage crates. Keep timber-framed mine entrance, stone colors and small moss crevices. Rails are self-contained structural timbers, no ground bed or gravel island. No detached scattered foreground rocks.\nAll stone belongs to the connected quarry rock mass or loaded cart. No rocky base slab or ground scatter beneath; rail sleepers and foundations directly against transparency. Whole low mound and scaffold fit inside canvas.\nRevision: Use case: background-extraction. The supplied quarry sprite is finished; preserve EVERY rock, wooden scaffold, rail, minecart, rope, crane, lantern and crate exactly as drawn. Remove ALL the blurry brown/green/black backdrop and ALL glow/halo OUTSIDE the solid object's silhouette. Replace every background pixel with true fully transparent alpha, including gaps between ropes, scaffold supports, railing and the suspended basket. Keep the dark rock-filled MINE ENTRANCE opaque because it is part of the quarry. Do not add any color, ground, shadow or checkerboard. No repainting of building, no changes to size or composition, just a clean transparent cutout with naturally antialiased edges. Final must be actual RGBA transparency, no background mist whatsoever.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/quarry.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 286
+      },
+      "footprint": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "quarry-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated upgrade BUILDING sprite for a warm medieval village mobile game. Image 1 is the exact canonical LEVEL ONE building: preserve its identity, roof color, wall materials, signature ornaments, warm hand-painted storybook watercolor/gouache brushwork, fine soft brown contours and natural wood/stone detail. NOT pixel art, NOT flat vector, NOT smooth glossy 3D or photorealistic. Same upper-left warm light, shaded right surfaces. Camera nearly straight-on from slightly above with only a VERY THIN sliver of right wall, 3/4 front-elevated view; front eaves and foundation almost horizontal, no strongly diagonal isometric diamond view. Generously visible roof tops. TRUE TRANSPARENT ALPHA outside the structure and through gaps. NO background color, checkerboard pattern, ground plane, terrain island, grass patch, floor shadow, cast shadow beyond structure, landscape, people, animals, smoke, steam, lettering, numbers, logos, watermark, border or level label. Internal self-shadow is allowed. One unified building with attached structural props only; all requested accessories remain snug inside its foundation width, no detached objects sprawling sideways. Full silhouette visible with a little transparent safety margin, flat horizontal bottom contact, no cropped roofs or equipment. Clear readable architectural shapes at small game scale. The Lv1 reference may contain ground-like scatter: do not copy it. Keep paint texture on materials without excessive noisy tiny speckles.\nImage 2 is approved LEVEL TWO of this SAME quarry. Upgrade that broad quarry directly and retain its horizontal proportions.\nCRITICAL: LANDSCAPE 3:2 sprite, opaque art width at least 1.35 times height. Do not become a tall mountain or tower.\nBUILDING: quarry LEVEL THREE.\nIDENTITY: Light gray-beige angular quarry rocks with small moss crevices, dark central mine opening reinforced with thick honey-brown timber and iron bands, warm hanging lantern, minecart and iron rail hardware. Rock formation is the building itself; no surrounding terrain slab.\nFOOTPRINT: A LOW WIDE 3-by-2 tile footprint. LANDSCAPE silhouette, actual opaque artwork width at least 1.35 times height. Widen the rocky excavation horizontally, never a tall narrow mountain. All props within its flat front base width.\nUPGRADE: Upgrade the level-two wide quarry: beautifully dressed pale-STONE ARCH replaces only the rough timber entrance frame, preserving the same dark opening location. A compact wooden PULLEY TOWER with rope and block hoist sits on one side, organized RECTANGULAR CUT-STONE STACKS on the other. Keep rail cart, familiar moss-flecked rock mass and warm lantern. Wide industrial frontage and low rock profile; pulley tower must not make the asset taller than wide. All structural pieces connected, no terrain or ground shadow.\nStone arch entrance is the focal upgrade; replace timber doorway surround with neatly dressed stone voussoirs. Keep central cart and short rails, add neat squared masonry stacks visibly distinct from rough quarry rocks. Pulley tower remains short and broad, background outside solid quarry 100% transparent, no haze.",
+      "transparent": true,
+      "referenceImages": [
+        "assets/illustrations/quarry.webp",
+        "assets/illustrations/levels/quarry-l2.webp"
+      ],
+      "referenceCommit": "a22b9ed9fd51b87cef1aa26819c187c489b406aa",
+      "export": {
+        "format": "webp",
+        "quality": 88,
+        "alphaQuality": 90,
+        "width": 512,
+        "height": 303
+      },
+      "footprint": [
+        3,
+        2
+      ]
     }
   ]
 }

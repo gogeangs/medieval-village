@@ -112,5 +112,43 @@
       2,
       2
     ]
+  },
+  {
+    "id": "quarry-l2",
+    "file": "./assets/illustrations/levels/quarry-l2.webp",
+    "width": 512,
+    "height": 286,
+    "bytes": 67574,
+    "alphaZeroFraction": 0.2494,
+    "crop": [
+      4,
+      4,
+      504,
+      278
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": "quarry-l3",
+    "file": "./assets/illustrations/levels/quarry-l3.webp",
+    "width": 512,
+    "height": 303,
+    "bytes": 75602,
+    "alphaZeroFraction": 0.2522,
+    "crop": [
+      4,
+      4,
+      504,
+      295
+    ],
+    "quality": 88,
+    "footprint": [
+      3,
+      2
+    ]
   }
 ]
