@@ -150,5 +150,45 @@
     "height": 512,
     "bytes": 65400,
     "alphaZeroFraction": 0.5194
+  },
+  {
+    "id": "ep11",
+    "file": "./assets/story/ep11.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 300840,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep12",
+    "file": "./assets/story/ep12.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 208536,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep13",
+    "file": "./assets/story/ep13.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 283996,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep14",
+    "file": "./assets/story/ep14.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 286992,
+    "alphaZeroFraction": 0
+  },
+  {
+    "id": "ep15",
+    "file": "./assets/story/ep15.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 259184,
+    "alphaZeroFraction": 0
   }
 ]
