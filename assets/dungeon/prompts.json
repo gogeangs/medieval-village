@@ -265,6 +265,316 @@
         "resize": "Lanczos3",
         "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
       }
+    },
+    {
+      "id": "skeleton",
+      "file": "skeleton.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: A single cute intact skeleton soldier, full body, oversized friendly ivory skull with a sheepish crooked grin and large expressive dark eye sockets, rusty rounded iron helmet slightly askew. Small round wooden shield in one hand and a short sword awkwardly held in the other. Knees and elbows comically crooked as if rattling, all bones intact and connected, no detached bones. Warm creamy bone color rather than stark white, simple readable silhouette. Slightly tougher than the reference ordinary bandit, but very harmless and funny.",
+      "referenceImages": [
+        "assets/dungeon/boss-bear.webp",
+        "assets/dungeon/boss-bandit.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 177,
+          "top": 51,
+          "width": 935,
+          "height": 1154
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "troll",
+      "file": "troll.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One large broad clumsy cave troll, full body, mossy gray-green skin, small patches of moss on shoulders and head, a very big wooden club held at its side, a blank pleasantly confused expression, small eyes and a wide soft nose. Stout powerful arms, round belly, simple patched brown shorts and leather belt. Funny gentle lumbering pose, big feet planted separately, entire club and body visible. No frightening tusks, no aggressive snarl. Match the reference bear's substantial friendly presence.",
+      "referenceImages": [
+        "assets/dungeon/boss-bear.webp",
+        "assets/dungeon/boss-bandit.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 99,
+          "top": 51,
+          "width": 1080,
+          "height": 1164
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boss-knight",
+      "file": "boss-knight.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One tall imposing but comically earnest skeleton knight boss, full body. Old weathered iron plate armor over intact ivory skeleton, long tattered muted red cape, very large broad sword held upright with tip beside one foot. Friendly readable skull inside an open helmet, soft small blue magical lights in its eye sockets, not a sinister glow. Strong proud upright silhouette, taller and more majestic than an ordinary skeleton, warm brass fittings and worn brown leather. No additional shield, no crown, no surrounding bones, no horror.\nThe first reference is the ordinary skeleton newly made for this collection: keep its warm ivory bones, friendly expressive face and brush texture, but upgrade it into the armored knight described above.",
+      "referenceImages": [
+        "assets/dungeon/skeleton.webp",
+        "assets/dungeon/boss-bandit.webp",
+        "assets/dungeon/boss-bear.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 161,
+          "top": 22,
+          "width": 997,
+          "height": 1209
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boss-dragon",
+      "file": "boss-dragon.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One proud chubby baby cave dragon sitting upright on a compact pile of gold coins. Moss-green scales painted with the warm textural brushwork of the reference animals, cream belly, tiny rounded horns, little folded batlike wings, thick curled tail contained in the silhouette. Big cheerful expressive eyes, a self-satisfied smile; one very small orange puff of flame from its nostril. Cute boss presence with broad chest and round tummy. Keep both tiny wings clearly visible, coins are plain with no stamped writing. No chest, no extra objects.",
+      "referenceImages": [
+        "assets/dungeon/boss-bear.webp",
+        "assets/dungeon/bat.webp",
+        "assets/dungeon/gold.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 59,
+          "top": 47,
+          "width": 1149,
+          "height": 1166
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "odd",
+      "file": "odd.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One half-open old arched wooden dungeon door in a worn stone-and-timber frame. Through the door gap a small mysterious purple mist softly escapes and a few warm tiny sparkles shine. Doorframe has a few simple abstract spiral/diamond carvings, absolutely no writing or runic letters. Rusted hinges, old warm wood and beige stone matching reference corridor. Readable half-open angle, dark purple interior behind door, complete compact freestanding doorway sprite with only its narrow stone threshold, no extra floor or surrounding room. Curious and welcoming rather than scary; mist kept close to door within silhouette.",
+      "referenceImages": [
+        "assets/dungeon/trap.webp",
+        "assets/dungeon/gold.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 119,
+          "top": 38,
+          "width": 1025,
+          "height": 1178
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-mushroom",
+      "file": "relic-mushroom.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One compact cluster of exactly three softly glowing blue spotted mushrooms: one tall center cap, two smaller caps at either side, creamy short stems. Clear rounded blue caps with sparse pale dots; very gentle cyan inner light and a single tiny sparkle nearby. Mushroom bases grouped without soil, pedestal or ground. Cozy foraged magical relic, matte organic watercolor texture, blue accents inside the same warm-earthy palette.",
+      "referenceImages": [
+        "assets/dungeon/gold.webp",
+        "assets/dungeon/trap.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 110,
+          "top": 128,
+          "width": 1038,
+          "height": 1025
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-wing",
+      "file": "relic-wing.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One bat-wing-shaped amulet hanging from a simple brown leather cord loop, centered. The pendant is a single small carved dark warm brown bat wing, with its curved scalloped edge and three raised ribs clearly visible, old bronze attachment loop. No actual bat face or body. Cord forms a simple readable loop above the pendant, both complete in frame, pendant large. One subtle little golden sparkle at the tip suggests enchantment. Matte hand-painted warm leather and aged bronze.",
+      "referenceImages": [
+        "assets/dungeon/bat.webp",
+        "assets/dungeon/gold.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 347,
+          "top": 30,
+          "width": 648,
+          "height": 1126
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-fang",
+      "file": "relic-fang.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One simple rustic necklace: a large smooth creamy-white wolf fang pendant on a brown cord, two small wooden beads and one muted blue bead above it. Complete loose cord loop with the fang centered below; fang large and easily readable. Natural curved ivory tooth, no blood or flesh, clearly a crafted village trinket. One tiny soft sparkle near tooth. Matte warm hand-painted material matching reference.",
+      "referenceImages": [
+        "assets/dungeon/gold.webp",
+        "assets/dungeon/trap.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 136,
+          "top": 48,
+          "width": 1018,
+          "height": 1093
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-map",
+      "file": "relic-map.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One old yellowed parchment map scroll, loosely partly unrolled enough to show one simple red crossed-strokes treasure-location marker (graphical X, not writing). Two curled parchment ends, warm worn edges, a few faint meandering map-path lines without labels or words, no compass letters or numbers. Compact diagonal curled scroll silhouette with broad readable center. One very faint golden sparkle near edge. No pins, background, hands or props.",
+      "referenceImages": [
+        "assets/dungeon/gold.webp",
+        "assets/dungeon/trap.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 40,
+          "top": 67,
+          "width": 1179,
+          "height": 1126
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-honey",
+      "file": "relic-honey.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One squat rustic warm ochre ceramic honey pot overflowing with thick golden honey, with a wooden ladle resting diagonally inside it, ladle bowl clearly visible at pot mouth. A few honey drips down the pot, warm glaze but retain watercolor brushwork, subtle tiny glint of magic. No label or painted emblem, no bees, no cloth, no extra jars, no detached puddle. Simple round strong silhouette and upper-left soft light.",
+      "referenceImages": [
+        "assets/dungeon/gold.webp",
+        "assets/dungeon/trap.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 150,
+          "top": 81,
+          "width": 1019,
+          "height": 1100
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "relic-crown",
+      "file": "relic-crown.webp",
+      "prompt": "Use case: illustration-story. Asset type: one transparent game sprite for a cozy medieval village dungeon, square canvas. The attached images are STYLE REFERENCES only: match their warm hand-painted storybook watercolor and gouache brush texture, soft but clear brown contours of the same weight, earthy colors, upper-left lighting and gentle shadows on the object. Same artist and same asset collection. Cute, comical, approachable, never frightening. Center the complete subject large, with approximately 5% clear transparent padding on all sides; no cropping. Actual transparent alpha background, including openings. No background scene, floor, shadow platform, cast ground shadow, frame, labels, letters, numbers, logo or watermark. No pixel art, anime, flat vector, glossy 3D or photorealism. No blood, broken bones, injury or gore. Output one asset, not a sheet.\nPrimary subject: One substantial fragment of an ancient golden crown, three uneven crown points and a curved broken band, a visible crack in the old gold, one large inset ruby-red gemstone in the center. Aged warm gold, small tarnished details and a tiny magical sparkle, flat readable front-three-quarter view. Clearly a crown fragment rather than a whole crown, no letters, engraving text or insignia. One object only, no rubble or pedestal.",
+      "referenceImages": [
+        "assets/dungeon/gold.webp",
+        "assets/dungeon/trap.webp"
+      ],
+      "tool": "Built-in ImageGen",
+      "referenceCommit": "4984a8c5ad142f56ab2f2961c325a88d2b329382",
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 47,
+          "top": 133,
+          "width": 1168,
+          "height": 1009
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
     }
   ]
 }

@@ -168,5 +168,192 @@
       "right": 24,
       "bottom": 87
     }
+  },
+  {
+    "id": "skeleton",
+    "file": "./assets/dungeon/skeleton.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 51850,
+    "format": "webp",
+    "transparent": true,
+    "description": "귀여운 해골 병사: 녹슨 투구, 작은 나무 방패와 어설프게 든 칼",
+    "alphaZeroFraction": 0.717796,
+    "margins": {
+      "left": 68,
+      "top": 24,
+      "right": 68,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "troll",
+    "file": "./assets/dungeon/troll.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 69752,
+    "format": "webp",
+    "transparent": true,
+    "description": "이끼 낀 회녹색 피부와 나무 몽둥이를 지닌 멍한 동굴 트롤",
+    "alphaZeroFraction": 0.482471,
+    "margins": {
+      "left": 40,
+      "top": 24,
+      "right": 41,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "boss-knight",
+    "file": "./assets/dungeon/boss-knight.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 67272,
+    "format": "webp",
+    "transparent": true,
+    "description": "낡은 갑옷과 붉은 망토, 푸른 눈빛의 해골 기사 보스",
+    "alphaZeroFraction": 0.616791,
+    "margins": {
+      "left": 64,
+      "top": 24,
+      "right": 65,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "boss-dragon",
+    "file": "./assets/dungeon/boss-dragon.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 70078,
+    "format": "webp",
+    "transparent": true,
+    "description": "금화 더미 위에서 작은 불꽃을 뿜는 통통한 아기 동굴 용",
+    "alphaZeroFraction": 0.475082,
+    "margins": {
+      "left": 27,
+      "top": 24,
+      "right": 28,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "odd",
+    "file": "./assets/dungeon/odd.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 65596,
+    "format": "webp",
+    "transparent": true,
+    "description": "보라 안개와 반짝임이 새어 나오는 반쯤 열린 낡은 나무문",
+    "alphaZeroFraction": 0.422722,
+    "margins": {
+      "left": 54,
+      "top": 24,
+      "right": 54,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "relic-mushroom",
+    "file": "./assets/dungeon/relic-mushroom.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 59780,
+    "format": "webp",
+    "transparent": true,
+    "description": "푸른 점박이 버섯 세 송이와 은은한 빛",
+    "alphaZeroFraction": 0.462208,
+    "margins": {
+      "left": 24,
+      "top": 27,
+      "right": 24,
+      "bottom": 27
+    }
+  },
+  {
+    "id": "relic-wing",
+    "file": "./assets/dungeon/relic-wing.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 23256,
+    "format": "webp",
+    "transparent": true,
+    "description": "가죽 끈에 매단 박쥐 날개 모양 부적",
+    "alphaZeroFraction": 0.84993,
+    "margins": {
+      "left": 122,
+      "top": 24,
+      "right": 123,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "relic-fang",
+    "file": "./assets/dungeon/relic-fang.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 26862,
+    "format": "webp",
+    "transparent": true,
+    "description": "하얀 늑대 이빨과 구슬을 꿴 목걸이",
+    "alphaZeroFraction": 0.827259,
+    "margins": {
+      "left": 40,
+      "top": 24,
+      "right": 40,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "relic-map",
+    "file": "./assets/dungeon/relic-map.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 42782,
+    "format": "webp",
+    "transparent": true,
+    "description": "붉은 X 표시가 있는 돌돌 말린 낡은 누런 지도",
+    "alphaZeroFraction": 0.568371,
+    "margins": {
+      "left": 24,
+      "top": 34,
+      "right": 24,
+      "bottom": 35
+    }
+  },
+  {
+    "id": "relic-honey",
+    "file": "./assets/dungeon/relic-honey.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 53352,
+    "format": "webp",
+    "transparent": true,
+    "description": "꿀이 흘러넘치는 도자기 단지와 나무 국자",
+    "alphaZeroFraction": 0.517818,
+    "margins": {
+      "left": 41,
+      "top": 24,
+      "right": 41,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "relic-crown",
+    "file": "./assets/dungeon/relic-crown.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 57022,
+    "format": "webp",
+    "transparent": true,
+    "description": "붉은 보석이 박힌 금 간 고대 금관 조각",
+    "alphaZeroFraction": 0.601238,
+    "margins": {
+      "left": 24,
+      "top": 55,
+      "right": 24,
+      "bottom": 56
+    }
   }
 ]
