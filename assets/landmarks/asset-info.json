@@ -1,0 +1,232 @@
+[
+  {
+    "id": "well-ruin",
+    "file": "./assets/landmarks/well-ruin.webp",
+    "pair": "well",
+    "state": "ruin",
+    "width": 512,
+    "height": 666,
+    "bytes": 93932,
+    "transparent": true,
+    "description": "지붕이 사라지고 기둥이 기울어진 이끼 낀 돌 우물",
+    "alphaZeroFraction": 0.531705,
+    "visibleBounds": [
+      25,
+      61,
+      468,
+      605
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 666,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "well",
+    "file": "./assets/landmarks/well.webp",
+    "pair": "well",
+    "state": "restored",
+    "width": 512,
+    "height": 666,
+    "bytes": 132328,
+    "transparent": true,
+    "description": "붉은 기와 지붕과 도르래·두레박·맑은 물이 있는 오래된 돌 우물",
+    "alphaZeroFraction": 0.232944,
+    "visibleBounds": [
+      0,
+      0,
+      512,
+      666
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 666,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "mill-ruin",
+    "file": "./assets/landmarks/mill-ruin.webp",
+    "pair": "mill",
+    "state": "ruin",
+    "width": 512,
+    "height": 774,
+    "bytes": 85884,
+    "transparent": true,
+    "description": "지붕에 구멍이 나고 부러진 날개 하나만 매달린 탑 풍차",
+    "alphaZeroFraction": 0.630625,
+    "visibleBounds": [
+      83,
+      114,
+      350,
+      660
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 774,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "mill",
+    "file": "./assets/landmarks/mill.webp",
+    "pair": "mill",
+    "state": "restored",
+    "width": 512,
+    "height": 774,
+    "bytes": 75876,
+    "transparent": true,
+    "description": "천 날개 네 개와 작은 밀 자루를 갖춘 높은 탑 모양 풍차",
+    "alphaZeroFraction": 0.543514,
+    "visibleBounds": [
+      0,
+      0,
+      512,
+      774
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 774,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "tower-ruin",
+    "file": "./assets/landmarks/tower-ruin.webp",
+    "pair": "tower",
+    "state": "ruin",
+    "width": 512,
+    "height": 786,
+    "bytes": 64074,
+    "transparent": true,
+    "description": "위쪽 절반이 무너져 돌무더기만 남은 돌 망루",
+    "alphaZeroFraction": 0.616099,
+    "visibleBounds": [
+      0,
+      252,
+      512,
+      534
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 786,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "tower",
+    "file": "./assets/landmarks/tower.webp",
+    "pair": "tower",
+    "state": "restored",
+    "width": 512,
+    "height": 786,
+    "bytes": 75474,
+    "transparent": true,
+    "description": "성가퀴와 초록 깃발, 따뜻한 창빛이 있는 돌 망루",
+    "alphaZeroFraction": 0.477074,
+    "visibleBounds": [
+      68,
+      0,
+      376,
+      786
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 786,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "chapel-ruin",
+    "file": "./assets/landmarks/chapel-ruin.webp",
+    "pair": "chapel",
+    "state": "ruin",
+    "width": 512,
+    "height": 678,
+    "bytes": 131424,
+    "transparent": true,
+    "description": "지붕이 내려앉고 덩굴로 덮인 작은 시골 예배당",
+    "alphaZeroFraction": 0.351234,
+    "visibleBounds": [
+      0,
+      0,
+      512,
+      678
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 678,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "chapel",
+    "file": "./assets/landmarks/chapel.webp",
+    "pair": "chapel",
+    "state": "restored",
+    "width": 512,
+    "height": 678,
+    "bytes": 79000,
+    "transparent": true,
+    "description": "파란 기와 지붕과 작은 종탑·금빛 종이 있는 시골 예배당",
+    "alphaZeroFraction": 0.368492,
+    "visibleBounds": [
+      0,
+      16,
+      512,
+      662
+    ],
+    "anchor": {
+      "x": 256,
+      "y": 678,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "bridge-ruin",
+    "file": "./assets/landmarks/bridge-ruin.webp",
+    "pair": "bridge",
+    "state": "ruin",
+    "width": 1024,
+    "height": 267,
+    "bytes": 58364,
+    "transparent": true,
+    "description": "가운데가 끊기고 양 끝과 떨어진 돌만 남은 돌다리",
+    "alphaZeroFraction": 0.486588,
+    "visibleBounds": [
+      0,
+      2,
+      1020,
+      265
+    ],
+    "anchor": {
+      "x": 512,
+      "y": 267,
+      "kind": "bottom-center"
+    }
+  },
+  {
+    "id": "bridge",
+    "file": "./assets/landmarks/bridge.webp",
+    "pair": "bridge",
+    "state": "restored",
+    "width": 1024,
+    "height": 267,
+    "bytes": 62644,
+    "transparent": true,
+    "description": "수평으로 강을 건너는 두 아치와 난간의 온전한 돌다리",
+    "alphaZeroFraction": 0.290083,
+    "visibleBounds": [
+      0,
+      0,
+      1024,
+      267
+    ],
+    "anchor": {
+      "x": 512,
+      "y": 267,
+      "kind": "bottom-center"
+    }
+  }
+]

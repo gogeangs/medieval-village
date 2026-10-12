@@ -1,0 +1,435 @@
+{
+  "tool": "Built-in ImageGen",
+  "referenceCommit": "a8f8f9c5ad083928c18ca23bd3ccba3bad3a0219",
+  "style": "Warm hand-painted storybook watercolor/gouache matching existing village buildings. Front-facing40degree elevated view, zero yaw; horizontal facade edges, eaves and ridges; upper-left light; genuine transparency.",
+  "export": "Generated PNG masters are not committed. Remove alpha <=8; align pair bottoms, use a shared alpha-union crop and one proportional Lanczos3 scale per pair. Canvas dimensions and bottom-center anchor are identical within every pair. Transparent upper voids in ruins are retained to avoid enlarging the remaining structure. WebP quality87, alphaQuality100.",
+  "assets": [
+    {
+      "id": "well-ruin",
+      "file": "well-ruin.webp",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact restored landmark to alter. Preserve hand-painted watercolor/gouache texture and transparent alpha. Change ONLY this exact well to its unrestored ruined state. Preserve the exact source canvas dimensions, camera, scale, well center and bottom contact coordinates. The circular stone basin and oak post positions must register to the same pixels as before. Remove the entire roof, leaving fully transparent empty space where it was. Leave only TWO crooked leaning rotted wooden uprights, one splintered shorter, no crossbeam or intact pulley. Several rim stones have tumbled to form compact rubble directly at the base, within the original overall lateral extent and bottom baseline. Darken the empty well interior, add soft moss to stone joints and a few small ivy leaves. Keep the same cream-gray stone and oak identity. No additional background, ground plate, water outside well, labels, people or debris outside the original framing. Do not zoom into the shorter ruined object; retain blank alpha above it.",
+      "referenceImages": [
+        "assets/landmarks/well.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "sourceAlphaBounds": {
+          "left": 216,
+          "top": 140,
+          "width": 833,
+          "height": 1078
+        },
+        "sourceTranslation": [
+          0,
+          3
+        ],
+        "sharedPairCrop": {
+          "left": 171,
+          "top": 35,
+          "width": 912,
+          "height": 1186
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 666,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "well",
+      "file": "well.webp",
+      "prompt": "Use case: stylized-concept. Asset: ONE isolated landmark sprite for the same cozy medieval village game as the reference buildings. References define STYLE and CAMERA only; do not copy their unrelated objects. Match warm hand-painted storybook watercolor/gouache brushwork, textured cream stone, honey oak, small crisp roof tiles, soft brown outlines and upper-left warm light, softly shaded to right. NOT pixel art, anime, flat vector, photorealistic or glossy3D. CAMERA CRITICAL: orthographic, centered DIRECTLY IN FRONT, yaw exactly ZERO, elevated40degrees looking down. The square footprint is aligned to screen. Front lower edge and roof ridge/eaves are horizontal; verticals vertical. Roof tops generously visible. No isometric, no corner-forward building, no diagonal receding facade or diamond base. TRUE transparent alpha everywhere outside the object and through openings. No landscape, background, dirt/grass patch, ground pedestal, baseplate, oval cast shadow, border, text, lettering, numbers, logo, emblem, watermark or people. Complete intact object inside a small clear transparent margin; structure and its few attached accessories share a flat bottom contact baseline, no detached specks. One coherent landmark, not a sprite sheet. Full structure should occupy most of its canvas, ready for proportional trim and bottom-aligned export.\nSUBJECT: RESTORED OLD STONE WELL, compact2x2 footprint, roughly square art. A waist-high round cream-gray stone well with clearly visible clear turquoise water in the opening. TWO stout oak uprights left and right support a modest RED TERRACOTTA tiled roof. Roof's long ridge runs perfectly horizontal across the image, as does its front eave; roof top visible from40degrees. A wooden pulley and rope are centered below the roof, ONE small oak bucket hangs low at the front, inside the well's total footprint. Warm weathered masonry, subtly mossy joints, handmade charm. Straight-on symmetric construction, no cottage, wheelhouse or ground base.",
+      "referenceImages": [
+        "assets/illustrations/house.webp",
+        "assets/illustrations/hall.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "sourceAlphaBounds": {
+          "left": 171,
+          "top": 35,
+          "width": 912,
+          "height": 1186
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "sharedPairCrop": {
+          "left": 171,
+          "top": 35,
+          "width": 912,
+          "height": 1186
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 666,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "mill-ruin",
+      "file": "mill-ruin.webp",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact restored landmark to alter. Preserve its brushwork and genuinely transparent background. Change ONLY this exact tall tower windmill to ruined state. Keep exact canvas dimensions,40degree front camera, tower silhouette location, hub coordinate, door and bottom contact positions; no zoom/crop or changed scale. THREE sails have broken away completely, leaving only tiny broken stubs at the hub. EXACTLY ONE damaged cloth-and-wood blade remains hanging down from that same hub, crooked, torn, visibly broken. No spare intact blade elsewhere. Put a ragged hole in the same tiled cap roof, expose a couple of rafters. Weather and crack plaster/stone, a little ivy at bottom; put a few broken wooden pieces tightly beside base, all inside original canvas/width and same baseline. Remove grain sacks or show one worn empty sack. Keep original tall windmill identity, do not turn it into the reference low mill house. Transparent background, no ground plate, text, logos or people.",
+      "referenceImages": [
+        "assets/landmarks/mill.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sourceAlphaBounds": {
+          "left": 172,
+          "top": 198,
+          "width": 689,
+          "height": 1300
+        },
+        "sourceTranslation": [
+          0,
+          32
+        ],
+        "sharedPairCrop": {
+          "left": 8,
+          "top": 4,
+          "width": 1009,
+          "height": 1526
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 774,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "mill",
+      "file": "mill.webp",
+      "prompt": "Use case: stylized-concept. Asset: ONE isolated landmark sprite for the same cozy medieval village game as the reference buildings. References define STYLE and CAMERA only; do not copy their unrelated objects. Match warm hand-painted storybook watercolor/gouache brushwork, textured cream stone, honey oak, small crisp roof tiles, soft brown outlines and upper-left warm light, softly shaded to right. NOT pixel art, anime, flat vector, photorealistic or glossy3D. CAMERA CRITICAL: orthographic, centered DIRECTLY IN FRONT, yaw exactly ZERO, elevated40degrees looking down. The square footprint is aligned to screen. Front lower edge and roof ridge/eaves are horizontal; verticals vertical. Roof tops generously visible. No isometric, no corner-forward building, no diagonal receding facade or diamond base. TRUE transparent alpha everywhere outside the object and through openings. No landscape, background, dirt/grass patch, ground pedestal, baseplate, oval cast shadow, border, text, lettering, numbers, logo, emblem, watermark or people. Complete intact object inside a small clear transparent margin; structure and its few attached accessories share a flat bottom contact baseline, no detached specks. One coherent landmark, not a sprite sheet. Full structure should occupy most of its canvas, ready for proportional trim and bottom-aligned export.\nSUBJECT: RESTORED HILL WINDMILL, a TALL NARROW TAPERED TOWER on a2x2 footprint, portrait composition approximately width:height2:3. This is NOT the low grain-mill house in reference1: reference1 supplies material/style only. A vertical cream plaster-and-stone windmill tower, small warm brown-red tiled cap roof, arched oak door below, two little windows. On the upper front a central hub carries EXACTLY FOUR intact wooden lattice sails covered in pale unmarked linen. Blades stationary in a clear PLUS arrangement (up/right/down/left), each one distinct and complete, not spinning, no motion blur. Generous tower height below hub, wings stay inside compact lateral footprint. Small tied wheat sacks beside door, integrated at base. Tower faces directly forward; all window lintels, door threshold and front roof eave horizontal, no diagonal/isometric view. Upper-left sunlight, plain linen without symbols.",
+      "editPrompt": "Use case: background-extraction. Keep this EXACT windmill design, four linen sails, camera, all architecture, colors, size and pixel positions unchanged. REMOVE the entire brown/golden blurred glow/background around the windmill. The exterior and ALL gaps between the sails/tower must be pure transparent alpha, not translucent brown paint. No aura, no light halo, no haze, no ground shadow. Preserve only the physical windmill, linen, wood, masonry, sacks and attached flowerpot. Keep the same portrait canvas dimensions, exact center and bottom contact position. Do not zoom, crop, redesign or add anything. True clean transparent cutout with only fine antialiased object edges.",
+      "referenceImages": [
+        "assets/illustrations/mill.webp",
+        "assets/illustrations/house.webp",
+        "assets/illustrations/hall.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sourceAlphaBounds": {
+          "left": 8,
+          "top": 4,
+          "width": 1009,
+          "height": 1526
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "sharedPairCrop": {
+          "left": 8,
+          "top": 4,
+          "width": 1009,
+          "height": 1526
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 774,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "tower-ruin",
+      "file": "tower-ruin.webp",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact restored landmark to alter. Preserve hand-painted watercolor/gouache texture and genuine transparent alpha. Change ONLY this exact watchtower into a ruin with its UPPER HALF collapsed. Preserve source canvas, lower tower footprint, front door location, lower stone block courses, camera and bottom baseline exactly. Replace everything above the mid-height of the original stone tower with transparent empty alpha; NO flag, intact rooftop or crenellations remain. The surviving lower half ends in a jagged broken rim, exposing a dark hollow interior viewed from the same elevated angle. A compact pile of matching fallen stone blocks clusters around the surviving base, never extending below original bottom line or beyond original lateral framing. Subtle moss/ivy, no earth patch or pedestal. The lower facade should be unmistakably the same structure. Do not enlarge the shorter ruin to fill empty canvas; keep original scale and transparent space above.",
+      "referenceImages": [
+        "assets/landmarks/tower.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sourceAlphaBounds": {
+          "left": 27,
+          "top": 477,
+          "width": 971,
+          "height": 1012
+        },
+        "sourceTranslation": [
+          0,
+          14
+        ],
+        "sharedPairCrop": {
+          "left": 27,
+          "top": 12,
+          "width": 971,
+          "height": 1491
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 786,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "tower",
+      "file": "tower.webp",
+      "prompt": "Use case: stylized-concept. Asset: ONE isolated landmark sprite for the same cozy medieval village game as the reference buildings. References define STYLE and CAMERA only; do not copy their unrelated objects. Match warm hand-painted storybook watercolor/gouache brushwork, textured cream stone, honey oak, small crisp roof tiles, soft brown outlines and upper-left warm light, softly shaded to right. NOT pixel art, anime, flat vector, photorealistic or glossy3D. CAMERA CRITICAL: orthographic, centered DIRECTLY IN FRONT, yaw exactly ZERO, elevated40degrees looking down. The square footprint is aligned to screen. Front lower edge and roof ridge/eaves are horizontal; verticals vertical. Roof tops generously visible. No isometric, no corner-forward building, no diagonal receding facade or diamond base. TRUE transparent alpha everywhere outside the object and through openings. No landscape, background, dirt/grass patch, ground pedestal, baseplate, oval cast shadow, border, text, lettering, numbers, logo, emblem, watermark or people. Complete intact object inside a small clear transparent margin; structure and its few attached accessories share a flat bottom contact baseline, no detached specks. One coherent landmark, not a sprite sheet. Full structure should occupy most of its canvas, ready for proportional trim and bottom-aligned export.\nSUBJECT: RESTORED STONE WATCHTOWER, tall portrait silhouette about width:height2:3, compact square2x2 footprint. One sturdy cream-gray block tower with nearly vertical slightly tapering walls, frontal wooden arched door, two small narrow windows above glowing warm amber. At top, a flat parapet with clearly alternating tooth-shaped crenellations, its front edge perfectly horizontal, visible open rooftop behind. ONE small plain green flag on short wood pole on the roof, no emblem/letters. A touch of moss in old masonry. No attached town hall, blue roof, clock, extra wings, long stairs, large platform, soldiers or weapons. Warm grand but modest village landmark, front-facing elevated camera exactly like reference. Whole tower reaches lower contact line with no visible ground shadow.",
+      "referenceImages": [
+        "assets/illustrations/hall.webp",
+        "assets/illustrations/levels/hall-l3.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sourceAlphaBounds": {
+          "left": 156,
+          "top": 12,
+          "width": 713,
+          "height": 1491
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "sharedPairCrop": {
+          "left": 27,
+          "top": 12,
+          "width": 971,
+          "height": 1491
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 786,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "chapel-ruin",
+      "file": "chapel-ruin.webp",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact restored landmark to alter. Preserve hand-painted watercolor/gouache texture and genuine transparent alpha. Change ONLY this exact chapel into its unrestored ruin. Preserve exact canvas, camera, scale, facade position, doorway position, roof palette and bottom line. The blue-tiled main roof has caved inward in the center, exposing broken dark oak rafters, with missing tiles but surviving outer eaves at the same locations. The little bell turret is cracked and partly broken; its cap is damaged and its bell missing, leaving a dark empty opening. Dense soft green ivy vines climb across the cream stone facade and half the roof, with some window openings dark. A few blue tile fragments and stones sit tightly at the wall base inside the original footprint and bottom line. Keep entry recognizable. No extra building, trees, scenic ground, slab pedestal, text or people. Do not zoom, rotate or crop compared with the restored reference.",
+      "referenceImages": [
+        "assets/landmarks/chapel.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1087,
+          1446
+        ],
+        "sourceAlphaBounds": {
+          "left": 1,
+          "top": 7,
+          "width": 1086,
+          "height": 1439
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "sharedPairCrop": {
+          "left": 1,
+          "top": 7,
+          "width": 1086,
+          "height": 1439
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 678,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "chapel",
+      "file": "chapel.webp",
+      "prompt": "Use case: stylized-concept. Asset: ONE isolated landmark sprite for the same cozy medieval village game as the reference buildings. References define STYLE and CAMERA only; do not copy their unrelated objects. Match warm hand-painted storybook watercolor/gouache brushwork, textured cream stone, honey oak, small crisp roof tiles, soft brown outlines and upper-left warm light, softly shaded to right. NOT pixel art, anime, flat vector, photorealistic or glossy3D. CAMERA CRITICAL: orthographic, centered DIRECTLY IN FRONT, yaw exactly ZERO, elevated40degrees looking down. The square footprint is aligned to screen. Front lower edge and roof ridge/eaves are horizontal; verticals vertical. Roof tops generously visible. No isometric, no corner-forward building, no diagonal receding facade or diamond base. TRUE transparent alpha everywhere outside the object and through openings. No landscape, background, dirt/grass patch, ground pedestal, baseplate, oval cast shadow, border, text, lettering, numbers, logo, emblem, watermark or people. Complete intact object inside a small clear transparent margin; structure and its few attached accessories share a flat bottom contact baseline, no detached specks. One coherent landmark, not a sprite sheet. Full structure should occupy most of its canvas, ready for proportional trim and bottom-aligned export.\nSUBJECT: RESTORED SMALL COUNTRY CHAPEL, compact2x2 footprint, cozy portrait structure slightly taller than wide. Warm cream stone and restrained oak trim, an arched central wooden double door, a small arched window on either side. A generous BLUE-SLATE TILE roof with its long main ridge and front eave perfectly HORIZONTAL as in the reference town hall, visible top plane. At roof center a SMALL OPEN BELL TURRET with a blue tile cap and one clearly visible GOLDEN BELL, not a clocktower. Humble country proportions, a few ivy leaves in stone joints, softly glowing windows. No readable writing, crest, cross, logo, large garden, fence, people, or baseplate. Facade squarely faces viewer, negligible sidewall visibility; fully intact architecture on flat bottom line.",
+      "referenceImages": [
+        "assets/illustrations/hall.webp",
+        "assets/illustrations/house.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          1087,
+          1447
+        ],
+        "sourceAlphaBounds": {
+          "left": 2,
+          "top": 8,
+          "width": 1084,
+          "height": 1405
+        },
+        "sourceTranslation": [
+          0,
+          33
+        ],
+        "sharedPairCrop": {
+          "left": 1,
+          "top": 7,
+          "width": 1086,
+          "height": 1439
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 512,
+        "height": 678,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "bridge-ruin",
+      "file": "bridge-ruin.webp",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact restored landmark to alter. Preserve hand-painted watercolor/gouache texture and genuine transparent alpha. Change ONLY the exact bridge into its ruined counterpart. LOCK the source canvas dimensions, scale, yawZERO40degree view, deck height, left/right end abutment positions and common bottom baseline. The entire MIDDLE span is broken away, including central pier and both inner halves of the two low arches, so only the two outer ends remain standing. A large clear TRANSPARENT gap splits the bridge center. A few loose fallen stone blocks lie scattered LOW within that central gap, suggesting they dropped into an unseen river, but do not paint any water. Fallen stones must NOT extend below the original pier-bottom baseline. Broken railing ends and jagged masonry face inward at gap. Same stone materials and horizontal outer deck edges, no side rotation. Preserve extremely wide shallow4.2:1 silhouette, no new ground plate, banks, river, border, text or people. Do not enlarge or recenter the remaining end pieces independently; keep exact original positions.",
+      "referenceImages": [
+        "assets/landmarks/bridge.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          2078,
+          757
+        ],
+        "sourceAlphaBounds": {
+          "left": 12,
+          "top": 135,
+          "width": 2045,
+          "height": 532
+        },
+        "sourceTranslation": [
+          0,
+          6
+        ],
+        "sharedPairCrop": {
+          "left": 12,
+          "top": 137,
+          "width": 2054,
+          "height": 536
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 1024,
+        "height": 267,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    },
+    {
+      "id": "bridge",
+      "file": "bridge.webp",
+      "prompt": "Use case: stylized-concept. Asset: ONE isolated landmark sprite for the same cozy medieval village game as the reference buildings. References define STYLE and CAMERA only; do not copy their unrelated objects. Match warm hand-painted storybook watercolor/gouache brushwork, textured cream stone, honey oak, small crisp roof tiles, soft brown outlines and upper-left warm light, softly shaded to right. NOT pixel art, anime, flat vector, photorealistic or glossy3D. CAMERA CRITICAL: orthographic, centered DIRECTLY IN FRONT, yaw exactly ZERO, elevated40degrees looking down. The square footprint is aligned to screen. Front lower edge and roof ridge/eaves are horizontal; verticals vertical. Roof tops generously visible. No isometric, no corner-forward building, no diagonal receding facade or diamond base. TRUE transparent alpha everywhere outside the object and through openings. No landscape, background, dirt/grass patch, ground pedestal, baseplate, oval cast shadow, border, text, lettering, numbers, logo, emblem, watermark or people. Complete intact object inside a small clear transparent margin; structure and its few attached accessories share a flat bottom contact baseline, no detached specks. One coherent landmark, not a sprite sheet. Full structure should occupy most of its canvas, ready for proportional trim and bottom-aligned export.\nSUBJECT: RESTORED STONE BRIDGE ONLY spanning LEFT TO RIGHT, an extremely WIDE SHALLOW horizontal sprite,4x1 grid footprint. Actual painted bridge width should be at least FOUR TIMES its entire painted height (target4.2:1); fit complete structure in a wide transparent landscape canvas. Camera directly above its FRONT LONG SIDE at40degrees, yawZERO. Long near and far parapets, deck edges and masonry rows run perfectly HORIZONTAL across image, no receding diagonal bridge and no side-to-side hill/hump. Warm cream-gray stone, TWO LOW SHALLOW ARCH OPENINGS side by side underneath, ONE central pier, solid short end abutments, low continuous stone railings on both long sides. Clear visible top walkway in warm pale stone from elevated view. The arches open onto TRANSPARENCY, no water visible behind. No steps, towers, tall pillars, flags, flowers, buildings, river, shore, ground base or background. Whole deck and all supports must stay within a shallow4.2:1 silhouette. Bottoms of central pier and both end abutments align to same bottom horizontal baseline.",
+      "referenceImages": [
+        "assets/illustrations/hall.webp",
+        "assets/illustrations/house.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "alphaThreshold": 8,
+        "resize": "Lanczos3",
+        "sourceDimensions": [
+          2078,
+          757
+        ],
+        "sourceAlphaBounds": {
+          "left": 12,
+          "top": 137,
+          "width": 2054,
+          "height": 536
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "sharedPairCrop": {
+          "left": 12,
+          "top": 137,
+          "width": 2054,
+          "height": 536
+        },
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "width": 1024,
+        "height": 267,
+        "alignment": "One shared crop and uniform scale for both states; preserve alpha voids; bottom-aligned"
+      }
+    }
+  ]
+}
