@@ -958,7 +958,24 @@ function seedStarterTrees(m){const used=new Set();for(const[bx,by,w,h]of[[13,10,
   const c=[];for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const i=y*MW+x,d=Math.hypot(x-15,y-11.5);if(d<3.5||d>5.6||m.t[i]||m.o[i]||used.has(i)||zoneAt(x,y).id!=='home')continue;c.push([d+((x*7+y*13)%5)*.07,i])}
   c.sort((a,b)=>a[0]-b[0]);let n=0;for(const[,i]of c){if(n>=5)break;const x=i%MW,y=i/MW|0;if([...used].some(j=>Math.abs(j%MW-x)<1&&Math.abs((j/MW|0)-y)<1))continue;m.o[i]={k:n%2?'pine':'tree',hp:3};used.add(i);n++}}
 function serialize(){const o=[];S.o.forEach((v,i)=>{if(v)o.push([i,v.k,v.hp])});return JSON.stringify({...S,o})}
-function load(json){const d=JSON.parse(json);const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const[i,k,hp]of d.o)o[i]={k,hp};d.o=o;d.cartDay=typeof d.cartDay==='string'?d.cartDay:'';return normalizeLife(normalizeRoads(normalizeStory(normalizeVisitors(normalizeDecor(d,m.t))),m.t))}
+function sanitizeCore(d){if(!d||typeof d!=='object'||Array.isArray(d))throw new Error('save: not an object');
+ if(!Number.isFinite(+d.seed))throw new Error('save: seed');d.seed=+d.seed|0;
+ if(!Array.isArray(d.b))throw new Error('save: buildings');
+ const fin=(v,def=0)=>Number.isFinite(+v)&&v!==null&&v!==''?+v:def;const ids=new Set();
+ d.b=d.b.filter(b=>b&&typeof b==='object'&&B[b.k]&&Number.isInteger(+b.x)&&Number.isInteger(+b.y)&&+b.x>=0&&+b.y>=0&&+b.x<MW&&+b.y<MH).map((b,i)=>{let id=Number.isInteger(+b.id)&&+b.id>0?+b.id:1e6+i;while(ids.has(id))id++;ids.add(id);return{id,k:b.k,x:+b.x,y:+b.y,l:Math.max(1,Math.min(3,fin(b.l,1)|0))}});
+ if(!d.b.some(b=>b.k==='hall'))d.b.unshift({id:Math.max(0,...ids)+1,k:'hall',x:13,y:10,l:1});
+ d.nid=Math.max(fin(d.nid,1)|0,...d.b.map(b=>b.id+1));
+ const r=d.r&&typeof d.r==='object'?d.r:{};d.r={};for(const k of RES){const v=fin(r[k],0);d.r[k]=Math.max(0,Math.min(1e9,v))}
+ d.pop=Math.max(0,Math.min(9999,fin(d.pop,3)|0));d.time=Math.max(0,fin(d.time,0)|0);
+ const st=d.st&&typeof d.st==='object'&&!Array.isArray(d.st)?d.st:{};d.st={...st};for(const k of['wood','stone','sold'])d.st[k]=Math.max(0,fin(st[k],0));
+ const xp=d.xp&&typeof d.xp==='object'&&!Array.isArray(d.xp)?d.xp:{};d.xp={farm:fin(xp.farm),build:fin(xp.build),trade:fin(xp.trade)};
+ const qs=new Set(Q.map(q=>q.id));d.claimed=Array.isArray(d.claimed)?[...new Set(d.claimed.filter(x=>qs.has(x)))]:[];
+ for(const k of['growT','starveT','spawnT'])d[k]=Math.max(0,fin(d[k],0)|0);
+ if(typeof d.name!=='string')d.name='';if(!Array.isArray(d.o))d.o=[];if(!Array.isArray(d.roads))d.roads=[];
+ for(const k of['rank','rumor'])if(d[k]!=null&&!Number.isFinite(+d[k]))delete d[k];
+ for(const k of['academy','visitors','crisis','inspect','zones','lm','dg','decor','decorBag','roadLv','favor','items','story','met'])if(d[k]!=null&&typeof d[k]!=='object')delete d[k];
+ return d}
+function load(json){const d=sanitizeCore(JSON.parse(json));const m=genMap(d.seed);const o=new Array(MW*MH).fill(null);for(const e of d.o){if(!Array.isArray(e))continue;const[i,k,hp]=e;if(Number.isInteger(i)&&i>=0&&i<MW*MH&&(k==='tree'||k==='pine'||k==='rock'))o[i]={k,hp:Math.max(1,Math.min(4,hp|0||3))}}d.o=o;d.cartDay=typeof d.cartDay==='string'?d.cartDay:'';return normalizeLife(normalizeRoads(normalizeStory(normalizeVisitors(normalizeDecor(d,m.t))),m.t))}
 function save(){try{localStorage.setItem(SAVE,serialize())}catch(e){}}
 function rebuildOcc(){OCC=new Int32Array(MW*MH);for(const b of S.b){const[fw,fh]=fp(b.k);for(let dy=0;dy<fh;dy++)for(let dx=0;dx<fw;dx++){const x=b.x+dx,y=b.y+dy;if(x<MW&&y<MH)OCC[y*MW+x]=b.id}}DOCC=new Int32Array(MW*MH);for(const d of S.decor)for(let y=0;y<DECOR[d.k].size;y++)for(let x=0;x<DECOR[d.k].size;x++)DOCC[(d.y+y)*MW+d.x+x]=d.id;markLandmarks()}
 const T=(x,y)=>(x<0||y<0||x>=MW||y>=MH)?-1:TILES[y*MW+x];
@@ -1904,8 +1921,10 @@ function lifeHTML(){const here=RESIDENTS.filter(resArrived);
 function festival(prevSe){if(day()<=2)return;const score=S.decor.length*10+S.b.length*3+Math.floor(S.roads.length/2)+Object.values(S.roadLv||{}).reduce((a,l)=>a+(l-1),0)+S.pop+ITEMS.filter(x=>S.items[x.id]).length*2;
  const tier=score>=120?2:score>=60?1:0,names=['조촐한','흥겨운','전설적인'],gold=[20,50,100][tier],guests=Math.max(3,Math.floor(score/4));S.r.gold+=gold;let it=null;if(tier>=1)it=findItem('fest');
  S.fests.push({se:prevSe,score,tier});save();updateHUD();
- const sn=SEASONS[prevSe];setTimeout(()=>{if(!$('#scene').hidden)return;playCustom(`${sn} 축제`,`${names[tier]} ${sn} 축제`,[['',`${sn}의 마지막 날, 회관 앞에서 작은 축제가 열렸다. 손님 ${guests}명이 찾아왔다.`],['',`장식 ${S.decor.length}개, 건물 ${S.b.length}채, 길 ${S.roads.length}칸, 주민 ${S.pop}명 · 축제 점수 ${score}`],tier===2?['마르타','이렇게 북적이는 축제는 오래간만이구나. 그 사람 있을 때 이후로.']:tier===1?['피노','손님이 많네요! 장사도 잘되고요.']:['브루노','조용해서 좋다. 다음엔 장식을 좀 더 놓자.'],['',`보상: 금화 +${gold}${it?` · 평범한 물건 ‘${it.f}’`:''}`]],EVENT_ART('festival'))},600)}
+ const sn=SEASONS[prevSe];whenFree(()=>{playCustom(`${sn} 축제`,`${names[tier]} ${sn} 축제`,[['',`${sn}의 마지막 날, 회관 앞에서 작은 축제가 열렸다. 손님 ${guests}명이 찾아왔다.`],['',`장식 ${S.decor.length}개, 건물 ${S.b.length}채, 길 ${S.roads.length}칸, 주민 ${S.pop}명 · 축제 점수 ${score}`],tier===2?['마르타','이렇게 북적이는 축제는 오래간만이구나. 그 사람 있을 때 이후로.']:tier===1?['피노','손님이 많네요! 장사도 잘되고요.']:['브루노','조용해서 좋다. 다음엔 장식을 좀 더 놓자.'],['',`보상: 금화 +${gold}${it?` · 평범한 물건 ‘${it.f}’`:''}`]],EVENT_ART('festival'))},600)}
 /* shared event card (reuses the scene overlay without touching story progress) */
+function isFree(){return $('#scene').hidden&&sheet.hidden&&!document.getElementById('name-dlg')&&mode==='hand'}
+function whenFree(fn,delay=600,tries=0){setTimeout(()=>{if(isFree())fn();else if(tries<120)whenFree(fn,1000,tries+1)},delay)}
 function playCustom(no,title,lines,art){SCENES.custom=lines;sceneEp='custom';sceneI=0;closeSheet();$('#scene-no').textContent=no;$('#scene-title').textContent=title;$('#scene-body').innerHTML='';$('#scene').hidden=false;showSceneArt(-1,art);sceneStep()}
 const EVENT_ART=k=>`./assets/events/${k}.webp`,ITEM_ART=id=>`./assets/items/${id}.webp`;
 function meetTick(){if(!Array.isArray(S.met))S.met=RESIDENTS.filter(resArrived).map(r=>r.id);for(const r of RESIDENTS){if(S.met.includes(r.id)||!resArrived(r))continue;S.met.push(r.id);save();arriveCard(r);sayOnMap(r.id,r.line);updateTabs();break}}
@@ -2224,7 +2243,7 @@ let started=false;
 function start(data){
   resetGesture();
   let st=null;
-  try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)st=load(raw)}}catch(e){st=null}
+  let brokenSave=false;try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)try{st=load(raw)}catch(e){st=null;brokenSave=true;try{localStorage.setItem(SAVE+'-broken',raw)}catch(_){}console.warn('broken save kept as '+SAVE+'-broken',e)}}}catch(e){st=null}
   const fresh=!st;S=st||newState();FOG=null;FOG_OLD=null;normalizeStory(S);normalizeLife(S);if(!Array.isArray(S.met))S.met=RESIDENTS.filter(resArrived).map(r=>r.id);if(typeof S.cartDay!=='string')S.cartDay='';
   TILES=genMap(S.seed).t;BASE_TILES=TILES.slice();normalizeRoads(S,BASE_TILES);roadDirty.clear();applyRoads();normalizeRoadLv();fixFootprints();
   rebuildOcc();ensureLandmarks();ensureCave();markLandmarks();ensureProps();markLandmarks();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
@@ -2236,6 +2255,7 @@ function start(data){
    if(t!==null&&bd<7)centerOn(((t%MW)*TS+8+14.5*TS)/2,((t/MW|0)*TS+8+11.5*TS)/2+6);else centerOn(15*TS+16,12*TS+10)}
   if(!S.story.includes(0))setTimeout(()=>{if(!S.story.includes(0)&&$('#scene').hidden)playEpisode(0)},700);
   else if(fresh)setTimeout(()=>coach('help-tap','나무를 톡! 목재를 모아요'),600);
+  if(brokenSave)setTimeout(()=>toast('저장을 읽지 못해 새로 시작했어요. 예전 저장은 따로 보관해 두었어요'),1200);
 }
 initStoryArt();
 loadFrontier();loadLandmarkArt();loadDungeonArt();
