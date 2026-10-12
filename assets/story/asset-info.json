@@ -16,83 +16,11 @@
     "alphaZeroFraction": 0
   },
   {
-    "id": "ep01",
-    "file": "./assets/story/ep01.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 319772,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep02",
-    "file": "./assets/story/ep02.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 274408,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep03",
-    "file": "./assets/story/ep03.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 267626,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep04",
-    "file": "./assets/story/ep04.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 261978,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep05",
-    "file": "./assets/story/ep05.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 299576,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep06",
-    "file": "./assets/story/ep06.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 320804,
-    "alphaZeroFraction": 0
-  },
-  {
     "id": "ep07",
     "file": "./assets/story/ep07.webp",
     "width": 1200,
     "height": 800,
     "bytes": 282166,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep08",
-    "file": "./assets/story/ep08.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 261298,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep09",
-    "file": "./assets/story/ep09.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 290686,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep10",
-    "file": "./assets/story/ep10.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 289984,
     "alphaZeroFraction": 0
   },
   {
@@ -150,22 +78,6 @@
     "height": 512,
     "bytes": 65400,
     "alphaZeroFraction": 0.5194
-  },
-  {
-    "id": "ep11",
-    "file": "./assets/story/ep11.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 327602,
-    "alphaZeroFraction": 0
-  },
-  {
-    "id": "ep12",
-    "file": "./assets/story/ep12.webp",
-    "width": 1200,
-    "height": 800,
-    "bytes": 208536,
-    "alphaZeroFraction": 0
   },
   {
     "id": "ep13",

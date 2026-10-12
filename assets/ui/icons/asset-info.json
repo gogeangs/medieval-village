@@ -64,14 +64,6 @@
     "alphaZeroFraction": 0.7665
   },
   {
-    "id": "festival",
-    "file": "./assets/ui/icons/festival.webp",
-    "width": 128,
-    "height": 128,
-    "bytes": 6506,
-    "alphaZeroFraction": 0.7158
-  },
-  {
     "id": "appraise",
     "file": "./assets/ui/icons/appraise.webp",
     "width": 128,
