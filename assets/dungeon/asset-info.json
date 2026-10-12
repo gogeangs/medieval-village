@@ -1,0 +1,172 @@
+[
+  {
+    "id": "bat",
+    "file": "./assets/dungeon/bat.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 63628,
+    "format": "webp",
+    "transparent": true,
+    "description": "동글동글한 굴 박쥐 네 마리가 어설프게 날개를 퍼덕이는 무리",
+    "alphaZeroFraction": 0.641579,
+    "margins": {
+      "left": 24,
+      "top": 37,
+      "right": 24,
+      "bottom": 37
+    }
+  },
+  {
+    "id": "wolf",
+    "file": "./assets/dungeon/wolf.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 65348,
+    "format": "webp",
+    "transparent": true,
+    "description": "혀를 빼물고 배고픈 표정으로 으르렁대는 회색 늑대",
+    "alphaZeroFraction": 0.577229,
+    "margins": {
+      "left": 24,
+      "top": 36,
+      "right": 24,
+      "bottom": 36
+    }
+  },
+  {
+    "id": "boar",
+    "file": "./assets/dungeon/boar.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 68238,
+    "format": "webp",
+    "transparent": true,
+    "description": "작은 콧김을 뿜고 돌진 자세를 잡은 갈색 멧돼지",
+    "alphaZeroFraction": 0.515179,
+    "margins": {
+      "left": 24,
+      "top": 38,
+      "right": 24,
+      "bottom": 38
+    }
+  },
+  {
+    "id": "bandit",
+    "file": "./assets/dungeon/bandit.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 44602,
+    "format": "webp",
+    "transparent": true,
+    "description": "짧은 나무 몽둥이를 든 어설픈 복면 동굴 산적",
+    "alphaZeroFraction": 0.705364,
+    "margins": {
+      "left": 98,
+      "top": 24,
+      "right": 98,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "boss-bear",
+    "file": "./assets/dungeon/boss-bear.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 55320,
+    "format": "webp",
+    "transparent": true,
+    "description": "작은 철제 투구를 쓴 위풍당당하고 둥근 동굴 곰 대장",
+    "alphaZeroFraction": 0.557884,
+    "margins": {
+      "left": 64,
+      "top": 24,
+      "right": 64,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "boss-bandit",
+    "file": "./assets/dungeon/boss-bandit.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 61216,
+    "format": "webp",
+    "transparent": true,
+    "description": "망토와 큰 도끼를 걸친 덩치 큰 산적 두목",
+    "alphaZeroFraction": 0.554569,
+    "margins": {
+      "left": 54,
+      "top": 24,
+      "right": 55,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "boss-wolf",
+    "file": "./assets/dungeon/boss-wolf.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 76824,
+    "format": "webp",
+    "transparent": true,
+    "description": "은빛 갈기와 금빛 목걸이를 두른 커다란 늑대 왕",
+    "alphaZeroFraction": 0.479027,
+    "margins": {
+      "left": 28,
+      "top": 24,
+      "right": 29,
+      "bottom": 24
+    }
+  },
+  {
+    "id": "gold",
+    "file": "./assets/dungeon/gold.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 66128,
+    "format": "webp",
+    "transparent": true,
+    "description": "뚜껑이 열리고 금화가 가득 넘치는 나무 보물 상자",
+    "alphaZeroFraction": 0.440594,
+    "margins": {
+      "left": 24,
+      "top": 27,
+      "right": 24,
+      "bottom": 28
+    }
+  },
+  {
+    "id": "trap",
+    "file": "./assets/dungeon/trap.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 65608,
+    "format": "webp",
+    "transparent": true,
+    "description": "살짝 들린 바닥판과 수상한 끈이 있는 짧은 돌 통로",
+    "alphaZeroFraction": 0.405933,
+    "margins": {
+      "left": 24,
+      "top": 50,
+      "right": 24,
+      "bottom": 51
+    }
+  },
+  {
+    "id": "rest",
+    "file": "./assets/dungeon/rest.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 52280,
+    "format": "webp",
+    "transparent": true,
+    "description": "작은 샘물·따뜻한 모닥불·돌 의자가 모인 던전 쉼터",
+    "alphaZeroFraction": 0.612522,
+    "margins": {
+      "left": 24,
+      "top": 87,
+      "right": 24,
+      "bottom": 87
+    }
+  }
+]

@@ -1,0 +1,270 @@
+{
+  "tool": "Built-in ImageGen",
+  "referenceCommit": "1cfad6987edbc772d7f3b41d417ec297634dd48a",
+  "style": "Warm hand-painted storybook watercolor/gouache matching assets/story/v2 and assets/ui/icons; soft brown contours, upper-left light, friendly comical expressions, transparent background.",
+  "export": "512x512 transparent WebP quality 87. Remove alpha <=8 before trimming and after Lanczos3 downsampling. Center visible subject inside 464x464 to leave approximately 24px minimum transparent padding. Generated PNG masters are not committed.",
+  "assets": [
+    {
+      "id": "bat",
+      "file": "bat.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: EXACTLY FOUR small round cave bats fluttering as one tight readable group. Fuzzy walnut-brown and warm gray bodies, broad soft taupe wing membranes, round ears, shiny curious eyes, tiny noses and endearingly awkward expressions. Each has exactly two intact wings. Arrange one slightly higher, two across the middle, one lower, wings at different stages of a flap with clear separation and alpha gaps. A little surprised rather than evil, no vampire styling, no hanging cave ceiling, no motion lines. Group occupies a near-square outline; all four bats clearly countable.",
+      "referenceImages": [
+        "assets/story/v2/ep06.webp",
+        "assets/ui/icons/reward.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 18,
+          "top": 49,
+          "width": 1216,
+          "height": 1147
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "wolf",
+      "file": "wolf.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE hungry gray wolf, full body on four paws, slightly scruffy warm-gray fur and cream muzzle/chest, lean tucked belly but healthy, long fluffy tail. Match the humorous round-eyed wolves in the story reference. Three-quarter view with its large expressive head turned toward viewer, tongue hanging out, eyebrows attempting a grumpy growl but looking more hungry and ridiculous than scary; just two tiny rounded teeth, no drool strands. Slightly crouched front paws and raised rump, ears uneven, expectant hungry expression. No costume, crown, collar, food, ground or other animals.",
+      "referenceImages": [
+        "assets/story/v2/ep06.webp",
+        "assets/ui/icons/daily-crisis.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 55,
+          "top": 69,
+          "width": 1162,
+          "height": 1102
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boar",
+      "file": "boar.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE comically angry brown wild boar, full compact rounded body, shaggy chestnut bristles, sturdy short legs with cloven hooves, broad tan snout aimed three-quarter toward viewer, tiny ivory tusks, perked ears and determined squint. Front legs bent and rear legs braced in a ready-to-charge pose. Two small soft cream puffs of snorting breath curl immediately beside the nostrils, tightly attached to composition. Looks stubborn and adorable, not dangerous. No impact lines, no dust floor, no ground, no rider, no extra animals.",
+      "referenceImages": [
+        "assets/story/v2/ep06.webp",
+        "assets/ui/icons/cart.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 77,
+          "top": 106,
+          "width": 1125,
+          "height": 1056
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "bandit",
+      "file": "bandit.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE clumsy adult cave bandit in the same patched brown medieval hood and lower-face cloth mask as the bandits in story reference. Full-body, lanky average build, large nervous eyes above the mask, rumpled cream sleeves, worn brown leather vest and belt, baggy trousers tucked into oversized soft leather boots. Holds ONE SHORT rounded wooden club loosely at his side, free hand half-raised uncertainly. Slightly knock-kneed awkward stance, off-balance but standing, shoulders hunched, trying unsuccessfully to look tough. Cute comical adult storybook proportions, no huge head chibi or anime. No cape or boss ornament, no blood, no extra weapons or other people.",
+      "referenceImages": [
+        "assets/story/v2/ep09.webp",
+        "assets/ui/icons/daily-crisis.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 243,
+          "top": 35,
+          "width": 810,
+          "height": 1189
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boss-bear",
+      "file": "boss-bear.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE cave bear BOSS: enormous round brown bear, full body, standing proudly on two broad hind paws with thick forearms relaxed beside its plump belly. Rich chestnut fur, honey muzzle, round little ears, small dark eyes and a self-important but gentle expression. A comically undersized simple iron helmet with aged brass rim sits between its ears, no horns or blades. Chest lifted, huge fluffy shoulders and broad silhouette make it visibly more substantial than normal creatures. Front three-quarter pose. Friendly woodland boss rather than scary monster. No armor suit, weapon, crown text, pedestal, ground or other animals.",
+      "referenceImages": [
+        "assets/story/v2/ep06.webp",
+        "assets/ui/icons/reward.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 160,
+          "top": 25,
+          "width": 1002,
+          "height": 1212
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boss-bandit",
+      "file": "boss-bandit.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE bandit BOSS: a very broad burly adult bandit chief, full-body, the same patched brown hood and lower-face cloth mask family as the ordinary cave bandit. Large warm brown leather vest over rumpled cream sleeves, wide belt with a plain brass buckle, sturdy baggy trousers and worn boots. A flowing muted burgundy cloak fastened with a small brass clasp gives him rank. Holds ONE large broad-headed iron axe resting safely over one shoulder, entire blade and handle visible within square. Proud wide-legged stance, big belly and shoulders, one eyebrow raised in exaggerated self-importance; slightly foolish rather than cruel. No skulls, spikes, blood, crown, other people or ground.\nFinal input image is the ordinary bandit from this new sprite set. Keep this SAME handmade patched-cloth, hood/mask and cream-sleeve visual family, but make the chief conspicuously broader, more imposing and confident with the burgundy cloak and large axe.",
+      "referenceImages": [
+        "assets/story/v2/ep09.webp",
+        "assets/ui/icons/daily-crisis.webp",
+        "assets/dungeon/bandit.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 144,
+          "top": 12,
+          "width": 1070,
+          "height": 1231
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "boss-wolf",
+      "file": "boss-wolf.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE wolf KING boss, full body standing on four large paws. Bigger, broader and more dignified than the ordinary hungry gray wolf: enormous soft SILVER mane framing head and chest, silver-gray fur, cream muzzle and belly, bushy lifted tail. Around the neck a simple warm GOLD collar-necklace with one small round gold medallion, no letters or symbols. Raised chin, proud upright posture and gentle sly eyes, a tiny self-satisfied smile makes him endearing. Three-quarter front view with all paws visible. Clearly a wolf, not a lion, not bipedal. No crown needed, no snarling sharp fangs, no aggressive glowing eyes, no ground or other animals.\nFinal input image is the ordinary wolf from this SAME new sprite set. Preserve its hand-painted face family and fur brushwork, but make the boss distinctly stockier, tall-chested, with a much larger SILVER mane and regal gold necklace. Do not reproduce its hungry tongue or crouching posture.",
+      "referenceImages": [
+        "assets/story/v2/ep06.webp",
+        "assets/ui/icons/reward.webp",
+        "assets/dungeon/wolf.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 68,
+          "top": 41,
+          "width": 1150,
+          "height": 1174
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "gold",
+      "file": "gold.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE open overflowing wooden treasure chest, matching the cozy wood-and-brass reward-chest reference. Stout honey-brown wooden boards, rounded hinged lid wide open, aged brass reinforcing straps, simple blank lock plate. Many round gold coins piled inside above the rim, a few coins spilling just against the chest's front feet, all part of one compact cluster. Warm restrained golden glow illuminates the inside; no separate sparkles outside the object, no gems, no writing or stamped coin numbers. Front three-quarter view shows open interior. No room, floor, ground plate or other props.",
+      "referenceImages": [
+        "assets/ui/icons/reward.webp",
+        "assets/ui/icons/cart.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 117,
+          "top": 96,
+          "width": 1052,
+          "height": 1036
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "trap",
+      "file": "trap.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE isolated short suspicious stone corridor segment, a compact cutaway room-choice vignette. Two low weathered gray-cream stone sidewalls lead a few paces inward, with a dark shallow recess at the rear and a few stone floor slabs. Foreground center floor slab is tilted slightly UP at one corner, visibly exposing a harmless dark gap underneath. A thin suspicious tan cord runs across the passage at ankle height and connects to a small wooden peg near that slab, clearly readable. A tiny moss tuft softens the stones. Look mysterious but playful and harmless, not horror: no blades, spikes, skulls, creatures or injury. No full cave backdrop, no rectangular picture frame, no enclosing portal ring, no outer ground platform; transparency immediately outside the actual stonework and through open gaps. Large centered near-square cluster; slight elevated three-quarter view so slab and string read.",
+      "referenceImages": [
+        "assets/ui/icons/daily-crisis.webp",
+        "assets/ui/icons/reward.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 44,
+          "top": 113,
+          "width": 1178,
+          "height": 1043
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    },
+    {
+      "id": "rest",
+      "file": "rest.webp",
+      "prompt": "Use case: stylized-concept. Create ONE finished isolated transparent sprite for a cozy medieval village mobile game's beginner dungeon. Input images are STYLE references only: match the warm hand-painted storybook watercolor/gouache brushwork, soft dark-brown contours, textured natural materials, cream/golden highlights, earthy muted palette, and friendly comical expressions of the existing game. Illustrative painted volume, not realistic photograph, not pixel art, not anime, not flat vector, not glossy 3D. Gentle consistent light from upper left. Clear large silhouette and readable face/object details at small mobile sizes. Mild three-quarter front view, looking very slightly down; full intact subject, centered and balanced in a square, with all parts inside a generous clean margin. The final sprite will be 512x512 with about24px transparent minimum margin. TRUE transparent alpha around AND between elements. No opaque background, scenery, pedestal, ground platform, cast-shadow ellipse, border/frame, lettering, numbers, logo, watermark or speech bubble. Cozy, cute and silly, never frightening. No blood, injury, gore, realistic menace or threatening view toward the player. Only the requested subject; no extra characters or decorative symbols.\nSUBJECT: ONE compact cozy dungeon-rest vignette: a small clear turquoise spring contained by a naturally irregular ring of rounded cream-gray stones on the left, a tiny gentle campfire of two crossed logs with a few orange-gold flames at front-right, and one simple stone chair with a short backrest behind the fire. Three objects clustered tightly as one near-square composition, no people. A little trickle of clear water enters the spring between two stones, a tiny moss tuft beside it. Fire is warm and safe looking, no tall smoke plume. Raised view reveals water surface and seat. Texture and soft brown contour match the reference icons, no glossy game-render finish. No enclosing cave, wall, full room, shared dirt/grass base, ground plate, cast-shadow oval, text, symbols or border; genuine transparency outside the individual objects.",
+      "referenceImages": [
+        "assets/ui/icons/cart.webp",
+        "assets/ui/icons/reward.webp"
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 87,
+        "alphaQuality": 100,
+        "width": 512,
+        "height": 512,
+        "alphaThreshold": 8,
+        "sourceAlphaBounds": {
+          "left": 39,
+          "top": 241,
+          "width": 1190,
+          "height": 867
+        },
+        "subjectMaxPixels": 464,
+        "resize": "Lanczos3",
+        "centering": "visible-alpha bounding box centered; minimum 24px transparent margin"
+      }
+    }
+  ]
+}
