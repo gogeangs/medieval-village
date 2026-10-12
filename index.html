@@ -429,6 +429,11 @@ const DECOR={
   fountain:{n:'돌 분수',price:120,size:2,w:32,h:32,d:'마을 광장의 중심이 되어 줄 작은 분수예요.'},
   flowercart:{n:'로안의 꽃수레',reward:true,size:2,w:32,h:28,d:'로안과 함께 완성한 꽃수레예요. 바퀴마다 마을의 추억이 담겨 있어요.'},
   picnic:{n:'미라의 피크닉 식탁',reward:true,size:2,w:32,h:22,d:'작은 잔치를 기억하는 식탁이에요. 미라가 나누어 준 따뜻한 한 끼를 떠올려 보세요.'},
+  t_bear:{n:'곰 대장 기념상',reward:true,trophy:'boss-bear',size:2,w:32,h:40,d:'동굴 곰 대장을 처음 쓰러뜨린 기념상이에요. 마을에 놓으면 모든 생산 +1%.'},
+  t_bandit:{n:'산적 두목 기념상',reward:true,trophy:'boss-bandit',size:2,w:32,h:40,d:'산적 두목을 처음 쓰러뜨린 기념상이에요. 마을에 놓으면 모든 생산 +1%.'},
+  t_wolf:{n:'늑대 왕 기념상',reward:true,trophy:'boss-wolf',size:2,w:32,h:40,d:'늑대 왕을 처음 쓰러뜨린 기념상이에요. 마을에 놓으면 모든 생산 +1%.'},
+  t_knight:{n:'해골 기사 기념상',reward:true,trophy:'boss-knight',size:2,w:32,h:40,d:'해골 기사를 처음 쓰러뜨린 기념상이에요. 마을에 놓으면 모든 생산 +1%.'},
+  t_dragon:{n:'아기 용 기념상',reward:true,trophy:'boss-dragon',size:2,w:32,h:40,d:'아기 동굴 용을 처음 쓰러뜨린 기념상이에요. 마을에 놓으면 모든 생산 +1%.'},
   relic:{n:'루카의 해시계',reward:true,size:1,w:16,h:24,d:'루카가 옛 성터에서 찾아온 해시계예요. 첫 모험을 함께한 마을의 보물이에요.'}
 };
 /* ---------- visiting friends and their stories ---------- */
@@ -530,8 +535,10 @@ function normalizeDecor(d,tiles){
   const bag=d.decorBag||{};d.decorBag=Object.fromEntries(Object.keys(DECOR).map(k=>[k,Number.isSafeInteger(bag[k])?Math.max(0,Math.min(9999,bag[k])):0]));
   d.decorNext=Math.max(1,...d.decor.map(v=>v.id+1));return d;
 }
+const TROPHY_IM={};
 function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
   softShadow(g,d.w/2,d.h-1,d.w*.42,1);
+  if(d.trophy){roundBox(g,4,d.h-9,24,8,1.2,wash(g,4,d.h-9,24,8,'#d8ccb0','#a8997c'),'#6f6656',.45);roundBox(g,2.5,d.h-3.4,27,2.6,.8,'#b9ad93','#6f6656',.35);roundBox(g,6.5,d.h-12,19,3.4,.8,'#cfc3a6','#6f6656',.35);ellipse(g,16,d.h-5.2,3.4,1.2,'#d4a63a','#7a5f2c',.3);const im=TROPHY_IM[d.trophy];if(im&&im.complete&&im.naturalWidth){g.imageSmoothingQuality='high';g.drawImage(im,1,0,30,d.h-11)}else{ellipse(g,16,d.h-22,8,9,'#8f897e','#5a5448',.4)}return}
   if(k==='flowercart'){roundBox(g,3,11,25,10,1,'#b69363','#745b41',.5);for(const x of[7,24])ellipse(g,x,23,4,4,'#99784f','#604b36',.7);for(let i=0;i<9;i++){ellipse(g,6+i%5*4,9+(i%3)*2,3,3,'#789157');ellipse(g,6+i%5*4,8+(i%3)*2,1.3,1.3,i%2?'#efc475':'#dfa291')}}
   else if(k==='picnic'){for(const x of[8,23])roundBox(g,x,7,2,13,.4,'#8a6848');roundBox(g,4,3,25,7,1,'#c3a274','#7d6145',.5);roundBox(g,2,14,28,4,1,'#b38d5f','#7d6145',.5)}
   else if(k==='relic'){roundBox(g,4,9,8,12,1,'#d7c7a1','#9c8b6c',.4);ellipse(g,8,8,7,3,'#e6d5ae','#99866a',.5);shape(g,[[7,8],[11,3],[10,8]],'#ad8e4f')}
@@ -546,7 +553,7 @@ function decorValid(k,x,y,ignoreId=0){const d=decorDef(k);if(!d)return false;for
 function decorCost(k){return S.decorBag[k]>0?0:DECOR[k].reward?Infinity:DECOR[k].price}
 function beginDecor(k,id=null){
   if(!decorDef(k))return;const item=id?S.decor.find(d=>d.id===id&&d.k===k):null;if(id&&!item)return;
-  if(!item&&DECOR[k].reward&&!S.decorBag[k]){toast('방문객의 이야기를 마치고 받는 선물이에요');return}
+  if(!item&&DECOR[k].reward&&!S.decorBag[k]){toast(DECOR[k].trophy?'던전 보스를 처음 쓰러뜨리면 받아요':'방문객의 이야기를 마치고 받는 선물이에요');return}
   if(!item&&S.r.gold<decorCost(k)){toast('금화가 부족해요');return}
   finishPlacement();mode='decor';decorKind=k;decorMoveId=id;updateSlots();updateConfirm();toast('놓을 곳을 탭한 뒤 확정해 주세요');
 }
@@ -560,7 +567,7 @@ function placeDecor(){
 }
 function storeDecor(d){if(!d||!S.decor.includes(d))return;S.decorBag[d.k]++;S.decor=S.decor.filter(v=>v!==d);rebuildOcc();finishPlacement();updateHUD();save();toast('상점에 보관했어요. 무료로 다시 놓을 수 있어요')}
 function openShop(){finishPlacement();selId='shop';renderSheet();updateSlots()}
-function shopHTML(){return `<div class="top shop-top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${exactNumber(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="shop-note-link"><span>목재·석재·식량 거래는 시장에서 해요.</span><button class="btn" data-act="market">${count('market')?'시장 거래':'시장 고르기'}</button></div><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length,available=bag>0||!d.reward&&S.r.gold>=d.price,gift=VISITS.find(v=>v.gift===k),short=!d.reward?Math.max(0,Math.ceil(d.price-S.r.gold)):0;const note=d.reward?(bag?'보관함에서 무료로 놓아요':owned?'마을에 배치한 선물이에요':gift?`${FRIENDS[gift.who].n}의 ${gift.chapter}번째 의뢰 보상`:'의뢰 완료 보상'):bag?'보관함에서 무료로 놓아요':short?`금화 ${short}개가 더 필요해요`:'배치를 확정할 때만 금화를 써요';return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${d.reward?UI('favor')+'선물':ic('gold')+' '+d.price}<span class="sz">${d.size}×${d.size}</span></div>${bag?`<small class="bagged">보관 ${bag}</small>`:''}${d.reward&&!bag&&!owned&&gift?`<p class="availability">${FRIENDS[gift.who].n}의 선물</p>`:''}<button class="btn go" data-act="decor-buy" data-k="${k}" ${available?'':'disabled'}>${bag?'놓기':d.reward?(owned?'배치됨':'잠김'):short?`${ic('gold')}${short} 부족`:'놓기'}</button></div>`}).join('')}</div><p class="shop-note">장식 이동과 보관은 무료예요.</p><div class="acts"><button class="btn" data-act="visitors">방문객 의뢰 보기</button></div>`}
+function shopHTML(){return `<div class="top shop-top"><div><h2>장식 상점</h2><div class="shop-balance">${ic('gold')} 보유 금화 <b>${exactNumber(S.r.gold)}</b></div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="shop-note-link"><span>목재·석재·식량 거래는 시장에서 해요.</span><button class="btn" data-act="market">${count('market')?'시장 거래':'시장 고르기'}</button></div><div class="shop-grid">${Object.entries(DECOR).map(([k,d])=>{const bag=S.decorBag[k]||0,owned=S.decor.filter(v=>v.k===k).length,available=bag>0||!d.reward&&S.r.gold>=d.price,gift=VISITS.find(v=>v.gift===k),short=!d.reward?Math.max(0,Math.ceil(d.price-S.r.gold)):0;const note=d.reward?(bag?'보관함에서 무료로 놓아요':owned?(d.trophy?'마을에 놓은 기념상이에요':'마을에 배치한 선물이에요'):d.trophy?'던전 보스를 처음 쓰러뜨리면 받아요':gift?`${FRIENDS[gift.who].n}의 ${gift.chapter}번째 의뢰 보상`:'의뢰 완료 보상'):bag?'보관함에서 무료로 놓아요':short?`금화 ${short}개가 더 필요해요`:'배치를 확정할 때만 금화를 써요';return `<div class="shop-card"><img class="decor-thumb" src="${DECORURL[k]}" alt=""><h3>${d.n}</h3><div class="shop-price">${d.trophy?UI('academy')+'기념상':d.reward?UI('favor')+'선물':ic('gold')+' '+d.price}<span class="sz">${d.size}×${d.size}</span></div>${bag?`<small class="bagged">보관 ${bag}</small>`:''}${d.reward&&!bag&&!owned&&gift?`<p class="availability">${FRIENDS[gift.who].n}의 선물</p>`:''}<button class="btn go" data-act="decor-buy" data-k="${k}" ${available?'':'disabled'}>${bag?'놓기':d.reward?(owned?'배치됨':'잠김'):short?`${ic('gold')}${short} 부족`:'놓기'}</button></div>`}).join('')}</div><p class="shop-note">장식 이동과 보관은 무료예요.</p><div class="acts"><button class="btn" data-act="visitors">방문객 의뢰 보기</button></div>`}
 function decorSheet(d){const def=DECOR[d.k];return `<div class="top"><img src="${DECORURL[d.k]}" alt=""><div><h2>${def.n}</h2><div class="lv">마을 장식 · ${def.size}×${def.size}칸</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${def.d}</p><div class="acts"><button class="btn go" data-act="decor-move">옮기기</button><button class="btn" data-act="decor-store">보관하기</button><button class="btn" data-act="shop">상점</button></div><p>이동과 보관은 무료예요. 보관한 장식은 상점에서 다시 놓을 수 있어요.</p>`}
 function decorConfirm(){
   const c=$('#confirm'),yes=$('#cyes'),d=decorDef(decorKind),moving=decorMoving();if(!d){c.hidden=true;return}
@@ -970,7 +977,7 @@ function upCost(b){if(b.k==='hall'){const h=HALLUP[b.l];if(!h)return null;if(!sm
 function cap(){let c=zoneCap()+guardHomes();for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
-function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()}
+function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()*trophyProd()}
 function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm;if(b.k==='ranch')o.food=-.3*b.l;return o}
 function linkTags(b){let t='';if(B[b.k].link){const ls=linksOf(b),L=B[b.k].link;const names=L.to.map(k=>LINK_NAME[k]).join('·');
   t+=`<span class="tag ${ls.length?'ok':'no'}">연결 ${names} <span class="num">${ls.length} / ${L.max}</span></span>`;
@@ -1252,6 +1259,7 @@ const RANKS=[
   lines:[['','세 번째 칙서. 전령이 고개를 갸웃거린다.'],['전령','…이 마을을 ‘읍’으로 인정합니다. 정말 맞나요?'],['엘리스','보고서에 쓸 게 또 늘었네요.'],['피노','시장 손님도 늘겠어요. 평범한 손님만요.']]},
  {n:'성읍',need:{pop:40,zones:7,lm:5,hall:3},prod:.15,col:'#d4a63a',perk:'모든 생산 +15% · 금빛 깃발',
   lines:[['','금빛 칙서. 왕궁 나팔 소리가 울린다.'],['전령','이 마을을 왕국의 ‘성읍’으로 인정한다!'],['바르그','…쓸데없이 커졌군.'],['엘리스','‘초보자 마을, 이상 없음.’ …이라고 써야겠죠?'],['나','알고 보니… 정말 Lv999였네요.']]}];
+const trophyProd=()=>{if(!S||!Array.isArray(S.decor))return 1;const n=new Set(S.decor.filter(d=>DECOR[d.k]&&DECOR[d.k].trophy).map(d=>d.k)).size;return 1+.01*n};
 const rankOf=()=>S&&Number.isInteger(S.rank)?Math.max(0,Math.min(RANKS.length-1,S.rank)):0;
 const rankProd=()=>1+(RANKS[rankOf()].prod||0);
 function rankRows(r){const n=RANKS[r]&&RANKS[r].need;if(!n)return[];const rows=[['주민',Math.floor(S.pop),n.pop,'명'],['영지',S.zones.length,n.zones,'구역']];if(n.lm)rows.push(['명소',lmCount(),n.lm,'곳']);if(n.hall)rows.push(['회관',hallL(),n.hall,'Lv']);return rows}
@@ -1283,7 +1291,8 @@ const DG_LORE={
  pino:[['텅 빈 보물 창고. 먼지 위에 발자국 하나.','제가 오기 전부터 비어 있었어요. 아마도.'],['벽에 낙서: ‘ㅍ… 다녀감’.','동명이인이에요. 정말로요.'],['감정서가 산더미처럼 쌓여 있다.','…이건 평범한 돌이에요. 아주 평범한.']],
  barg:[['거대한 짐승 발자국 옆에 빈 우유병.','…녀석, 잘 지내나.'],['바닥에 용 비늘 한 장.','근무 중 사고였다.'],['무너진 투기장 관람석.','…은퇴했다. 우유나 마셔라.']]};
 const DG_KIND={mon:{n:'몬스터',ic:'daily-crisis'},boss:{n:'보스',ic:'academy'},gold:{n:'보물 상자',ic:'reward'},trap:{n:'수상한 통로',ic:'lock'},rest:{n:'쉼터',ic:'daily-talk'},odd:{n:'수상한 방',ic:'appraise'}};
-const DGART={};function loadDungeonArt(){fetch('./assets/dungeon/index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||typeof j!=='object')return;for(const[k,f]of Object.entries(j))if(typeof f==='string'&&/^[\w.-]+\.webp$/.test(f))DGART[k]='./assets/dungeon/'+f}).catch(()=>{})}
+const DGART={};function loadDungeonArt(){fetch('./assets/dungeon/index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||typeof j!=='object')return;for(const[k,f]of Object.entries(j))if(typeof f==='string'&&/^[\w.-]+\.webp$/.test(f))DGART[k]='./assets/dungeon/'+f;
+ for(const[dk,d]of Object.entries(DECOR)){if(!d.trophy||!DGART[d.trophy])continue;const im=new Image();im.decoding='async';im.onload=()=>{if(SP&&SP.decor){SP.decor[dk]=decorFallback(dk)}DECORURL[dk]=tightThumb(decorFallback(dk));if(selId==='shop')renderSheet()};TROPHY_IM[d.trophy]=im;im.src=DGART[d.trophy]}}).catch(()=>{})}
 const dgPic=(k,cls)=>DGART[k]?`<img class="${cls}" src="${DGART[k]}" alt="">`:UI(DG_KIND[k]?DG_KIND[k].ic:'daily-crisis',cls+' dg-ic');
 const relicPic=(id,cls)=>DGART['relic-'+id]?`<img class="${cls}" src="${DGART['relic-'+id]}" alt="">`:UI('reward',cls+' dg-ic');
 function gradById(who){return typeof who==='string'&&who[0]==='g'&&S.academy&&Array.isArray(S.academy.grads)?S.academy.grads.find(x=>'g'+x.id===who):null}
@@ -1293,7 +1302,7 @@ const dgCls=run=>{const g=gradById(run.who);return g?g.cls:null};
 function normalizeDungeon(d){const g=d.dg&&typeof d.dg==='object'?d.dg:{};const okWho=w=>RESIDENTS.some(r=>r.id===w)||(typeof w==='string'&&/^g\d+$/.test(w));const run=g.run&&typeof g.run==='object'&&okWho(g.run.who)?g.run:null;
  const RL=new Set(DG_RELICS.map(r=>r.id));
  d.dg={x:Number.isInteger(g.x)?g.x:null,y:Number.isInteger(g.y)?g.y:null,open:!!g.open,best:Math.max(0,g.best|0),day:typeof g.day==='string'?g.day:'',used:Math.max(0,Math.min(DG_TORCH,g.used|0)),runs:Math.max(0,g.runs|0),run,
-  relics:Array.isArray(g.relics)?[...new Set(g.relics.filter(x=>RL.has(x)))]:[],lore:Array.isArray(g.lore)?[...new Set(g.lore.filter(x=>typeof x==='string'))]:[],mile:Array.isArray(g.mile)?g.mile.filter(x=>DG_MILE[x]):[],bosses:Math.max(0,g.bosses|0)};
+  relics:Array.isArray(g.relics)?[...new Set(g.relics.filter(x=>RL.has(x)))]:[],lore:Array.isArray(g.lore)?[...new Set(g.lore.filter(x=>typeof x==='string'))]:[],mile:Array.isArray(g.mile)?g.mile.filter(x=>DG_MILE[x]):[],bosses:Math.max(0,g.bosses|0),trophies:Array.isArray(g.trophies)?[...new Set(g.trophies.filter(k=>DECOR[k]&&DECOR[k].trophy))]:[]};
  if(run){run.hp=Math.max(0,run.hp|0);run.max=Math.max(1,run.max|0);run.floor=Math.max(1,run.floor|0);run.loot=run.loot&&typeof run.loot==='object'?run.loot:{};if(!Array.isArray(run.cards))run.cards=[];run.log=typeof run.log==='string'?run.log:''}return d}
 function ensureCave(){if(!S.dg)normalizeDungeon(S);if(S.dg.x!=null)return;const l=DG_SPOT;let best=null;
  for(let r=0;r<16&&!best;r++)for(let dy=-r;dy<=r&&!best;dy++)for(let dx=-r;dx<=r&&!best;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=l.pref[0]+dx,y=l.pref[1]+dy;if(lmFits(l,x,y))best=[x,y]}
@@ -1338,7 +1347,7 @@ function dgPick(i){const run=S.dg.run;if(!run||run.ended||run.pick!=null)return;
  else if(c.k==='odd')dgOdd(run);
  dgNext()}
 function dgFight(me){const run=S.dg.run;if(!run||run.pick==null)return;const c=run.cards[run.pick],f=run.floor,boss=c.k==='boss',m=dgMate(run.who),cls=dgCls(run);run.pick=null;run.relicNew=null;run.loreNew=false;
- const reward=()=>{const mm=(!boss&&run.who==='gunter'?1.5:!boss&&cls==='검사'?1.3:1)*(boss&&hasRelic('crown')?1.3:1);dgAdd(run,'gold',(boss?30+5*f:5+3*f)*mm);if(boss){dgAdd(run,'stone',(20+3*f)*(hasRelic('crown')?1.3:1));S.dg.bosses++;if(S.dg.bosses===1||Math.random()<.5){if(!dgGiveRelic(run)&&Math.random()<.35){const it=findItem('dungeon');if(it)run.log+=' · 신기한 물건 발견!'}}}};
+ const reward=()=>{const mm=(!boss&&run.who==='gunter'?1.5:!boss&&cls==='검사'?1.3:1)*(boss&&hasRelic('crown')?1.3:1);dgAdd(run,'gold',(boss?30+5*f:5+3*f)*mm);if(boss){dgAdd(run,'stone',(20+3*f)*(hasRelic('crown')?1.3:1));S.dg.bosses++;{const tk=Object.keys(DECOR).find(k=>DECOR[k].trophy===c.art);if(tk&&!S.dg.trophies.includes(tk)){S.dg.trophies.push(tk);S.decorBag[tk]=(S.decorBag[tk]||0)+1;run.log+=` · 「${DECOR[tk].n}」${josa(DECOR[tk].n,'을','를').slice(DECOR[tk].n.length)} 받았다! (상점 보관함)`}}if(S.dg.bosses===1||Math.random()<.5){if(!dgGiveRelic(run)&&Math.random()<.35){const it=findItem('dungeon');if(it)run.log+=' · 신기한 물건 발견!'}}}};
  const hurt=()=>boss?5:2+Math.floor(f/3);
  if(me){if(Math.random()<dgMeChance(f,boss)){run.log=`빗자루를 휘둘러 ${josa(c.n,'을','를')} 쫓아냈다!`;reward();sfx('claim')}else{const d=hurt();run.hp-=d;run.log=`${c.n}에게 밀렸다… 체력 -${d}`;sfx('warn')}}
  else if(m.grad){if(Math.random()<dgGradChance(run,boss)){const rm=boss?2:1;m.grad.lv+=boss?10:3;run.log=`${josa(m.name,'이','가')} 아카데미에서 배운 대로 ${josa(c.n,'을','를')} 물리쳤다! 소문 +${rumorShow(rm)}`;addRumor(rm);reward();sfx('claim')}else{const d=hurt();run.hp-=d;run.log=`${josa(m.name,'이','가')} ${c.n}에게 밀렸다… 체력 -${d}`;sfx('warn')}}
@@ -1364,6 +1373,7 @@ function dungeonHTML(){const g=S.dg,run=g.run,left=torchesLeft();
   ${grads.length?`<h3 class="sec">아카데미 졸업생 <small>맡기면 확률로 싸우고 소문이 적게 나요</small></h3><div class="dg-who">${grads.map(x=>mate('g'+x.id,UI_IC('daily-grad'),x.n,`${x.g}등급 ${x.cls} · Lv ${x.lv}`,GRAD_PERK[x.cls]||'',true)).join('')}</div>`:''}
   ${left>0?'':'<p class="zone-note">오늘 횃불을 다 썼어요. 내일 다시 와요.</p>'}
   <h3 class="sec">던전 유물 <small>${g.relics.length} / ${DG_RELICS.length}</small></h3><div class="dg-relics">${DG_RELICS.map(r=>{const own=g.relics.includes(r.id);return `<div class="dg-relic ${own?'own':''}">${own?relicPic(r.id,'dg-rpic'):UI('lock','dg-rpic dg-ic')}<b>${own?r.n:'???'}</b><small>${own?r.d:'보스나 수상한 방에서 찾아요'}</small></div>`}).join('')}</div>
+  <h3 class="sec">보스 기념상 <small>${g.trophies.length} / ${Object.values(DECOR).filter(d=>d.trophy).length}</small></h3><div class="dg-relics">${Object.entries(DECOR).filter(([,d])=>d.trophy).map(([k,d])=>{const own=g.trophies.includes(k);return `<div class="dg-relic ${own?'own':''}">${own?`<img class="dg-rpic" src="${DECORURL[k]}" alt="">`:UI('lock','dg-rpic dg-ic')}<b>${own?d.n:'???'}</b><small>${own?(S.decor.some(v=>v.k===k)?'마을에 있어요 · 생산 +1%':'상점 보관함에 있어요'):'보스를 처음 쓰러뜨리면 받아요'}</small></div>`}).join('')}</div>
   <h3 class="sec">던전 기록 <small>${loreN} / ${loreT}</small></h3><p class="shop-note">주민과 함께 수상한 방에 들어가면 그 주민의 숨은 이야기가 나와요.</p>${loreN?`<ul class="help dg-lore">${Object.entries(DG_LORE).flatMap(([id,L])=>L.map((l,i)=>g.lore.includes(id+i)?`<li><b>${RESIDENTS.find(r=>r.id===id).n.split(' ')[0]}</b> ${l[0]} “${l[1]}”</li>`:'')).join('')}</ul>`:''}`}
  const m=dgMate(run.who)||{name:'?',pic:UI_IC('daily-grad'),perk:''};
  const hp=`<div class="dg-hp" aria-label="체력 ${Math.max(0,run.hp)} / ${run.max}"><i style="width:${Math.max(0,run.hp)/run.max*100}%"></i><span>체력 ${Math.max(0,run.hp)} / ${run.max}</span></div>`;
