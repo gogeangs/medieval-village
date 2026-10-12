@@ -246,6 +246,27 @@
         "width": 1200,
         "height": 800
       }
+    },
+    {
+      "id": "portrait-chief",
+      "prompt": "Use case: identity-preserve. Asset: ONE square transparent resident bust portrait for a cozy medieval village game, replacing its village chief portrait.\nINPUT ROLES: Image1 is the canonical six-person characters sheet: depict ONLY the FIRST / LEFTMOST young man, the village chief; preserve his exact face identity, chestnut-brown springy curly hair, warm brown eyes, thick soft eyebrows, slightly long youthful oval face, small nose, ear shape and slim25-year-old build. Image2 (elderly Marta) and Image3 (gray-haired Gunter) are FORMAT AND PAINT STYLE references only: copy their warm storybook watercolor/gouache brush texture, soft brown contours, natural fabric folds, soft upper-left lighting, generous readable face, front-facing waist-up cutout layout. Do not borrow their faces, gray hair, shawl, axe or costumes.\nCHIEF: cream loose linen shirt with relaxed open collar, fresh MOSS-GREEN vest with three small brown wood toggle fastenings, no beard, no hat. Same person as the sheet, original character. Gentle, slightly flustered innocent expression: a small uncertain closed-mouth smile, one brow raised a little, mild blush, kind wide eyes looking toward viewer. Not panicked or shocked, no sweat symbols. Straight FRONT view, head upright, shoulders level.\nCOMPOSITION CRITICAL: chest/waist-up centered portrait, square canvas512x512 intended. Hair fully inside frame near y~18px, large head placed high in upper third, eyes around y~125px and chin around y~200px, shoulders/green vest below, torso naturally exits through the bottom edge like the reference busts. Both ARMS RELAXED DOWN alongside torso, hands outside the bottom crop; NO hand near hair or face, no arm raised behind head, no folded arm across face. Top of curls and both shoulders intact, clear breathing room left/right, chest large enough to read vest. Face entirely unobstructed.\nTrue transparent alpha around hair and body; absolutely NO ivory/white colored backdrop, scenery, border, rectangular tile, drop-shadow oval, text, letters, logos or watermark. The ivory background of the character sheet must not be copied. No pixel art, anime, flat vector, glossy3D, photorealism. Deliver ONLY this ONE young man's portrait.",
+      "referenceImages": [
+        "assets/story/characters.webp",
+        "assets/story/portrait-marta.webp",
+        "assets/story/portrait-gunter.webp"
+      ],
+      "referenceCommit": "a8f8f9c5ad083928c18ca23bd3ccba3bad3a0219",
+      "tool": "Built-in ImageGen",
+      "export": {
+        "format": "webp",
+        "width": 512,
+        "height": 512,
+        "quality": 87,
+        "alphaQuality": 100,
+        "resize": "Lanczos3, preserve full square portrait framing",
+        "alphaThreshold": 8
+      },
+      "description": "Front-facing upper-body chief portrait; curly brown hair, cream shirt, moss-green vest; relaxed lowered arms leave face unobstructed."
     }
   ]
 }

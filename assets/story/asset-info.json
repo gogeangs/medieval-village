@@ -190,5 +190,15 @@
     "height": 800,
     "bytes": 259184,
     "alphaZeroFraction": 0
+  },
+  {
+    "id": "portrait-chief",
+    "file": "./assets/story/portrait-chief.webp",
+    "width": 512,
+    "height": 512,
+    "bytes": 56140,
+    "transparent": true,
+    "alphaZeroFraction": 0.494179,
+    "description": "곱슬 갈색 머리·크림색 셔츠·초록 조끼의 촌장. 두 팔을 내린 정면 상반신, 살짝 당황한 순한 표정."
   }
 ]
