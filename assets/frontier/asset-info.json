@@ -1,0 +1,310 @@
+{
+  "tool": "Built-in ImageGen",
+  "assets": [
+    {
+      "id": "fog",
+      "file": "fog.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 195462,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        217,
+        217
+      ],
+      "description": "잠긴 땅을 덮는 크림빛·하늘색 안개 반복 타일",
+      "export": {
+        "crop": null,
+        "resize": "Lanczos3, full canvas",
+        "repeat": "xy",
+        "boundaryFeatherPixels": 24,
+        "alpha": "Uniform 217/255 (85.10%)",
+        "lossless": true
+      }
+    },
+    {
+      "id": "fog-edge",
+      "file": "fog-edge.webp",
+      "width": 512,
+      "height": 128,
+      "bytes": 53266,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "위쪽은 불투명하고 아래로 사라지는 둥근 안개 경계",
+      "export": {
+        "crop": null,
+        "resize": "Lanczos3, full canvas",
+        "repeat": "x",
+        "boundaryFeatherPixels": 24,
+        "alpha": "Top row 255; fades to 0 at bottom; threshold <=8",
+        "lossless": true
+      }
+    },
+    {
+      "id": "thicket",
+      "file": "thicket.webp",
+      "width": 512,
+      "height": 228,
+      "bytes": 74308,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "덤불과 어린 나무가 빽빽한 개척 경계",
+      "export": {
+        "crop": {
+          "left": 16,
+          "top": 14,
+          "width": 1832,
+          "height": 815
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "flag-locked",
+      "file": "flag-locked.webp",
+      "width": 256,
+      "height": 435,
+      "bytes": 26086,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "빛바랜 천과 나무 막대, 돌 받침의 개척 전 깃발",
+      "export": {
+        "crop": {
+          "left": 91,
+          "top": 82,
+          "width": 862,
+          "height": 1466
+        },
+        "sourceTranslation": [
+          0,
+          3
+        ],
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "sharedCanvas": true,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "flag-claimed",
+      "file": "flag-claimed.webp",
+      "width": 256,
+      "height": 435,
+      "bytes": 24554,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "초록·금빛 천과 작은 화환의 개척 완료 깃발",
+      "export": {
+        "crop": {
+          "left": 91,
+          "top": 82,
+          "width": 862,
+          "height": 1466
+        },
+        "sourceTranslation": [
+          0,
+          0
+        ],
+        "finalTranslation": [
+          0,
+          0
+        ],
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "sharedCanvas": true,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "ruins",
+      "file": "ruins.webp",
+      "width": 512,
+      "height": 276,
+      "bytes": 65352,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "무너진 돌담, 이끼 낀 기둥, 깨진 아치",
+      "export": {
+        "crop": {
+          "left": 17,
+          "top": 213,
+          "width": 1392,
+          "height": 750
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "boulders",
+      "file": "boulders.webp",
+      "width": 512,
+      "height": 430,
+      "bytes": 85064,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "크고 작은 바위 네 개 무더기",
+      "export": {
+        "crop": {
+          "left": 38,
+          "top": 62,
+          "width": 1252,
+          "height": 1051
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "flowerfield",
+      "file": "flowerfield.webp",
+      "width": 512,
+      "height": 241,
+      "bytes": 65024,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "노랑·하양·연보라 들꽃 무리",
+      "export": {
+        "crop": {
+          "left": 15,
+          "top": 29,
+          "width": 1745,
+          "height": 820
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "reeds",
+      "file": "reeds.webp",
+      "width": 512,
+      "height": 373,
+      "bytes": 74844,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "갈대와 물가 돌, 작은 나무 선착장",
+      "export": {
+        "crop": {
+          "left": 73,
+          "top": 44,
+          "width": 1331,
+          "height": 969
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "bigtree",
+      "file": "bigtree.webp",
+      "width": 512,
+      "height": 654,
+      "bytes": 142364,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "description": "굵은 줄기와 넓은 수관을 가진 오래된 고목",
+      "export": {
+        "crop": {
+          "left": 4,
+          "top": 11,
+          "width": 1093,
+          "height": 1396
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "bottom center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    },
+    {
+      "id": "unlock-burst",
+      "file": "unlock-burst.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 42462,
+      "format": "webp",
+      "transparent": true,
+      "alphaRange": [
+        0,
+        253
+      ],
+      "description": "안개가 걷히며 바깥으로 퍼지는 금빛 가루와 반짝임",
+      "export": {
+        "crop": {
+          "left": 93,
+          "top": 78,
+          "width": 1037,
+          "height": 1095
+        },
+        "resize": "Lanczos3",
+        "alphaThreshold": 8,
+        "anchor": "center",
+        "quality": 87,
+        "alphaQuality": 100
+      }
+    }
+  ]
+}

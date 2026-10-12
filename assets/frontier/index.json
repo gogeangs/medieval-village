@@ -1,0 +1,13 @@
+{
+  "fog": "fog.webp",
+  "fogEdge": "fog-edge.webp",
+  "thicket": "thicket.webp",
+  "flagLocked": "flag-locked.webp",
+  "flagClaimed": "flag-claimed.webp",
+  "ruins": "ruins.webp",
+  "boulders": "boulders.webp",
+  "flowerfield": "flowerfield.webp",
+  "reeds": "reeds.webp",
+  "bigtree": "bigtree.webp",
+  "burst": "unlock-burst.webp"
+}
