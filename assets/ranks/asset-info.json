@@ -1,0 +1,50 @@
+[
+  {
+    "id": "rank1",
+    "file": "./assets/ranks/rank1.webp",
+    "title": "촌락 승격",
+    "description": "소박한 회관 앞에서 먼지 묻은 왕국 전령이 칙서를 펼치고 촌장과 마르타가 놀라며 기뻐하는 장면.",
+    "width": 1200,
+    "height": 800,
+    "bytes": 228928,
+    "format": "webp",
+    "quality": 82,
+    "opaque": true
+  },
+  {
+    "id": "rank2",
+    "file": "./assets/ranks/rank2.webp",
+    "title": "마을 승격",
+    "description": "도장 두 개가 찍힌 칙서와 박수치는 주민들. 마르타가 회관 광장의 작은 돌 분수를 가리키는 장면.",
+    "width": 1200,
+    "height": 800,
+    "bytes": 277474,
+    "format": "webp",
+    "quality": 82,
+    "opaque": true
+  },
+  {
+    "id": "rank3",
+    "file": "./assets/ranks/rank3.webp",
+    "title": "읍 승격",
+    "description": "북적이는 시장에서 칙서를 든 전령이 고개를 갸웃하고, 엘리스가 수첩에 기록하며 피노가 장사꾼 미소를 짓는 장면.",
+    "width": 1200,
+    "height": 800,
+    "bytes": 239614,
+    "format": "webp",
+    "quality": 82,
+    "opaque": true
+  },
+  {
+    "id": "rank4",
+    "file": "./assets/ranks/rank4.webp",
+    "title": "성읍 승격",
+    "description": "성벽과 큰 금빛 깃발, 왕궁 나팔수들이 있는 축제. 금빛 칙서를 든 어리둥절한 촌장, 팔짱 낀 바르그, 한숨 쉬는 엘리스.",
+    "width": 1200,
+    "height": 800,
+    "bytes": 226302,
+    "format": "webp",
+    "quality": 82,
+    "opaque": true
+  }
+]

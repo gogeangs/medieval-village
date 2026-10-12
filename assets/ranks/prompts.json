@@ -1,0 +1,99 @@
+{
+  "tool": "Built-in ImageGen",
+  "style": "Warm hand-painted storybook watercolor/gouache; canonical story/v2 scenes and character portraits. Original rank-promotion scenes, no readable writing.",
+  "export": "1200x800 opaque WebP, quality 82, Lanczos3 resize; generated original PNGs kept locally only.",
+  "assets": [
+    {
+      "id": "rank1",
+      "title": "촌락 승격",
+      "prompt": "Use case: illustration-story. Asset: one original narrative rank-promotion illustration for the same medieval village mobile game, WIDE LANDSCAPE 3:2, intended final 1200x800. Fully opaque full-bleed painted scenery, no transparency. Match the supplied canonical story scenes' warm hand-painted STORYBOOK watercolor/gouache, delicate organic brown outlines, softly textured brushwork on paper, charming original faces, weathered medieval wood and cream stone, warm natural light. No pixel art, anime, flat vector, glossy 3D or photorealism. Human facial features and outfits match the individual portrait references exactly. The scene references set painterly style and village architecture, not permission to duplicate their composition or action. Cozy affectionate observational comedy. Cream-stone town hall with blue-gray tiled clocktower, red-roof timber cottages, green plants, stone and dirt lanes. Clocks have simple hands and marks, no numerals. No injury or ominous horror. NO READABLE TEXT anywhere: no lettering, words, numbers, logos, captions, speech balloons, watermark, outer border or frame. Every decree/notebook contains only a FEW ABSTRACT WAVY INK STROKES, never letter-like calligraphy or typographic rows. Seals are plain wax shapes without inscriptions or logos. Important faces, hands and decree visible in the upper three-quarters, simple continuous foreground along the bottom quarter; do not cover or crop hands/faces. Anatomically coherent hands, one complete scroll per decree, no duplicated faces.\nReferences: images1 and2 are v2-ep01 and v2-ep03 STYLE/architecture references only; image3 CHIEF and image4 MARTA are the exact identity references.\nCHIEF: exactly portrait-chief.webp: earnest slim clean-shaven young man around25, large warm brown eyes, short tousled CURLY CHESTNUT BROWN hair, MOSS GREEN toggle waistcoat over loose rolled-sleeve ivory shirt, tan trousers and brown boots. Endearing inexperienced expression.\nMARTA: exactly portrait-marta.webp: tiny short plump elderly grandmother, round rosy kind face, SILVER-WHITE hair tied in bun, cream blouse, muted plum shawl and long skirt, cream apron with peach and pink floral pattern. No wizard costume.\nROYAL MESSENGER: an original lean middle-aged man with small chestnut mustache and weathered kind face, modest dusty muted-blue knee-length courier tunic, worn ocher shoulder cape, plain brown leather belt/pouch and dusty brown boots, simple blue soft cap. His clothes and hems have pale road dust. No armor, no lavish royal costume, no insignia or text. Hold decree naturally with two hands.\nSCENE rank1 'Hamlet promotion': a SMALL HUMBLE ceremony in front of a modest village town hall. EXACTLY THREE PEOPLE. Left foreground: dusty courier has just arrived from a long walk and unrolls a plain ivory parchment decree between both hands at chest height, tilted so the short wavy non-letter ink marks are visible. Center-right CHIEF leans forward, eyes wide and mouth opening into a delighted surprised smile, one hand against his chest. Farther right the tiny MARTA clasps her hands happily, rosy delighted surprise. Keep Marta clearly shorter and older than chief. Simple low stone steps of a small blue-gray roofed clocktower hall behind them, one modest red-roof cottage, a few daisies, worn dirt courtyard. Warm late morning daylight, unpretentious and intimate. One small plain wax seal on scroll optional. NO fountain, market crowd, city walls, ceremonial trumpeters, giant flags or pomp yet. Emphasize the dusty courier's long journey and the pair's sincere joy.",
+      "referenceImages": [
+        "assets/story/v2/ep01.webp",
+        "assets/story/v2/ep03.webp",
+        "assets/story/portrait-chief.webp",
+        "assets/story/portrait-marta.webp"
+      ],
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "width": 1200,
+        "height": 800,
+        "opaque": true
+      }
+    },
+    {
+      "id": "rank2",
+      "title": "마을 승격",
+      "prompt": "Use case: illustration-story. Asset: one original narrative rank-promotion illustration for the same medieval village mobile game, WIDE LANDSCAPE 3:2, intended final 1200x800. Fully opaque full-bleed painted scenery, no transparency. Match the supplied canonical story scenes' warm hand-painted STORYBOOK watercolor/gouache, delicate organic brown outlines, softly textured brushwork on paper, charming original faces, weathered medieval wood and cream stone, warm natural light. No pixel art, anime, flat vector, glossy 3D or photorealism. Human facial features and outfits match the individual portrait references exactly. The scene references set painterly style and village architecture, not permission to duplicate their composition or action. Cozy affectionate observational comedy. Cream-stone town hall with blue-gray tiled clocktower, red-roof timber cottages, green plants, stone and dirt lanes. Clocks have simple hands and marks, no numerals. No injury or ominous horror. NO READABLE TEXT anywhere: no lettering, words, numbers, logos, captions, speech balloons, watermark, outer border or frame. Every decree/notebook contains only a FEW ABSTRACT WAVY INK STROKES, never letter-like calligraphy or typographic rows. Seals are plain wax shapes without inscriptions or logos. Important faces, hands and decree visible in the upper three-quarters, simple continuous foreground along the bottom quarter; do not cover or crop hands/faces. Anatomically coherent hands, one complete scroll per decree, no duplicated faces.\nReferences: image1 the approved rank1 sets exact messenger, chief, Marta, village identity and painted style. Image2 canonical characters sheet is for the stated characters only; do not include all its people. Image3 canonical Marta close-up.\nCHIEF: exactly portrait-chief.webp: earnest slim clean-shaven young man around25, large warm brown eyes, short tousled CURLY CHESTNUT BROWN hair, MOSS GREEN toggle waistcoat over loose rolled-sleeve ivory shirt, tan trousers and brown boots. Endearing inexperienced expression.\nMARTA: exactly portrait-marta.webp: tiny short plump elderly grandmother, round rosy kind face, SILVER-WHITE hair tied in bun, cream blouse, muted plum shawl and long skirt, cream apron with peach and pink floral pattern. No wizard costume.\nROYAL MESSENGER: an original lean middle-aged man with small chestnut mustache and weathered kind face, modest dusty muted-blue knee-length courier tunic, worn ocher shoulder cape, plain brown leather belt/pouch and dusty brown boots, simple blue soft cap. His clothes and hems have pale road dust. No armor, no lavish royal costume, no insignia or text. Hold decree naturally with two hands.\nTwo additional canonical villagers from character sheet: GUNTER tall lean man, silver-gray shaggy hair covering eyes, old brown leather vest, beige shirt, plain woodcutter axe strapped on back. BRUNO very broad gentle middle-aged man, short brown hair and beard, blue-gray work overalls over beige shirt.\nSCENE rank2 'Village promotion': a cheerful small-town award ceremony in the clocktower town-hall square. Foreground LEFT the SAME courier proudly holds an unrolled decree at chest height toward chief and viewer: EXACTLY TWO DISTINCT ROUND RED WAX SEALS side by side near its lower edge, few wavy lines above, absolutely no legible writing. Chief beside him beams and applauds. Foreground middle-right MARTA smiles and points one clearly extended arm toward a newly installed SMALL ROUND STONE FOUNTAIN right next to her; the compact fountain's shallow circular basin and modest water spout are fully identifiable. Her pointing gesture should unmistakably target the fountain. Behind, Gunter and Bruno and exactly TWO ordinary adult village extras clap warmly, spaced apart with distinct faces. Other canonical sheet people Pino and Barg are NOT present. The same cream-stone blue-gray clocktower hall stands behind the little fountain, red-roof cottages, a tidier courtyard, daisies and simple flower pots. Bright warm spring afternoon. Joyful but still modest, no city walls, trumpeters or huge golden flags yet. Camera slightly wider than rank1 to show the clapping gathering and full fountain. Main three people's faces, TWO seals and pointing hand all unobscured.",
+      "referenceImages": [
+        "assets/ranks/rank1.webp",
+        "assets/story/characters.webp",
+        "assets/story/portrait-marta.webp"
+      ],
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "width": 1200,
+        "height": 800,
+        "opaque": true
+      }
+    },
+    {
+      "id": "rank3",
+      "title": "읍 승격",
+      "prompt": "Use case: illustration-story. Asset: one original narrative rank-promotion illustration for the same medieval village mobile game, WIDE LANDSCAPE 3:2, intended final 1200x800. Fully opaque full-bleed painted scenery, no transparency. Match the supplied canonical story scenes' warm hand-painted STORYBOOK watercolor/gouache, delicate organic brown outlines, softly textured brushwork on paper, charming original faces, weathered medieval wood and cream stone, warm natural light. No pixel art, anime, flat vector, glossy 3D or photorealism. Human facial features and outfits match the individual portrait references exactly. The scene references set painterly style and village architecture, not permission to duplicate their composition or action. Cozy affectionate observational comedy. Cream-stone town hall with blue-gray tiled clocktower, red-roof timber cottages, green plants, stone and dirt lanes. Clocks have simple hands and marks, no numerals. No injury or ominous horror. NO READABLE TEXT anywhere: no lettering, words, numbers, logos, captions, speech balloons, watermark, outer border or frame. Every decree/notebook contains only a FEW ABSTRACT WAVY INK STROKES, never letter-like calligraphy or typographic rows. Seals are plain wax shapes without inscriptions or logos. Important faces, hands and decree visible in the upper three-quarters, simple continuous foreground along the bottom quarter; do not cover or crop hands/faces. Anatomically coherent hands, one complete scroll per decree, no duplicated faces.\nReferences: image1 approved rank1 for the EXACT SAME MESSENGER and painted village identity, do not copy its people/composition. Image2 canonical Elise identity. Image3 canonical Pino identity. Image4 v2-ep01 sets painted storybook finish.\nROYAL MESSENGER: an original lean middle-aged man with small chestnut mustache and weathered kind face, modest dusty muted-blue knee-length courier tunic, worn ocher shoulder cape, plain brown leather belt/pouch and dusty brown boots, simple blue soft cap. His clothes and hems have pale road dust. No armor, no lavish royal costume, no insignia or text. Hold decree naturally with two hands.\nELISE: exactly portrait-elise.webp: adult woman late20s, dark NAVY hair in a tidy low bun with one curl, thin round metal-rim glasses, hazel eyes, navy royal inspector coat with brass buttons and ivory collar, brown leather folio; principled suspicious and slightly awkward. No readable insignia.\nPINO: exactly portrait-pino.webp: slim merchant around30, BLACK curly hair, long forest-green scarf, ocher-brown traveling coat over ivory shirt, large laden backpack with pots and rolled blanket. Charming shrewd merchant smile.\nSCENE rank3 'Town promotion': a BUSY but cozy medieval MARKET STREET, with striped warm cream-and-russet stall awnings, baskets of apples, loaves, folded cloth, wooden carts, half-timber red-roof houses; the familiar blue-gray clocktower peeks above rooftops in the distance. Foreground center-left the same mustached blue-capped courier holds a substantial unrolled ivory decree, visibly TILTS HIS HEAD and raises one puzzled eyebrow as if wondering how this village grew so fast. His scroll shows only loose wavy pen strokes and plain wax seals, no letters. Immediately BEHIND his left shoulder stands ELISE, clearly visible with navy bun and round glasses, brows furrowed, diligently writing with a quill in a small brown notebook held in her other hand. Notebook marks are only wavy strokes. Foreground right PINO, black curls and long green scarf, laden backpack, offers a broad practiced MERCHANT SMILE with one open palm above his stall of ordinary pots and goods; he looks knowingly delighted by the new customers. These THREE recognizable characters anchor the scene, no chief, Marta or Barg in this picture. Exactly FIVE smaller noncanonical adult townspeople/shoppers form a believable bustling background, distinct faces and clothes, no clones, no one obstructing the main faces, notebook or decree. Sunlit late afternoon, a step livelier and more prosperous than rank2. Gentle comedy and natural body language, no exaggerated effects. Clearly show courier puzzlement, Elise's serious note-taking and Pino's salesman's smile in the same frame.",
+      "referenceImages": [
+        "assets/ranks/rank1.webp",
+        "assets/story/portrait-elise.webp",
+        "assets/story/portrait-pino.webp",
+        "assets/story/v2/ep01.webp"
+      ],
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "width": 1200,
+        "height": 800,
+        "opaque": true
+      }
+    },
+    {
+      "id": "rank4",
+      "title": "성읍 승격",
+      "prompt": "Use case: illustration-story. Asset: one original narrative rank-promotion illustration for the same medieval village mobile game, WIDE LANDSCAPE 3:2, intended final 1200x800. Fully opaque full-bleed painted scenery, no transparency. Match the supplied canonical story scenes' warm hand-painted STORYBOOK watercolor/gouache, delicate organic brown outlines, softly textured brushwork on paper, charming original faces, weathered medieval wood and cream stone, warm natural light. No pixel art, anime, flat vector, glossy 3D or photorealism. Human facial features and outfits match the individual portrait references exactly. The scene references set painterly style and village architecture, not permission to duplicate their composition or action. Cozy affectionate observational comedy. Cream-stone town hall with blue-gray tiled clocktower, red-roof timber cottages, green plants, stone and dirt lanes. Clocks have simple hands and marks, no numerals. No injury or ominous horror. NO READABLE TEXT anywhere: no lettering, words, numbers, logos, captions, speech balloons, watermark, outer border or frame. Every decree/notebook contains only a FEW ABSTRACT WAVY INK STROKES, never letter-like calligraphy or typographic rows. Seals are plain wax shapes without inscriptions or logos. Important faces, hands and decree visible in the upper three-quarters, simple continuous foreground along the bottom quarter; do not cover or crop hands/faces. Anatomically coherent hands, one complete scroll per decree, no duplicated faces.\nReferences: image1 v2-ep03 for warm golden storybook brushwork and village architecture, NOT the dragon/action. Image2 exact chief portrait. Image3 exact Barg portrait. Image4 exact Elise portrait. Image5 approved rank3 for continuity of painted style and Elise.\nCHIEF: exactly portrait-chief.webp: earnest slim clean-shaven young man around25, large warm brown eyes, short tousled CURLY CHESTNUT BROWN hair, MOSS GREEN toggle waistcoat over loose rolled-sleeve ivory shirt, tan trousers and brown boots. Endearing inexperienced expression.\nBARG: exactly portrait-barg.webp: massive broad intimidating middle-aged man, thick short dark brown beard, burgundy/red headscarf with tiny horn-shaped bumps under it, dark rolled-sleeve shirt, worn tan apron. Stern, reliable, arms crossed.\nELISE: exactly portrait-elise.webp: adult woman late20s, dark NAVY hair in a tidy low bun with one curl, thin round metal-rim glasses, hazel eyes, navy royal inspector coat with brass buttons and ivory collar, brown leather folio; principled suspicious and slightly awkward. No readable insignia.\nSCENE rank4 'Walled-city promotion': GRAND BUT COZY FESTIVAL at the gate of the now thriving village. New cream-stone CITY WALLS and a broad welcoming arched gate frame the scene, the familiar blue-gray clocktower and red roof cottages visible inside. Two LARGE PLAIN GOLDEN SILK FLAGS fly high on poles, glowing in warm golden late-afternoon sunlight; flags contain NO EMBLEM, logo or text. Garlands of flowers, festive bunting and lanterns, a modest cheerful crowd in the distance. Front CENTER the CHIEF stands in his unchanged simple moss vest, looking adorably BEWILDERED with raised brows and a tiny uncertain open mouth, holding a large unrolled GOLDEN DECREE with warm gold-tinted parchment, gold leaf decoration along its paper edges, a plain gold wax seal, and ONLY three or four abstract dark wavy strokes instead of writing. The precious decree contrasts with his humble clothes. Front RIGHT the massive BARG, burgundy headscarf, dark beard and stained tan apron, stands with both ARMS CROSSED and a stoic deadpan frown, no smile. Front LEFT slightly behind chief, ELISE in navy bun, round glasses and navy coat visibly SIGHS with gently lowered shoulders, half-closed exasperated eyes and one hand at her temple, other arm holding brown notebook. Two ROYAL TRUMPETERS in tasteful cream-and-gold medieval livery stand behind them on gate steps, one on each side, blowing long brass herald trumpets with small PLAIN gold pennants, no heraldic marks. The three main personalities must dominate and trumpets do not obscure faces. No courier/Pino/Marta in foreground, no dragon, no battle or weapons. Festive joyful golden atmosphere with affectionate comic contrast: confused chief, unfazed Barg, sighing Elise. Faces, golden decree and arms fully legible in upper three quarters, full bleed landscape3:2.",
+      "edits": [
+        "Use case: precise-object-edit. Edit this exact approved storybook rank-promotion scene with the smallest possible correction: REMOVE ONLY the small white cartoon breath/sigh puff floating immediately to the left of the navy-haired woman with glasses. Fill that tiny area naturally with the existing background stone and distant scenery. Keep her exasperated sigh expressed through her closed eyes and hand at temple, WITHOUT a drawn icon, breath cloud, speech bubble or comic effect. Preserve EVERYTHING ELSE: exact faces and outfits of chief, Elise and Barg; their poses, golden scroll with three abstract wavy strokes, crossed arms, two trumpeters, gold flags, city gate, crowd, light, brush texture, framing and colors. Do not redraw or alter any other object. Fully opaque, full-bleed 3:2 landscape, no lettering, logos, watermark or border."
+      ],
+      "referenceImages": [
+        "assets/story/v2/ep03.webp",
+        "assets/story/portrait-chief.webp",
+        "assets/story/portrait-barg.webp",
+        "assets/story/portrait-elise.webp",
+        "assets/ranks/rank3.webp"
+      ],
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "export": {
+        "format": "webp",
+        "quality": 82,
+        "width": 1200,
+        "height": 800,
+        "opaque": true
+      }
+    }
+  ],
+  "referenceCommit": "1aa103ecfd30ed33d13eada6793e0ec22191add1"
+}
