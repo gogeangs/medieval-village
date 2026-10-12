@@ -334,5 +334,137 @@
     "height": 369,
     "bytes": 38170,
     "alphaZeroFraction": 0.595
+  },
+  {
+    "id": "mill",
+    "file": "./assets/illustrations/mill.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 113982,
+    "alphaZeroFraction": 0.3781,
+    "crop": [
+      0,
+      200,
+      512,
+      504
+    ],
+    "topPadding": 200,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "mill-winter",
+    "file": "./assets/illustrations/mill-winter.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 103482,
+    "alphaZeroFraction": 0.3816,
+    "crop": [
+      1,
+      194,
+      511,
+      510
+    ],
+    "topPadding": 194,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "smithy",
+    "file": "./assets/illustrations/smithy.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 137074,
+    "alphaZeroFraction": 0.2449,
+    "crop": [
+      0,
+      82,
+      512,
+      622
+    ],
+    "topPadding": 82,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "smithy-winter",
+    "file": "./assets/illustrations/smithy-winter.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 118436,
+    "alphaZeroFraction": 0.2369,
+    "crop": [
+      0,
+      74,
+      512,
+      630
+    ],
+    "topPadding": 74,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "ranch",
+    "file": "./assets/illustrations/ranch.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 122596,
+    "alphaZeroFraction": 0.2908,
+    "crop": [
+      0,
+      170,
+      512,
+      534
+    ],
+    "topPadding": 170,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "ranch-winter",
+    "file": "./assets/illustrations/ranch-winter.webp",
+    "width": 512,
+    "height": 704,
+    "bytes": 109896,
+    "alphaZeroFraction": 0.2778,
+    "crop": [
+      0,
+      162,
+      512,
+      542
+    ],
+    "topPadding": 162,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
   }
 ]

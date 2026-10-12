@@ -289,6 +289,138 @@
         3,
         2
       ]
+    },
+    {
+      "id": "mill-l2",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. LEVEL TWO GRAIN MILL: preserve brown tiled roof, left stone chimney, central door, large gray grinding wheel on right, wheat sacks at lower left. Repair and reinforce stone foundation and timber bracing. Add a second small attic grain-storage window/dormer to the roof and a short sturdy roofed loading awning over the grain sacks. Wheel gains a simple visible wooden gear housing, same signature stone wheel remains dominant. A little more stored wheat and a tidy wooden grain hopper beside it. Modest expansion only, clear step up from level one, not an entirely different grand building.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/mill.webp",
+        "assets/illustrations/levels/house-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        5,
+        117,
+        1060,
+        1275
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 14145
+    },
+    {
+      "id": "mill-l3",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. Inputs: image 1 canonical new mill LEVEL ONE, image 2 approved new mill LEVEL TWO. LEVEL THREE GRAIN MILL: develop level two into the village's proud compact mill, not a castle. Keep warm brown tiles, large right gray millstone and wooden gear, left stone chimney, center stone arch entrance and covered left grain sacks. Raise a modest upper grain-storage wall tier with two small shuttered windows beneath the same brown roof and two attic dormers. Refined stone pillars, sturdy carved timber braces, tidy upgraded grain hopper, small brass wheat-ear pictogram ornament above entrance (symbol only, no letters). A few restrained flower boxes at upper windows. Machinery remains compact and legible; big gray stone wheel must remain visible. Same width footprint, modestly taller than level two, no extra side building, no windmill blades, no river, no waterwheel.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/mill.webp",
+        "assets/illustrations/levels/mill-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        4,
+        43,
+        1065,
+        1393
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 11638
+    },
+    {
+      "id": "smithy-l2",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. LEVEL TWO BLACKSMITH: preserve this new smithy's BLUE-GRAY tiled roof, huge left square stone chimney, central orange forge and ANVIL on wooden block, and stacked iron bars at front right. Reinforce the stone entrance arch and chimney masonry, add a shallow sturdy blue-gray tiled WORK AWNING over the forge entrance and tool rack. Add a second small attic window within the roof. Front work area is more orderly with visible bellows, a compact rack of hammers and tongs; retain original anvil symbol hanging sign with no text. No weapons or people. Building modestly taller and richer than level one but NOT broader than its 2x2 footprint, no attached wing.\n\nFinal correction: Use case: precise-object-edit. Edit this exact transparent blacksmith building sprite. CRITICAL CORRECTION ONLY: the tall left chimney's BACK RIM IS CUT OFF BY THE TOP OF THE CANVAS. Complete the entire missing top of the tall stone chimney, with all four edges of its square top opening visible, consistent with the existing light source and perspective. Give the whole building 6% transparent safety margin around ALL SIDES so NO part touches or crosses the image border, especially the top chimney. Scale the whole intact building slightly smaller within the image if needed. Preserve EVERYTHING else exactly: the architecture, roof tiles, windows, props, forge, anvil, colors, frontal elevated camera and beautiful hand-painted style. Do not redesign or add objects. TRUE transparent alpha. No background, ground, shadow, text or border. The entire chimney and foundation must be complete.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/smithy.webp",
+        "assets/illustrations/levels/house-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        77,
+        66,
+        918,
+        1284
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 10512
+    },
+    {
+      "id": "smithy-l3",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. Inputs: image 1 canonical new smithy LEVEL ONE, image 2 approved new smithy LEVEL TWO. LEVEL THREE BLACKSMITH: proud master craftsman's workshop. Keep BLUE-GRAY tile roof, left heavy square stone chimney, central open orange-lit forge, front anvil, right iron-bar storage, anvil pictogram hanging sign. Add a modest upper workshop wall tier with two windows, improve refined stone corner piers, ornate but rustic carved timber bracing, a small second flue on the right. Roofed forge-work awning extends across lower facade within existing foundation width. Neatly hung tongs/hammers and small bellows; no weapon racks. A restrained bronze anvil-shaped roof ornament, no writing. Taller and more prestigious than level two, same intimate village building identity, NO side wings and NO roof cropped by image edge. Entire two chimneys inside frame with space above.\n\nFinal corrections: Use case: precise-object-edit. Edit this exact transparent blacksmith building sprite. CRITICAL CORRECTION ONLY: the tall left chimney's BACK RIM IS CUT OFF BY THE TOP OF THE CANVAS. Complete the entire missing top of the tall stone chimney, with all four edges of its square top opening visible, consistent with the existing light source and perspective. Give the whole building 6% transparent safety margin around ALL SIDES so NO part touches or crosses the image border, especially the top chimney. Scale the whole intact building slightly smaller within the image if needed. Preserve EVERYTHING else exactly: the architecture, roof tiles, windows, props, forge, anvil, colors, frontal elevated camera and beautiful hand-painted style. Do not redesign or add objects. TRUE transparent alpha. No background, ground, shadow, text or border. The entire chimney and foundation must be complete.\n\nFinal growth adjustment: Use case: precise-object-edit. This is the approved LEVEL THREE blacksmith building sprite. Make ONE structural change: increase its height by adding a clearly visible EXTRA UPPER WORKSHOP WALL BAND between the upper main blue-gray tiled roof and the lower porch awning, about 15% of the total building height. The two upper windows should belong to a tall timber-and-stone wall story rather than being almost wholly in the roof. Move the entire original roof/chimneys/bronze anvil finial UP to accommodate this real extra wall height, preserving their sizes, NOT stretching existing pixels. Keep foundation width and all lower forge/anvil/bars positions unchanged. At identical width the final silhouette should be notably taller, about height 1.6 times width (roughly 512x810 once cropped). Do not widen building. Keep exactly same blue-gray roofs, two chimneys complete, central orange forge, hanging anvil pictogram, upper-left light and finely brushed storybook style. Same zero-yaw FRONT ELEVATED 40deg orthographic square-grid camera, all front eaves and main ridge horizontal. Transparent background, no ground or shadow, no writing or people. Full building including both chimneys inside portrait canvas with generous margin on all sides.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/smithy.webp",
+        "assets/illustrations/levels/smithy-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        997,
+        1577
+      ],
+      "sourceCrop": [
+        45,
+        45,
+        907,
+        1467
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 11550
+    },
+    {
+      "id": "ranch-l2",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. LEVEL TWO SHEEP RANCH: preserve this new ranch's RED terracotta roof, warm wooden barn, low straight front pen fence, golden hay bales, water barrel, and EXACTLY THREE sheep (two standing and center one resting), full faces visible. Upgrade with a modest taller hayloft and two small attic hay-storage openings rather than one, stronger wood framing, refined stone base corners, a short red-tile shelter awning protecting the sheep and a tidy wooden hayrack beside the door. Same compact shallow front pen, sheep do not move outside building width, no pasture or soil island. One cohesive cute working barn, humble rustic feel, modestly taller and more detailed than level one; keep all sheep visible above low fence. Full roof inside canvas with margin.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/ranch.webp",
+        "assets/illustrations/levels/house-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1207,
+        1303
+      ],
+      "sourceCrop": [
+        18,
+        41,
+        1132,
+        1231
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 9275
+    },
+    {
+      "id": "ranch-l3",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. Use case additionally: precise-object-edit upgrade. Image 1 is the exact NEW LEVEL ONE building; keep it immediately recognizable through roof palette, wall material, original entrance and signature props. Image 2 if supplied is this building's approved LEVEL TWO, the direct evolution reference; other canonical house upgrade reference is for degree of detail only. UPGRADE within exactly the same compact 2x2 square footprint and same front camera; do not grow sprawling side wings. Grow modestly upwards and refine attached details. Preserve frontal silhouette with zero yaw and horizontal ridge/eaves. This is a non-winter version, NO SNOW. No ground, detached cast shadow, people, text or numerals. Inputs: image 1 canonical new ranch LEVEL ONE, image 2 approved new ranch LEVEL TWO. LEVEL THREE SHEEP RANCH: keep red tiles, warm brown timber barn, shallow low front fence, exactly THREE sheep in same positions, water barrel and golden hay. Raise the barn's hayloft storage tier modestly and add a SMALL square timber roof ventilator/cupola with a red tiled cap centered over horizontal main ridge. Two symmetrical hayloft dormers below it. Refined timber braces, sturdier carved low fence, flower troughs tucked on left and right fence posts without hiding sheep, generous organized hayrack, short red-tiled front shelter awning. A small carved sheep pictogram above double entrance (symbol only). Proud but still cozy working ranch, same width 2x2 footprint, no pasture/ground/side wings. All THREE sheep full faces visible and complete in frame; exactly two standing and one center seated. Level three looks modestly taller than level two. Entire small cupola must have generous transparent margin above and roof not cropped.\n\nFinal corrections: Use case: precise-object-edit. This is the approved LEVEL THREE sheep ranch sprite. Make ONE clear structural growth change: add a visible extra HAYLOFT TIMBER WALL TIER between the broad red main roof and the lower red porch awning, containing two small hay-storage windows and tasteful wooden cross braces. Move the entire upper red roof, its two existing dormers and small cupola UP to create this real extra storage height. Keep roof and foundation WIDTH unchanged. Final building should be about 20% TALLER at same width, silhouette roughly 512x660 when cropped. Do NOT stretch existing pixels; paint a coherent new wooden tier. Preserve the lower barn doorway, sheep face pictogram, fence flower boxes, water barrel, hayrack, EXACTLY THREE sheep in their current poses, all original material colors, upper-left lighting and finely painted warm storybook style. Same zero-yaw 40deg FRONT ELEVATED orthographic square-grid view, front foundation/eave/main ridge horizontal. No side wings, no ground island, no shadow, no people or text. TRUE transparent alpha. Full building and entire cupola intact with generous empty margin on all sides.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/ranch.webp",
+        "assets/illustrations/levels/ranch-l2.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1104,
+        1424
+      ],
+      "sourceCrop": [
+        26,
+        17,
+        1053,
+        1379
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 11184
     }
   ]
 }

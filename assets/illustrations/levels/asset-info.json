@@ -264,5 +264,137 @@
       3,
       2
     ]
+  },
+  {
+    "id": "mill-l2",
+    "file": "./assets/illustrations/levels/mill-l2.webp",
+    "width": 512,
+    "height": 616,
+    "bytes": 85486,
+    "alphaZeroFraction": 0.1081,
+    "crop": [
+      0,
+      0,
+      512,
+      616
+    ],
+    "topPadding": 0,
+    "quality": 76,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "mill-l3",
+    "file": "./assets/illustrations/levels/mill-l3.webp",
+    "width": 512,
+    "height": 670,
+    "bytes": 86946,
+    "alphaZeroFraction": 0.1109,
+    "crop": [
+      0,
+      0,
+      512,
+      670
+    ],
+    "topPadding": 0,
+    "quality": 73,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "smithy-l2",
+    "file": "./assets/illustrations/levels/smithy-l2.webp",
+    "width": 512,
+    "height": 716,
+    "bytes": 89846,
+    "alphaZeroFraction": 0.1476,
+    "crop": [
+      0,
+      0,
+      512,
+      716
+    ],
+    "topPadding": 0,
+    "quality": 76,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "smithy-l3",
+    "file": "./assets/illustrations/levels/smithy-l3.webp",
+    "width": 512,
+    "height": 828,
+    "bytes": 89242,
+    "alphaZeroFraction": 0.1529,
+    "crop": [
+      0,
+      0,
+      512,
+      828
+    ],
+    "topPadding": 0,
+    "quality": 67,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "ranch-l2",
+    "file": "./assets/illustrations/levels/ranch-l2.webp",
+    "width": 512,
+    "height": 557,
+    "bytes": 83492,
+    "alphaZeroFraction": 0.0611,
+    "crop": [
+      0,
+      0,
+      512,
+      557
+    ],
+    "topPadding": 0,
+    "quality": 82,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "ranch-l3",
+    "file": "./assets/illustrations/levels/ranch-l3.webp",
+    "width": 512,
+    "height": 671,
+    "bytes": 87398,
+    "alphaZeroFraction": 0.1469,
+    "crop": [
+      0,
+      0,
+      512,
+      671
+    ],
+    "topPadding": 0,
+    "quality": 79,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
   }
 ]

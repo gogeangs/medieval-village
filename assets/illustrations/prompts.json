@@ -417,6 +417,138 @@
       "references": [
         "exec-baed1648-3132-4f11-bc7d-15a809ee8ea1.png"
       ]
+    },
+    {
+      "id": "mill",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. References 1 house and 2 lumber establish EXACT camera and finish, not subjects to copy. NEW SUBJECT: a small rustic GRAIN MILL built of cream-gray stone and warm brown timber. A warm dark-brown tiled roof with horizontal main ridge, one modest central dormer, arched timber entrance, a LARGE circular gray carved MILLSTONE wheel mounted snugly at the right-hand side of the building in an open shallow side bay (solid heavy grooved stone grinding wheel, NOT a water wheel, NOT windmill blades). A few burlap wheat/grain sacks piled immediately by the door and golden wheat sticking from one sack. Sturdy small-scale functional village mill, no stream or water, no signs needed. Keep the millstone clearly readable at small size without changing the straight-on building camera.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/house.webp",
+        "assets/illustrations/lumber.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1471
+      ],
+      "sourceCrop": [
+        6,
+        417,
+        1058,
+        1042
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 12871
+    },
+    {
+      "id": "mill-winter",
+      "prompt": "Use case: lighting-weather. Image 1 is the EXACT NEW BUILDING to edit; Image 2 is the canonical house winter sprite as a snow treatment reference ONLY. Make a WINTER variant of image 1. Preserve the exact building geometry, outline proportions, camera (front elevated 40 degrees, ZERO yaw), perfectly horizontal front foundation/eave/main roof ridge, all object positions, roofing color, wall materials, outlines and painted texture. Add modest fluffy ivory snow resting on roof tile upper faces, roof ridge, chimney top if present, props and the ground-contact threshold at the bottom. Keep much colored tile visible like reference 2. No architecture changes, no camera changes, no new or removed props. Snow remains within the same compact square footprint. TRUE TRANSPARENT alpha outside sprite; do not add a landscape, ground island, falling snow particles, sky, shadow plane, haze, text, numbers or border. Same upper-left lighting. Full intact silhouette with tiny safety margin. Preserve this grain mill's large gray grinding stone and sacks, brown tiled roof, central dormer and left chimney exactly. Keep stone wheel exposed and recognizable, put snow only on upper-facing supports, sacks and steps.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/mill.webp",
+        "assets/illustrations/house-winter.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        3,
+        372,
+        1058,
+        1053
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 12664
+    },
+    {
+      "id": "smithy",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. References 1 bakery and 2 tavern establish exact camera and hand-painted finish, not subjects to duplicate. NEW SUBJECT: a small cozy village BLACKSMITH SHOP, compact stout cream-gray stone walls with dark timber supports, a BLUE-GRAY tiled roof with exactly horizontal ridge and eave, LARGE square stone chimney on the left. Wide open arched entrance reveals a small forge glowing orange inside. In front of the opening a clearly recognizable iron ANVIL on a short wooden block, tucked inside facade width; neatly stacked iron bars and tongs at the right front. Modest smaller window, subtle lantern. No giant sparks, no floating fire, no smoke plume, no people, no writing. The anvil and orange forge should instantly identify a smithy. Roof takes generous upper area like the canonical buildings; front bottom edge is flat horizontal.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/bakery.webp",
+        "assets/illustrations/tavern.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1471
+      ],
+      "sourceCrop": [
+        12,
+        168,
+        1049,
+        1275
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 15259
+    },
+    {
+      "id": "smithy-winter",
+      "prompt": "Use case: lighting-weather. Image 1 is the EXACT NEW BUILDING to edit; Image 2 is the canonical house winter sprite as a snow treatment reference ONLY. Make a WINTER variant of image 1. Preserve the exact building geometry, outline proportions, camera (front elevated 40 degrees, ZERO yaw), perfectly horizontal front foundation/eave/main roof ridge, all object positions, roofing color, wall materials, outlines and painted texture. Add modest fluffy ivory snow resting on roof tile upper faces, roof ridge, chimney top if present, props and the ground-contact threshold at the bottom. Keep much colored tile visible like reference 2. No architecture changes, no camera changes, no new or removed props. Snow remains within the same compact square footprint. TRUE TRANSPARENT alpha outside sprite; do not add a landscape, ground island, falling snow particles, sky, shadow plane, haze, text, numbers or border. Same upper-left lighting. Full intact silhouette with tiny safety margin. Preserve this smithy's blue-gray tiled roof, large left chimney, central forge entrance, anvil and iron bars. Snow rests on roof and outside threshold/props ONLY. Forge remains bright orange, inside the open doorway no snow and anvil working surface uncovered.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/smithy.webp",
+        "assets/illustrations/house-winter.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        9,
+        148,
+        1060,
+        1304
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 15469
+    },
+    {
+      "id": "ranch",
+      "prompt": "Use case: illustration-story. Asset type: one isolated transparent building sprite for the same medieval village mobile game as the attached references. Match the references' warm detailed hand-painted storybook watercolor/gouache textures, softly outlined timber and cut stone, rounded individual roof tiles, natural brush grain and cozy original design. NOT pixel art, NOT flat vector, NOT glossy 3D, NOT anime. Camera is centered DIRECTLY IN FRONT, yaw zero, elevated 40 degrees looking down, orthographic on an axis-aligned SQUARE grid. The entrance facade faces screen bottom straight on. Front foundation edge, eaves and main ridge perfectly HORIZONTAL. Roof top broadly visible; no corner-facing/isometric/diamond composition, no diagonal main roof ridge, no prominent sidewall. Warm upper-left light, subtle right self-shadow. Compact 2x2-tile SQUARE footprint, accessories tucked within building width, one unified game sprite, no sprawling scenic island. TRUE TRANSPARENT ALPHA background and gaps; no backdrop, no floor cast shadow, no ground plane, no people, no floating debris, no smoke, no text, lettering, numbers, logo, border or watermark. Full intact silhouette, generous roof visibility, flat bottom contact, tiny safety margin. House-like portrait composition. References 1 house and 2 lumber establish exact camera and painted finish. NEW SUBJECT: a SMALL SHEEP RANCH: warm wooden barn with RED terracotta tiled roof, straight horizontal main ridge, wooden double entrance with one open doorway, small central hayloft dormer. Low timber pen fence across the lower front with straight horizontal front rail; exactly THREE small woolly cream-colored SHEEP with gentle faces clearly visible inside, two standing and one sitting; golden hay bales tucked at the sides of the barn entrance. Barn and very shallow enclosed front pen fit tightly in one 2x2 square tile footprint, no extended pasture, no landscape or grass island. A compact attached wooden plank threshold/base may carry the sheep and hay; no soil backdrop. Sheep stay within fence/building width. Rustic and cozy, recognizable low wooden livestock barn rather than fancy house. No people. Broad roof visible from elevated camera, square aligned flat-bottom silhouette.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/house.webp",
+        "assets/illustrations/lumber.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1207,
+        1303
+      ],
+      "sourceCrop": [
+        21,
+        59,
+        1165,
+        1214
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 9739
+    },
+    {
+      "id": "ranch-winter",
+      "prompt": "Use case: lighting-weather. Image 1 is the EXACT NEW BUILDING to edit; Image 2 is the canonical house winter sprite as a snow treatment reference ONLY. Make a WINTER variant of image 1. Preserve the exact building geometry, outline proportions, camera (front elevated 40 degrees, ZERO yaw), perfectly horizontal front foundation/eave/main roof ridge, all object positions, roofing color, wall materials, outlines and painted texture. Add modest fluffy ivory snow resting on roof tile upper faces, roof ridge, chimney top if present, props and the ground-contact threshold at the bottom. Keep much colored tile visible like reference 2. No architecture changes, no camera changes, no new or removed props. Snow remains within the same compact square footprint. TRUE TRANSPARENT alpha outside sprite; do not add a landscape, ground island, falling snow particles, sky, shadow plane, haze, text, numbers or border. Same upper-left lighting. Full intact silhouette with tiny safety margin. Preserve this ranch's red tiled roof, warm timber barn, small hayloft opening, open double door and LOW FRONT FENCE, exactly THREE sheep in their exact same poses and positions, hay bales and water barrel. Keep sheep cozy and visible, no snow over faces. Modest snow on roof, outer top fence rails and outside lower threshold. Hay inside shelter remains golden and dry. Do not add or remove animals.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/ranch.webp",
+        "assets/illustrations/house-winter.webp"
+      ],
+      "referenceCommit": "80d9ed0ba195c8a7d6d7918082af95b6dc215115",
+      "sourceDimensions": [
+        1207,
+        1303
+      ],
+      "sourceCrop": [
+        21,
+        41,
+        1165,
+        1233
+      ],
+      "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
+      "removedLowAlphaPixels": 10941
     }
   ]
 }
