@@ -535,9 +535,11 @@ function normalizeDecor(d,tiles){
   const bag=d.decorBag||{};d.decorBag=Object.fromEntries(Object.keys(DECOR).map(k=>[k,Number.isSafeInteger(bag[k])?Math.max(0,Math.min(9999,bag[k])):0]));
   d.decorNext=Math.max(1,...d.decor.map(v=>v.id+1));return d;
 }
-const TROPHY_IM={};
+const TROPHY_IM={},XART={};
+function loadExtraArt(){fetch('./assets/extras/index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||typeof j!=='object')return;for(const[k,f]of Object.entries(j)){if(typeof f!=='string'||!/^[\w.-]+\.webp$/.test(f))continue;const im=new Image();im.decoding='async';im.onload=()=>{XART[k]=im;if(k.startsWith('cave')){for(const x in CAVE_IMG)delete CAVE_IMG[x];for(const x in CAVE_URL)delete CAVE_URL[x]}if(k==='plinth'){for(const[dk,d]of Object.entries(DECOR))if(d.trophy){if(SP&&SP.decor)SP.decor[dk]=decorFallback(dk);DECORURL[dk]=tightThumb(decorFallback(dk))}}};im.src='./assets/extras/'+f}}).catch(()=>{})}
 function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
   softShadow(g,d.w/2,d.h-1,d.w*.42,1);
+  if(d.trophy&&XART.plinth){const P=XART.plinth,pw=28,ph=pw*P.naturalHeight/P.naturalWidth;g.imageSmoothingQuality='high';g.drawImage(P,(d.w-pw)/2,d.h-ph,pw,ph);const im=TROPHY_IM[d.trophy];if(im&&im.complete&&im.naturalWidth)g.drawImage(im,1,0,30,d.h-ph+2);return}
   if(d.trophy){roundBox(g,4,d.h-9,24,8,1.2,wash(g,4,d.h-9,24,8,'#d8ccb0','#a8997c'),'#6f6656',.45);roundBox(g,2.5,d.h-3.4,27,2.6,.8,'#b9ad93','#6f6656',.35);roundBox(g,6.5,d.h-12,19,3.4,.8,'#cfc3a6','#6f6656',.35);ellipse(g,16,d.h-5.2,3.4,1.2,'#d4a63a','#7a5f2c',.3);const im=TROPHY_IM[d.trophy];if(im&&im.complete&&im.naturalWidth){g.imageSmoothingQuality='high';g.drawImage(im,1,0,30,d.h-11)}else{ellipse(g,16,d.h-22,8,9,'#8f897e','#5a5448',.4)}return}
   if(k==='flowercart'){roundBox(g,3,11,25,10,1,'#b69363','#745b41',.5);for(const x of[7,24])ellipse(g,x,23,4,4,'#99784f','#604b36',.7);for(let i=0;i<9;i++){ellipse(g,6+i%5*4,9+(i%3)*2,3,3,'#789157');ellipse(g,6+i%5*4,8+(i%3)*2,1.3,1.3,i%2?'#efc475':'#dfa291')}}
   else if(k==='picnic'){for(const x of[8,23])roundBox(g,x,7,2,13,.4,'#8a6848');roundBox(g,4,3,25,7,1,'#c3a274','#7d6145',.5);roundBox(g,2,14,28,4,1,'#b38d5f','#7d6145',.5)}
@@ -1288,7 +1290,7 @@ function rankHTML(){const r=rankOf(),R=RANKS[r],next=RANKS[r+1];
  const steps=RANKS.map((x,i)=>`<li class="${i<r?'done':i===r?'on':''}"><i style="--c:${x.col}"></i><span>${x.n}</span></li>`).join('');
  const rows=next?rankRows(r+1).map(([k,a,b,u])=>`<li class="${a>=b?'ok':''}"><span>${a>=b?'✓':'·'} ${k}</span><b>${u==='Lv'?'Lv'+a+' / Lv'+b:a+' / '+b+u}</b></li>`).join(''):'';
  return `<h3 class="sec">마을 등급 <small>${r+1} / ${RANKS.length}</small></h3><div class="rank-card"><ol class="rank-steps">${steps}</ol><p class="rank-now"><b>${R.n}</b> · ${r?R.perk:'칙서를 받으면 생산 보너스가 붙어요'}</p>${next?`<p class="rank-next">다음 등급 <b>${next.n}</b> · ${next.perk}</p><ul class="rank-need">${rows}</ul>`:'<p class="rank-next">최고 등급이에요. 왕국 최고의 ‘평범한’ 마을!</p>'}</div>`}
-function drawRankFlag(now){const r=rankOf();if(r<1)return;const h=S.b.find(b=>b.k==='hall');if(!h)return;const x=h.x*TS-2,y=bBase(h)-1,top=y-22,c=RANKS[r].col,w=Math.sin(now/420)*.9;
+function drawRankFlag(now){const r=rankOf();if(r<1)return;const h=S.b.find(b=>b.k==='hall');if(!h)return;const x=h.x*TS-2,y=bBase(h)-1,top=y-22,c=RANKS[r].col,w=Math.sin(now/420)*.9;{const P=XART['flag'+r];if(P){const fw=12,fh=fw*P.naturalHeight/P.naturalWidth;softShadow(ctx,x,y,4,1.2);ctx.drawImage(P,x-3,y-fh,fw,fh);return}}
  softShadow(ctx,x,y,4,1.2);stroke(ctx,[[x,y],[x,top]],'#5b4632',1.1);ellipse(ctx,x,top-.6,1,1,'#d9b25a');
  shape(ctx,[[x+.5,top+1],[x+9,top+2.4+w],[x+8.2,top+5.4+w],[x+9,top+8.4+w],[x+.5,top+7.4]],c,'#3f2f1c',.35);
  for(let i=0;i<r;i++)ellipse(ctx,x+3+i*1.5,top+4.4+w*.5,.55,.55,'#fff3d0')}
@@ -1334,8 +1336,8 @@ function caveArt(open){return art(32,30,g=>{softShadow(g,16,27,15,3);
  else{for(const[x,y,w,h]of[[10,21,5,4],[15,19,5,4],[19,22,4,3.5],[12,16.5,4,3],[17,15,3.6,3]])roundBox(g,x,y,w,h,1,'#b5ad99','#6f6656',.35);woodBeam(g,[9.5,13.5],[22.5,24],.5)}
  leafSpray(g,3.5,25,2.6,0,5,18);leafSpray(g,28.5,25.5,2.4,0,8,16)})}
 const CAVE_IMG={};const CAVE_URL={},caveURL=open=>CAVE_URL[open]||(CAVE_URL[open]=caveImg(open).toDataURL());
-const caveImg=open=>CAVE_IMG[open]||(CAVE_IMG[open]=caveArt(open));
-function caveGeom(){const img=caveImg(S.dg.open),w=img.width/ART,h=img.height/ART,base=(S.dg.y+2)*TS;return{img,x:S.dg.x*TS+(32-w)/2,y:base-h,w,h,base}}
+const caveImg=open=>CAVE_IMG[open]||(CAVE_IMG[open]=(()=>{const P=XART[open?'cave-open':'cave-closed'];if(!P)return caveArt(open);const W=34*ART,H=Math.round(W*P.naturalHeight/P.naturalWidth);return mk(W,H,(_,g)=>{g.imageSmoothingQuality='high';g.drawImage(P,0,0,W,H)})})());
+function caveGeom(){const img=caveImg(S.dg.open),w=img.width/ART,h=img.height/ART,base=(S.dg.y+2)*TS+(XART[S.dg.open?'cave-open':'cave-closed']?1:0);return{img,x:S.dg.x*TS+(32-w)/2,y:base-h,w,h,base}}
 function drawCave(now){if(!S.dg||S.dg.x==null)return;const G=caveGeom();ctx.drawImage(G.img,G.x,G.y,G.w,G.h);
  if(cellOpen(S.dg.x,S.dg.y)&&(S.dg.open?torchesLeft()>0:can(DG_OPEN_COST))){const bx=G.x+G.w/2,by=G.y-2+Math.sin(now/420)*.8;ellipse(ctx,bx,by,3.6,3.6,'#fff8e6','#bca07b',.4);ellipse(ctx,bx,by+.4,1,1.5,'#f19a3a');ellipse(ctx,bx,by+.6,.5,.8,'#ffe08a')}}
 const dgMeChance=(f,boss)=>Math.max(.2,Math.min(.9,(boss?.55:.75)-(boss?.02:.035)*f+.03*(lv(S.xp.build)-1)+(hasRelic('fang')?.05:0)));
@@ -1421,7 +1423,8 @@ function paintCritter(ctx,k,pose){const peck=k==='hen'&&pose===1,moving=pose===1
  else if(c.k==='duck'){ellipse(ctx,0,bob,2.4,1,'#ffffff30');ellipse(ctx,0,-.8+bob,1.8,1.1,'#f2e6c4','#8b7a55',.2);ellipse(ctx,1.4,-1.9+bob,.8,.75,'#3f7a4a');shape(ctx,[[2.1,-1.9+bob],[3,-1.7+bob],[2.1,-1.5+bob]],'#e3a43a')}
  else{const step=pose?.4:-.2,wag=pose?.6:-.3;softShadow(ctx,0,.5,3,.7);ellipse(ctx,0,-1.8,2.3,1.2,'#b9824e','#6b4a2b',.25);ellipse(ctx,2.2,-2.7,1.1,1,'#b9824e','#6b4a2b',.25);ellipse(ctx,1.9,-3.5,.45,.7,'#7a5332');stroke(ctx,[[-2.2,-2.2],[-3,-3+wag]],'#b9824e',.6);for(const dx of[-1.3,1.2])stroke(ctx,[[dx,-1],[dx+step,.4]],'#7a5332',.45)}}}
 const CRIT={};function critSprite(k,pose){const key=k+pose;if(CRIT[key])return CRIT[key];const c=document.createElement('canvas'),S2=8;c.width=12*S2;c.height=8*S2;const g=c.getContext('2d');g.scale(S2,S2);g.translate(6,6.5);g.lineCap='round';g.lineJoin='round';paintCritter(g,k,pose);return CRIT[key]=c}
-function drawCritter(c,now){const t=now/1000+c.ph,moving=c.wait<=0;let pose=0;if(c.k==='hen')pose=!moving&&Math.sin(t*3)>.6?1:0;else if(c.k==='dog')pose=moving?(Math.sin(t*12)>0?1:0):(Math.sin(t*3)>0?1:0);const im=critSprite(c.k,pose),bob=c.k==='duck'?Math.sin(t*2)*.25:0;
+const CRIT_W={hen:6,sheep:8.5,duck:6,dog:8};
+function drawCritter(c,now){const t=now/1000+c.ph,moving=c.wait<=0;{const P=XART[c.k];if(P){const w=CRIT_W[c.k]||7,h=w*P.naturalHeight/P.naturalWidth,bob=c.k==='duck'?Math.sin(t*2)*.25:moving?-Math.abs(Math.sin(t*(c.k==='dog'?12:8)))*.5:(c.k==='hen'&&Math.sin(t*3)>.6?.6:0);ctx.save();ctx.translate(c.x,c.y+bob);ctx.scale(c.dir,1);if(c.k!=='duck')softShadow(ctx,0,.3,w*.42,.7);ctx.drawImage(P,-w/2,-h+.6,w,h);ctx.restore();return}}let pose=0;if(c.k==='hen')pose=!moving&&Math.sin(t*3)>.6?1:0;else if(c.k==='dog')pose=moving?(Math.sin(t*12)>0?1:0):(Math.sin(t*3)>0?1:0);const im=critSprite(c.k,pose),bob=c.k==='duck'?Math.sin(t*2)*.25:0;
  ctx.save();ctx.translate(c.x,c.y+bob);ctx.scale(c.dir,1);ctx.drawImage(im,-6,-6.5,12,8);ctx.restore()}
 function drawCart(now){if(!CART_IM){CART_IM=new Image();CART_IM.src=UI_IC('cart')}if(!cart||!CART_IM.complete||!CART_IM.naturalWidth)return;const w=18,h=w*CART_IM.naturalHeight/CART_IM.naturalWidth,x=cart.x,y=14*TS+13,bob=cart.wait>0?0:Math.abs(Math.sin(now/160))*.5;
  softShadow(ctx,x,y,8,1.6);ctx.save();ctx.translate(x,y-bob);if(cart.dir<0)ctx.scale(-1,1);ctx.drawImage(CART_IM,-w/2,-h,w,h);ctx.restore()}
@@ -2258,7 +2261,7 @@ function start(data){
   if(brokenSave)setTimeout(()=>toast('저장을 읽지 못해 새로 시작했어요. 예전 저장은 따로 보관해 두었어요'),1200);
 }
 initStoryArt();
-loadFrontier();loadLandmarkArt();loadDungeonArt();
+loadFrontier();loadLandmarkArt();loadDungeonArt();loadExtraArt();
 beginIllustratedGame().then?.(()=>loadLevelArt());
 })();
 </script>
