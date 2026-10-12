@@ -549,6 +549,98 @@
       ],
       "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; 512x704 house canvas with transparent top padding; bottom contact; no original PNG uploaded.",
       "removedLowAlphaPixels": 10941
+    },
+    {
+      "id": "store",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nSubject: A wide LOW single-story wooden storehouse, visibly broader than tall, rustic brown WOOD SHINGLE roof (not red terracotta), strong warm timber beams and vertical plank walls. A very large central double sliding doorway stands fully open; the two door panels slide outward against the front wall on a horizontal iron rail. Inside, clearly separate stacked short logs on the left, squared gray stones in the middle, beige grain sacks on the right. A wooden barrel and a few small crates at the front corners, within the footprint and directly touching the bottom baseline. Modest practical building, no tower, no chimney, no dormer, no unnecessary decorations. Nearly symmetrical façade with slightly asymmetrical supplies. Match reference building scale and paint finish.\nFinal targeted revision: Use case: precise-object-edit. Edit ONLY THE ROOF MATERIAL of this exact storehouse sprite. Keep the building façade, silhouette, camera, dimensions, lighting, open sliding doors, all supplies, barrel, crates, transparency and all other details exactly as shown. Replace the entire rounded ceramic-looking tile roof including ridge with BROWN WOODEN SHINGLES: flat overlapping rectangular weathered cedar boards, clearly visible subtle straight wood grain, squared thin board ends, uneven natural wood tone, no curved cylindrical tiles anywhere. Main ridge is one straight wooden ridge cap beam, horizontal. Roof plane remains same angle and silhouette. Same warm detailed storybook painted brushwork, zero yaw front-elevated view, true transparent alpha background. No text, no new objects, no ground or shadow.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/mill.webp",
+        "assets/illustrations/ranch.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1191,
+        1320
+      ],
+      "sourceCrop": [
+        11,
+        351,
+        1170,
+        905
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 14316,
+      "removedLowAlphaPixelsAfterResize": 1280
+    },
+    {
+      "id": "guard",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nSubject: A LOW COMPACT two-story wooden guard post on a short stone foundation, with a green-tiled pitched roof, broad horizontal roof ridge. Squat cottage proportions, approximately as wide as tall: this is a small guard hut, NOT a tall watchtower or large stone tower. Ground floor has a plain wooden front door. Upper floor has a small lookout window and a shallow wooden balcony railing under the eaves. One short flagpole beside the structure with a plain green cloth flag, contained close to the roof silhouette, no emblem or writing. A single spear leans beside the front door and one small warm lantern hangs beside it. Warm brown wooden walls and beams, a low gray-beige stone base, rich muted forest-green roof. No battlements, no tall tower, no extra storeys. All front architectural edges horizontal.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/house.webp",
+        "assets/illustrations/mill.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1069,
+        1471
+      ],
+      "sourceCrop": [
+        0,
+        109,
+        1056,
+        1301
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 20597,
+      "removedLowAlphaPixelsAfterResize": 2517
+    },
+    {
+      "id": "store-winter",
+      "prompt": "Use case: lighting-weather. Image 1 is the exact canonical storehouse sprite to edit; image 2 is ONLY a snow-painting style reference. Create its WINTER variant by adding soft white snow to the roof ridge and overlapping flat wooden shingles, eaves, the tops of the barrel and crates, threshold and small low snow patches touching the very bottom edge. Keep the original building architecture, framing, camera, outline size, horizontal baseline, brown flat wood-shingle material, fully open sliding doors, all log/stone/grain stockpiles and every prop location EXACTLY unchanged. Use snow bands that leave plenty of brown timber visible; warm welcoming interior. Do not add a chimney, people, icicles, falling snow, scenery or a snow ground island. Same warm painted watercolor brushwork, upper-left lighting. True transparent alpha outside the building; bottom remains at original contact line, don't extend snow sideways beyond width. No writing, logos, border or background. One transparent sprite, same canvas and placement as image 1.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/store.webp",
+        "assets/illustrations/house-winter.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1191,
+        1321
+      ],
+      "sourceCrop": [
+        11,
+        333,
+        1171,
+        924
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 16552,
+      "removedLowAlphaPixelsAfterResize": 1671
+    },
+    {
+      "id": "guard-winter",
+      "prompt": "Use case: lighting-weather. Image 1 is the exact canonical compact wooden guard-post sprite to edit; image 2 is ONLY the snow style reference. Create its WINTER variant: snow rests on green roof ridge and tile rows, lookout balcony railing, flagpole cap, shrubs, barrel/crate tops, stone doorstep and very bottom edge. Keep the same green tile roof, low cottage proportions, timber walls, small lookout window, one green flag, one leaning spear, one lantern and ALL architecture, object positions, framing, camera and silhouette scale exactly unchanged. Leave much green tile and brown timber visible, warm lantern still lit. Only add snow and small snowy accents, no redesign. No extra flags, people, icicles, snowfall, new scenery, ground island or shadow. Actual transparent alpha background, same canvas and placement as image 1, front edges stay horizontal, no side expansion. No writing, numbers, logos or borders. Same cozy hand-painted brush texture.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/guard.webp",
+        "assets/illustrations/house-winter.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        0,
+        92,
+        1058,
+        1335
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 11387,
+      "removedLowAlphaPixelsAfterResize": 2500
     }
   ]
 }

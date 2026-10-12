@@ -421,6 +421,98 @@
       ],
       "export": "Remove alpha <=8/255 speckles; tight alpha crop; proportional Lanczos3 width 512; lossless alpha WebP; tight-height canvas; bottom contact; no original PNG uploaded.",
       "removedLowAlphaPixels": 11184
+    },
+    {
+      "id": "store-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nImage 1 is the exact existing building to UPGRADE, retaining its identity, material colors and front camera. Image 2 is only the established game's upgrade craftsmanship style, do not copy its red roof or house layout.\nLEVEL 2: Keep the same warm timber storehouse, brown wooden shingle roof, broad open central sliding doorway and recognizable stockpiles of logs, stone and grain sacks. Add one extra storage bay to the side but keep a compact total 2x2 footprint, wider and sturdier rather than tall. Add a small louvered ventilation dormer on the roof, heavier timber braces, reinforced sliding doors and neatly arranged additional crates. Clear incremental upgrade of the same building, no stone second story yet. Wide low silhouette and all props within its footprint.\nThe wooden roof is FLAT OVERLAPPING RECTANGULAR WOODEN SHINGLES with visible wood grain and squared thin edges, not ceramic curved tiles. No new lettering. Use the same camera and broad low shape as image 1.\nFinal proportion revision: Use case: precise-object-edit. Image 1 is LEVEL TWO storehouse to refine; image 2 is its LEVEL ONE reference. Preserve all details of image 1: two open storage bays, flat brown wooden shingles, central louvered roof vent, logs, stones, sacks, barrels, crates, horizontal sliding door rails, warmer timber and stone footings. ADJUST ARCHITECTURAL PROPORTIONS, not the camera: make level 2 a taller, sturdier, compact near-square building, with width about 1.15 times total height. At identical 512-pixel display width it MUST be a little taller than level 1, not shorter. Raise the roof ridge and make the steep visible roof plane and timber front wall taller; enlarge the ventilation dormer. Keep a SINGLE full ground storey and usable loft under roof, no new second-storey windows. Do not merely stretch the image; repaint natural proportions, doors and supplies at plausible size. Keep two bays within same compact 2x2 footprint, all props contained. Same direct-front 40-degree-down orthographic camera, zero yaw, horizontal roof ridge/eaves/bottom edge, no visible side walls. Preserve exact warm handpainted watercolor style and upper-left light. Entire isolated building on true transparent background with no terrain, shadow, text, people, logos or border.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/store.webp",
+        "assets/illustrations/levels/house-l3.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1343,
+        1171
+      ],
+      "sourceCrop": [
+        38,
+        78,
+        1268,
+        1000
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 14391,
+      "removedLowAlphaPixelsAfterResize": 1734
+    },
+    {
+      "id": "store-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nImage 1 is the exact LEVEL TWO storehouse to upgrade to LEVEL THREE. Image 2 is its original level-one identity reference. Keep recognizable brown flat wooden shingle roof, front-open storage and all material colors. LEVEL 3: Upgrade the same storehouse into a sturdy TWO-STORY pale stone storehouse with warm brown timber framing, retaining the brown WOOD SHINGLE roof, ventilation dormer, broad fully open sliding ground-floor doorway with logs, stone and grain sacks, and recognizably related front supplies. The new upper story has a hayloft loading opening with a wooden pulley hoist under the eaves: clear wheel, rope and a small wooden cargo crate suspended close to the façade, not projecting beyond footprint. Reinforced stone corner blocks, robust timber beams, modest bronze fittings. Larger and more prestigious, still a practical compact warehouse and clearly the same building family. Total width and depth stay within the same 2x2 footprint; no oversized side annex.\nMake the total silhouette compact and a little taller than wide, clearly taller than level 2 at the same displayed width. Roof is flat overlapping rectangular wooden boards with visible wood grain, not rounded clay tiles. Ground-floor openings remain visible. Put the pulley and cargo close to the facade so all details stay inside the 2x2 footprint. No signage or people.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/levels/store-l2.webp",
+        "assets/illustrations/store.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1191,
+        1321
+      ],
+      "sourceCrop": [
+        29,
+        46,
+        1131,
+        1199
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 18503,
+      "removedLowAlphaPixelsAfterResize": 2239
+    },
+    {
+      "id": "guard-l2",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nImage 1 is the exact LEVEL ONE guard post to upgrade. Image 2 is only a paint/detail craftsmanship reference from the same game's levels; do not copy its red roof or house ornaments.\nLEVEL 2: Keep the recognizable small compact two-story guard post, green tile roof, lookout window and shallow railing, plain wooden entry door, leaning spear and warm lantern. Replace most lower wooden walls with sturdy beige-gray stone and strengthen the upper timber framing, while retaining cottage-like squat proportions. Exactly TWO plain green cloth flags, one on each short pole beside the upper roof silhouette. Heavier wooden balcony railing, visible upgraded stonework. No tall tower, no battlement top, no third floor, no castle keep. This is a fortified small guard hut.\nPreserve the original green roof material and strong timber beams, the small central lookout window and railing, lantern at left of door and single spear to right. The two flags remain short and close to roof so the building itself remains large in frame. Some modest shrubs or barrel from original may remain at front. A small sturdy guard cottage, never a towering fortress. Horizontal edges and zero-yaw front view are essential.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/guard.webp",
+        "assets/illustrations/levels/house-l3.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        0,
+        37,
+        1069,
+        1388
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 16088,
+      "removedLowAlphaPixelsAfterResize": 3141
+    },
+    {
+      "id": "guard-l3",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated building sprite for the cozy medieval village game. Attached images are STYLE AND CAMERA references. Match their exact warm storybook watercolor/gouache brush texture, softly defined brown contours, warmly lit wood grain, cream-gray stone, detailed but charming painted materials. Light from upper left. CAMERA: centered directly in front, yaw exactly zero, orthographic view from 40 degrees above. Generously visible roof top, front wall faces straight toward screen bottom. Main roof ridge, front eaves, front foundation edge and threshold are strictly HORIZONTAL and parallel to image bottom. Side walls invisible or negligible. NOT an isometric corner view; no diagonal ground, no receding front edge. Compact axis-aligned 2x2-tile footprint, all props kept within building width. Isolated true transparent alpha around and through gaps. Entire building centered large with a small clear margin for final tight cropping, bottom contact on a straight horizontal baseline. No background, terrain island, floor slab, cast ground shadow, people or animals. No text, signs with writing, numbers, logos, border or watermark. No pixel art, flat vector, anime or smooth glossy 3D. Output one building, not a sheet.\nImage 1 is the exact LEVEL TWO guard post to evolve into LEVEL THREE. Image 2 is its original guard-post identity reference. LEVEL 3: Evolve the same green-roofed guard post into a SMALL LOW STONE GATEHOUSE, with a central arched passage and stout stone side piers, the familiar compact timber lookout upper room and shallow railing over the arch, capped by the same horizontal green tiled roof. Keep approximately two-story cottage height, width at least as large as overall height, compact 2x2 footprint. Two short green flags edged with GOLD trim flank the roof, no writing or emblems. Warm lit torches mounted on both sides of the arch; small sturdy door/gate structure within. Clearly a prestigious upgrade of the same guard post, never a tall standalone stone watchtower, no tall side turrets, no large castle, no surrounding walls or ground slab.\nMaintain the green ceramic tile color, familiar timber-framed small lookout window and balcony railing, warm cream-gray stone. Make lower entry an unmistakable broad stone arched small gateway with stout dark wooden double gate panels open a little and warm darkness beyond; do not put scenery beyond. Broad front elevation, horizontal main ridge/eaves/base, no isometric side walls. The green roof remains across the entire top; never replace it with an open battlement roof. Gold flag edging only, no symbols or letters. Torches small and welcoming, not a battle scene.",
+      "transparent": true,
+      "references": [
+        "assets/illustrations/levels/guard-l2.webp",
+        "assets/illustrations/guard.webp"
+      ],
+      "referenceCommit": "79a57317c0d195f8b9f3767be57a11d8639714a1",
+      "sourceDimensions": [
+        1069,
+        1472
+      ],
+      "sourceCrop": [
+        0,
+        33,
+        1069,
+        1391
+      ],
+      "export": "Remove alpha <=8/255 speckles before crop and after resize; tight alpha crop; proportional Lanczos3 width 512; tight-height canvas with bottom contact; WebP lossless alpha; no original PNG uploaded.",
+      "removedLowAlphaPixels": 15183,
+      "removedLowAlphaPixelsAfterResize": 3057
     }
   ]
 }

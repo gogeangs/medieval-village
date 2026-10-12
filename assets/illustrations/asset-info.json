@@ -466,5 +466,97 @@
       2
     ],
     "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge"
+  },
+  {
+    "id": "store",
+    "file": "./assets/illustrations/store.webp",
+    "width": 512,
+    "height": 396,
+    "bytes": 82206,
+    "alphaZeroFraction": 0.0539,
+    "crop": [
+      0,
+      0,
+      512,
+      396
+    ],
+    "topPadding": 0,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge",
+    "description": "넓고 낮은 목조 창고. 갈색 나무 지붕과 열린 미닫이 문, 통나무·석재·곡물 자루, 앞쪽 나무통과 상자."
+  },
+  {
+    "id": "guard",
+    "file": "./assets/illustrations/guard.webp",
+    "width": 512,
+    "height": 631,
+    "bytes": 121266,
+    "alphaZeroFraction": 0.2373,
+    "crop": [
+      0,
+      0,
+      512,
+      631
+    ],
+    "topPadding": 0,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge",
+    "description": "돌 기단과 초록 지붕을 갖춘 아담한 2층 목조 경비 초소. 망보는 창·난간·초록 깃발·창·등불."
+  },
+  {
+    "id": "store-winter",
+    "file": "./assets/illustrations/store-winter.webp",
+    "width": 512,
+    "height": 404,
+    "bytes": 82524,
+    "alphaZeroFraction": 0.0603,
+    "crop": [
+      0,
+      0,
+      512,
+      404
+    ],
+    "topPadding": 0,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge",
+    "description": "기본 창고와 같은 구조·구도에 지붕, 문턱, 나무통·상자 주변에 눈이 쌓인 겨울 모습."
+  },
+  {
+    "id": "guard-winter",
+    "file": "./assets/illustrations/guard-winter.webp",
+    "width": 512,
+    "height": 646,
+    "bytes": 113806,
+    "alphaZeroFraction": 0.2345,
+    "crop": [
+      0,
+      0,
+      512,
+      646
+    ],
+    "topPadding": 0,
+    "quality": 90,
+    "alphaQuality": 100,
+    "footprint": [
+      2,
+      2
+    ],
+    "view": "front-elevated 40 degrees; zero yaw; horizontal front edge, eaves and main roof ridge",
+    "description": "기본 경비 초소와 같은 구조·구도에 지붕, 난간, 기단과 바닥 가장자리에 눈이 쌓인 겨울 모습."
   }
 ]
