@@ -1189,7 +1189,7 @@ function fogBlit(C){const k=M*TS,vw=cv.width/K(),vh=cv.height/K(),x0=Math.max(-k
 function drawFog(now){if(!FOG)rebuildFog();if(!FOG)return;const k=M*TS;ctx.globalAlpha=.9;fogBlit(FOG);
  if(FOG_OLD){const t=(now-fogFadeAt)/1400;if(t>=1)FOG_OLD=null;else{ctx.globalAlpha=.9*(1-t)*(1-t);fogBlit(FOG_OLD)}}
  if(fogZone&&FR.burst){const t=(now-fogFadeAt)/1600;if(t>=1)fogZone=null;else{const sz=60+180*t;ctx.globalAlpha=Math.min(1,(1-t)*1.6);ctx.drawImage(FR.burst,fogZone[0]-sz/2,fogZone[1]-sz/2,sz,sz)}}ctx.globalAlpha=1;
- for(const z of ZONES){const f=zoneFlag(z);if(!f)continue;const open=zoneOpen(z.id);if(open&&z.id==='home')continue;if(!open&&!zonesReady())continue;const reach=!open&&zoneReach(z);if(!open&&!reach)continue;drawZoneFlag(f.x*TS+8,f.y*TS+14,open,!open&&can(zoneCost())&&hallL()>=zoneHall(),now)}}
+ for(const z of ZONES){const f=zoneFlag(z);if(!f)continue;const open=zoneOpen(z.id);if(open)continue;if(!zonesReady())continue;const reach=zoneReach(z);if(!reach)continue;drawZoneFlag(f.x*TS+8,f.y*TS+14,open,!open&&can(zoneCost())&&hallL()>=zoneHall(),now)}}
 function drawZoneFlag(x,y,claimed,ready,now){const im=claimed?FR.flagClaimed:FR.flagLocked,b=ready?Math.sin(now/260)*1.1:0;
  if(ready){ctx.globalAlpha=.45+.2*Math.sin(now/300);ellipse(ctx,x,y-1,9,3.6,'#fff1b8');ctx.globalAlpha=1}
  if(im){const w=12,h=w*im.height/im.width;ctx.drawImage(im,x-w/2,y-h+b*.3,w,h)}
