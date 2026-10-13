@@ -422,7 +422,7 @@ const HALLUP=[null,{wood:80,stone:60,gold:60},{wood:160,stone:140,gold:200},{woo
 const hallMax=()=>rankOf()>=3?5:3;
 const feastCost=()=>Math.round(150+8*S.pop);
 const feastReady=()=>S.feastDay!==day();
-function holdFeast(){if(!feastReady()){toast('잔치는 하루에 한 번만 열 수 있어요');return}const c=feastCost();if(S.r.gold<c){toast(`금화 ${Math.ceil(c-S.r.gold)} 부족해요`);return}S.r.gold-=c;S.feastDay=day();const r0=S.rumor;S.rumor=Math.max(0,S.rumor-25);const fb=S.goods.bread>=5?2:1;if(fb>1)S.goods.bread-=5;let n=0;for(const r of RESIDENTS)if(resArrived(r)){S.favor[r.id]=(S.favor[r.id]||0)+fb;n++}S.st.feasts=(S.st.feasts||0)+1;sfx('claim');const h=S.b.find(b=>b.k==='hall');if(h){h.glow=performance.now();for(let i=0;i<4;i++)setTimeout(()=>chips(bCX(h)+(Math.random()-.5)*30,bBase(h)-10,'#ffd27a',10),i*150)}toast(`마을 잔치!${fb>1?' 빵 5개를 나눴어요.':''} 소문이 가라앉았어요 · 주민 ${n}명 친밀도 +${fb}`);save();updateHUD();renderSheet()}
+function holdFeast(){if(!feastReady()){toast('잔치는 하루에 한 번만 열 수 있어요');return}const c=feastCost();if(S.r.gold<c){toast(`금화 ${Math.ceil(c-S.r.gold)} 부족해요`);return}S.r.gold-=c;S.feastDay=day();const r0=S.rumor;S.rumor=Math.max(0,S.rumor-25);const fb=S.goods.bread>=5?2:1;if(fb>1){S.goods.bread-=5;S.st.bread_feasts=(S.st.bread_feasts||0)+1}let n=0;for(const r of RESIDENTS)if(resArrived(r)){S.favor[r.id]=(S.favor[r.id]||0)+fb;n++}S.st.feasts=(S.st.feasts||0)+1;sfx('claim');const h=S.b.find(b=>b.k==='hall');if(h){h.glow=performance.now();for(let i=0;i<4;i++)setTimeout(()=>chips(bCX(h)+(Math.random()-.5)*30,bBase(h)-10,'#ffd27a',10),i*150)}toast(`마을 잔치!${fb>1?' 빵 5개를 나눴어요.':''} 소문이 가라앉았어요 · 주민 ${n}명 친밀도 +${fb}`);save();updateHUD();renderSheet()}
 /* ---------- crafting: 방앗간·빵집·대장간·선술집 ---------- */
 const GOODS={flour:{n:'밀가루',sell:{n:5,g:45}},bread:{n:'빵',sell:{n:5,g:80}},sword:{n:'철검',gear:1,d:'싸움 성공률 +8%'},shield:{n:'나무 방패',gear:1,d:'함정 피해 -1'},armor:{n:'가죽 갑옷',gear:1,d:'시작 체력 +2'}};
 const GEAR=['sword','shield','armor'];
@@ -1114,6 +1114,15 @@ const Q=[
   QS('q12',{gold:150},[st('선술집 열기',1,()=>count('tavern'),'tavern'),st('선술집에서 모험가 1명 모집',1,()=>madeN('adv'),'adv'),st('바위 언덕의 굴 입구 정비하기',1,()=>S.dg.open?1:0,'cave')]),
   QS('q14',{gold:200},[st('첫 겨울 이겨내기',1,()=>day()>20?1:0,'winter'),st('마을 잔치 열기',1,()=>S.st.feasts||0,'bread'),st('명소 두 곳 복원하기',2,()=>lmCount(),'lm'),st('던전 지하 5층 돌파',5,()=>S.dg.best,'cave')]),
   QS('q15',{gold:500},[st('마을회관 3레벨',3,()=>hallL(),'hall'),st("마을 등급 '읍' 되기",3,()=>rankOf(),'rank'),st('던전 지하 10층 보스 쓰러뜨리기',10,()=>S.dg.best,'cave')]),
+  QS('q16',{gold:400},[st('명소 네 곳 복원하기',4,()=>lmCount(),'lm'),st('영지 6구역 만들기',6,()=>S.zones.length,'zone')]),
+  QS('q17',{gold:400},[st('던전 지하 15층 보스 쓰러뜨리기',15,()=>S.dg.best,'cave'),st('선술집에서 모험가 3명 모집',3,()=>madeN('adv'),'adv')]),
+  QS('q18',{gold:500},[st('원정대가 마왕성 터에서 무사히 돌아오기',1,()=>S.st.exp_castle||0,'exped'),st('대장간에서 철검 3자루 받기',3,()=>madeN('sword'),'sword')]),
+  QS('q19',{gold:500},[st("마을 등급 '성읍' 되기",4,()=>rankOf(),'rank'),st('주민 45명 모으기',45,()=>S.pop,'pop')]),
+  QS('q20',{gold:600},[st('전설적인 계절 축제 열기',1,()=>S.st.legend_fest||0,'fest'),st('빵 5개로 마을 잔치 3번 열기',3,()=>S.st.bread_feasts||0,'bread'),st('장식 10개 놓기',10,()=>S.decor.length,'decor')]),
+  QS('q21',{gold:600},[st('엘리스의 조사 통과하기',1,()=>S.st.q21pass||0,'insp'),st('마을회관 4레벨',4,()=>hallL(),'hall')]),
+  QS('q22',{gold:800},[st('던전 지하 20층 돌파',20,()=>S.dg.best,'cave'),st('경비 초소 2채 짓기',2,()=>count('guard'),'guard')]),
+  QS('q23',{gold:800},[st('졸업생·모험가와 함께 지하 15층 돌파',15,()=>S.st.dg_gbest||0,'grad'),st('대장간에서 가죽 갑옷 3벌 받기',3,()=>madeN('armor'),'armor')]),
+  QS('q24',{gold:1500},[st('마을회관 5레벨',5,()=>hallL(),'hall'),st('지하 25층 봉인 수호자 쓰러뜨리기',25,()=>S.dg.best,'cave'),st('이웃 모두 친밀도 ★5',5,()=>RESIDENTS.filter(r=>favorStars(r.id)>=5).length,'favor')]),
 ];
 
 /* ---------- view ---------- */
@@ -1180,6 +1189,7 @@ function tick(){
   const se=season();if(se!==prevSe){onSeason(se,true);festival(prevSe)}
   if(zonesReady()&&!S.zoneHint&&$('#scene').hidden&&!selId&&!document.getElementById('name-dlg')){S.zoneHint=true;toast('안개 낀 땅에 깃발이 섰어요. 탭하면 개척할 수 있어요');save()}
   rankCheck();
+  {const q=nextQuest();if(q&&q.id==='q21'&&q.cur().i==='insp'&&!S.inspect.active&&S.time>=(S.st.q21next||0)&&$('#scene').hidden){S.st.q21next=S.time+90;startInspect()}}
   lifeTick();
   syncVils();syncCritters();updateHUD();
   if(S.time%5===0)save();
@@ -1351,7 +1361,7 @@ const RANKS=[
   lines:[['','두 번째 칙서. 이번엔 도장이 두 개다.'],['전령','이 촌락을 정식 ‘마을’로 인정한다!'],['마르타','분수 하나 놓자꾸나. 마을이라면 광장이 있어야지.'],['나','네! 바로 놓을게요.']]},
  {n:'읍',need:{pop:30,zones:5,lm:3,hall:3},prod:.06,col:'#8e5a8e',perk:'모든 생산 +6% · 시장 판매가 +10% · 회관 Lv4·5 개방',
   lines:[['','세 번째 칙서. 전령이 고개를 갸웃거린다.'],['전령','…이 마을을 ‘읍’으로 인정합니다. 정말 맞나요?'],['엘리스','보고서에 쓸 게 또 늘었네요.'],['피노','시장 손님도 늘겠어요. 평범한 손님만요.']]},
- {n:'성읍',need:{pop:40,zones:7,lm:5,hall:3},prod:.08,col:'#d4a63a',perk:'모든 생산 +8% · 금빛 깃발',
+ {n:'성읍',need:{pop:40,zones:7,lm:5,hall:3},prod:.08,col:'#d4a63a',perk:'모든 생산 +8% · 금빛 깃발 · 던전 횃불 +1',
   lines:[['','금빛 칙서. 왕궁 나팔 소리가 울린다.'],['전령','이 마을을 왕국의 ‘성읍’으로 인정한다!'],['바르그','…쓸데없이 커졌군.'],['엘리스','‘초보자 마을, 이상 없음.’ …이라고 써야겠죠?'],['나','알고 보니… 정말 Lv999였네요.']]}];
 const trophyProd=()=>{if(!S||!Array.isArray(S.decor))return 1;const n=new Set(S.decor.filter(d=>DECOR[d.k]&&DECOR[d.k].trophy).map(d=>d.k)).size;return 1+.01*n};
 const rankOf=()=>S&&Number.isInteger(S.rank)?Math.max(0,Math.min(RANKS.length-1,S.rank)):0;
@@ -1403,7 +1413,7 @@ function ensureCave(){if(!S.dg)normalizeDungeon(S);if(S.dg.x!=null)return;const 
  if(!best)return;S.dg.x=best[0];S.dg.y=best[1];for(const[cx,cy]of lmCells(l,...best))S.o[cy*MW+cx]=null}
 const caveCells=()=>S.dg&&S.dg.x!=null?lmCells(DG_SPOT,S.dg.x,S.dg.y):[];
 const caveAt=i=>S.dg&&S.dg.x!=null&&caveCells().some(([x,y])=>y*MW+x===i);
-const torchesLeft=()=>S.dg.day===todayKey()?DG_TORCH-S.dg.used:DG_TORCH;
+const dgTorch=()=>DG_TORCH+(rankOf()>=4?1:0);const torchesLeft=()=>S.dg.day===todayKey()?dgTorch()-S.dg.used:dgTorch();
 function caveArt(open){return art(32,30,g=>{softShadow(g,16,27,15,3);
  for(const[x,y,rx,ry,c]of[[6,21,7,6,'#8e9a89'],[26,21,7,6,'#7f8d80'],[16,13,12,9,'#9aa694'],[10,12,6,5,'#a9b3a0'],[23,12,6,5,'#8c9888']])ellipse(g,x,y,rx,ry,c,'#56685c',.35);
  shape(g,[[9,26],[9.6,17],[12.4,12.5],[16,11],[19.6,12.5],[22.4,17],[23,26]],open?'#2a2420':'#3a332c','#3b4a40',.45);
@@ -1418,7 +1428,7 @@ function drawCave(now){if(!S.dg||S.dg.x==null)return;const G=caveGeom();ctx.draw
 const dgResHurt=(f,boss)=>boss?3:1+Math.floor(f/10);
 const dgMeChance=(f,boss)=>Math.max(.2,Math.min(.9,(boss?.55:.75)-(boss?.02:.035)*f+.03*(lv(S.xp.build)-1)+(hasRelic('fang')?.05:0)));
 function dgGradChance(run,boss){const g=gradById(run.who);if(!g)return 1;return Math.max(.3,Math.min(.98,GRAD_WIN[g.g]+(boss?-.1:0)+(boss&&g.cls==='조련사'?.1:0)+(gearOf(g).sword?.08:0)-.005*run.floor))}
-function dgCard(f){if(f%5===0){const m=DG_BOSS[(f/5-1)%DG_BOSS.length];return{k:'boss',n:m.n,art:m.art}}
+function dgCard(f){if(f===25)return{k:'boss',n:'봉인 수호자',art:'boss-guardian'};if(f%5===0){const m=DG_BOSS[(f/5-1)%DG_BOSS.length];return{k:'boss',n:m.n,art:m.art}}
  const r=Math.random();if(r<.42){const m=DG_MON[Math.min(DG_MON.length-1,Math.floor(Math.random()*Math.min(DG_MON.length,1+f/3)))];return{k:'mon',n:m.n,art:m.art}}
  if(r<.62)return{k:'gold',n:'보물 상자'};if(r<.76)return{k:'trap',n:'수상한 통로'};if(r<.9||f<3)return{k:'rest',n:'쉼터'};return{k:'odd',n:'수상한 방'}}
 function dgDeal(run){const f=run.floor;if(f%5===0){run.cards=[dgCard(f)];return}const n=f===1?2:3,out=[];let guard=0;while(out.length<n&&guard++<30){const c=dgCard(f);if(out.some(o=>o.k===c.k&&c.k!=='mon'))continue;out.push(c)}run.cards=out}
@@ -1448,7 +1458,7 @@ function dgFight(me){const run=S.dg.run;if(!run||run.pick==null)return;const c=r
  else if(m.grad){if(Math.random()<dgGradChance(run,boss)){const rm=boss?2:1;m.grad.lv+=boss?10:3;run.log=`${josa(m.name,'이','가')} 아카데미에서 배운 대로 ${josa(c.n,'을','를')} 물리쳤다! ${rumorTag(rm)}`;addRumor(rm);reward();sfx('claim')}else{const d=hurt();run.hp-=d;run.log=`${josa(m.name,'이','가')} ${c.n}에게 밀렸다… 체력 -${d}`;sfx('warn')}}
  else{const rm=(boss?8:3)*(run.who==='barg'&&boss?.5:1),rd=dgResHurt(f,boss);run.hp-=rd;run.log=`${m.name}: “…평범하게 처리했다.” ${josa(c.n,'이','가')} 사라졌다. 여파에 휘말려 체력 -${rd} · ${rumorTag(Math.round(rm))}`;addRumor(Math.round(rm));reward();S.favor[run.who]=(S.favor[run.who]||0)+(boss?1:0);sfx('claim')}
  dgNext()}
-function dgNext(){const run=S.dg.run;if(run.hp>0){run.hp-=1;if(run.hp<=0)run.log+=' · 계단을 내려가다 지쳐 쓰러졌다…'}if(run.hp<=0){dgEnd(true);return}const cleared=run.floor;run.floor++;S.dg.best=Math.max(S.dg.best,cleared);
+function dgNext(){const run=S.dg.run;if(run.hp>0){run.hp-=1;if(run.hp<=0)run.log+=' · 계단을 내려가다 지쳐 쓰러졌다…'}if(run.hp<=0){dgEnd(true);return}const cleared=run.floor;run.floor++;S.dg.best=Math.max(S.dg.best,cleared);if(gradById(run.who))S.st.dg_gbest=Math.max(S.st.dg_gbest||0,cleared);
  if(DG_MILE[cleared]&&!S.dg.mile.includes(cleared)){S.dg.mile.push(cleared);S.r.gold+=DG_MILE[cleared];run.log+=` · 지하 ${cleared}층 첫 돌파! 금화 +${DG_MILE[cleared]}`;setTimeout(()=>toast(`지하 ${cleared}층 첫 돌파! 금화 +${DG_MILE[cleared]}`),200)}
  dgDeal(run);save();updateHUD();renderSheet()}
 function dgEnd(fainted){const run=S.dg.run;if(!run||run.ended)return;const got={};for(const[k,v]of Object.entries(run.loot)){const n=fainted?Math.floor(v/2):v;if(n>0){got[k]=n;S.r[k]=(S.r[k]||0)+n}}
@@ -1457,7 +1467,7 @@ function dgLeave(){const run=S.dg.run;if(run&&!run.ended&&run.pick==null)dgEnd(f
 function dgClose(){if(S.dg.run&&S.dg.run.ended){S.dg.run=null;save()}renderSheet()}
 function caveOpen(){if(S.dg.open||!cellOpen(S.dg.x,S.dg.y))return;if(!can(DG_OPEN_COST)){toast(`${missingCost(DG_OPEN_COST)} 부족해요`);return}pay(DG_OPEN_COST);S.dg.open=true;sfx('build');toast('굴 입구를 정비했어요! 초보자 던전이 열렸어요');save();updateHUD();renderSheet()}
 function dungeonHTML(){const g=S.dg,run=g.run,left=torchesLeft();
- const torches=`<span class="dg-torch" aria-label="오늘 남은 횃불 ${left}개">${[0,1,2].map(i=>`<i class="${i<left?'on':''}"></i>`).join('')}</span>`;
+ const torches=`<span class="dg-torch" aria-label="오늘 남은 횃불 ${left}개">${Array.from({length:dgTorch()},(_,i)=>`<i class="${i<left?'on':''}"></i>`).join('')}</span>`;
  const top=t=>`<div class="top"><img class="lm-art" src="${caveURL(g.open)}" alt=""><div><h2>${t}</h2><div class="lv">초보자 던전 · 최고 기록 지하 ${g.best}층</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
  if(!g.open)return top('무너진 굴 입구')+`<p class="zone-desc">바위 언덕 비탈에 돌로 막힌 굴이 있어요. 안에서 서늘한 바람이 불어와요.</p><div class="zone-perk"><b>정비하면</b><span>초보자 던전이 열려요 · 하루 횃불 ${DG_TORCH}개</span></div><div class="zone-cost">${costHTML(DG_OPEN_COST)}</div><button class="btn go zone-go" data-act="dg-open" ${can(DG_OPEN_COST)?'':'disabled'}>${can(DG_OPEN_COST)?'입구 정비하기':missingCost(DG_OPEN_COST)+' 부족'}</button>`;
  if(!run){const here=RESIDENTS.filter(resArrived),grads=(S.academy&&Array.isArray(S.academy.grads)?S.academy.grads:[]).filter(x=>!x.away).slice().sort((a,b)=>'SABC'.indexOf(a.g)-'SABC'.indexOf(b.g)||b.lv-a.lv).slice(0,6);
@@ -1665,7 +1675,16 @@ const SCENES={
  12:[[N,'엘리스가 광장에서 측정기를 꺼낸다.'],['엘리스','피노 씨… Lv 999?!'],['피노','들켰네. 훔친 건 다 돌려줬어요. 택배로.'],['나','택배를 많이 보내시긴 했죠.']],
  13:[[N,'선술집 주인은 얼굴이 무섭다.'],['바르그','근무 중이다. 우유다.'],['나','와, 우유 좋아요!'],['바르그','…너는 나를 무서워하지 않는군.']],
  14:[[N,'눈보라 속 마왕군. 빗자루를 든 나.'],['나','여기 사람들은 제가 지킵니다!'],[N,'바르그가 앞치마를 푼다. 마왕군이 무릎을 꿇는다.'],['바르그','퇴직했다. 돌아가라.']],
- 15:[['마르타','고맙다. 우리를 평범하게 대해 줘서.'],['엘리스','보고서: ‘초보자 마을, 이상 없음.’'],[N,'발령장 뒷면 추천인 서명… 마르타.'],[N,'Lv 1 → Lv ??? · 이야기 끝']],
+ 15:[['마르타','고맙다. 우리를 평범하게 대해 줘서.'],['엘리스','보고서: ‘초보자 마을, 이상 없음.’'],[N,'발령장 뒷면 추천인 서명… 마르타.'],[N,'Lv 1 → Lv ??? · 1부 끝']],
+ 16:[[N,'할머니 집 벽, 낡은 초상화 한 장.'],['나','이 용사님… 저랑 닮지 않았어요?'],['마르타','어머, 차가 식겠구나.'],[N,'예배당 지하에서 먼지 쌓인 기록이 나왔다. ‘봉인’이라는 글자만 겨우 읽혔다.']],
+ 17:[[N,'지하 15층. 보스 방 벽에 문장이 새겨져 있다.'],[N,'초상화 속 방패와 똑같은 무늬다.'],['군터','…그분은 저 아래로 내려가셨다.'],['군터','돌아오지 않았지.']],
+ 18:[[N,'원정대가 마왕성 터에서 부러진 검 조각을 들고 왔다.'],['군터','내 스승의 검이다.'],['바르그','그 녀석, 나를 이기고도 끝까지 마무리를 안 했지.'],['나','…그래서 은퇴하신 거예요?'],['바르그','우유 마셔라.']],
+ 19:[['엘리스','왕국 공문입니다. ‘성과 우수, 수도로 발령.’'],['나','네? 저 떠나요?'],[N,'마르타의 찻잔에서 김이 멈췄다. 피노가 물건을 떨어뜨렸다.'],['브루노','…촌장은 밤에 잘 자야 한다. 여기서.']],
+ 20:[[N,'왕국 감사단이 오는 날. 목표는 성대하게, 그리고 평범하게.'],['피노','불꽃놀이는 안 돼요. 저번에 산 하나가 날아갔거든요.'],['마르타','빵이면 충분하단다.'],['감사관','…참으로 평범하고 따뜻한 마을이군요.']],
+ 21:[['엘리스','사실 저는 처음부터 알고 있었어요.'],['엘리스','제 임무는 감찰이 아니라, 용사의 후계자를 찾는 거였어요.'],['나','후계자요? 여기 그런 사람이 있어요?'],['엘리스','…본인만 모르는군요.']],
+ 22:[[N,'밤마다 땅이 울린다. 찻잔이 덜그럭거린다.'],['마르타','봉인이 약해지고 있구나. 그 사람이 걸어 둔 봉인이.'],['나','제가 내려가 볼게요.'],['마르타','…그 말, 두 번째로 듣는구나.']],
+ 23:[['엘리스','여러분이 나서면 왕국 전체가 이 마을을 알게 돼요.'],['군터','…그럼 누가 가지.'],[N,'아카데미 졸업생들과 선술집 모험가들이 줄을 섰다.'],['나','제가 키운 사람들이에요. 다녀올게요!']],
+ 24:[[N,'지하 25층. 봉인 수호자가 눈을 떴다.'],[N,'빗자루를 들자 낡은 문장이 희미하게 빛났다.'],['나','여기 사람들은 제가 지킵니다. 이번에도요.'],['엘리스','보고서: ‘후계자 확인. 단, 본인은 승진을 거절함.’'],[N,'Lv 1 → Lv 2 · 이야기 끝']],
  0:[[N,'신입 발령 추첨의 날.'],['담당관','연수 꼴찌… 초보자 마을 촌장.'],['동기들','석 달도 못 버틴다는 그곳?'],[N,'발령장 뒷면은 아직 보지 않았다.']],
 };
 const REVEALS={3:['marta'],6:['gunter'],9:['bruno'],12:['pino'],14:['barg']};
@@ -1695,7 +1714,7 @@ CLUES.chief=[
 const LORE={marta:'전설의 대마법사 ‘잿불의 마르타’. 왕국을 세 번 구했다.',gunter:'검성 ‘일섬의 군터’. 도끼로 바꿔 든 뒤로 사람을 벤 적이 없다.',bruno:'전 왕국 기사단장 ‘철벽의 브루노’. 한 번도 성문을 내준 적이 없다.',pino:'전설의 대도 ‘그림자 피노’. 훔친 보물은 전부 주인에게 돌려보냈다.',barg:'은퇴한 마왕. 마왕성보다 선술집이 적성에 맞았다.'};
 function isDusk(){const t=(S.time%DAY)+Math.min(acc,.999);return t>=22}
 function duskAmt(){const t=(S.time%DAY)+Math.min(acc,.999);return t<22?0:t<24?(t-22)/2:t<29?1:Math.max(0,30-t)}
-function normalizeStory(d){d.story=Array.isArray(d.story)?[...new Set(d.story.filter(n=>Number.isInteger(n)&&n>=0&&n<=15))]:[];
+function normalizeStory(d){d.story=Array.isArray(d.story)?[...new Set(d.story.filter(n=>Number.isInteger(n)&&n>=0&&n<=24))]:[];
   if(d.storyV!==2){const cl=Array.isArray(d.claimed)?d.claimed:[];d.story=[...(d.story.includes(0)?[0]:[]),...Q.map((q,i)=>cl.includes(q.id)?i+1:0).filter(Boolean)];d.storyV=2}
   const c=d.clues&&typeof d.clues==='object'?d.clues:{};d.clues={};for(const r in CLUES){const ok=new Set(CLUES[r].map(x=>x.id));d.clues[r]=Array.isArray(c[r])?[...new Set(c[r].filter(id=>ok.has(id)))]:[]}return d}
 const revealed=id=>Object.entries(REVEALS).some(([ep,ids])=>ids.includes(id)&&S.story.includes(+ep));
@@ -1707,11 +1726,11 @@ function checkClue(b){lastClue=null;if(!b)return;
       S.clues[r].push(c.id);lastClue={bid:b.id,r,c};const n=S.clues[r].length,all=CLUES[r].length;
       toast(`수상한 순간 발견! ${res.n} ${n}/${all}`);chips(b.x*TS+16,b.y*TS+6,'#c9a0f0',10);save();updateTabs();return}}}
 /* Story art is requested only when its screen is used; it never joins the game loader. */
-const EP_ART=n=>EP_V2.has(n)?`./assets/story/v2/ep${String(n).padStart(2,'0')}.webp`:`./assets/story/ep${String({8:7,11:13}[n]??n).padStart(2,'0')}.webp`;
+const EP_ART=n=>n>=16?`./assets/story/v3/ep${String(n).padStart(2,'0')}.webp`:EP_V2.has(n)?`./assets/story/v2/ep${String(n).padStart(2,'0')}.webp`:`./assets/story/ep${String({8:7,11:13}[n]??n).padStart(2,'0')}.webp`;
 function showSceneArt(n,url){
   const box=$('#scene-art');box.hidden=true;box.replaceChildren();
   if(url){const img=document.createElement('img');img.className='scene-art';img.width=1200;img.height=800;img.alt='';img.decoding='async';const ep=sceneEp;img.onload=()=>{if(sceneEp===ep&&box.firstElementChild===img)box.hidden=false};img.onerror=()=>{if(box.firstElementChild===img){box.hidden=true;box.replaceChildren()}};box.appendChild(img);img.src=url;return}
-  if(!Number.isInteger(n)||n<0||n>15)return;
+  if(!Number.isInteger(n)||n<0||n>24)return;
   const img=document.createElement('img');img.className='scene-art';img.width=1200;img.height=800;
   img.alt=`${n}화 · ${n?EPISODES[n-1].t:'발령 추첨'} 장면`;img.decoding='async';img.fetchPriority='low';
   img.onload=()=>{if(sceneEp===n&&box.firstElementChild===img)box.hidden=false};
@@ -1922,7 +1941,7 @@ function inspectHTML(){const ins=S.inspect;if(!ins.active)return'';const head=`<
 function answerInspect(j){const ins=S.inspect;if(!ins.active)return;const Qn=INSPECT[ins.q[ins.i]];ins.score+=Qn.a[j][1];ins.i++;
  if(ins.i<3){save();renderSheet();return}
  const pass=ins.score>=4;S.inspect={active:false};closeSheet();
- if(pass){S.rumor=20;S.r.gold+=30;playCustom('조사 결과','이상 없음',[[inspectorName(),'…알겠습니다. 평범한 시골 마을이군요.'],['','서류에 ‘이상 없음’ 도장이 쾅 찍힌다.'],['','뒤에서 주민들이 동시에 숨을 내쉰다. 금화 +30 · 소문이 잠잠해졌어요.']],'./assets/events/inspect.webp')}
+ if(pass){S.rumor=20;S.r.gold+=30;S.st.insp_pass=(S.st.insp_pass||0)+1;if(nextQuest()&&nextQuest().id==='q21')S.st.q21pass=1;playCustom('조사 결과','이상 없음',[[inspectorName(),'…알겠습니다. 평범한 시골 마을이군요.'],['','서류에 ‘이상 없음’ 도장이 쾅 찍힌다.'],['','뒤에서 주민들이 동시에 숨을 내쉰다. 금화 +30 · 소문이 잠잠해졌어요.']],'./assets/events/inspect.webp')}
  else{const fee=Math.min(30,Math.floor(S.r.gold));S.r.gold-=fee;S.rumor=50;playCustom('조사 결과','수상함',[[inspectorName(),'…수상하군요. 아주 수상해요.'],['','조사 수수료로 금화 '+fee+'을 냈어요. 소문이 다 가라앉지는 않았어요.'],['마르타','(작게) 다음엔 더 평범하게 하자꾸나.']],'./assets/events/inspect.webp')}
  save();updateHUD();updateAlert()}
 /* crises */
@@ -1973,7 +1992,7 @@ function gradCard(g,note){document.querySelector('.arrive')?.remove();const el=d
  const bye=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.onclick=()=>{bye();openTab('people');setSub('people','acad')};document.body.appendChild(el);setTimeout(bye,7000)}
 function sendExped(id,dest){const g=S.academy.grads.find(x=>x.id===id),E=EXPEDS[dest];if(!g||!E||g.away)return;if(S.academy.grads.filter(x=>x.away).length>=3){toast('원정은 동시에 3명까지 보낼 수 있어요');return}
  g.away={d:dest,end:S.time+E.t};expPick=null;toast(`${g.n} → ${E.n} · ${E.t}초`);save();renderSheet()}
-function expedReturn(g){const E=EXPEDS[g.away.d],dn=E.n;g.away=null;const ok=Math.random()<Math.min(1,E.ok[g.g]+.05*gearN(g));let msg,it=null;
+function expedReturn(g){const E=EXPEDS[g.away.d],dn=E.n;g.away=null;const ok=Math.random()<Math.min(1,E.ok[g.g]+.05*gearN(g));if(ok&&E===EXPEDS.castle)S.st.exp_castle=(S.st.exp_castle||0)+1;let msg,it=null;
  if(ok){const gold=rnd(E.gold);S.r.gold+=gold;for(const k in E.r)S.r[k]+=E.r[k];msg=`금화 +${gold}${Object.entries(E.r).map(([k,v])=>` · ${RN[k]} +${v}`).join('')}`;if(Math.random()<E.item)it=findItem('exped')}
  else{S.r.food+=15;msg=EXP_FAIL[Math.random()*EXP_FAIL.length|0]+' 식량 +15'}
  save();updateHUD();if(!it){document.querySelector('.arrive')?.remove();const el=document.createElement('button');el.type='button';el.className='arrive';el.innerHTML=`<span class="gbadge g${g.g}">${g.g}</span><span><small>${dn} 원정에서 돌아왔어요</small><b>${g.n} ${ok?'· 성공!':'· 실패…'}</b><em>${msg}</em></span>`;
@@ -2006,7 +2025,7 @@ function lifeHTML(){const here=RESIDENTS.filter(resArrived);
 /* festivals */
 function festival(prevSe){if(day()<=2)return;const score=S.decor.length*10+S.b.length*3+Math.floor(S.roads.length/2)+Object.values(S.roadLv||{}).reduce((a,l)=>a+(l-1),0)+S.pop+ITEMS.filter(x=>S.items[x.id]).length*2;
  const tier=score>=120?2:score>=60?1:0,names=['조촐한','흥겨운','전설적인'],gold=[20,50,100][tier],guests=Math.max(3,Math.floor(score/4));S.r.gold+=gold;let it=null;if(tier>=1)it=findItem('fest');
- S.fests.push({se:prevSe,score,tier});save();updateHUD();
+ S.fests.push({se:prevSe,score,tier});if(tier===2)S.st.legend_fest=(S.st.legend_fest||0)+1;save();updateHUD();
  const sn=SEASONS[prevSe];whenFree(()=>{playCustom(`${sn} 축제`,`${names[tier]} ${sn} 축제`,[['',`${sn}의 마지막 날, 회관 앞에서 작은 축제가 열렸다. 손님 ${guests}명이 찾아왔다.`],['',`장식 ${S.decor.length}개, 건물 ${S.b.length}채, 길 ${S.roads.length}칸, 주민 ${S.pop}명 · 축제 점수 ${score}`],tier===2?['마르타','이렇게 북적이는 축제는 오래간만이구나. 그 사람 있을 때 이후로.']:tier===1?['피노','손님이 많네요! 장사도 잘되고요.']:['브루노','조용해서 좋다. 다음엔 장식을 좀 더 놓자.'],['',`보상: 금화 +${gold}${it?` · 평범한 물건 ‘${it.f}’`:''}`]],EVENT_ART('festival'))},600)}
 /* shared event card (reuses the scene overlay without touching story progress) */
 function isFree(){return $('#scene').hidden&&sheet.hidden&&!document.getElementById('name-dlg')&&mode==='hand'}
@@ -2020,9 +2039,9 @@ function lifeTick(){ensureDaily();crisisTick();acadTick();meetTick();updateAlert
 
 
 const EP_V2=new Set([1,2,3,4,5,6,7,9,10,12,13]),EP_REUSE={8:7,11:13},nn=n=>String(n).padStart(2,'0');
-const EP_THUMB=n=>EP_V2.has(n)?`./assets/story/v2/thumbs/ep${nn(n)}.webp`:`./assets/story/thumbs/ep${nn(EP_REUSE[n]??n)}.webp`;
+const EP_THUMB=n=>n>=16?`./assets/story/v3/thumbs/ep${nn(n)}.webp`:EP_V2.has(n)?`./assets/story/v2/thumbs/ep${nn(n)}.webp`:`./assets/story/thumbs/ep${nn(EP_REUSE[n]??n)}.webp`;
 const QUEST_ICON={q1:'wood',q4:'stone',q5:'pop',q9:'gold',q13:'pop'},QUEST_THUMB={q2:'house',q3:'farm',q6:'lumber',q7:'quarry',q8:'market',q10:'hall',q11:'bakery',q12:'tavern',q15:'hall'};
-function stepIcon(i){if(!i)return null;if(RN[i]||i==='pop')return ic(i,'qi');if(THUMBURL[i])return `<img class="qi" src="${THUMBURL[i]}" alt="">`;if(GOODS[i]||i==='adv')return gIc(i,'qi');if(i==='road')return `<img class="qi" src="${roadThumb()}" alt="">`;if(i==='cave')return `<img class="qi" src="${caveURL(true)}" alt="">`;const u={zone:'village',lm:'village',rank:'reward',grad:'daily-grad',winter:'winter'}[i];return u?`<img class="qi" src="${UI_IC(u)}" alt="">`:null}
+function stepIcon(i){if(!i)return null;if(RN[i]||i==='pop')return ic(i,'qi');if(THUMBURL[i])return `<img class="qi" src="${THUMBURL[i]}" alt="">`;if(GOODS[i]||i==='adv')return gIc(i,'qi');if(i==='road')return `<img class="qi" src="${roadThumb()}" alt="">`;if(i==='cave')return `<img class="qi" src="${caveURL(true)}" alt="">`;if(i==='insp')return `<img class="qi" src="./assets/story/portrait-elise.webp" alt="">`;const u={zone:'village',lm:'village',rank:'reward',grad:'daily-grad',winter:'winter',exped:'academy',fest:'village',decor:'reward',favor:'favor'}[i];return u?`<img class="qi" src="${UI_IC(u)}" alt="">`:null}
 function questIcon(q){const si=q.cur&&stepIcon(q.cur().i);if(si)return si;if(QUEST_ICON[q.id])return ic(QUEST_ICON[q.id],'qi');if(QUEST_THUMB[q.id]&&THUMBURL[QUEST_THUMB[q.id]])return `<img class="qi" src="${THUMBURL[QUEST_THUMB[q.id]]}" alt="">`;return `<img class="qi" src="${UI_IC('winter')}" alt="">`}
 const rewardIcons=r=>Object.entries(r).map(([k,v])=>`<span class="rw">${ic(k)}${v}</span>`).join('');
 /* ---------- sheet sub-tabs: one job per screen instead of one long scroll ---------- */
@@ -2049,8 +2068,8 @@ function shopTabsHTML(){const full=shopHTML(),cut=full.indexOf('<div class="shop
   return head.replace('<h2>장식 상점</h2>','<h2>상점</h2>')+segHTML('shop')+`<section data-sub="decor">${rest}</section><section data-sub="market">${market}</section><section data-sub="items">${itemsHTML()}</section>`}
 
 /* ---------- tabs and story screens ---------- */
-const ACTS=[{n:'1막',t:'남아 있던 사람',to:3},{n:'2막',t:'숲에서 온 사람',to:6},{n:'3막',t:'비를 맞고 온 사람',to:9},{n:'4막',t:'수상한 상인',to:12},{n:'5막',t:'무서운 손님',to:15}];
-const EPISODES=['텅 빈 마을','장작은 결을 따라','잔치와 비룡','길 잃은 나무꾼','바람이 세다','숲의 늑대','비 오는 밤의 손님','허리 운동','닫히지 않는 문','완전 평범한 상인','감찰관 엘리스','측정기가 울린 날','무서운 손님','빗자루를 든 촌장','Lv 999의 마을'].map((t,i)=>({n:i+1,t}));
+const ACTS=[{n:'1막',t:'남아 있던 사람',to:3},{n:'2막',t:'숲에서 온 사람',to:6},{n:'3막',t:'비를 맞고 온 사람',to:9},{n:'4막',t:'수상한 상인',to:12},{n:'5막',t:'무서운 손님',to:15},{n:'6막',t:'용사의 그림자',to:18},{n:'7막',t:'왕국에서 온 편지',to:21},{n:'8막',t:'봉인 아래',to:24}];
+const EPISODES=['텅 빈 마을','장작은 결을 따라','잔치와 비룡','길 잃은 나무꾼','바람이 세다','숲의 늑대','비 오는 밤의 손님','허리 운동','닫히지 않는 문','완전 평범한 상인','감찰관 엘리스','측정기가 울린 날','무서운 손님','빗자루를 든 촌장','Lv 999의 마을','초상화 속 얼굴','굴 바닥의 문장','주인 없는 검','승진 통지서','아주 평범한 축제','엘리스의 진짜 보고서','흔들리는 땅','은퇴자들은 싸우지 않는다','촌장 Lv 2'].map((t,i)=>({n:i+1,t}));
 const RESIDENTS=[
   {id:'marta',n:'마르타 할머니',role:'회관 옆 오두막의 다정한 할머니',home:'house',always:true,line:'촌장님, 차 한잔 하고 가렴.'},
   {id:'gunter',n:'군터 아저씨',role:'말수 적은 벌목꾼',home:'lumber',line:'…바람이 세다.'},
@@ -2148,7 +2167,7 @@ function updateHUD(){
   if(q){const v=Math.min(q.v(),q.g),done=questReady(q),ep=EPISODES[Q.indexOf(q)];
     gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.steps.length>1?`<em class="gq-step">${q.stepNo()}/${q.steps.length}</em>`:''}${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
     $('#goal').classList.toggle('done',done);if(lastGoal!==q.id){lastGoal=q.id;flashGoal()}}
-  else{const nr=RANKS[rankOf()+1];gh=nr?`<button class="goal-open goal-rank"><span>다음 등급: ${nr.n}</span><small>${rankRows(rankOf()+1).filter(([,a,b])=>a>=b).length}/${rankRows(rankOf()+1).length}</small></button>`:`<button class="goal-open"><span>이야기를 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
+  else{const nr=RANKS[rankOf()+1];gh=nr?`<button class="goal-open goal-rank"><span>다음 등급: ${nr.n}</span><small>${rankRows(rankOf()+1).filter(([,a,b])=>a>=b).length}/${rankRows(rankOf()+1).length}</small></button>`:`<button class="goal-open"><span>이야기를 모두 마쳤어요</span><small>${Q.length}/${Q.length}</small></button>`;$('#goal').classList.remove('done')}
   const ge=$('#goal');if(ge.dataset.v!==gh){ge.innerHTML=gh;ge.dataset.v=gh}
   const shortage=r.food<0&&S.r.food<=Math.max(5,-r.food*30);$('#food-alert').hidden=!shortage;
   if(shortage)$('#food-alert-text').textContent=S.r.food<1?(S.pop>1?'식량이 없어요 · 주민이 떠날 수 있어요':'식량이 없어요 · 주민이 늘지 못해요'):'식량이 부족해지고 있어요 · 미리 준비하세요';
