@@ -310,7 +310,7 @@ body.sheet-open .hud{visibility:hidden}
 .today-card.art{position:relative;overflow:hidden;padding:0;min-height:150px;border-color:#998050;color:#fff6df}.today-card.art.ready{border-color:#526c3b}
 .today-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(1.5px) brightness(.8)}.today-card.art:not(.ready) .today-bg{filter:blur(4px) brightness(.7)}
 .today-in{position:relative;display:grid;gap:6px;align-content:end;min-height:150px;padding:12px;background:linear-gradient(transparent,#1c140bd0 70%)}
-.today-card.art .today-tag{color:#f3e2b5!important;font-size:12px}.today-card.art .today-what{color:#e9dcbc!important}
+.today-card.art .today-tag{color:#f3e2b5!important;font-size:12px}.today-card.art .today-what{color:#e9dcbc!important}.q-steps{list-style:none;margin:6px 0 2px;padding:0;display:grid;gap:3px;font-size:12.5px;color:#f3e7c8}.q-steps li.ok{opacity:.65;text-decoration:line-through}.q-steps b{font-weight:600;font-size:12px!important;color:#ffe9a8;margin-left:2px}.q-steps li{font-size:12.5px}.gq-step{font-style:normal;font-size:11px;margin-right:5px;padding:1px 6px;border-radius:999px;background:#e9d8ae;color:#6b5434}
 .today-card .today-goal{display:flex;align-items:center;gap:8px}.today-card .today-goal .qi{width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 1px 2px #000a)}.today-card .today-goal .meter{flex:1;height:9px;background:#ffffff40}.today-card .today-goal b{font-size:14px;color:#fff6df;font-weight:400}
 .nb{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;align-items:center}.nb-pic{width:56px;height:56px;object-fit:cover;object-position:50% 15%;border-radius:50%;border:2px solid #c8b28a;background:#e8dcc0}
 .ep.dl{display:grid!important;grid-template-columns:36px minmax(0,1fr) auto auto;align-items:center;gap:8px}.ep.dl .claim{min-height:36px}
@@ -447,7 +447,7 @@ function setRecipe(b,id){const L=RECIPES[b.k],r=L&&L.find(x=>x.id===id);if(!r)re
 function makeAdventurer(){const a=S.academy,roll=Math.random(),g=roll<.08?'S':roll<.3?'A':roll<.7?'B':'C',apt=Object.keys(ACAD_APT)[Math.random()*5|0],used=new Set(a.grads.map(x=>x.n)),pool=ADV_NAMES.filter(n=>!used.has(n)),n=pool[Math.random()*pool.length|0]||ADV_NAMES[Math.random()*ADV_NAMES.length|0];
  const adv={id:a.uid++,n,by:'barg',apt,g,lv:rnd(GRADE[g].lv),cls:ACAD_APT[apt].cls,away:null,src:'tav',gear:{}};a.grads.push(adv);return adv}
 function collectCraft(b){const c=craftState(b);if(!c.slots.length)return;const got={},left=[];let advs=[];
- for(const k of c.slots){if(k==='adv'){if(advCount()>=ADV_MAX){left.push(k);continue}advs.push(makeAdventurer())}else{S.goods[k]=(S.goods[k]||0)+1;got[k]=(got[k]||0)+1}}
+ for(const k of c.slots){if(k==='adv'){if(advCount()>=ADV_MAX){left.push(k);continue}advs.push(makeAdventurer());S.st.made_adv=(S.st.made_adv||0)+1}else{S.goods[k]=(S.goods[k]||0)+1;got[k]=(got[k]||0)+1;S.st['made_'+k]=(S.st['made_'+k]||0)+1}}
  c.slots=left;sfx('coin');b.glow=performance.now();
  const parts=Object.entries(got).map(([k,v])=>`${GOODS[k].n} +${v}`);if(advs.length)parts.push(`모험가 ${advs.map(x=>`${x.n}(${x.g}·${x.cls})`).join(', ')} 합류`);
  toast(parts.join(' · ')+(left.length?` · 모험가는 ${ADV_MAX}명까지예요`:''));save();updateHUD();renderSheet()}
@@ -1093,22 +1093,27 @@ const foodUse=()=>S.claimed.length?S.pop*.12*(lmDone('well')?.85:1):0;
 function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
 
 /* ---------- quests ---------- */
+const QS=(id,r,steps)=>{const q={id,r,steps};const cur=()=>steps.find(st=>st.v()<st.g)||steps[steps.length-1];
+ Object.defineProperty(q,'t',{get:()=>cur().t});Object.defineProperty(q,'g',{get:()=>cur().g});q.v=()=>cur().v();q.cur=cur;q.done=()=>steps.every(st=>st.v()>=st.g);q.stepNo=()=>Math.min(steps.length,steps.filter(st=>st.v()>=st.g).length+1);
+ q.frac=()=>steps.reduce((a,st)=>a+Math.min(1,st.v()/st.g),0)/steps.length;q.all=steps.map(st=>st.t).join(' · ');return q};
+const st=(t,g,v,i)=>({t,g,v,i});
+const madeN=k=>(S.st&&S.st['made_'+k])||0;
 const Q=[
-  {id:'q1',t:'나무 베어 목재 10개',g:10,v:()=>S.st.wood,r:{gold:10}},
-  {id:'q2',t:'오두막 2채 짓기',g:2,v:()=>count('house'),r:{wood:15}},
-  {id:'q3',t:'밀밭 일구기',g:1,v:()=>count('farm'),r:{food:20}},
-  {id:'q6',t:'벌목소 짓기',g:1,v:()=>count('lumber'),r:{stone:15}},
-  {id:'q4',t:'바위 깨서 석재 10개',g:10,v:()=>S.st.stone,r:{gold:10}},
-  {id:'q5',t:'주민 8명 모으기',g:8,v:()=>S.pop,r:{gold:20}},
-  {id:'q7',t:'채석장 짓기',g:1,v:()=>count('quarry'),r:{wood:20}},
-  {id:'q10',t:'마을회관 2레벨',g:2,v:()=>hallL(),r:{wood:40,stone:40}},
-  {id:'q11',t:'빵집 열기',g:1,v:()=>count('bakery'),r:{gold:30}},
-  {id:'q8',t:'시장 열기',g:1,v:()=>count('market'),r:{gold:30}},
-  {id:'q9',t:'시장에서 자원 30개 팔기',g:30,v:()=>S.st.sold,r:{gold:20}},
-  {id:'q13',t:'주민 25명 모으기',g:25,v:()=>S.pop,r:{gold:100}},
-  {id:'q12',t:'선술집 열기',g:1,v:()=>count('tavern'),r:{gold:50}},
-  {id:'q14',t:'첫 겨울 이겨내기',g:1,v:()=>day()>20?1:0,r:{gold:60}},
-  {id:'q15',t:'마을회관 3레벨',g:3,v:()=>hallL(),r:{gold:200}},
+  QS('q1',{gold:10},[st('나무 베어 목재 10개',10,()=>S.st.wood,'wood')]),
+  QS('q2',{wood:15},[st('오두막 2채 짓기',2,()=>count('house'),'house')]),
+  QS('q3',{food:20},[st('밀밭 일구기',1,()=>count('farm'),'farm')]),
+  QS('q6',{stone:15},[st('벌목소 짓기',1,()=>count('lumber'),'lumber')]),
+  QS('q4',{gold:10},[st('바위 깨서 석재 10개',10,()=>S.st.stone,'stone')]),
+  QS('q5',{gold:40},[st('주민 8명 모으기',8,()=>S.pop,'pop'),st('안개 낀 땅 한 곳 개척하기',1,()=>S.zones.length-1,'zone')]),
+  QS('q7',{wood:30,stone:20},[st('채석장 짓기',1,()=>count('quarry'),'quarry'),st('길 6칸 깔기',6,()=>S.roads.length,'road')]),
+  QS('q10',{wood:60,stone:60},[st('마을회관 2레벨',2,()=>hallL(),'hall'),st('창고 짓기',1,()=>count('store'),'store')]),
+  QS('q11',{gold:60},[st('빵집 열기',1,()=>count('bakery'),'bakery'),st('방앗간 짓기',1,()=>count('mill'),'mill'),st('방앗간에서 밀가루 3개 받기',3,()=>madeN('flour'),'flour')]),
+  QS('q8',{gold:60},[st('시장 열기',1,()=>count('market'),'market'),st('명소 한 곳 복원하기',1,()=>lmCount(),'lm')]),
+  QS('q9',{gold:80},[st('시장에서 자원 30개 팔기',30,()=>S.st.sold,'gold'),st('영지 3구역 만들기',3,()=>S.zones.length,'zone'),st("마을 등급 '촌락' 되기",1,()=>rankOf(),'rank')]),
+  QS('q13',{gold:150},[st('주민 25명 모으기',25,()=>S.pop,'pop'),st('아카데미 졸업생 1명 배출',1,()=>S.academy.grads.filter(g=>g.src!=='tav').length,'grad'),st('대장간에서 장비 1개 받기',1,()=>madeN('sword')+madeN('shield')+madeN('armor'),'sword')]),
+  QS('q12',{gold:150},[st('선술집 열기',1,()=>count('tavern'),'tavern'),st('선술집에서 모험가 1명 모집',1,()=>madeN('adv'),'adv'),st('바위 언덕의 굴 입구 정비하기',1,()=>S.dg.open?1:0,'cave')]),
+  QS('q14',{gold:200},[st('첫 겨울 이겨내기',1,()=>day()>20?1:0,'winter'),st('마을 잔치 열기',1,()=>S.st.feasts||0,'bread'),st('명소 두 곳 복원하기',2,()=>lmCount(),'lm'),st('던전 지하 5층 돌파',5,()=>S.dg.best,'cave')]),
+  QS('q15',{gold:500},[st('마을회관 3레벨',3,()=>hallL(),'hall'),st("마을 등급 '읍' 되기",3,()=>rankOf(),'rank'),st('던전 지하 15층 보스 쓰러뜨리기',15,()=>S.dg.best,'cave')]),
 ];
 
 /* ---------- view ---------- */
@@ -1521,7 +1526,7 @@ function buy(i){const t=TRADES[i];if(!t||!count('market'))return;const price=pur
 function sell(i){const t=TRADES[i];if(!t||!count('market')||S.r[t.k]<t.n)return;const g=salePrice(t);S.r[t.k]-=t.n;S.r.gold+=g;dailyBump('trade');sfx('coin');S.st.sold+=t.n;S.xp.trade+=g;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');updateHUD();save()}
 function marketHTML(){const buying=tradeTab==='buy';return `<h3>시장 거래</h3><div class="trade-tabs" aria-label="거래 종류"><button class="btn ${buying?'go':''}" data-act="trade-tab" data-tab="buy" aria-pressed="${buying}">자원 구매</button><button class="btn ${!buying?'go':''}" data-act="trade-tab" data-tab="sell" aria-pressed="${!buying}">자원 판매</button></div><div class="shop-balance">${ic('gold')} 보유 금화 <b>${Math.floor(S.r.gold)}</b></div><div class="trades">${TRADES.map((t,i)=>{const price=buying?purchasePrice(t):salePrice(t);return `<div class="trade"><span>${ic(t.k)} ${RN[t.k]} ${t.n}개</span><span>${ic('gold')} ${price}</span><button class="btn ${buying?'go':''}" data-act="${buying?'buy':'sell'}" data-i="${i}" aria-label="${RN[t.k]} ${t.n}개 ${buying?'구매':'판매'}" ${(buying?S.r.gold>=price:S.r[t.k]>=t.n)?'':'disabled'}>${buying?'구매':'판매'}</button></div>`}).join('')}${buying?'':Object.entries(GOODS).filter(([,G])=>G.sell).map(([k,G])=>`<div class="trade"><span>${gIc(k)} ${G.n} ${G.sell.n}개 <small>(보유 ${S.goods[k]||0})</small></span><span>${ic('gold')} ${goodPrice(k)}</span><button class="btn" data-act="sell-good" data-k="${k}" ${(S.goods[k]||0)>=G.sell.n?'':'disabled'}>판매</button></div>`).join('')}</div>`}
 
-function claim(id){const q=Q.find(q=>q.id===id);if(!questReady(q))return;sfx('claim');S.claimed.push(id);give(q.r);const h=S.b[0];chips(h.x*TS+16,h.y*TS,'#e8b93e',12);toast(`퀘스트 완료: ${q.t}`);updateHUD();save();playEpisode(Q.indexOf(q)+1)}
+function claim(id){const q=Q.find(q=>q.id===id);if(!questReady(q))return;sfx('claim');S.claimed.push(id);give(q.r);const h=S.b[0];chips(h.x*TS+16,h.y*TS,'#e8b93e',12);toast(`${EPISODES[Q.indexOf(q)].n}화 목표 완료!`);updateHUD();save();playEpisode(Q.indexOf(q)+1)}
 
 /* ---------- input ---------- */
 const pointers=new Map();
@@ -2014,7 +2019,8 @@ function lifeTick(){ensureDaily();crisisTick();acadTick();meetTick();updateAlert
 const EP_V2=new Set([1,2,3,4,5,6,7,9,10,12,13]),EP_REUSE={8:7,11:13},nn=n=>String(n).padStart(2,'0');
 const EP_THUMB=n=>EP_V2.has(n)?`./assets/story/v2/thumbs/ep${nn(n)}.webp`:`./assets/story/thumbs/ep${nn(EP_REUSE[n]??n)}.webp`;
 const QUEST_ICON={q1:'wood',q4:'stone',q5:'pop',q9:'gold',q13:'pop'},QUEST_THUMB={q2:'house',q3:'farm',q6:'lumber',q7:'quarry',q8:'market',q10:'hall',q11:'bakery',q12:'tavern',q15:'hall'};
-function questIcon(q){if(QUEST_ICON[q.id])return ic(QUEST_ICON[q.id],'qi');if(QUEST_THUMB[q.id]&&THUMBURL[QUEST_THUMB[q.id]])return `<img class="qi" src="${THUMBURL[QUEST_THUMB[q.id]]}" alt="">`;return `<img class="qi" src="${UI_IC('winter')}" alt="">`}
+function stepIcon(i){if(!i)return null;if(RN[i]||i==='pop')return ic(i,'qi');if(THUMBURL[i])return `<img class="qi" src="${THUMBURL[i]}" alt="">`;if(GOODS[i]||i==='adv')return gIc(i,'qi');if(i==='road')return `<img class="qi" src="${roadThumb()}" alt="">`;if(i==='cave')return `<img class="qi" src="${caveURL(true)}" alt="">`;const u={zone:'village',lm:'village',rank:'reward',grad:'daily-grad',winter:'winter'}[i];return u?`<img class="qi" src="${UI_IC(u)}" alt="">`:null}
+function questIcon(q){const si=q.cur&&stepIcon(q.cur().i);if(si)return si;if(QUEST_ICON[q.id])return ic(QUEST_ICON[q.id],'qi');if(QUEST_THUMB[q.id]&&THUMBURL[QUEST_THUMB[q.id]])return `<img class="qi" src="${THUMBURL[QUEST_THUMB[q.id]]}" alt="">`;return `<img class="qi" src="${UI_IC('winter')}" alt="">`}
 const rewardIcons=r=>Object.entries(r).map(([k,v])=>`<span class="rw">${ic(k)}${v}</span>`).join('');
 /* ---------- sheet sub-tabs: one job per screen instead of one long scroll ---------- */
 const SUBS={
@@ -2034,7 +2040,7 @@ function segHTML(tab){return `<div class="seg" role="tablist">${SUBS[tab].map(([
 function setSub(tab,k){if(!SUBS[tab]||!SUBS[tab].some(([x])=>x===k))return;SUB[tab]=k;try{localStorage.setItem('jy-subtabs',JSON.stringify(SUB))}catch(e){}sheet.scrollTop=0;renderSheet()}
 function storyTodayHTML(){const q=nextQuest();if(!q)return `<div class="today-card done"><b>이야기 완결</b></div>`;
   const i=Q.indexOf(q),ep=EPISODES[i],v=Math.min(q.v(),q.g),ready=questReady(q);
-  return `<div class="today-card art ${ready?'ready':''}"><img class="today-bg" src="${EP_THUMB(ep.n)}" alt="" decoding="async" onerror="this.onerror=null;this.style.display='none'"><div class="today-in"><small class="today-tag">${ep.n}화 · ${ep.t}</small><div class="today-goal">${questIcon(q)}<div class="meter"><i style="width:${Math.round(v/q.g*100)}%"></i></div><b>${Math.floor(v)}/${q.g}</b></div><small class="today-what">${q.t}</small>${ready?`<button class="btn go" data-act="claim" data-q="${q.id}">${UI('reward')}보상 받고 보기</button>`:''}</div></div>`}
+  return `<div class="today-card art ${ready?'ready':''}"><img class="today-bg" src="${EP_THUMB(ep.n)}" alt="" decoding="async" onerror="this.onerror=null;this.style.display='none'"><div class="today-in"><small class="today-tag">${ep.n}화 · ${ep.t}</small><div class="today-goal">${questIcon(q)}<div class="meter"><i style="width:${Math.round(v/q.g*100)}%"></i></div><b>${Math.floor(v)}/${q.g}</b></div>${q.steps.length>1?'':`<small class="today-what">${q.t}</small>`}${q.steps.length>1?`<ul class="q-steps">${q.steps.map(x=>{const ok=x.v()>=x.g;return `<li class="${ok?'ok':''}">${ok?'✓':'·'} ${x.t}${ok?'':` <b>${Math.floor(Math.min(x.v(),x.g))}/${x.g}</b>`}</li>`}).join('')}</ul>`:''}${ready?`<button class="btn go" data-act="claim" data-q="${q.id}">${UI('reward')}보상 받고 보기</button>`:''}</div></div>`}
 function shopTabsHTML(){const full=shopHTML(),cut=full.indexOf('<div class="shop-note-link">'),head=full.slice(0,cut),rest=full.slice(cut).replace(/^<div class="shop-note-link">.*?<\/button><\/div>/s,'');
   const market=count('market')?marketHTML():`<div class="today-card"><b>시장이 아직 없어요</b><small>시장을 지으면 목재·석재·식량을 사고팔 수 있어요. 피노도 이사 와요.</small><button class="btn go" data-act="choose-build" data-k="market">시장 지을 곳 고르기</button></div>`;
   return head.replace('<h2>장식 상점</h2>','<h2>상점</h2>')+segHTML('shop')+`<section data-sub="decor">${rest}</section><section data-sub="market">${market}</section><section data-sub="items">${itemsHTML()}</section>`}
@@ -2071,7 +2077,7 @@ function storyHTML(){const next=nextQuest();let from=0;
  let h=`<div class="top shop-top"><div><h2>마을 이야기</h2><div class="lv">${S.claimed.length} / ${Q.length}화 완료</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('story')}<section data-sub="today">${storyTodayHTML()}${dailyHTML()}</section><section data-sub="eps"><div class="act-h"><b>프롤로그</b></div><div class="ep-grid">${card(0,'발령 추첨','done')}</div>`;
  for(const a of ACTS){h+=`<div class="act-h"><b>${a.n} ${a.t}</b></div><div class="ep-grid">`;for(let i=from;i<a.to;i++){const q=Q[i],ep=EPISODES[i],got=S.claimed.includes(q.id),current=q===next,ready=questReady(q),v=Math.min(q.v(),q.g);
    const state=got?'done':ready?'ready':current?'current':'locked';
-   h+=card(ep.n,ep.t,state,state==='ready'?`<span class="ep-badge">${UI('reward')}</span>`:state==='current'?`<span class="ep-prog"><i style="width:${Math.round(v/q.g*100)}%"></i></span>`:'')}
+   h+=card(ep.n,ep.t,state,state==='ready'?`<span class="ep-badge">${UI('reward')}</span>`:state==='current'?`<span class="ep-prog"><i style="width:${Math.round(q.frac()*100)}%"></i></span>`:'')}
    from=a.to;h+='</div>'}return h+'</section>'}
 
 /* Shared UI descriptions; these never change production, prices, or saved state. */
@@ -2079,7 +2085,7 @@ function objectName(name){const c=name.charCodeAt(name.length-1);return name+(c>
 function compactNumber(value){const n=Math.max(0,Math.floor(value));if(n<1000)return String(n);const [unit,size]=n>=1e8?['억',1e8]:n>=1e4?['만',1e4]:['천',1000];const v=n/size;return (v<10?Math.floor(v*10)/10:Math.floor(v))+unit}
 function exactNumber(value){return Math.floor(value).toLocaleString('ko-KR')}
 function nextQuest(){return Q.find(q=>!S.claimed.includes(q.id))}
-function questReady(q){return !!q&&q===nextQuest()&&q.v()>=q.g}
+function questReady(q){return !!q&&q===nextQuest()&&q.done()}
 function missingCost(cost){return Object.entries(cost||{}).filter(([k,v])=>S.r[k]<v).map(([k,v])=>`${RN[k]} ${Math.ceil(v-S.r[k])}`).join(' · ')}
 function buildingChips(kind){const d=B[kind],out=[];for(const[k,v]of Object.entries(d.prod||{}))out.push(`<span class="bc">${ic(k)}+${(v*bonus(k)).toFixed(1)}</span>`);if(d.cap)out.push(`<span class="bc">${ic('pop')}+${d.cap}</span>`);if(d.need)out.push(`<span class="bc" title="일손">${UI('worker')}${d.need}</span>`);if(kind==='farm')out.push(`<span class="bc" title="겨울 휴업">${UI('winter')}쉼</span>`);if(d.link)out.push(`<span class="bc link" title="${d.link.to.map(k=>LINK_NAME[k]).join('·')} 옆에 지어요">+${d.link.short||d.link.to.map(k=>({farm:'밀밭',lumber:'벌목',quarry:'채석'})[k]).join('/')}</span>`);return out.join('')}
 function buildingFacts(kind){const d=B[kind],facts=[];for(const[k,v]of Object.entries(d.prod||{}))facts.push(`${RN[k]} +${(v*bonus(k)).toFixed(1)}/초`);if(d.cap)facts.push(`수용 인원 +${d.cap}명`);if(d.need)facts.push(`일손 ${d.need}명`);if(kind==='farm')facts.push('겨울 휴업');if(kind==='bakery')facts.push('사계절 생산');if(kind==='tavern')facts.push('주민 유입 촉진');return facts.join(' · ')}
@@ -2137,7 +2143,7 @@ function updateHUD(){
   $('#day').innerHTML=`${rankOf()?RANKS[rankOf()].n+' · ':''}<b>${day()}</b>일 · ${SEASONS[season()]}${isDusk()?' · 저녁':''}`;
   const q=nextQuest();let gh;
   if(q){const v=Math.min(q.v(),q.g),done=questReady(q),ep=EPISODES[Q.indexOf(q)];
-    gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
+    gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.steps.length>1?`<em class="gq-step">${q.stepNo()}/${q.steps.length}</em>`:''}${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
     $('#goal').classList.toggle('done',done);if(lastGoal!==q.id){lastGoal=q.id;flashGoal()}}
   else{const nr=RANKS[rankOf()+1];gh=nr?`<button class="goal-open goal-rank"><span>다음 등급: ${nr.n}</span><small>${rankRows(rankOf()+1).filter(([,a,b])=>a>=b).length}/${rankRows(rankOf()+1).length}</small></button>`:`<button class="goal-open"><span>이야기를 모두 마쳤어요</span><small>15/15</small></button>`;$('#goal').classList.remove('done')}
   const ge=$('#goal');if(ge.dataset.v!==gh){ge.innerHTML=gh;ge.dataset.v=gh}
