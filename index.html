@@ -362,6 +362,7 @@ body.sheet-open .hud{visibility:hidden}
 .pols{display:grid;gap:8px}.pol{display:grid;gap:3px;padding:10px 12px;border-radius:10px;background:#e4d6b15e;border:1px solid transparent}.pol.on{border-color:#6f9a4a;background:#d8e3b95e}.pol.locked{opacity:.6}.pol-t{display:flex;align-items:center;gap:8px}.pol-t b{font-weight:400;font-size:15px}.pol-on{font-size:11px;padding:1px 6px;border-radius:4px;background:#5d7a45;color:#fff4d6}.pol .up{color:#4f7a31;font-size:12px}.pol .down{color:#a13e26;font-size:12px}.pol-lock{font-size:12px;color:#705b3e}.pol .btn{justify-self:start;margin-top:4px;padding:6px 12px}
 #day{cursor:pointer;pointer-events:auto}.mood.good{color:#c9eaa0}.mood.mid{color:#ffe7a6}.mood.bad{color:#ffb39a}
 .wall-tiers{grid-template-columns:repeat(4,minmax(0,1fr))!important}.rt.lock{opacity:.55}.wall-card{display:grid;gap:5px;padding:12px;border-radius:10px;background:#e4d6b15e}.wall-card b{font-weight:400;font-size:15px}.wall-card small{font-size:12px;color:#705b3e;line-height:1.5}.wall-prot{font-size:13px;color:#5d4a31}
+.cost .gic.cmat{width:11px;height:11px;vertical-align:-2px}.btn .gic.cmat{width:14px;height:14px;vertical-align:-3px}.mat-hint{display:block;width:100%;font-size:12px;color:#8a5a34;margin-top:4px}
 </style>
 
 </head>
@@ -441,13 +442,13 @@ const feastCost=()=>Math.round(150+8*S.pop);
 const feastReady=()=>S.feastDay!==day();
 function holdFeast(){if(!feastReady()){toast('잔치는 하루에 한 번만 열 수 있어요');return}const c=feastCost();if(S.r.gold<c){toast(`금화 ${Math.ceil(c-S.r.gold)} 부족해요`);return}S.r.gold-=c;S.feastDay=day();const r0=S.rumor;S.rumor=Math.max(0,S.rumor-25);const fb=S.goods.bread>=5?2:1;if(fb>1){S.goods.bread-=5;S.st.bread_feasts=(S.st.bread_feasts||0)+1}let n=0;for(const r of RESIDENTS)if(resArrived(r)){S.favor[r.id]=(S.favor[r.id]||0)+fb;n++}S.st.feasts=(S.st.feasts||0)+1;sfx('claim');const h=S.b.find(b=>b.k==='hall');if(h){h.glow=performance.now();for(let i=0;i<4;i++)setTimeout(()=>chips(bCX(h)+(Math.random()-.5)*30,bBase(h)-10,'#ffd27a',10),i*150)}toast(`마을 잔치!${fb>1?' 빵 5개를 나눴어요.':''} 소문이 가라앉았어요 · 주민 ${n}명 친밀도 +${fb}`);save();updateHUD();renderSheet()}
 /* ---------- crafting: 방앗간·빵집·대장간·선술집 ---------- */
-const GOODS={flour:{n:'밀가루',g:'food',p:9,d:'빵과 회복 물약의 재료'},bread:{n:'빵',g:'food',p:16,d:'모험가 모집 · 잔치 · 던전 도시락 · 수확제'},
+const GOODS={plank:{n:'판자',g:'mat',p:8,d:'벌목소에서 켜요 · 건물 업그레이드 재료'},brick:{n:'벽돌',g:'mat',p:10,d:'채석장에서 구워요 · 건물 업그레이드 재료'},nails:{n:'철물',g:'mat',p:24,d:'대장간에서 만들어요 · 3레벨 업그레이드와 큰 건물 재료'},flour:{n:'밀가루',g:'food',p:9,d:'빵과 회복 물약의 재료'},bread:{n:'빵',g:'food',p:16,d:'모험가 모집 · 잔치 · 던전 도시락 · 수확제'},
  sword:{n:'철검',g:'gear',gear:1,p:90,d:'싸움 성공률 +8%'},shield:{n:'나무 방패',g:'gear',gear:1,p:90,d:'함정 피해 -1'},armor:{n:'가죽 갑옷',g:'gear',gear:1,p:110,d:'시작 체력 +2'},
  axe:{n:'좋은 도끼',g:'tool',tool:'lumber',p:70,d:'벌목소에 끼우면 목재 +20%'},pick:{n:'튼튼한 곡괭이',g:'tool',tool:'quarry',p:70,d:'채석장에 끼우면 석재 +20%'},sickle:{n:'반짝이는 낫',g:'tool',tool:'farm',p:70,d:'밀밭에 끼우면 식량 +20%'},
  cloak:{n:'요정 깃털 망토',g:'gear',gear:1,p:220,d:'시작 체력 +3 · 원정 성공률 +10%'},
  potion_hp:{n:'회복 물약',g:'potion',p:35,d:'던전에서 마시면 체력 +5'},potion_hp2:{n:'상급 회복 물약',g:'potion',p:85,d:'던전에서 마시면 체력 +10'},
  herb:{n:'약초',g:'sp',p:12,pse:[1,1,1,1.4],d:'고목의 뿌리굴 · 상급 회복 물약 재료'},pearl:{n:'진주',g:'sp',p:45,pse:[1,1,1.25,1],d:'물안개 동굴 · 비싸게 팔려요'},feather:{n:'깃털',g:'sp',p:25,pse:[1,1.3,1,1],d:'바람 망루 터 · 요정 깃털 망토 재료'},fairy:{n:'요정 가루',g:'sp',p:40,pse:[1.3,1,1,1],d:'요정의 고리 · 요정 깃털 망토 재료'},coin:{n:'고대 동전',g:'sp',p:60,d:'무너진 지하 묘지 · 비싸게 팔려요'},potion_calm:{n:'평범함의 물약',g:'potion',p:60,d:'이웃들이 마시면 소문이 가라앉아요'}};
-const GOOD_GROUPS=[['food','재료·음식'],['gear','장비'],['tool','도구'],['potion','물약'],['sp','던전 특산물']];
+const GOOD_GROUPS=[['mat','건축 자재'],['food','재료·음식'],['gear','장비'],['tool','도구'],['potion','물약'],['sp','던전 특산물']];
 const TOOL_LIFE=300,TOOL_FOR=Object.fromEntries(Object.entries(GOODS).filter(([,G])=>G.tool).map(([k,G])=>[G.tool,k]));
 // 계절 시세: 봄 여름 가을 겨울
 const PRICE_SE={flour:[1,1,.8,1.25],bread:[1,.9,.9,1.4],sickle:[1.3,1.1,.9,.8],axe:[1,1,1.1,1.3],pick:[1.2,1,1,.9],armor:[1,1,1,1.2],potion_hp:[1,1.1,1.3,1],potion_calm:[1,1,1,1]};
@@ -456,9 +457,11 @@ const GEAR=['sword','shield','armor','cloak'];
 const gearWorn=k=>S.academy.grads.filter(g=>g.gear&&g.gear[k]).length;
 const keepOf=k=>Math.max(0,(S.keep&&S.keep[k])|0);
 const RECIPES={
+ lumber:[{id:'plank',out:'plank',c:{wood:5},t:20}],
+ quarry:[{id:'brick',out:'brick',c:{stone:5,wood:1},t:25}],
  mill:[{id:'flour',out:'flour',c:{food:15},t:30}],
  bakery:[{id:'bread',out:'bread',c:{wood:4},g:{flour:1},t:30}],
- smithy:[{id:'sword',out:'sword',c:{wood:60,stone:120},t:90},{id:'shield',out:'shield',c:{wood:120,stone:60},t:90},{id:'armor',out:'armor',c:{stone:150,gold:60},t:120},{id:'axe',out:'axe',c:{wood:80,stone:60},t:80},{id:'pick',out:'pick',c:{wood:60,stone:80},t:80},{id:'sickle',out:'sickle',c:{wood:50,stone:50,gold:30},t:80},{id:'cloak',out:'cloak',c:{gold:100},g:{feather:3,fairy:2},t:120}],
+ smithy:[{id:'nails',out:'nails',c:{stone:4},g:{plank:1},t:30},{id:'sword',out:'sword',c:{wood:60,stone:120},t:90},{id:'shield',out:'shield',c:{wood:120,stone:60},t:90},{id:'armor',out:'armor',c:{stone:150,gold:60},t:120},{id:'axe',out:'axe',c:{wood:80,stone:60},t:80},{id:'pick',out:'pick',c:{wood:60,stone:80},t:80},{id:'sickle',out:'sickle',c:{wood:50,stone:50,gold:30},t:80},{id:'cloak',out:'cloak',c:{gold:100},g:{feather:3,fairy:2},t:120}],
  tavern:[{id:'adv',out:'adv',c:{gold:300},g:{bread:3},t:150}],
  alchemy:[{id:'hp',out:'potion_hp',c:{food:20},g:{flour:1},t:40},{id:'hp2',out:'potion_hp2',c:{food:20},g:{herb:2,flour:1},t:60},{id:'calm',out:'potion_calm',c:{gold:40},g:{bread:1},t:60}]};
 const ADV_NAMES=['로건','에바','그레타','하스','미로','타냐','보리스','이브','칼라','도노','실비','라울','엠마','쿠노','피아','레오'];
@@ -510,7 +513,10 @@ function normalizeCraft(d){const obj=v=>v&&typeof v==='object'&&!Array.isArray(v
 /* goods icons: assets/goods/ 그림이 있으면 그걸, 없으면 직접 그린 그림 */
 const GART={},GURL={};
 function goodsArt(k){return art(12,12,g=>{
- if(k==='flour'){shape(g,[[3,4],[9,4],[10,10.5],[2,10.5]],'#efe3c4','#a88f62',.45);stroke(g,[[3.2,4],[4,2.6],[8,2.6],[8.8,4]],'#a88f62',.45);stroke(g,[[4.5,7.5],[7.5,7.5]],'#c9a560',.6);ellipse(g,6,6.2,1,1.2,'#d8b56a')}
+ if(k==='plank'){for(const[y,c]of[[3,'#c99a62'],[6,'#b88a54'],[9,'#d4a76c']]){roundBox(g,1.5,y-1.2,9,2.4,.4,c,'#7a5634',.4);stroke(g,[[3,y],[5.5,y-.2]],'#9c7448',.25)}}
+ else if(k==='brick'){for(const[x,y]of[[1.5,7],[6,7],[3.8,3.6]])roundBox(g,x,y,4.4,3,.4,'#b5583a','#6e2f1e',.4);stroke(g,[[2,8.4],[5.6,8.4]],'#d98a68',.3)}
+ else if(k==='nails'){for(const[x0,y0,x1,y1]of[[2.4,3,8.6,9.4],[9.4,2.6,3.6,9.6],[6,1.8,6.2,10]]){stroke(g,[[x0,y0],[x1,y1]],'#5c666c',1.3);stroke(g,[[x0,y0],[x1,y1]],'#aeb8be',.6);ellipse(g,x0,y0,1.3,1.3,'#7c868c','#4a5257',.3)}}
+ else if(k==='flour'){shape(g,[[3,4],[9,4],[10,10.5],[2,10.5]],'#efe3c4','#a88f62',.45);stroke(g,[[3.2,4],[4,2.6],[8,2.6],[8.8,4]],'#a88f62',.45);stroke(g,[[4.5,7.5],[7.5,7.5]],'#c9a560',.6);ellipse(g,6,6.2,1,1.2,'#d8b56a')}
  else if(k==='bread'){ellipse(g,6,7.4,4.8,3,'#c98a3e','#8c5a26',.45);ellipse(g,6,6.6,4,2.2,'#e0a858');for(const x of[4,6,8])stroke(g,[[x-.8,5.6],[x+.6,7.6]],'#9c6428',.5)}
  else if(k==='sword'){stroke(g,[[3,9.5],[9,2.5]],'#d8dde0',1.2);stroke(g,[[3,9.5],[9,2.5]],'#8e9aa2',.3);stroke(g,[[2.6,7],[5.4,9.8]],'#8c6a3c',.9);stroke(g,[[1.6,10.8],[3.2,9.2]],'#6c4c2c',.9)}
  else if(k==='shield'){shape(g,[[6,1.6],[10,3],[9.4,7.6],[6,10.6],[2.6,7.6],[2,3]],'#a8743e','#6c4824',.5);stroke(g,[[6,2],[6,10]],'#7c5530',.5);ellipse(g,6,5.6,1.3,1.3,'#d9b45c','#8a6a30',.35)}
@@ -532,7 +538,7 @@ function loadGoodsArt(){fetch('./assets/goods/index.json',{cache:'no-cache'}).th
 const goodsCostHTML=g=>Object.entries(g||{}).map(([k,v])=>`<span class="${(S.goods[k]||0)<v?'lack':''}">${gIc(k)}${v}</span>`).join('');
 function craftHTML(b){const c=craftState(b),r=recipeOf(b),L=RECIPES[b.k],n=craftSlots(b),why=craftWhy(b),pct=c.paid?Math.min(100,Math.round(c.p/r.t*100)):0;
  const st={full:'슬롯이 가득 찼어요 · 받아야 다시 만들어요',staff:'일손이 부족해 쉬는 중',need:`재료가 부족해요 (${[missingCost(r.c),...Object.entries(r.g||{}).filter(([k,v])=>(S.goods[k]||0)<v).map(([k])=>GOODS[k].n)].filter(Boolean).join(', ')})`,work:c.paid?`${outName(r.out)} 만드는 중 · ${Math.ceil((r.t-c.p)/craftSpeed(b))}초`:'곧 시작해요'}[why];
- let h=`<h3 class="sec">${{mill:'방앗간 작업',bakery:'빵 굽기',smithy:'장비 제작',tavern:'모험가 모집',alchemy:'물약 만들기'}[b.k]} <small>슬롯 ${c.slots.length}/${n}</small></h3>`;
+ let h=`<h3 class="sec">${{mill:'방앗간 작업',bakery:'빵 굽기',smithy:'장비 제작',tavern:'모험가 모집',alchemy:'물약 만들기',lumber:'판자 켜기',quarry:'벽돌 굽기'}[b.k]} <small>슬롯 ${c.slots.length}/${n}</small></h3>`;
  if(L.length>1)h+=`<div class="recipes" style="grid-template-columns:repeat(${Math.min(3,L.length)},minmax(0,1fr))">${L.map(x=>`<button class="btn recipe ${x.id===c.r?'go':''}" data-act="recipe" data-r="${x.id}" aria-pressed="${x.id===c.r}">${gIc(x.out)}<span><b>${outName(x.out)}</b><small>${GOODS[x.out]?.d||''}</small></span></button>`).join('')}</div>`;
  h+=`<div class="craft"><div class="craft-row">${gIc(r.out,'big')}<div class="craft-info"><b>${outName(r.out)}</b><span class="cost">${costHTML(r.c)}${goodsCostHTML(r.g)}<span>${UI('timer')}${Math.round(r.t/craftSpeed(b))}초</span></span><small class="craft-st ${why==='work'?'':'bad'}">${st}</small></div></div><span class="tbar"><i style="width:${pct}%"></i></span>
   <div class="slots">${Array.from({length:n},(_,i)=>`<span class="cslot ${c.slots[i]?'on':''}">${c.slots[i]?gIc(c.slots[i]):''}</span>`).join('')}</div>
@@ -1119,13 +1125,17 @@ function maxMsg(k){const n=buildMax(k);if(B[k].max)return `${josa(B[k].n,'은','
 const hallL=()=>S.b.find(b=>b.k==='hall').l;
 const day=()=>Math.floor(S.time/DAY)+1;
 const season=()=>Math.floor(S.time/DAY/5)%4;
-const can=c=>Object.entries(c||{}).every(([k,v])=>S.r[k]>=v);
-const pay=c=>{for(const k in c)S.r[k]-=c[k];if(c.gold>0)ledAdd('inv',c.gold)};
+const have=k=>GOODS[k]?(S.goods&&S.goods[k])||0:S.r[k];
+const can=c=>Object.entries(c||{}).every(([k,v])=>have(k)>=v);
+const pay=c=>{for(const k in c){if(GOODS[k])S.goods[k]=Math.max(0,(S.goods[k]||0)-c[k]);else S.r[k]-=c[k]}if(c.gold>0)ledAdd('inv',c.gold)};
 const give=c=>{for(const k in c)S.r[k]+=c[k]};
 const BUILD_STEP={house:.15,farm:.25,stall:.25,store:.3};
-function bCost(k){const c=B[k].cost||{},n=count(k),f=1+(BUILD_STEP[k]??.4)*n,o={};for(const r in c)o[r]=Math.ceil(c[r]*f/5)*5;return o}
+const BUILD_MAT={inn:{plank:4,brick:2},guard:{brick:3},potion:{plank:3},alchemy:{plank:3,brick:4},guild:{plank:15,brick:15,nails:5},cathedral:{plank:10,brick:25,nails:8}};
+function bCost(k){const c=B[k].cost||{},n=count(k),f=1+(BUILD_STEP[k]??.4)*n,o={};for(const r in c)o[r]=Math.ceil(c[r]*f/5)*5;const m=BUILD_MAT[k];if(m)for(const r in m)o[r]=Math.ceil(m[r]*f);return o}
 const UP_MUL=[0,2,4.5];
-function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;if(!smithyOn())return h;const c={};for(const k in h)c[k]=Math.ceil(h[k]*.9);return c}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*UP_MUL[b.l]*m/5)*5;return c}
+const HALL_MAT=[null,{plank:4,brick:3},{plank:8,brick:8,nails:2},{plank:20,brick:20,nails:6},{plank:30,brick:30,nails:10}];
+function upMat(base,l){const w=base.wood||0,st=base.stone||0,o={};if(l===1){if(w)o.plank=Math.ceil(w/15);if(st)o.brick=Math.ceil(st/15);if(!w&&!st)o.plank=1}else{if(w)o.plank=Math.ceil(w/8);if(st)o.brick=Math.ceil(st/8);o.nails=Math.max(1,Math.ceil((w+st)/40))}return o}
+function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;const c={};for(const k in h)c[k]=smithyOn()?Math.ceil(h[k]*.9):h[k];return Object.assign(c,HALL_MAT[b.l]||{})}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*UP_MUL[b.l]*m/5)*5;return Object.assign(c,upMat(B[b.k].cost,b.l))}
 function cap(){let c=zoneCap()+guardHomes()+(S.festCap||0)+(S.famCap||0);for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=wallStaff(a)}
@@ -1859,7 +1869,7 @@ function harvest(x,y){const i=y*MW+x,o=S.o[i];if(!o)return false;document.queryS
   if(o.hp<=0){S.o[i]=null;onDeplete(o.k,wx,wy);if(o.k==='rock'){S.r.stone+=HARVEST;S.st.stone+=HARVEST}else{S.r.wood+=HARVEST;S.st.wood+=HARVEST}chips(wx,wy+6,o.k==='rock'?'#8f897e':'#8b5a2b',8)}
   updateHUD();return true}
 
-function upgrade(b){const c=upCost(b);if(!c)return;if(!can(c)){toast(`${missingCost(c)} 부족해요`);return}sfx('build');pay(c);b.l++;b.glow=performance.now();dailyBump('build');S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
+function upgrade(b){const c=upCost(b);if(!c)return;if(!can(c)){const h=matHint(c);toast(`${missingCost(c)} 부족해요${h?' · '+h:''}`);return}sfx('build');pay(c);b.l++;b.glow=performance.now();dailyBump('build');S.xp.build+=40;staff();chips(b.x*TS+16,b.y*TS+20,'#e8b93e',10);toast(`${B[b.k].n} ${b.l}레벨이 되었어요`);updateHUD();save()}
 function demolish(b){if(b.k==='hall')return;craftReturn(b);if(S.tools)delete S.tools[b.id];const c=B[b.k].cost;for(const k in c)S.r[k]+=Math.floor(c[k]/2);S.b=S.b.filter(x=>x!==b);rebuildOcc();staff();toast(`${objectName(B[b.k].n)} 허물고 자재 절반을 돌려받았어요`);closeSheet();updateHUD();save()}
 const saleBase=t=>Math.round(t.g*(1+.05*(lv(S.xp.trade)-1)));
 const salePrice=t=>Math.round(saleBase(t)*(rankOf()>=3?1.1:1));
@@ -2476,7 +2486,9 @@ function compactNumber(value){const n=Math.max(0,Math.floor(value));if(n<1000)re
 function exactNumber(value){return Math.floor(value).toLocaleString('ko-KR')}
 function nextQuest(){return Q.find(q=>!S.claimed.includes(q.id))}
 function questReady(q){return !!q&&q===nextQuest()&&q.done()}
-function missingCost(cost){return Object.entries(cost||{}).filter(([k,v])=>S.r[k]<v).map(([k,v])=>`${RN[k]} ${Math.ceil(v-S.r[k])}`).join(' · ')}
+function missingCost(cost){return Object.entries(cost||{}).filter(([k,v])=>have(k)<v).map(([k,v])=>`${GOODS[k]?GOODS[k].n:RN[k]} ${Math.ceil(v-have(k))}`).join(' · ')}
+const MAT_FROM={plank:'벌목소',brick:'채석장',nails:'대장간'};
+function matHint(cost){const m=Object.keys(cost||{}).filter(k=>MAT_FROM[k]&&have(k)<cost[k]);return m.length?m.map(k=>`${GOODS[k].n}은 ${MAT_FROM[k]}에서 만들어요`).join(' · '):''}
 function buildingChips(kind){const d=B[kind],out=[];for(const[k,v]of Object.entries(d.prod||{}))out.push(`<span class="bc">${ic(k)}+${(v*bonus(k)).toFixed(1)}</span>`);if(d.cap)out.push(`<span class="bc">${ic('pop')}+${d.cap}</span>`);if(d.need)out.push(`<span class="bc" title="일손">${UI('worker')}${d.need}</span>`);if(kind==='farm')out.push(`<span class="bc" title="겨울 휴업">${UI('winter')}쉼</span>`);if(d.link)out.push(`<span class="bc link" title="${d.link.to.map(k=>LINK_NAME[k]).join('·')} 옆에 지어요">+${d.link.short||d.link.to.map(k=>({farm:'밀밭',lumber:'벌목',quarry:'채석'})[k]).join('/')}</span>`);return out.join('')}
 function buildingFacts(kind){const d=B[kind],facts=[];for(const[k,v]of Object.entries(d.prod||{}))facts.push(`${RN[k]} +${(v*bonus(k)).toFixed(1)}/초`);if(d.cap)facts.push(`수용 인원 +${d.cap}명`);if(d.need)facts.push(`일손 ${d.need}명`);if(kind==='farm')facts.push('겨울 휴업');if(kind==='bakery')facts.push('사계절 생산');if(kind==='tavern')facts.push('주민 유입 촉진');return facts.join(' · ')}
 function nearestFree(kind){const k=css(),cx=Math.floor((cam.x+innerWidth/2/k)/TS),cy=Math.floor((cam.y+innerHeight*.45/k)/TS);for(let r=0;r<16;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=cx+dx,y=cy+dy;if(validAt(x,y,0,kind))return{x,y}}return null}
@@ -2504,7 +2516,8 @@ function settingsHTML(){return `<div class="top"><h2>도움말 · 설정</h2><bu
 let ROAD_THUMB=null;const ROAD_THUMBS={};function roadThumb(l=1){if(l>1){if(ROAD_THUMBS[l])return ROAD_THUMBS[l];const c=document.createElement('canvas');c.width=c.height=88;const g=c.getContext('2d');g.fillStyle='#88a966';g.beginPath();g.ellipse(44,58,40,24,0,0,Math.PI*2);g.fill();g.lineCap='round';g.strokeStyle='#6c764b';g.lineWidth=22;g.beginPath();g.moveTo(12,70);g.quadraticCurveTo(44,40,78,48);g.stroke();g.strokeStyle=l===3?'#a9a39a':'#c9c2ae';g.lineWidth=17;g.stroke();const R=rng(l*31);for(let i=0;i<(l===3?26:34);i++){const t=R(),x=12+66*t,y=70-30*Math.sin(t*Math.PI*.9)-t*8+(R()-.5)*10;g.fillStyle=l===3?(i%2?'#8f897e':'#c2bcae'):(i%3?'#9d9686':'#e2dccb');if(l===3){g.fillRect(x-3,y-2,6,4)}else{g.beginPath();g.arc(x,y,1.6+R(),0,Math.PI*2);g.fill()}}return ROAD_THUMBS[l]=c.toDataURL()}if(ROAD_THUMB)return ROAD_THUMB;const c=document.createElement('canvas');c.width=c.height=88;const g=c.getContext('2d');
   g.fillStyle='#88a966';g.beginPath();g.ellipse(44,58,40,24,0,0,Math.PI*2);g.fill();g.lineCap='round';g.strokeStyle='#6c764b';g.lineWidth=22;g.beginPath();g.moveTo(12,70);g.quadraticCurveTo(44,40,78,48);g.stroke();
   g.strokeStyle='#cfb887';g.lineWidth=17;g.stroke();g.fillStyle='#a6a080';for(const[x,y]of[[30,56],[50,48],[64,50]]){g.beginPath();g.ellipse(x,y,3,2,0,0,Math.PI*2);g.fill()}return ROAD_THUMB=c.toDataURL()}
-function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
+const cIc=k=>GOODS[k]?gIc(k,'cmat'):ic(k);
+function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${cIc(k)}${v}</span>`).join('')}
 function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>길</span><span class="cost">흙 · 자갈 · 돌</span></button><button class="slot" data-m="wall" aria-pressed="false"><img class="th" src="${wallThumb(1)}" alt=""><span>성벽</span><span class="cost">울타리 · 성문 · 망루</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(bCost(k))}</span><span class="build-hint">${buildingChips(k)}</span></button>`;
   h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m==='wall'){if(mode==='wall')finishPlacement();else beginWall();return}if(m!=='hand'&&!bUnlocked(m)){toast(bLockMsg(m));return}chooseBuilding(m)})}
@@ -2579,7 +2592,7 @@ function renderSheet(){let h='';document.querySelector('.coach')?.remove();
     if(b.k==='hall'&&festPrepOpen())stats+=`</div>${festPrepHTML()}<div class="stat">`;
     const max=b.k==='hall'?hallMax():3;
     h=`<div class="top"><img src="${img}" alt=""><div><h2>${d.n}</h2><div class="lv">LV ${b.l} / ${max}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>${d.d}</p>${(()=>{const r=residentOf(b);return r&&resArrived(r)?`<div class="resident-of">사는 사람: ${r.n} · ${revealed(r.id)?'Lv 999':'Lv ???'} · 단서 ${resClues(r)}/${CLUES[r.id].length}</div>`:''})()}${lastClue&&lastClue.bid===b.id?`<div class="clue-found"><small>수상한 순간 · ${lastClue.r==='chief'?'촌장의 비밀':RESIDENTS.find(x=>x.id===lastClue.r).n}</small>${lastClue.c.t}</div>`:''}<div class="stat">${stats}</div>
-    ${c?`<div class="lv-preview" aria-label="업그레이드하면 모습이 바뀌어요"><img src="${lvThumb(b.k,b.l)}" alt=""><span>›</span><img class="next" src="${lvThumb(b.k,b.l+1)}" alt=""><small>Lv ${b.l+1}</small></div>`:''}<div class="acts">${c?`<button class="btn go ${can(c)?'':'short'}" data-act="up">업그레이드 ${Object.entries(c).map(([k,v])=>`<span class="${S.r[k]<v?'lack':''}">${ic(k)}<span class="num">${v}</span></span>`).join(' ')}</button>`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
+    ${c?`<div class="lv-preview" aria-label="업그레이드하면 모습이 바뀌어요"><img src="${lvThumb(b.k,b.l)}" alt=""><span>›</span><img class="next" src="${lvThumb(b.k,b.l+1)}" alt=""><small>Lv ${b.l+1}</small></div>`:''}<div class="acts">${c?`<button class="btn go ${can(c)?'':'short'}" data-act="up">업그레이드 ${Object.entries(c).map(([k,v])=>`<span class="${have(k)<v?'lack':''}">${cIc(k)}<span class="num">${v}</span></span>`).join(' ')}</button>${matHint(c)?`<small class="mat-hint">${matHint(c)}</small>`:''}`:'<span class="tag ok">최고 레벨</span>'}<button class="btn" data-act="move">옮기기</button>${b.k!=='hall'?`<button class="btn warn" data-act="del">${armDel?'한 번 더 누르면 철거':'철거'}</button>`:''}</div>`;
     if(b.k==='market')h+=marketHTML();
     if(b.k==='house')h+=famHTML(b);
     if(TOOL_FOR[b.k])h+=toolHTML(b);
