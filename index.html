@@ -361,6 +361,7 @@ body.sheet-open .hud{visibility:hidden}
 .taxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.btn.tax{display:grid;gap:2px;padding:8px 4px;font-size:14px}.btn.tax small{font-size:11px;opacity:.8}.btn.tax.on{background:#5d7a45;color:#fff4d6;border-color:#3f5a2e}
 .pols{display:grid;gap:8px}.pol{display:grid;gap:3px;padding:10px 12px;border-radius:10px;background:#e4d6b15e;border:1px solid transparent}.pol.on{border-color:#6f9a4a;background:#d8e3b95e}.pol.locked{opacity:.6}.pol-t{display:flex;align-items:center;gap:8px}.pol-t b{font-weight:400;font-size:15px}.pol-on{font-size:11px;padding:1px 6px;border-radius:4px;background:#5d7a45;color:#fff4d6}.pol .up{color:#4f7a31;font-size:12px}.pol .down{color:#a13e26;font-size:12px}.pol-lock{font-size:12px;color:#705b3e}.pol .btn{justify-self:start;margin-top:4px;padding:6px 12px}
 #day{cursor:pointer;pointer-events:auto}.mood.good{color:#c9eaa0}.mood.mid{color:#ffe7a6}.mood.bad{color:#ffb39a}
+.wall-tiers{grid-template-columns:repeat(4,minmax(0,1fr))!important}.rt.lock{opacity:.55}.wall-card{display:grid;gap:5px;padding:12px;border-radius:10px;background:#e4d6b15e}.wall-card b{font-weight:400;font-size:15px}.wall-card small{font-size:12px;color:#705b3e;line-height:1.5}.wall-prot{font-size:13px;color:#5d4a31}
 </style>
 
 </head>
@@ -672,7 +673,7 @@ function decorFallback(k){const d=DECOR[k];return art(d.w,d.h,g=>{
   else{ellipse(g,16,25,15,5,'#d8ccac','#968870',.7);ellipse(g,16,24,12,3,'#96bdc3');roundBox(g,14,9,4,15,1,'#d5c6a3');ellipse(g,16,10,8,2.8,'#e6d5ae','#a5967b',.5);ellipse(g,16,9,6,1.7,'#a8cbd0')}
 })}
 const decorMoving=()=>mode==='decor'?S.decor.find(d=>d.id===decorMoveId):null;
-function decorCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!OCC[i]&&(!DOCC[i]||DOCC[i]===ignoreId)&&!LMOCC[i]&&cellOpen(x,y)}
+function decorCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!OCC[i]&&(!DOCC[i]||DOCC[i]===ignoreId)&&!LMOCC[i]&&!wallAt(i)&&cellOpen(x,y)}
 function decorValid(k,x,y,ignoreId=0){const d=decorDef(k);if(!d)return false;for(let dy=0;dy<d.size;dy++)for(let dx=0;dx<d.size;dx++)if(!decorCell(x+dx,y+dy,ignoreId))return false;return true}
 function decorCost(k){return S.decorBag[k]>0?0:DECOR[k].reward?Infinity:DECOR[k].price}
 function beginDecor(k,id=null){
@@ -1127,7 +1128,7 @@ const UP_MUL=[0,2,4.5];
 function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;if(!smithyOn())return h;const c={};for(const k in h)c[k]=Math.ceil(h[k]*.9);return c}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*UP_MUL[b.l]*m/5)*5;return c}
 function cap(){let c=zoneCap()+guardHomes()+(S.festCap||0)+(S.famCap||0);for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
-function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
+function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=wallStaff(a)}
 function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()*trophyProd()*routeBonus(k)*mgProdMul()}
 function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);const tm=S.tools&&S.tools[b.id]?1.2:1;for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm*tm*(k==='gold'?mgGoldMul(b.k):1);if(b.k==='ranch')o.food=-.3*b.l;return o}
 function linkTags(b){let t='';if(B[b.k].link){const ls=linksOf(b),L=B[b.k].link;const names=L.to.map(k=>LINK_NAME[k]).join('·');
@@ -1153,7 +1154,7 @@ function linkFrom(b){let best=null;for(const s of S.b){if(!((s.k==='mill'&&b.k==
 const linkMul=b=>{const s=linkFrom(b);return s?1+linkPer(s.l):1};
 const smithyOn=()=>S.b.some(x=>x.k==='smithy'&&STAFF[x.id]);
 const foodUse=()=>S.claimed.length?S.pop*.12*(lmDone('well')?.85:1)*mgFoodMul():0;
-function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}r.gold+=taxRate()-upkRate();return r}
+function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}r.gold+=taxRate()+tollRate()-upkRate();return r}
 /* ---------- village management: ledger, chief level, satisfaction, policies ---------- */
 const UPK={store:.06,market:.1,bakery:.15,mill:.12,smithy:.2,ranch:.12,inn:.24,stall:.06,alchemy:.24,potion:.12,guild:.8,cathedral:.8,guard:.2,tavern:.24};
 const TAXES=[{n:'낮게',m:.6,s:8},{n:'보통',m:1,s:0},{n:'높게',m:1.5,s:-12}];
@@ -1172,7 +1173,7 @@ function normalizeMg(d){const o=d.mg&&typeof d.mg==='object'?d.mg:{};const n=(v,
  const L=o.led&&typeof o.led==='object'?o.led:{};const day0=x=>{const z={};for(const k of LED_K)z[k]=Number.isFinite(x&&x[k])?x[k]:0;return z};
  d.mg={xp:n(o.xp,0,1e9,0),tax:[0,1,2].includes(o.tax)?o.tax:1,pol:Array.isArray(o.pol)?[...new Set(o.pol.filter(k=>POLICIES[k]))]:[],sat:n(o.sat,0,100,60),unpaid:n(o.unpaid,0,999,0),breadOk:o.breadOk!==false,leaveT:n(o.leaveT,0,999,0),lvSeen:n(o.lvSeen,1,CHIEF_MAX,1),
   led:{d:Number.isInteger(L.d)?L.d:0,start:Number.isFinite(L.start)?L.start:(d.r&&d.r.gold)||0,cur:day0(L.cur),prev:L.prev?day0(L.prev):null}};return d}
-const LED_K=['prod','tax','sale','upk','inv','etc','net','xp'];
+const LED_K=['prod','tax','toll','sale','upk','inv','etc','net','xp'];
 const MG=()=>S.mg||(normalizeMg(S),S.mg);
 const chiefLv=()=>Math.min(CHIEF_MAX,Math.floor(Math.sqrt(MG().xp/8))+1);
 const chiefTitle=(l=chiefLv())=>CHIEF_T.filter(([a])=>l>=a).pop()[1];
@@ -1181,7 +1182,7 @@ const polSlots=(l=chiefLv())=>l>=15?3:l>=8?2:l>=3?1:0;
 const polCost=()=>20+Math.floor(S.pop)*2;
 const upkMul=()=>(polOn('frugal')?.7:1)*(polOn('pact')?1.2:1);
 const upkOf=b=>(UPK[b.k]||0)*b.l*upkMul();
-const upkRate=()=>S.b.reduce((a,b)=>a+upkOf(b),0)+(polOn('fest')?(10+Math.floor(S.pop))/DAY:0);
+const upkRate=()=>S.b.reduce((a,b)=>a+upkOf(b),0)+wallUpk()*upkMul()+(polOn('fest')?(10+Math.floor(S.pop))/DAY:0);
 const satTaxMul=()=>.5+MG().sat/100;
 const taxRate=()=>Math.floor(S.pop)*.02*TAXES[MG().tax].m*satTaxMul()*(polOn('immig')?.7:1);
 const mgFoodMul=()=>polOn('market_day')?1.1:1;
@@ -1198,6 +1199,7 @@ function satFactors(){const m=MG(),p=Math.floor(S.pop),out=[];
  const f=funScore();if(f!==null)out.push([f>=0?'즐길 거리가 있어요':'즐길 거리가 부족해요',f]);
  if(TAXES[m.tax].s)out.push([`세금 ${TAXES[m.tax].n}`,TAXES[m.tax].s]);
  if(m.unpaid>0)out.push(['건물 유지비가 밀렸어요',-15]);
+ {const ws=wallSat();if(ws)out.push(ws)}
  if(polOn('bread'))out.push(['빵 배급',10]);if(polOn('work'))out.push(['근로 장려',-10]);if(polOn('frugal'))out.push(['검소한 살림',-5]);if(polOn('fest'))out.push(['잔치 기금',8]);
  return out.filter(x=>x[1])}
 const satTarget=()=>Math.max(0,Math.min(100,55+satFactors().reduce((a,x)=>a+x[1],0)));
@@ -1209,12 +1211,13 @@ function ledAdd(k,v){if(!S||!S.mg||!v)return;S.mg.led.cur[k]+=v}
 function mgTick(){const m=MG(),L=m.led;
  if(L.d!==day()){if(L.d){mgDayEnd()}L.d=day();L.start=S.r.gold;for(const k of LED_K)L.cur[k]=0}
  const tx=taxRate();if(tx>0){S.r.gold+=tx;ledAdd('tax',tx)}
+ const tl=tollRate();if(tl>0){S.r.gold+=tl;ledAdd('toll',tl)}
  const u=upkRate();if(u>0){if(S.r.gold>=u){S.r.gold-=u;ledAdd('upk',u);m.unpaid=Math.max(0,m.unpaid-1)}else{ledAdd('upk',S.r.gold);S.r.gold=0;if(m.unpaid===0)toast('금화가 모자라 건물 유지비가 밀렸어요. 주민들이 불안해해요');m.unpaid=Math.min(60,m.unpaid+2)}}
  if(S.time%DAY===7){const p=Math.floor(S.pop);if(p>=10){const need=Math.ceil(p/20)*(polOn('bread')?2:1),have=S.goods.bread||0;m.breadOk=have>=need;S.goods.bread=Math.max(0,have-need);if(have)S.st.bread_eaten=(S.st.bread_eaten||0)+Math.min(have,need)}else m.breadOk=true}
  const t=satTarget(),d=t-m.sat;m.sat+=Math.sign(d)*Math.min(.5,Math.abs(d));
  if(m.sat<15&&S.pop>3){m.leaveT++;if(m.leaveT>=45){m.leaveT=0;S.pop--;toast('불만이 쌓여 주민 한 명이 마을을 떠났어요')}}else m.leaveT=0}
-function mgDayEnd(){const m=MG(),c=m.led.cur;const net=S.r.gold-m.led.start;c.etc=net-(c.prod+c.tax+c.sale-c.upk-c.inv);c.net=net;
- const g=Math.max(0,c.prod+c.tax+c.sale-c.upk);const xp=Math.round(4+Math.floor(S.pop)*.3+Math.min(40,g/20)+(m.sat>=70?4:m.sat>=50?2:0));c.xp=xp;
+function mgDayEnd(){const m=MG(),c=m.led.cur;const net=S.r.gold-m.led.start;c.etc=net-(c.prod+c.tax+c.toll+c.sale-c.upk-c.inv);c.net=net;
+ const g=Math.max(0,c.prod+c.tax+c.toll+c.sale-c.upk);const xp=Math.round(4+Math.floor(S.pop)*.3+Math.min(40,g/20)+(m.sat>=70?4:m.sat>=50?2:0));c.xp=xp;
  const before=chiefLv();m.xp+=xp;m.led.prev={...c};const after=chiefLv();
  if(after>before&&after>m.lvSeen){m.lvSeen=after;const opened=[];if(polSlots(after)>polSlots(before))opened.push('정책 칸');const np=Object.values(POLICIES).filter(p=>p.lv>before&&p.lv<=after).map(p=>p.n);if(np.length)opened.push(np.join('·'));if(before<2&&after>=2)opened.push('세율 조정');
   setTimeout(()=>{sfx('claim');toast(`촌장 Lv${after} · ${chiefTitle(after)}!${opened.length?' '+opened.join(', ')+' 열림':''}`)},400)}}
@@ -1223,8 +1226,8 @@ function togglePolicy(k){const m=MG(),P=POLICIES[k];if(!P)return;if(m.pol.includ
  else{if(chiefLv()<P.lv)return;if(m.pol.length>=polSlots()){toast('정책 칸이 가득 찼어요. 하나를 멈추고 바꿔요');return}const c=polCost();if(S.r.gold<c){toast(`금화 ${c} 필요해요`);return}S.r.gold-=c;ledAdd('inv',c);m.pol.push(k);toast(`${P.n} 정책을 시작했어요`);sfx('claim')}
  save();updateHUD();renderSheet()}
 const fmtG=v=>(v<0?'−':'')+compactNumber(Math.round(Math.abs(v)));
-function ledRows(c,live){const etc=live?(S.r.gold-MG().led.start)-(c.prod+c.tax+c.sale-c.upk-c.inv):c.etc,net=live?S.r.gold-MG().led.start:c.net;
- return [['건물 수입',c.prod],['세금',c.tax],['물건 판매',c.sale],['기타 (보상·거래)',etc],['건물 유지비',-c.upk],['짓기·구매',-c.inv],['합계',net]]}
+function ledRows(c,live){const etc=live?(S.r.gold-MG().led.start)-(c.prod+c.tax+c.toll+c.sale-c.upk-c.inv):c.etc,net=live?S.r.gold-MG().led.start:c.net;
+ return [['건물 수입',c.prod],['세금',c.tax],['통행세',c.toll],['물건 판매',c.sale],['기타 (보상·거래)',etc],['건물 유지비',-c.upk],['짓기·구매',-c.inv],['합계',net]]}
 function manageHTML(){const m=MG(),l=chiefLv(),xp=m.xp,a=chiefXpAt(l),b=chiefXpAt(l+1),pct=l>=CHIEF_MAX?100:Math.round((xp-a)/(b-a)*100);
  const nextUn=[[2,'세율 조정'],[3,'정책 칸 1'],[8,'정책 칸 2'],[15,'정책 칸 3'],...Object.values(POLICIES).map(p=>[p.lv,p.n])].filter(([v])=>v>l).sort((x,y)=>x[0]-y[0])[0];
  const s=Math.round(m.sat),t=Math.round(satTarget()),fx=satFactors();
@@ -1239,7 +1242,7 @@ function manageHTML(){const m=MG(),l=chiefLv(),xp=m.xp,a=chiefXpAt(l),b=chiefXpA
  return `<div class="top"><h2>마을 경영</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
  <div class="mg-chief"><b>촌장 Lv${l}</b><span>${chiefTitle(l)}</span><div class="meter"><i style="width:${pct}%"></i></div><small>${l>=CHIEF_MAX?'최고 레벨':`다음 레벨까지 ${Math.ceil(b-xp)} · 하루 결산마다 경영 점수가 쌓여요`}${nextUn?` · Lv${nextUn[0]}: ${nextUn[1]}`:''}</small></div>
  <h3 class="sec">주민 만족도</h3><div class="mg-sat ${satCls(s)}"><div class="sat-top"><b>${s}</b><span>${satWord(s)}</span><small>${t>s?'오르는 중 ▲':t<s?'내리는 중 ▼':'안정'} (목표 ${t})</small></div><div class="meter"><i style="width:${s}%"></i></div><ul class="sat-f">${fx.map(([n,v])=>`<li><span>${n}</span><b class="${v>0?'pos':'neg'}">${v>0?'+':''}${v}</b></li>`).join('')}</ul><small class="sat-eff">${eff}</small></div>
- <h3 class="sec">마을 장부 <small>${day()}일</small></h3>${led}<p class="mg-note">하루 세금 약 ${ic('gold')}${Math.round(tx)} · 하루 유지비 약 ${ic('gold')}${Math.round(upd)}${m.unpaid>0?' · <b class="neg">유지비가 밀렸어요</b>':''}</p>
+ <h3 class="sec">마을 장부 <small>${day()}일</small></h3>${led}<p class="mg-note">하루 세금 약 ${ic('gold')}${Math.round(tx)} · 하루 유지비 약 ${ic('gold')}${Math.round(upd)}${m.unpaid>0?' · <b class="neg">유지비가 밀렸어요</b>':''}${S.walls&&Object.keys(S.walls).length?` · 성벽 안 건물 ${wallCalc().prot}/${wallCalc().tot}채`:''}</p>
  <h3 class="sec">세율 ${l<2?'<small>촌장 Lv2부터</small>':''}</h3><div class="taxes">${taxes}</div>
  <h3 class="sec">정책 <small>${m.pol.length} / ${slots}칸${slots?'':' · 촌장 Lv3부터'}</small></h3><div class="pols">${pols}</div>`}
 
@@ -1339,7 +1342,7 @@ function tick(){
   if(S.pop<c&&S.r.food>=5&&S.growT>=every&&!growBlocked()){S.pop++;S.growT=0;const h=S.b[0];floatTxt(h.x*TS+16,h.y*TS+4,'+1','#cfe8ff','pop')}
   if(S.pop>c)S.pop=c;
   S.spawnT++;
-  if(S.spawnT>=RESPAWN_EVERY){S.spawnT=0;let n=0;S.o.forEach((o,i)=>{if(o&&idxOpen(i))n++});if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i]||LMOCC[i]||!cellOpen(x,y))continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()>=RESPAWN_ROCK?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
+  if(S.spawnT>=RESPAWN_EVERY){S.spawnT=0;let n=0;S.o.forEach((o,i)=>{if(o&&idxOpen(i))n++});if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i]||LMOCC[i]||wallAt(i)||!cellOpen(x,y))continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()>=RESPAWN_ROCK?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
   const se=season();if(se!==prevSe){onSeason(se,true);festival(prevSe);seasonNews(prevSe)}
   if(zonesReady()&&!S.zoneHint&&$('#scene').hidden&&!selId&&!document.getElementById('name-dlg')){S.zoneHint=true;toast('안개 낀 땅에 깃발이 섰어요. 탭하면 개척할 수 있어요');save()}
   rankCheck();
@@ -1353,7 +1356,7 @@ function onSeason(se,announce){if(se===curSeason)return;curSeason=se;SP=buildSpr
 /* ---------- actions ---------- */
 let mode='hand',ghost=null,movingId=null,decorKind=null,decorMoveId=null,selId=null,armDel=false,armReset=false,tradeTab='buy';
 const movingBuilding=()=>mode==='move'?S.b.find(b=>b.id===movingId):null;
-function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!DOCC[i]&&(!OCC[i]||OCC[i]===ignoreId)&&!LMOCC[i]&&cellOpen(x,y)}
+function placeableCell(x,y,ignoreId=0){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=MW||y>=MH)return false;const i=y*MW+x;return TILES[i]<=1&&!S.o[i]&&!DOCC[i]&&(!OCC[i]||OCC[i]===ignoreId)&&!LMOCC[i]&&!wallAt(i)&&cellOpen(x,y)}
 function validAt(x,y,ignoreId=0,kind){const k=kind||(ignoreId?S.b.find(b=>b.id===ignoreId)?.k:null)||(B[mode]?mode:'house'),[fw,fh]=fp(k);for(let dy=0;dy<fh;dy++)for(let dx=0;dx<fw;dx++)if(!placeableCell(x+dx,y+dy,ignoreId))return false;return true}
 function fixFootprints(){const taken=new Int32Array(MW*MH),free=(b,x,y)=>{const[fw,fh]=fp(b.k);for(let dy=0;dy<fh;dy++)for(let dx=0;dx<fw;dx++){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=MW||Y>=MH)return false;const i=Y*MW+X;if(TILES[i]>1||taken[i])return false}return true};let moved=0;
   for(const b of S.b.slice().sort((a,b)=>a.id-b.id)){if(!free(b,b.x,b.y)){let best=null;for(let r=1;r<14&&!best;r++)for(let dy=-r;dy<=r&&!best;dy++)for(let dx=-r;dx<=r&&!best;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;if(free(b,b.x+dx,b.y+dy))best=[b.x+dx,b.y+dy]}if(best){b.x=best[0];b.y=best[1];moved++}}
@@ -1680,9 +1683,75 @@ let SCN={key:'',lamps:[],fence:[],gates:[]};
 function sceneryCalc(){const r=rankOf(),key=r+':'+S.roads.length+':'+S.b.length;if(SCN.key===key)return SCN;const lamps=[],fence=[],gates=[];
  if(r>=2){for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const i=y*MW+x;if(TILES[i]!==1)continue;const h=((x*73856093)^(y*19349663))>>>0;if(h%5)continue;
    for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=MW||Y>=MH)continue;const j=Y*MW+X;if(TILES[j]===0&&!OCC[j]&&!DOCC[j]&&!LMOCC[j]&&!S.o[j]){lamps.push({x,y,dx,dy});break}}}}
- if(r>=3){const[x0,y0,x1,y1]=HOME_R(),seg=(x,y,ix,iy,ox,oy,dir)=>{const ins=iy*MW+ix,out=oy*MW+ox;if(ix<0||iy<0||ix>=MW||iy>=MH)return;if(TILES[ins]===1||(oy>=0&&oy<MH&&ox>=0&&ox<MW&&TILES[out]===1)){gates.push({x,y,dir});return}if(TILES[ins]!==0||OCC[ins]||LMOCC[ins])return;fence.push({x,y,dir})};
-  for(let x=x0;x<x1;x++){seg(x,y0,x,y0,x,y0-1,'h');seg(x,y1,x,y1-1,x,y1,'h')}for(let y=y0;y<y1;y++){seg(x0,y,x0,y,x0-1,y,'v');seg(x1,y,x1-1,y,x1,y,'v')}}
  return SCN={key,lamps,fence,gates}}
+/* ---------- walls, gates, watchtowers, gatekeepers ---------- */
+const WALL_T={1:{n:'나무 울타리',s:'울타리',cost:{wood:6},upk:.004,note:'빈 땅을 탭해 울타리를 둘러요'},2:{n:'돌 성벽',s:'돌 성벽',cost:{stone:10,gold:2},upk:.008,rank:3,note:'빈 땅이나 울타리를 탭하면 돌 성벽이 돼요'},3:{n:'성문',s:'성문',cost:{wood:30,stone:20},upk:.03,note:'길 위를 탭해 성문을 놓아요 · 문지기가 지켜야 닫혀요'},4:{n:'망루',s:'망루',cost:{wood:40,stone:40,gold:30},upk:.1,rank:2,note:'성벽 줄에 망루를 세워요 · 망루지기 1명이 지켜요'}};
+const KEEP_UPK=.05,TOWER_MAX=3,TOLL_MAX=4;
+let wallTier=1,WSTAFF={},WC={key:''};
+const wallAt=i=>S&&S.walls?S.walls[i]:null;
+const wallUnlocked=t=>rankOf()>=(WALL_T[t].rank||0);
+function normalizeWalls(d){const o=d.walls&&typeof d.walls==='object'&&!Array.isArray(d.walls)?d.walls:{};d.walls={};
+ for(const k in o){const i=+k,w=o[k];if(!Number.isInteger(i)||i<0||i>=MW*MH||!w||!WALL_T[w.t])continue;const t=TILES?TILES[i]:0;if(w.t===3?t!==1||BASE_TILES[i]===3:t!==0)continue;d.walls[i]=w.t===3&&w.keep?{t:3,keep:1}:{t:w.t}}return d}
+function wallStaff(a){WSTAFF={};if(!S.walls)return a;for(const k of Object.keys(S.walls).sort((x,y)=>S.walls[y].t-S.walls[x].t)){const w=S.walls[k];if(w.t===4||(w.t===3&&w.keep)){if(a>=1){a--;WSTAFF[k]=true}else WSTAFF[k]=false}}return a}
+function wallCalc(){const ks=Object.keys(S.walls||{});const key=ks.map(k=>k+':'+S.walls[k].t+(WSTAFF[k]?'s':'')).join(',')+'|'+S.b.map(b=>b.id+'@'+b.x+','+b.y).join(';');if(WC.key===key)return WC;
+ const N=MW*MH,bar=new Uint8Array(N),out=new Uint8Array(N),q=[];for(let i=0;i<N;i++)if(TILES[i]===2||LMOCC[i])bar[i]=1;
+ let open=0,towers=0,keepers=0;for(const k of ks){const w=S.walls[k];if(w.t===3){if(w.keep&&WSTAFF[k]){bar[k]=1;keepers++}else open++}else{bar[k]=1;if(w.t===4&&WSTAFF[k])towers++}}
+ const push=i=>{if(!bar[i]&&!out[i]){out[i]=1;q.push(i)}};for(let x=0;x<MW;x++){push(x);push((MH-1)*MW+x)}for(let y=0;y<MH;y++){push(y*MW);push(y*MW+MW-1)}
+ while(q.length){const i=q.pop(),x=i%MW,y=(i/MW)|0;if(x>0)push(i-1);if(x<MW-1)push(i+1);if(y>0)push(i-MW);if(y<MH-1)push(i+MW)}
+ const inside=new Uint8Array(N);for(let i=0;i<N;i++)inside[i]=!bar[i]&&!out[i]?1:0;
+ let prot=0;for(const b of S.b){const[fw,fh]=fp(b.k);let ok=true;for(let dy=0;dy<fh&&ok;dy++)for(let dx=0;dx<fw;dx++){const X=b.x+dx,Y=b.y+dy;if(X>=MW||Y>=MH||!inside[Y*MW+X]){ok=false;break}}if(ok)prot++}
+ return WC={key,inside,prot,tot:S.b.length,frac:S.b.length&&ks.length?prot/S.b.length:0,open,towers:Math.min(TOWER_MAX,towers),keepers,n:ks.length}}
+const wallLossMul=()=>1-.5*wallCalc().frac;
+const towerTime=()=>4*wallCalc().towers;
+const tollRate=()=>Math.min(TOLL_MAX,wallCalc().keepers)*.08*(1+.25*rankOf());
+const wallUpk=()=>{let u=0;if(S.walls)for(const k in S.walls){const w=S.walls[k];u+=WALL_T[w.t].upk;if(w.t===3&&w.keep)u+=KEEP_UPK}return u};
+function wallSat(){if(!S.walls||!Object.keys(S.walls).length||S.pop<8)return null;const f=wallCalc().frac;return f>=.8?['성벽 안이 든든해요',6]:f>=.5?['성벽이 마을 절반을 지켜요',3]:null}
+function toggleWall(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;if(!cellOpen(tx,ty)){toast('안개 속 땅은 먼저 개척해요');return}const i=ty*MW+tx,T=WALL_T[wallTier],cur=wallAt(i);
+ if(!wallUnlocked(wallTier)){toast(`${T.n}은 ${RANKS[T.rank].n} 등급부터 지을 수 있어요`);return}
+ const refund=w=>{const c=WALL_T[w.t].cost;for(const k in c)S.r[k]+=Math.floor(c[k]/2)};
+ if(cur&&cur.t===wallTier){refund(cur);delete S.walls[i];sfx('tap');toast(`${T.n}을 헐었어요`);wallDone();return}
+ if(cur){if(wallTier===3||cur.t===3){toast(cur.t===3?'성문은 같은 성문 칸에서만 헐 수 있어요':'성문은 길 위에만 놓을 수 있어요');return}
+  if(!can(T.cost)){toast(`${missingCost(T.cost)} 부족해요`);return}refund(cur);pay(T.cost);S.walls[i]={t:wallTier};chips(tx*TS+8,ty*TS+10,'#a9a39a',6);sfx('build');wallDone();return}
+ if(LMOCC[i]){toast('명소 자리에는 지을 수 없어요');return}if(OCC[i]||DOCC[i]){toast('건물이나 장식이 없는 칸에 지어요');return}if(S.o[i]){toast('나무나 바위를 먼저 치워 주세요');return}
+ if(wallTier===3){if(TILES[i]!==1||BASE_TILES[i]===3){toast('성문은 길 위에 놓아요');return}}else if(TILES[i]!==0){toast(TILES[i]===1?'길 위에는 성문만 놓을 수 있어요':'물 위에는 지을 수 없어요');return}
+ if(!can(T.cost)){toast(`${missingCost(T.cost)} 부족해요`);return}pay(T.cost);S.walls[i]={t:wallTier};S.st.walls=(S.st.walls||0)+1;chips(tx*TS+8,ty*TS+10,wallTier===1?'#9c7a52':'#a9a39a',6);sfx('build');wallDone()}
+function wallDone(){staff();WC.key='';updateHUD();updateConfirm();save()}
+function beginWall(){finishPlacement();mode='wall';setDrawer(false);updateSlots();updateConfirm();toast(WALL_T[wallTier].note)}
+function wallConfirm(){const c=$('#confirm');c.hidden=false;c.classList.add('compact');$('#cyes').textContent='완료';$('#cyes').disabled=false;$('#cno').hidden=true;const C=wallCalc();
+ $('#cmsg').innerHTML=`<div class="road-tiers wall-tiers">${[1,2,3,4].map(t=>{const T=WALL_T[t],ok=wallUnlocked(t);return `<button class="rt ${wallTier===t?'on':''} ${ok?'':'lock'}" data-wt="${t}" aria-pressed="${wallTier===t}"><img src="${wallThumb(t)}" alt=""><b>${T.s}</b><small>${ok?costHTML(T.cost)+(t<3?'/칸':''):RANKS[T.rank].n+'부터'}</small></button>`}).join('')}</div><small class="road-note">${WALL_T[wallTier].note} · 같은 종류를 다시 탭하면 헐어요<br>성벽 안 건물 ${C.prot}/${C.tot}채${C.open?` · <b class="neg">문지기 없는 성문 ${C.open}곳</b>`:''}</small>`}
+const WTHUMB={};function wallThumb(t){if(WTHUMB[t])return WTHUMB[t];const c=document.createElement('canvas');c.width=c.height=88;const g=c.getContext('2d');g.fillStyle='#88a966';g.beginPath();g.ellipse(44,60,40,22,0,0,Math.PI*2);g.fill();
+ const stone=t===2||t===4,body=stone?'#b6ae9c':'#8a6440',edge=stone?'#7d7566':'#5a4028';g.lineWidth=2;g.strokeStyle=edge;
+ if(t<=2){for(let x=10;x<78;x+=(stone?12:7)){g.fillStyle=body;if(stone){g.fillRect(x,34,11,28);g.strokeRect(x,34,11,28);if((x/12|0)%2===0){g.fillRect(x+1,27,9,8);g.strokeRect(x+1,27,9,8)}}else{g.beginPath();g.moveTo(x,64);g.lineTo(x,36);g.lineTo(x+3,30);g.lineTo(x+6,36);g.lineTo(x+6,64);g.closePath();g.fill();g.stroke()}}}
+ else if(t===3){g.fillStyle='#cfb887';g.fillRect(30,46,28,22);g.fillStyle=body;g.fillRect(16,22,14,44);g.strokeRect(16,22,14,44);g.fillRect(58,22,14,44);g.strokeRect(58,22,14,44);g.beginPath();g.ellipse(44,24,22,10,0,Math.PI,0);g.lineWidth=7;g.strokeStyle=edge;g.stroke();g.lineWidth=4;g.strokeStyle=body;g.stroke()}
+ else{g.fillStyle=body;g.fillRect(30,30,28,36);g.strokeRect(30,30,28,36);g.fillStyle='#8a6440';g.fillRect(24,24,40,8);g.strokeRect(24,24,40,8);g.fillStyle='#a8573e';g.beginPath();g.moveTo(22,24);g.lineTo(44,6);g.lineTo(66,24);g.closePath();g.fill();g.stroke();g.fillStyle='#3d3226';g.fillRect(40,42,8,10)}
+ return WTHUMB[t]=c.toDataURL()}
+function drawWallOverlay(){if(mode!=='wall')return;const C=wallCalc();for(let i=0;i<MW*MH;i++)if(C.inside[i]){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1,y*TS+1,14,14,3,'#d9f0a944',null,0)}
+ for(const k in S.walls){const w=S.walls[k],x=k%MW,y=(k/MW)|0;if(w.t===3&&!(w.keep&&WSTAFF[k]))roundBox(ctx,x*TS+1,y*TS+1,14,14,3,null,'#e2674acc',.7)}}
+function wallStone(i){const w=S.walls[i];if(w.t===2)return true;if(w.t===1)return false;const x=i%MW,y=(i/MW)|0;for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=MW||Y>=MH)continue;const o=S.walls[Y*MW+X];if(o&&o.t===2)return true}return w.t===4&&rankOf()>=3}
+function drawWall(i,now){const w=S.walls[i],x=i%MW,y=(i/MW)|0,X=x*TS,Y=y*TS,st=wallStone(i),body=st?'#b6ae9c':'#8a6440',top=st?'#d3ccbb':'#a87d50',edge=st?'#7d7566':'#5a4028';
+ const nb=(dx,dy)=>{const a=x+dx,b=y+dy;return a>=0&&b>=0&&a<MW&&b<MH&&!!S.walls[b*MW+a]};const E=nb(1,0),Wn=nb(-1,0),N=nb(0,-1),So=nb(0,1),H=8,base=Y+12;
+ const run=(x0,x1)=>{if(x1<=x0)return;if(st){roundBox(ctx,x0,base-H,x1-x0,H,.4,body,edge,.35);stroke(ctx,[[x0,base-H/2],[x1,base-H/2]],edge,.2);for(let mx=x0+.5;mx<x1-1;mx+=4)roundBox(ctx,mx,base-H-2.2,2.2,2.4,.3,top,edge,.3)}else{for(let lx=x0;lx<x1-.5;lx+=2.4){shape(ctx,[[lx,base],[lx,base-H+1],[lx+1.2,base-H-1],[lx+2.4,base-H+1],[lx+2.4,base]],body,edge,.3)}stroke(ctx,[[x0,base-3],[x1,base-3]],'#6e4f30',.5)}};
+ const col=(y0,y1)=>{if(y1<=y0)return;roundBox(ctx,X+5.5,y0-H,5,y1-y0,.6,top,edge,.35);if(st)for(let my=y0-H+2;my<y1-H;my+=4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],edge,.2);else for(let my=y0-H+1;my<y1-H;my+=2.4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],'#6e4f30',.25)};
+ if(w.t===4){softShadow(ctx,X+8,base+1,7,1.6);if(Wn)run(X,X+3);if(E)run(X+13,X+16);if(N)col(Y,base-4);
+  roundBox(ctx,X+2.5,base-20,11,20,.6,body,edge,.4);if(st)for(let r=0;r<4;r++)stroke(ctx,[[X+2.5,base-4-r*4.5],[X+13.5,base-4-r*4.5]],edge,.2);else for(let lx=X+3;lx<X+13.5;lx+=2.2)stroke(ctx,[[lx,base-20],[lx,base]],'#6e4f30',.3);
+  roundBox(ctx,X+6.6,base-12,2.8,4,.6,'#3d3226',null,0);roundBox(ctx,X+.5,base-23,15,3.4,.5,'#8a6440','#5a4028',.4);for(const px of[X+1.4,X+13.4])stroke(ctx,[[px,base-23],[px,base-30]],'#5a4028',1);
+  if(WSTAFF[i]){const P=PEOPLE[3%PEOPLE.length][(now/600|0)%2];ctx.drawImage(P,X+6,base-29.5,4,7.5)}
+  roundBox(ctx,X+1,base-23.4,14,1.4,.3,'#a87d50','#5a4028',.25);shape(ctx,[[X-.5,base-30],[X+8,base-38],[X+16.5,base-30]],'#a8573e','#5e2f22',.45);if(So)col(base,Y+16+12);return}
+ if(w.t===3){const hz=E||Wn||!(N||So);if(hz){softShadow(ctx,X+8,base+1,8,1.4);for(const px of[X,X+12.4])roundBox(ctx,px,base-14,3.6,14,.6,body,edge,.4);ctx.beginPath();ctx.ellipse(X+8,base-14,7,3.4,0,Math.PI,0);ctx.strokeStyle=edge;ctx.lineWidth=2.6;ctx.stroke();ctx.strokeStyle=body;ctx.lineWidth=1.6;ctx.stroke();
+   const kept=w.keep&&WSTAFF[i];if(!kept){shape(ctx,[[X+3.6,base-11],[X+1.6,base-10],[X+1.6,base-1],[X+3.6,base]],'#7a5634','#4a3420',.3);shape(ctx,[[X+12.4,base-11],[X+14.4,base-10],[X+14.4,base-1],[X+12.4,base]],'#7a5634','#4a3420',.3)}else{roundBox(ctx,X+3.6,base-11,8.8,11,.3,'#7a5634','#4a3420',.3);stroke(ctx,[[X+8,base-11],[X+8,base]],'#4a3420',.3)}}
+  else{softShadow(ctx,X+8,base+1,5,1.6);if(N)col(Y,base-6);roundBox(ctx,X+4,base-16,8,16,.6,body,edge,.4);roundBox(ctx,X+5.6,base-10,4.8,10,1.6,w.keep&&WSTAFF[i]?'#7a5634':'#3d3226',null,0);roundBox(ctx,X+3,base-18,10,3,.4,top,edge,.35);if(So)col(base+H,Y+16+12)}
+  if(w.keep&&WSTAFF[i]){const P=PEOPLE[2%PEOPLE.length][0];ctx.drawImage(P,X+(hz?13.5:11.5),base-6.5,4,7.5)}return}
+ softShadow(ctx,X+8,base+.6,(E||Wn)?8:3,1);
+ {const up=N?S.walls[i-MW]:null;if(N)col(up&&up.t>=3?Y+10:Y,base)}if(Wn)run(X,X+8);if(E)run(X+8,X+16);if(!E&&!Wn&&!N&&!So)run(X+4,X+12);
+ if(st)roundBox(ctx,X+5.5,base-H-2.5,5,H+2.5,.5,body,edge,.35);else{roundBox(ctx,X+6,base-H-2,4,H+2,1.2,'#7a5634',edge,.35);ellipse(ctx,X+8,base-H-2,2,1,'#b08a5c',edge,.25)}
+ if(So)col(base,Y+16+12)}
+function wallHTML(i){const w=wallAt(i);if(!w||w.t<3)return '';const C=wallCalc(),T=WALL_T[w.t],on=!!WSTAFF[i];
+ const head=`<div class="top"><h2>${T.n}</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>`;
+ const prot=`<p class="wall-prot">성벽 안 건물 <b>${C.prot} / ${C.tot}채</b> · 위기 피해 -${Math.round((1-wallLossMul())*100)}%</p>`;
+ if(w.t===4)return head+`<div class="wall-card"><b>${on?'망루지기가 지키고 있어요':'망루지기가 없어요'}</b><small>${on?'멀리서 위기를 먼저 알아채요. 위기 대응 시간 +4초 (망루 3곳까지).':'쉬는 주민이 있으면 망루지기 1명이 저절로 올라가요.'}</small><small>유지비 금화 ${(T.upk*DAY).toFixed(1)}/일</small></div>${prot}`;
+ const kept=w.keep;return head+`<div class="wall-card"><b>${kept?(on?'문지기가 성문을 지켜요':'문지기를 세웠지만 쉬는 주민이 없어요'):'문지기가 없어 성문이 열려 있어요'}</b><small>${kept?`드나드는 상인과 손님에게 통행세를 받아요. 금화 ${(.08*(1+.25*rankOf())*DAY).toFixed(1)}/일 (성문 4곳까지)`:'문지기가 없는 성문으로는 늑대도 산적도 그냥 들어와요. 성벽이 마을을 지키려면 성문마다 문지기가 있어야 해요.'}</small><small>유지비 금화 ${((T.upk+(kept?KEEP_UPK:0))*DAY).toFixed(1)}/일${kept?' (문지기 품삯 포함)':''}</small></div>${prot}<div class="acts"><button class="btn ${kept?'':'go'}" data-act="keeper" data-i="${i}" ${!kept&&(S.idle||0)<1?'disabled':''}>${kept?'문지기 쉬게 하기':(S.idle||0)<1?'쉬는 주민이 없어요':'문지기 세우기 · 주민 1명'}</button></div>`}
+function toggleKeeper(i){const w=wallAt(i);if(!w||w.t!==3)return;if(w.keep)delete w.keep;else{if((S.idle||0)<1){toast('쉬는 주민이 없어요');return}w.keep=1;toast('문지기가 성문 앞에 섰어요')}sfx('tap');staff();WC.key='';save();updateHUD();renderSheet()}
+
 function drawPlaza(){const r=rankOf();if(r<2)return;const h=S.b.find(b=>b.k==='hall');if(!h)return;const cx=bCX(h),cy=bBase(h)+5,rx=r>=4?40:32,ry=r>=4?13:10;
  ellipse(ctx,cx,cy,rx+2,ry+2,'#8f866f55');ellipse(ctx,cx,cy,rx,ry,curSeason===3?'#d8d6cc':'#c9bfa4','#9c8f70',.5);
  for(let a=0;a<18;a++){const t=a/18*Math.PI*2;for(const q of[.45,.78])ellipse(ctx,cx+Math.cos(t+q)*rx*q,cy+Math.sin(t+q)*ry*q,1.6,.9,null,'#a99d7f',.25)}}
@@ -1874,7 +1943,8 @@ function hitAt(wx,wy){
 }
 function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/TS),ty=Math.floor(wy/TS);
   if(mode==='road'){toggleRoad(tx,ty);return}
-  if(mode==='hand'){const guest=visitorAnchor();if(guest&&Math.abs(wx-guest.x)<=6&&wy>=guest.y-25&&wy<=guest.y-16){openVisitors();return}const hit=hitAt(wx,wy);if((!hit||hit.tx!=null)&&!cellOpen(hit?hit.tx:tx,hit?hit.ty:ty)){openSheet('zone:'+zoneAt(hit?hit.tx:tx,hit?hit.ty:ty).id);return}if(hit){if(hit.visitor)openVisitors();else if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else if(hit.cave)openSheet('dungeon');else if(hit.rdg)openSheet('rdg:'+hit.rdg);else if(hit.lm)openSheet('lm:'+hit.lm);else harvest(hit.tx,hit.ty);return}if(T(tx,ty)>=0&&caveAt(ty*MW+tx)){openSheet('dungeon');return}{const rd=T(tx,ty)>=0?rdAt(ty*MW+tx):null;if(rd){openSheet('rdg:'+rd);return}}const lmHere=T(tx,ty)>=0?lmAtIdx(ty*MW+tx):null;if(lmHere){openSheet('lm:'+lmHere.id);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
+  if(mode==='wall'){toggleWall(tx,ty);return}
+  if(mode==='hand'){{const wi=ty*MW+tx,w0=wallAt(wi),w1=ty+1<MH?wallAt(wi+MW):null;if(w0&&w0.t>=3&&!OCC[wi]){openSheet('wall:'+wi);return}if(w1&&w1.t===4){openSheet('wall:'+(wi+MW));return}}const guest=visitorAnchor();if(guest&&Math.abs(wx-guest.x)<=6&&wy>=guest.y-25&&wy<=guest.y-16){openVisitors();return}const hit=hitAt(wx,wy);if((!hit||hit.tx!=null)&&!cellOpen(hit?hit.tx:tx,hit?hit.ty:ty)){openSheet('zone:'+zoneAt(hit?hit.tx:tx,hit?hit.ty:ty).id);return}if(hit){if(hit.visitor)openVisitors();else if(hit.decorId)openSheet('decor:'+hit.decorId);else if(hit.id)openSheet(hit.id);else if(hit.cave)openSheet('dungeon');else if(hit.rdg)openSheet('rdg:'+hit.rdg);else if(hit.lm)openSheet('lm:'+hit.lm);else harvest(hit.tx,hit.ty);return}if(T(tx,ty)>=0&&caveAt(ty*MW+tx)){openSheet('dungeon');return}{const rd=T(tx,ty)>=0?rdAt(ty*MW+tx):null;if(rd){openSheet('rdg:'+rd);return}}const lmHere=T(tx,ty)>=0?lmAtIdx(ty*MW+tx):null;if(lmHere){openSheet('lm:'+lmHere.id);return}const id=T(tx,ty)>=0?OCC[ty*MW+tx]:0;if(id){openSheet(id);return}const decoration=T(tx,ty)>=0?DOCC[ty*MW+tx]:0;if(decoration){openSheet('decor:'+decoration);return}if(T(tx,ty)>=0&&harvest(tx,ty))return;closeSheet();return}
   const size=mode==='decor'?DECOR[decorKind].size:2;ghost={x:Math.round(wx/TS-size/2),y:Math.round(wy/TS-size/2)};updateConfirm();keepPlacementVisible()}
 
 $('#goal').addEventListener('click',e=>{const c=e.target.closest('[data-q]');if(c){claim(c.dataset.q);return}if(e.target.closest('.goal-rank')){openTab('profile');return}if(e.target.closest('.goal-open'))openTab('story')});
@@ -1882,13 +1952,13 @@ $('#chief').onclick=()=>openTab('profile');
 $('#day').addEventListener('click',()=>openTab('manage'));
 $('#res').addEventListener('click',()=>openTab('resources'));
 $('#food-help').onclick=()=>openTab('food-help');
-$('#confirm').addEventListener('click',e=>{const t=e.target.closest('[data-tier]');if(!t)return;roadTier=+t.dataset.tier;updateConfirm();toast(roadTier>1?'길을 탭하면 업그레이드돼요':'길을 낼 칸을 탭하세요')});
+$('#confirm').addEventListener('click',e=>{const wt=e.target.closest('[data-wt]');if(wt){const t=+wt.dataset.wt;if(!wallUnlocked(t)){toast(`${WALL_T[t].n}은 ${RANKS[WALL_T[t].rank].n} 등급부터 지을 수 있어요`);return}wallTier=t;updateConfirm();toast(WALL_T[t].note);return}const t=e.target.closest('[data-tier]');if(!t)return;roadTier=+t.dataset.tier;updateConfirm();toast(roadTier>1?'길을 탭하면 업그레이드돼요':'길을 낼 칸을 탭하세요')});
 $('#alert').onclick=()=>{if(!S)return;finishPlacement();selId=S.inspect.active?'inspect':S.crisis.id?'crisis':null;if(selId)renderSheet()};
 $('#sheet-scrim').onclick=()=>{closeSheet();updateSlots()};
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('#scene').hidden)closeScene();else finishPlacement()});
 $('#tabbar').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)openTab(t.dataset.tab)});
 $('#cno').onclick=finishPlacement;
-$('#cyes').onclick=()=>{if(mode==='road'){finishPlacement();toast('길을 다 놓았어요');return}if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
+$('#cyes').onclick=()=>{if(mode==='road'){finishPlacement();toast('길을 다 놓았어요');return}if(mode==='wall'){finishPlacement();toast('성벽 공사를 마쳤어요');return}if(mode==='move')moveBuilding();else if(mode==='decor')placeDecor();else build()};
 $('#menu').onclick=()=>{finishPlacement();selId='menu';armReset=false;renderSheet();updateTabs()};
 
 /* ---------- player-made dirt roads ---------- */
@@ -1902,7 +1972,7 @@ function applyRoads(){for(const i of S.roads)if(BASE_TILES[i]===0)TILES[i]=1;
   PATHS=[];for(let y=0;y<MH;y++)for(let x=riverX(y)+2;x<MW;x++)if(TILES[y*MW+x]===1&&cellOpen(x,y))PATHS.push([x,y])}
 const isPlayerRoad=i=>S.roads.includes(i);
 function scheduleGround(delay=900){clearTimeout(roadTimer);roadTimer=setTimeout(()=>{rebuildGround();roadDirty.clear()},delay)}
-function toggleRoad(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;if(!cellOpen(tx,ty)){toast('안개 속 땅은 먼저 개척해요');return}if(LMOCC[ty*MW+tx]){toast('명소 자리에는 길을 낼 수 없어요');return}const i=ty*MW+tx,cur=roadLv(i),T=ROAD_TIERS[roadTier];
+function toggleRoad(tx,ty){if(tx<0||ty<0||tx>=MW||ty>=MH)return;if(!cellOpen(tx,ty)){toast('안개 속 땅은 먼저 개척해요');return}if(LMOCC[ty*MW+tx]){toast('명소 자리에는 길을 낼 수 없어요');return}if(wallAt(ty*MW+tx)){toast('성벽이 있는 칸이에요. 성벽 공사에서 먼저 헐어요');return}const i=ty*MW+tx,cur=roadLv(i),T=ROAD_TIERS[roadTier];
   if(roadTier>1&&cur){if(cur>=roadTier){toast(cur===roadTier?`이미 ${T.n}이에요`:'더 좋은 길이에요');return}if(BASE_TILES[i]===3)return;if(!can(T.cost)){toast(`${missingCost(T.cost)} 부족해요`);return}
     pay(T.cost);S.roadLv[i]=roadTier;roadDirty.set(i,roadTier===3?'stone':'gravel');chips(tx*TS+8,ty*TS+10,roadTier===3?'#a9a39a':'#bdb6a4',6);applyRoads();scheduleGround();updateHUD();save();return}
   if(isPlayerRoad(i)){if(roadTier>1)return;if(OCC[i]||DOCC[i]){toast('건물이나 장식이 있는 길은 지울 수 없어요');return}
@@ -2211,13 +2281,13 @@ function answerInspect(j){const ins=S.inspect;if(!ins.active)return;const Qn=INS
 /* crises */
 function crisisDef(){return CRISES.find(c=>c.id===S.crisis.id)}
 function crisisTick(){const c=S.crisis;
- if(c.id){if(S.time>=c.end){const def=crisisDef();const lost=[];for(const k in def.loss){const n=Math.floor(S.r[k]*def.loss[k]*(lmDone('tower')?.5:1)*guardLoss());S.r[k]-=n;if(n)lost.push(`${RN[k]} -${n}`)}c.id=null;c.next=S.time+CRISIS_EVERY;if(selId==='crisis')closeSheet();toast(`${josa(def.n,'을','를')} 막지 못했어요. ${lost.join(', ')||'다행히 피해는 없었어요'}`);updateAlert()}return}
+ if(c.id){if(S.time>=c.end){const def=crisisDef();const lost=[];for(const k in def.loss){const n=Math.floor(S.r[k]*def.loss[k]*(lmDone('tower')?.5:1)*guardLoss()*wallLossMul());S.r[k]-=n;if(n)lost.push(`${RN[k]} -${n}`)}c.id=null;c.next=S.time+CRISIS_EVERY;if(selId==='crisis')closeSheet();toast(`${josa(def.n,'을','를')} 막지 못했어요. ${lost.join(', ')||'다행히 피해는 없었어요'}`);updateAlert()}return}
  if(day()<4||S.inspect.active||!$('#scene').hidden)return;if(!c.next){c.next=S.time+20;return}
- if(S.time>=c.next){const def=CRISES[Math.random()*CRISES.length|0];c.id=def.id;c.dur=CRISIS_TIME+(guardsOn().length?10:0);c.end=S.time+c.dur;sfx('warn');updateAlert()}}
+ if(S.time>=c.next){const def=CRISES[Math.random()*CRISES.length|0];c.id=def.id;c.dur=CRISIS_TIME+(guardsOn().length?10:0)+towerTime();c.end=S.time+c.dur;sfx('warn');updateAlert()}}
 function crisisHTML(){const def=crisisDef();if(!def)return'';const left=Math.max(0,S.crisis.end-S.time);
  const opts=RESIDENTS.filter(resArrived).map(r=>`<button class="btn choice has-face" data-act="crisis-pick" data-by="${r.id}"><img class="ch-face" src="./assets/story/portrait-${r.id}.webp" alt="" width="44" height="44" decoding="async"><b>${r.n}에게 부탁</b><small>확실하게 해결</small></button>`).join('');
  const meOdds=Math.round(meChance()*100);
- return `<div class="top shop-top"><div><h2>위기: ${def.n}</h2><div class="lv">남은 시간 ${left}초 · 놓치면 ${Object.keys(def.loss).map(k=>`${RN[k]} ${Math.round(def.loss[k]*100*(lmDone('tower')?.5:1)*guardLoss())}%`).join(', ')} 피해</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><img class="ev-banner" src="${EVENT_ART('crisis-'+def.id)}" alt="" width="1200" height="800" decoding="async"><p>${def.d} 누구에게 맡길까요?</p>
+ return `<div class="top shop-top"><div><h2>위기: ${def.n}</h2><div class="lv">남은 시간 ${left}초 · 놓치면 ${Object.keys(def.loss).map(k=>`${RN[k]} ${Math.round(def.loss[k]*100*(lmDone('tower')?.5:1)*guardLoss()*wallLossMul())}%`).join(', ')} 피해</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><img class="ev-banner" src="${EVENT_ART('crisis-'+def.id)}" alt="" width="1200" height="800" decoding="async"><p>${def.d} 누구에게 맡길까요?</p>
  <div class="choice-list">${opts}<button class="btn choice warn has-face" data-act="crisis-pick" data-by="me"><img class="ch-face" src="./assets/story/portrait-chief.webp" alt="" width="44" height="44" decoding="async"><b>내가 빗자루를 들고 나간다</b><small>성공 확률 ${meOdds}% · 성공하면 모두의 친밀도 +1</small></button></div>
  <p class="shop-note">해결하면 ${Object.entries(def.reward).map(([k,v])=>`${RN[k]} +${v}`).join(', ')}. 소문이 너무 커지면 조사관이 와요.</p>`}
 function meChance(){return Math.min(.8,.45+.05*(S.crisis.done||0)+.05*S.clues.chief.length)}
@@ -2379,7 +2449,7 @@ const resArrived=r=>r.always||count(r.home)>0;
 const resClues=r=>(S.clues&&S.clues[r.id]||[]).length;
 let drawerOpen=false;
 function setDrawer(open){drawerOpen=!!open;const d=$('#hotbar');if(d)d.hidden=!drawerOpen;measureDock();updateTabs()}
-function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode]||mode==='road')return'build';if(['profile','menu','resources','food-help'].includes(selId))return'';return'village'}
+function currentTab(){if(selId==='people'||selId==='visitors')return'people';if(selId==='story')return'story';if(selId==='shop'||mode==='decor')return'shop';if(drawerOpen||B[mode]||mode==='road'||mode==='wall')return'build';if(['profile','menu','resources','food-help'].includes(selId))return'';return'village'}
 function updateTabs(){const tb=$('#tabbar');if(!tb||!S)return;const cur=currentTab();document.body.classList.toggle('placing',mode!=='hand'||drawerOpen);
   tb.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.tab===cur));
   const dots={people:typeof visitorPhase==='function'&&visitorPhase()==='ready',story:questReady(nextQuest())||!!(S.daily&&dailyReady())};
@@ -2435,13 +2505,13 @@ let ROAD_THUMB=null;const ROAD_THUMBS={};function roadThumb(l=1){if(l>1){if(ROAD
   g.fillStyle='#88a966';g.beginPath();g.ellipse(44,58,40,24,0,0,Math.PI*2);g.fill();g.lineCap='round';g.strokeStyle='#6c764b';g.lineWidth=22;g.beginPath();g.moveTo(12,70);g.quadraticCurveTo(44,40,78,48);g.stroke();
   g.strokeStyle='#cfb887';g.lineWidth=17;g.stroke();g.fillStyle='#a6a080';for(const[x,y]of[[30,56],[50,48],[64,50]]){g.beginPath();g.ellipse(x,y,3,2,0,0,Math.PI*2);g.fill()}return ROAD_THUMB=c.toDataURL()}
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
-function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>길</span><span class="cost">흙 · 자갈 · 돌</span></button>`;
+function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>길</span><span class="cost">흙 · 자갈 · 돌</span></button><button class="slot" data-m="wall" aria-pressed="false"><img class="th" src="${wallThumb(1)}" alt=""><span>성벽</span><span class="cost">울타리 · 성문 · 망루</span></button>`;
   for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(bCost(k))}</span><span class="build-hint">${buildingChips(k)}</span></button>`;
-  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m!=='hand'&&!bUnlocked(m)){toast(bLockMsg(m));return}chooseBuilding(m)})}
-function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road')return;const hint=s.querySelector('.build-hint'),bh=buildingChips(m);if(hint&&hint.dataset.v!==bh){hint.innerHTML=bh;hint.dataset.v=bh}const full=atMax(m),locked=!bUnlocked(m)||full;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(bCost(m)));const ce=s.querySelector('[data-cost]');const want=!bUnlocked(m)?bLockTxt(m):full?`${count(m)}/${buildMax(m)} 가득`:costHTML(bCost(m));if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+  h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m==='wall'){if(mode==='wall')finishPlacement();else beginWall();return}if(m!=='hand'&&!bUnlocked(m)){toast(bLockMsg(m));return}chooseBuilding(m)})}
+function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road'||m==='wall')return;const hint=s.querySelector('.build-hint'),bh=buildingChips(m);if(hint&&hint.dataset.v!==bh){hint.innerHTML=bh;hint.dataset.v=bh}const full=atMax(m),locked=!bUnlocked(m)||full;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(bCost(m)));const ce=s.querySelector('[data-cost]');const want=!bUnlocked(m)?bLockTxt(m):full?`${count(m)}/${buildMax(m)} 가득`:costHTML(bCost(m));if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
  $('#cno').hidden=false;$('#confirm').classList.remove('compact');
- if(mode==='road'){roadConfirm();return}if(mode==='decor'){decorConfirm();return}
+ if(mode==='road'){roadConfirm();return}if(mode==='wall'){wallConfirm();return}if(mode==='decor'){decorConfirm();return}
  const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();yes.textContent=mode==='move'?'이동':'짓기';
  if(mode==='move'){if(!b){c.hidden=true;return}c.hidden=false;const ok=ghost&&validAt(ghost.x,ghost.y,b.id),same=ghost&&ghost.x===b.x&&ghost.y===b.y;const msg=!ghost?'옮길 곳을 탭하세요':!ok?'여기엔 옮길 수 없어요. 빈 땅을 골라 주세요':same?'현재 위치예요. 다른 곳을 골라 주세요':'선택한 위치로 옮겨요';$('#cmsg').innerHTML=`<div class="placement-title"><b>${B[b.k].n} 옮기기</b><span class="cost">무료</span></div><small class="placement-state ${ghost&&(!ok||same)?'bad':''}">${msg}</small>`;yes.disabled=!ok||same;return}
  if(mode==='hand'||!B[mode]){c.hidden=true;return}
@@ -2486,6 +2556,7 @@ function renderSheet(){let h='';document.querySelector('.coach')?.remove();
   else if(selId==='goods')h=goodsHTML();
   else if(selId==='kingdom')h=kingdomHTML();
   else if(selId==='manage')h=manageHTML();
+  else if(typeof selId==='string'&&selId.startsWith('wall:')){h=wallHTML(+selId.slice(5));if(!h){closeSheet();return}}
   else if(selId==='food-help')h=foodHelpHTML();
   else if(selId==='visitors')h=visitorsHTML();
   else if(selId==='shop')h=shopTabsHTML();
@@ -2547,6 +2618,7 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
   else if(act==='manage'){selId='manage';sheet.scrollTop=0;renderSheet()}
   else if(act==='tax')setTax(+a.dataset.i)
   else if(act==='policy')togglePolicy(a.dataset.k)
+  else if(act==='keeper')toggleKeeper(+a.dataset.i)
   else if(act==='goto-b'){const t=S.b.find(x=>x.id===+a.dataset.id);if(t){closeSheet();centerOn(bCX(t),bBase(t)-10);openSheet(t.id)}}
   else if(act==='keep')setKeep(a.dataset.k,+a.dataset.d)
   else if(act==='tool-on'&&b)toolOn(b)
@@ -2601,7 +2673,7 @@ function draw(now){
   for(const b of S.b){if(b.k==='farm')continue;const W=fp(b.k)[0]*16,Y=bBase(b);
     if(selId===b.id&&mode==='hand'){ctx.globalAlpha=.35+.08*Math.sin(now/350);ellipse(ctx,bCX(b),Y-1,W*.6,8,'#f9e3a7');ctx.globalAlpha=1}
     ctx.drawImage(SP.yard[b.k],b.x*TS-4,Y-8,W+8,14)}
-  drawRoadOverlay();
+  drawRoadOverlay();drawWallOverlay();
   for(const b of S.b)drawPlotDetails(b);
   const L=[];
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const o=S.o[y*MW+x];if(o)L.push({z:y*TS+15,o,x,y})}
@@ -2610,6 +2682,7 @@ function draw(now){
   if(S.dg&&S.dg.x!=null)L.push({z:(S.dg.y+2)*TS-1,cave:true});
   if(S.rdg)for(const[id,v]of Object.entries(S.rdg))if(v.x!=null)L.push({z:(v.y+2)*TS-1,rdg:id});
   {const C=sceneryCalc();for(const p of C.lamps)if(p.x>=x0-1&&p.x<=x1+1&&p.y>=y0-1&&p.y<=y1+1)L.push({z:p.y*TS+8+p.dy*7+4,lamp:p});for(const p of C.fence)if(p.x>=x0-1&&p.x<=x1+1&&p.y>=y0-1&&p.y<=y1+1)L.push({z:p.y*TS+(p.dir==='h'?0:15),fence:p});for(const p of C.gates)L.push({z:p.y*TS+(p.dir==='h'?0:15),gate:p})}
+  if(S.walls)for(const k in S.walls){const wx=k%MW,wy=(k/MW)|0;if(wx>=x0-1&&wx<=x1+1&&wy>=y0-1&&wy<=y1+3)L.push({z:wy*TS+12,wall:+k})}
   for(const c of critters)if(cellOpen(Math.floor(c.x/TS),Math.floor(c.y/TS)))L.push({z:c.y,cr:c});if(cart)L.push({z:14*TS+13,cartd:true});
   if(S.props)for(const p of PROPS){const v=S.props[p.k];if(v&&FR[p.k])L.push({z:(v.y+p.fp[1])*TS-1,prop:p,pv:v})}
   for(const l of LANDMARKS){const v=S.lm[l.id];if(v)L.push({z:(v.y+l.fp[1])*TS-(l.water?14:1),lm:l})}
@@ -2627,6 +2700,7 @@ function draw(now){
     else if(d.lamp)drawLamp(d.lamp,now);
     else if(d.fence)drawFenceSeg(d.fence);
     else if(d.gate)drawGate(d.gate);
+    else if('wall' in d)drawWall(d.wall,now);
     else if(d.lm)drawLandmark(d.lm,now);
     else if(d.guest)drawVisitor(d.guest);
     else if(d.decor){const item=d.decor;decorDraw(item,mode==='decor'&&item.id===decorMoveId?.35:1)}
@@ -2688,7 +2762,7 @@ function start(data){
   let st=null;
   let brokenSave=false;try{if(data&&data.state)st=load(data.state);else if(!(data&&data.fresh)){const raw=localStorage.getItem(SAVE);if(raw)try{st=load(raw)}catch(e){st=null;brokenSave=true;try{localStorage.setItem(SAVE+'-broken',raw)}catch(_){}console.warn('broken save kept as '+SAVE+'-broken',e)}}}catch(e){st=null}
   const fresh=!st;S=st||newState();FOG=null;FOG_OLD=null;normalizeStory(S);normalizeLife(S);if(!Array.isArray(S.met))S.met=RESIDENTS.filter(resArrived).map(r=>r.id);if(typeof S.cartDay!=='string')S.cartDay='';
-  TILES=genMap(S.seed).t;BASE_TILES=TILES.slice();normalizeRoads(S,BASE_TILES);roadDirty.clear();applyRoads();normalizeRoadLv();fixFootprints();
+  TILES=genMap(S.seed).t;BASE_TILES=TILES.slice();normalizeRoads(S,BASE_TILES);roadDirty.clear();applyRoads();normalizeRoadLv();normalizeWalls(S);fixFootprints();
   rebuildOcc();ensureLandmarks();ensureCave();markLandmarks();ensureRegions();markLandmarks();ensureProps();markLandmarks();curSeason=-1;onSeason(season(),false);staff();vils=[];syncVils();for(const v of vils){v.x+=Math.random()*20-10;v.wait=Math.random()*2}
   mode='hand';ghost=null;movingId=null;decorKind=null;decorMoveId=null;
   if(!started){started=true;resize();addEventListener('resize',resize);buildHotbar();measureHud();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureHud).observe($('#hud'));requestAnimationFrame(frame);
