@@ -1111,7 +1111,10 @@ const season=()=>Math.floor(S.time/DAY/5)%4;
 const can=c=>Object.entries(c||{}).every(([k,v])=>S.r[k]>=v);
 const pay=c=>{for(const k in c)S.r[k]-=c[k]};
 const give=c=>{for(const k in c)S.r[k]+=c[k]};
-function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;if(!smithyOn())return h;const c={};for(const k in h)c[k]=Math.ceil(h[k]*.9);return c}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*1.6*b.l*m);return c}
+const BUILD_STEP={house:.15,farm:.25,stall:.25,store:.3};
+function bCost(k){const c=B[k].cost||{},n=count(k),f=1+(BUILD_STEP[k]??.4)*n,o={};for(const r in c)o[r]=Math.ceil(c[r]*f/5)*5;return o}
+const UP_MUL=[0,2,4.5];
+function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;if(!smithyOn())return h;const c={};for(const k in h)c[k]=Math.ceil(h[k]*.9);return c}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*UP_MUL[b.l]*m/5)*5;return c}
 function cap(){let c=zoneCap()+guardHomes()+(S.festCap||0)+(S.famCap||0);for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
@@ -1260,7 +1263,7 @@ function fixFootprints(){const taken=new Int32Array(MW*MH),free=(b,x,y)=>{const[
 function finishPlacement(){clearTimeout(toastT);$('#toast').classList.remove('on');if(mode==='road'&&roadDirty.size)scheduleGround(0);mode='hand';movingId=null;decorKind=null;decorMoveId=null;ghost=null;closeSheet();setDrawer(false);updateConfirm();updateSlots()}
 function beginMove(b){if(!b||!S.b.includes(b))return;mode='move';decorKind=null;decorMoveId=null;movingId=b.id;ghost=null;armDel=false;closeSheet();updateSlots();updateConfirm();toast('옮길 곳을 탭한 뒤 이동을 눌러 주세요')}
 function moveBuilding(){const b=movingBuilding();if(!b||!ghost||!validAt(ghost.x,ghost.y,b.id)||(b.x===ghost.x&&b.y===ghost.y))return;b.x=ghost.x;b.y=ghost.y;rebuildOcc();finishPlacement();toast(`${objectName(B[b.k].n)} 옮겼어요`);updateHUD();save()}
-function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(d.cost)||!bUnlocked(k)||atMax(k))return;pay(d.cost);const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);sfx('build');dailyBump('build');rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${objectName(d.n)} 지었어요`);finishPlacement();updateHUD();save()}
+function build(){if(!ghost||mode==='move'||!B[mode])return;const k=mode,d=B[k];if(!validAt(ghost.x,ghost.y)||!can(bCost(k))||!bUnlocked(k)||atMax(k))return;pay(bCost(k));const b={id:S.nid++,k,x:ghost.x,y:ghost.y,l:1};S.b.push(b);sfx('build');dailyBump('build');rebuildOcc();S.xp.build+=25;staff();chips(b.x*TS+16,b.y*TS+28,'#d8c49a',10);floatTxt(b.x*TS+16,b.y*TS,d.n,'#fff3d4');toast(`${objectName(d.n)} 지었어요`);finishPlacement();updateHUD();save()}
 /* ---------- territory: zones under fog ---------- */
 const ZONES=[
  {id:'home',n:'초보자 마을',r:[10,5,22,19]},
@@ -2333,19 +2336,19 @@ let ROAD_THUMB=null;const ROAD_THUMBS={};function roadThumb(l=1){if(l>1){if(ROAD
   g.strokeStyle='#cfb887';g.lineWidth=17;g.stroke();g.fillStyle='#a6a080';for(const[x,y]of[[30,56],[50,48],[64,50]]){g.beginPath();g.ellipse(x,y,3,2,0,0,Math.PI*2);g.fill()}return ROAD_THUMB=c.toDataURL()}
 function costHTML(c){return Object.entries(c||{}).map(([k,v])=>`<span>${ic(k)}${v}</span>`).join('')}
 function buildHotbar(){const h=$('#hotbar');let html=`<button class="slot" data-m="road" aria-pressed="false"><img class="th" src="${roadThumb()}" alt=""><span>길</span><span class="cost">흙 · 자갈 · 돌</span></button>`;
-  for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(B[k].cost)}</span><span class="build-hint">${buildingChips(k)}</span></button>`;
+  for(const k of ORDER)html+=`<button class="slot" data-m="${k}" aria-pressed="false"><img class="th" src="${THUMBURL[k]}" alt=""><span>${B[k].n}</span><span class="cost" data-cost>${costHTML(bCost(k))}</span><span class="build-hint">${buildingChips(k)}</span></button>`;
   h.innerHTML=html;measureDock();if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureDock).observe($('#dock'));h.addEventListener('click',e=>{const s=e.target.closest('.slot');if(!s)return;const m=s.dataset.m;if(m==='road'){if(mode==='road')finishPlacement();else beginRoad();return}if(m!=='hand'&&!bUnlocked(m)){toast(bLockMsg(m));return}chooseBuilding(m)})}
-function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road')return;const hint=s.querySelector('.build-hint'),bh=buildingChips(m);if(hint&&hint.dataset.v!==bh){hint.innerHTML=bh;hint.dataset.v=bh}const full=atMax(m),locked=!bUnlocked(m)||full;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(B[m].cost));const ce=s.querySelector('[data-cost]');const want=!bUnlocked(m)?bLockTxt(m):full?`${count(m)}/${buildMax(m)} 가득`:costHTML(B[m].cost);if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
+function updateSlots(){updateTabs();document.querySelectorAll('.slot').forEach(s=>{const m=s.dataset.m;s.setAttribute('aria-pressed',m==='visitors'?selId==='visitors':m==='shop'?(selId==='shop'||mode==='decor'):m===mode);if(m==='visitors'){updateVisitorSlot(s);return}if(m==='hand'||m==='shop'||m==='road')return;const hint=s.querySelector('.build-hint'),bh=buildingChips(m);if(hint&&hint.dataset.v!==bh){hint.innerHTML=bh;hint.dataset.v=bh}const full=atMax(m),locked=!bUnlocked(m)||full;s.classList.toggle('locked',locked);s.classList.toggle('poor',!locked&&!can(bCost(m)));const ce=s.querySelector('[data-cost]');const want=!bUnlocked(m)?bLockTxt(m):full?`${count(m)}/${buildMax(m)} 가득`:costHTML(bCost(m));if(ce.dataset.v!==want){ce.innerHTML=want;ce.dataset.v=want}})}
 function updateConfirm(){
  $('#cno').hidden=false;$('#confirm').classList.remove('compact');
  if(mode==='road'){roadConfirm();return}if(mode==='decor'){decorConfirm();return}
  const c=$('#confirm'),yes=$('#cyes'),b=movingBuilding();yes.textContent=mode==='move'?'이동':'짓기';
  if(mode==='move'){if(!b){c.hidden=true;return}c.hidden=false;const ok=ghost&&validAt(ghost.x,ghost.y,b.id),same=ghost&&ghost.x===b.x&&ghost.y===b.y;const msg=!ghost?'옮길 곳을 탭하세요':!ok?'여기엔 옮길 수 없어요. 빈 땅을 골라 주세요':same?'현재 위치예요. 다른 곳을 골라 주세요':'선택한 위치로 옮겨요';$('#cmsg').innerHTML=`<div class="placement-title"><b>${B[b.k].n} 옮기기</b><span class="cost">무료</span></div><small class="placement-state ${ghost&&(!ok||same)?'bad':''}">${msg}</small>`;yes.disabled=!ok||same;return}
  if(mode==='hand'||!B[mode]){c.hidden=true;return}
- const d=B[mode],ok=ghost&&validAt(ghost.x,ghost.y),af=can(d.cost),unlocked=bUnlocked(mode)&&!atMax(mode),lim=LIMITED.has(mode)?`<span class="lim">${count(mode)}/${buildMax(mode)}</span>`:'';c.hidden=false;
+ const d=B[mode],ok=ghost&&validAt(ghost.x,ghost.y),af=can(bCost(mode)),unlocked=bUnlocked(mode)&&!atMax(mode),lim=LIMITED.has(mode)?`<span class="lim">${count(mode)}/${buildMax(mode)}</span>`:'';c.hidden=false;
  const warnings=[];if(mode==='farm'&&season()===3)warnings.push('겨울에는 생산을 쉬어요');if(d.need>(S.idle??0))warnings.push(`일손 ${d.need-(S.idle??0)}명 부족`);
- const lk=ghost?linkPreview(mode,ghost.x,ghost.y):'';const msg=!ghost?'빈 땅을 탭하세요':!ok?'나무·바위·건물이 없는 곳을 골라 주세요':!unlocked?(atMax(mode)?maxMsg(mode):bLockMsg(mode)):!af?missingCost(d.cost)+' 부족':'이 위치에 지어요';
- $('#cmsg').innerHTML=`<div class="placement-title"><b>${d.n} 짓기${lim}</b><span class="cost">${costHTML(d.cost)}</span></div><small class="placement-facts">${buildingChips(mode)}</small>${lk?`<small class="placement-link">${lk}</small>`:''}<small class="placement-state ${ghost&&(!ok||!af||!unlocked)||warnings.length?'bad':''}">${msg}${warnings.length?' · '+warnings.join(' · '):''}</small>`;yes.disabled=!(ok&&af&&unlocked)
+ const lk=ghost?linkPreview(mode,ghost.x,ghost.y):'';const msg=!ghost?'빈 땅을 탭하세요':!ok?'나무·바위·건물이 없는 곳을 골라 주세요':!unlocked?(atMax(mode)?maxMsg(mode):bLockMsg(mode)):!af?missingCost(bCost(mode))+' 부족':'이 위치에 지어요';
+ $('#cmsg').innerHTML=`<div class="placement-title"><b>${d.n} 짓기${lim}</b><span class="cost">${costHTML(bCost(mode))}</span></div><small class="placement-facts">${buildingChips(mode)}</small>${lk?`<small class="placement-link">${lk}</small>`:''}<small class="placement-state ${ghost&&(!ok||!af||!unlocked)||warnings.length?'bad':''}">${msg}${warnings.length?' · '+warnings.join(' · '):''}</small>`;yes.disabled=!(ok&&af&&unlocked)
 }
 
 /* ---------- HUD ---------- */
@@ -2539,7 +2542,7 @@ function draw(now){
   if(typeof selId==='number'&&mode==='hand'){const b=S.b.find(b=>b.id===selId);if(b){const[fw,fh]=fp(b.k);ctx.globalAlpha=.75+.15*Math.sin(now/350);roundBox(ctx,b.x*TS-.7,b.y*TS-.7,fw*16+1.4,fh*16+1.4,3,null,'#fff4cb',.8);ctx.globalAlpha=1}}
   if(mode==='hand'&&typeof selId==='string'&&selId.startsWith('decor:')){const d=S.decor.find(d=>d.id===+selId.slice(6));if(d){const size=DECOR[d.k].size*TS;roundBox(ctx,d.x*TS-.5,d.y*TS-.5,size+1,size+1,2.8,null,'#fff4cb',.8)}}
   if(mode==='decor')drawDecorGhost();
-  if(mode!=='hand'&&mode!=='decor'&&ghost){const moving=movingBuilding(),kind=moving?moving.k:mode,ignoreId=moving?moving.id:0,ok=validAt(ghost.x,ghost.y,ignoreId,kind)&&(moving||can(B[kind].cost)),img=moving?bImg(moving):kImg(kind),X=ghost.x*TS,Y=ghost.y*TS,[gw,gh]=fp(kind);
+  if(mode!=='hand'&&mode!=='decor'&&ghost){const moving=movingBuilding(),kind=moving?moving.k:mode,ignoreId=moving?moving.id:0,ok=validAt(ghost.x,ghost.y,ignoreId,kind)&&(moving||can(bCost(kind))),img=moving?bImg(moving):kImg(kind),X=ghost.x*TS,Y=ghost.y*TS,[gw,gh]=fp(kind);
     for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const tx=ghost.x+dx,ty=ghost.y+dy,good=placeableCell(tx,ty,ignoreId),cx=X+dx*16,cy=Y+dy*16;
       roundBox(ctx,cx+.6,cy+.6,14.8,14.8,2,good?'#cde2ac66':'#d78c7388',good?'#f0f6da88':'#fff0deaa',.35);
       if(!good){stroke(ctx,[[cx+5,cy+5],[cx+11,cy+11]],'#fff3df',.7);stroke(ctx,[[cx+11,cy+5],[cx+5,cy+11]],'#fff3df',.7)}}
