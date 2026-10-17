@@ -351,6 +351,16 @@ body.sheet-open .hud{visibility:hidden}
 .shop-price .sz{font-size:11px;padding:1px 5px;border-radius:4px;background:#e4d3ad;color:#6b5a40;margin-left:4px}.shop-card .bagged{font-size:11px;color:#526c3b}
 .visitor-friend .vf-meta{display:flex!important;align-items:center;gap:8px;margin-top:4px}.vf-meta .pips{display:inline-flex!important;gap:4px}.vf-meta .pips i{display:inline-block!important;width:9px!important;height:9px!important;border-radius:50%;background:#d9c9a3;border:1px solid #b8a47e;margin:0!important}.vf-meta .pips i.on{background:#8ba368;border-color:#637e47}.vf-meta small{font-size:12px;color:#6b5a40}.vf-gift{display:inline-flex;align-items:center}.visitor-hist summary{min-height:40px;padding:10px 0;font-size:14px;cursor:pointer}
 .settings-fx{margin-top:14px;padding:10px;border:1px solid #ccb98e;border-radius:8px;background:#fff5dd80}.settings-fx h3{margin:0 0 6px;font-size:15px}.cap-note{margin:2px 0 8px}
+.mg-open{width:100%;margin:10px 0 2px}
+.mg-chief{display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:4px 10px;padding:12px;border-radius:10px;background:#e4d6b15e}.mg-chief b{font-size:20px;font-weight:400;color:#4d3a23}.mg-chief span{color:#705b3e;font-size:14px}.mg-chief .meter,.mg-chief small{grid-column:1/-1}
+.mg-chief .meter,.mg-sat .meter{height:7px;background:#82724d24;border-radius:4px;overflow:hidden}.mg-chief .meter i{display:block;height:100%;background:#bd9759}.mg-chief small,.mg-note,.sat-eff{font-size:12px;color:#705b3e;line-height:1.5}
+.mg-sat{display:grid;gap:8px;padding:12px;border-radius:10px;background:#e4d6b15e}.sat-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.sat-top b{font-size:26px;font-weight:400;font-variant-numeric:tabular-nums}.sat-top span{font-size:15px}.sat-top small{margin-left:auto;font-size:12px;color:#705b3e}
+.mg-sat .meter i{display:block;height:100%}.mg-sat.good .meter i{background:#6f9a4a}.mg-sat.mid .meter i{background:#c9a24a}.mg-sat.bad .meter i{background:#b5553a}.mg-sat.good .sat-top b{color:#4f7a31}.mg-sat.bad .sat-top b{color:#a13e26}
+.sat-f{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:13px}.sat-f li{display:flex;justify-content:space-between;gap:8px}.pos{color:#4f7a31}.neg{color:#a13e26}
+.ledger{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}.ledger th,.ledger td{padding:5px 4px;border-bottom:1px solid #82724d24;text-align:right;font-weight:400}.ledger th:first-child,.ledger tbody th{text-align:left;color:#5d4a31}.ledger thead th{font-size:12px;color:#705b3e}.ledger tr.sum th,.ledger tr.sum td{border-bottom:0;font-weight:700;padding-top:7px}
+.taxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.btn.tax{display:grid;gap:2px;padding:8px 4px;font-size:14px}.btn.tax small{font-size:11px;opacity:.8}.btn.tax.on{background:#5d7a45;color:#fff4d6;border-color:#3f5a2e}
+.pols{display:grid;gap:8px}.pol{display:grid;gap:3px;padding:10px 12px;border-radius:10px;background:#e4d6b15e;border:1px solid transparent}.pol.on{border-color:#6f9a4a;background:#d8e3b95e}.pol.locked{opacity:.6}.pol-t{display:flex;align-items:center;gap:8px}.pol-t b{font-weight:400;font-size:15px}.pol-on{font-size:11px;padding:1px 6px;border-radius:4px;background:#5d7a45;color:#fff4d6}.pol .up{color:#4f7a31;font-size:12px}.pol .down{color:#a13e26;font-size:12px}.pol-lock{font-size:12px;color:#705b3e}.pol .btn{justify-self:start;margin-top:4px;padding:6px 12px}
+#day{cursor:pointer;pointer-events:auto}.mood.good{color:#c9eaa0}.mood.mid{color:#ffe7a6}.mood.bad{color:#ffb39a}
 </style>
 
 </head>
@@ -1109,7 +1119,7 @@ const hallL=()=>S.b.find(b=>b.k==='hall').l;
 const day=()=>Math.floor(S.time/DAY)+1;
 const season=()=>Math.floor(S.time/DAY/5)%4;
 const can=c=>Object.entries(c||{}).every(([k,v])=>S.r[k]>=v);
-const pay=c=>{for(const k in c)S.r[k]-=c[k]};
+const pay=c=>{for(const k in c)S.r[k]-=c[k];if(c.gold>0)ledAdd('inv',c.gold)};
 const give=c=>{for(const k in c)S.r[k]+=c[k]};
 const BUILD_STEP={house:.15,farm:.25,stall:.25,store:.3};
 function bCost(k){const c=B[k].cost||{},n=count(k),f=1+(BUILD_STEP[k]??.4)*n,o={};for(const r in c)o[r]=Math.ceil(c[r]*f/5)*5;return o}
@@ -1118,8 +1128,8 @@ function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h
 function cap(){let c=zoneCap()+guardHomes()+(S.festCap||0)+(S.famCap||0);for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
 function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=a}
-function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()*trophyProd()*routeBonus(k)}
-function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);const tm=S.tools&&S.tools[b.id]?1.2:1;for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm*tm;if(b.k==='ranch')o.food=-.3*b.l;return o}
+function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()*trophyProd()*routeBonus(k)*mgProdMul()}
+function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);const tm=S.tools&&S.tools[b.id]?1.2:1;for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm*tm*(k==='gold'?mgGoldMul(b.k):1);if(b.k==='ranch')o.food=-.3*b.l;return o}
 function linkTags(b){let t='';if(B[b.k].link){const ls=linksOf(b),L=B[b.k].link;const names=L.to.map(k=>LINK_NAME[k]).join('·');
   t+=`<span class="tag ${ls.length?'ok':'no'}">연결 ${names} <span class="num">${ls.length} / ${L.max}</span></span>`;
   if(b.k==='store')t+=`<span class="tag">보관 한도 <span class="num">+${(300*b.l+50*ls.length)}</span> (식량 2배)</span>`;else if(b.k==='guard')t+=`<span class="tag">주민 수용 <span class="num">+${ls.length}</span> · 위기 대응 +10초</span>`;else if(b.k!=='ranch')t+=`<span class="tag">이어진 건물 생산 <span class="num">+${Math.round(linkPer(b.l)*100)}%</span></span>`;if(b.k==='ranch')t+=`<span class="tag">${ic('food')}<span class="num">-${(.3*b.l).toFixed(1)}</span>/초</span>`;if(b.k==='smithy')t+=`<span class="tag">업그레이드 비용 <span class="num">-10%</span></span>`}
@@ -1142,8 +1152,97 @@ const linkPer=l=>.1+.05*l;
 function linkFrom(b){let best=null;for(const s of S.b){if(!((s.k==='mill'&&b.k==='farm')||(s.k==='smithy'&&(b.k==='lumber'||b.k==='quarry'))))continue;if(!STAFF[s.id]||!linksOf(s).includes(b))continue;if(!best||s.l>best.l)best=s}return best}
 const linkMul=b=>{const s=linkFrom(b);return s?1+linkPer(s.l):1};
 const smithyOn=()=>S.b.some(x=>x.k==='smithy'&&STAFF[x.id]);
-const foodUse=()=>S.claimed.length?S.pop*.12*(lmDone('well')?.85:1):0;
-function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}return r}
+const foodUse=()=>S.claimed.length?S.pop*.12*(lmDone('well')?.85:1)*mgFoodMul():0;
+function rates(){const r={wood:0,stone:0,food:-foodUse(),gold:0};for(const b of S.b){const p=prodOf(b);for(const k in p)r[k]+=p[k]}r.gold+=taxRate()-upkRate();return r}
+/* ---------- village management: ledger, chief level, satisfaction, policies ---------- */
+const UPK={store:.06,market:.1,bakery:.15,mill:.12,smithy:.2,ranch:.12,inn:.24,stall:.06,alchemy:.24,potion:.12,guild:.8,cathedral:.8,guard:.2,tavern:.24};
+const TAXES=[{n:'낮게',m:.6,s:8},{n:'보통',m:1,s:0},{n:'높게',m:1.5,s:-12}];
+const POLICIES={
+ market_day:{lv:3,n:'장날 지정',up:'시장·선술집·여관·노점·물약 상점 금화 +20%',down:'식량을 10% 더 먹어요'},
+ bread:{lv:4,n:'빵 배급',up:'만족도 +10',down:'주민이 빵을 2배로 찾아요'},
+ immig:{lv:6,n:'이주 장려',up:'주민이 더 빨리 모여요',down:'세금 수입 -30%'},
+ work:{lv:8,n:'근로 장려',up:'모든 생산 +10%',down:'만족도 -10'},
+ frugal:{lv:10,n:'검소한 살림',up:'건물 유지비 -30%',down:'만족도 -5'},
+ fest:{lv:12,n:'잔치 기금',up:'만족도 +8',down:'하루 금화 (10 + 주민 수)'},
+ pact:{lv:15,n:'무역 협정',up:'물건 판매가 +15%',down:'건물 유지비 +20%'},
+};
+const CHIEF_MAX=30,CHIEF_T=[[1,'신참 촌장'],[5,'어엿한 촌장'],[10,'믿음직한 촌장'],[15,'노련한 촌장'],[20,'이름난 촌장'],[25,'왕국이 아는 촌장'],[30,'전설의 촌장']];
+const chiefXpAt=l=>8*(l-1)*(l-1);
+function normalizeMg(d){const o=d.mg&&typeof d.mg==='object'?d.mg:{};const n=(v,a,b,def)=>Number.isFinite(v)?Math.max(a,Math.min(b,v)):def;
+ const L=o.led&&typeof o.led==='object'?o.led:{};const day0=x=>{const z={};for(const k of LED_K)z[k]=Number.isFinite(x&&x[k])?x[k]:0;return z};
+ d.mg={xp:n(o.xp,0,1e9,0),tax:[0,1,2].includes(o.tax)?o.tax:1,pol:Array.isArray(o.pol)?[...new Set(o.pol.filter(k=>POLICIES[k]))]:[],sat:n(o.sat,0,100,60),unpaid:n(o.unpaid,0,999,0),breadOk:o.breadOk!==false,leaveT:n(o.leaveT,0,999,0),lvSeen:n(o.lvSeen,1,CHIEF_MAX,1),
+  led:{d:Number.isInteger(L.d)?L.d:0,start:Number.isFinite(L.start)?L.start:(d.r&&d.r.gold)||0,cur:day0(L.cur),prev:L.prev?day0(L.prev):null}};return d}
+const LED_K=['prod','tax','sale','upk','inv','etc','net','xp'];
+const MG=()=>S.mg||(normalizeMg(S),S.mg);
+const chiefLv=()=>Math.min(CHIEF_MAX,Math.floor(Math.sqrt(MG().xp/8))+1);
+const chiefTitle=(l=chiefLv())=>CHIEF_T.filter(([a])=>l>=a).pop()[1];
+const polOn=k=>MG().pol.includes(k);
+const polSlots=(l=chiefLv())=>l>=15?3:l>=8?2:l>=3?1:0;
+const polCost=()=>20+Math.floor(S.pop)*2;
+const upkMul=()=>(polOn('frugal')?.7:1)*(polOn('pact')?1.2:1);
+const upkOf=b=>(UPK[b.k]||0)*b.l*upkMul();
+const upkRate=()=>S.b.reduce((a,b)=>a+upkOf(b),0)+(polOn('fest')?(10+Math.floor(S.pop))/DAY:0);
+const satTaxMul=()=>.5+MG().sat/100;
+const taxRate=()=>Math.floor(S.pop)*.02*TAXES[MG().tax].m*satTaxMul()*(polOn('immig')?.7:1);
+const mgFoodMul=()=>polOn('market_day')?1.1:1;
+const mgProdMul=()=>polOn('work')?1.1:1;
+const MARKET_KINDS=new Set(['market','tavern','inn','stall','potion']);
+const mgGoldMul=k=>polOn('market_day')&&MARKET_KINDS.has(k)?1.2:1;
+const mgPriceMul=()=>polOn('pact')?1.15:1;
+function funScore(){const p=Math.floor(S.pop);if(p<8)return null;const f=count('tavern')*6+count('inn')*3+count('stall')*2+(S.decor?S.decor.length:0)+(typeof lmCount==='function'?lmCount():0)*3+(count('cathedral')?10:0);return Math.max(-10,Math.min(12,Math.round((f/(p*.5)-1)*10)))}
+function satFactors(){const m=MG(),p=Math.floor(S.pop),out=[];
+ const starving=S.starveT>0||(S.r.food<=0&&foodUse()>0);out.push(starving?['식량이 모자라요',-25]:['식량이 넉넉해요',5]);
+ if(p>=10)out.push(m.breadOk?['빵을 살 수 있어요',8]:['빵이 없어요',-6]);
+ const c=cap();if(c-p>=3)out.push(['빈 집이 있어요',3]);
+ if((S.idle||0)>=Math.max(4,p*.25))out.push(['할 일이 없는 주민이 많아요',-6]);
+ const f=funScore();if(f!==null)out.push([f>=0?'즐길 거리가 있어요':'즐길 거리가 부족해요',f]);
+ if(TAXES[m.tax].s)out.push([`세금 ${TAXES[m.tax].n}`,TAXES[m.tax].s]);
+ if(m.unpaid>0)out.push(['건물 유지비가 밀렸어요',-15]);
+ if(polOn('bread'))out.push(['빵 배급',10]);if(polOn('work'))out.push(['근로 장려',-10]);if(polOn('frugal'))out.push(['검소한 살림',-5]);if(polOn('fest'))out.push(['잔치 기금',8]);
+ return out.filter(x=>x[1])}
+const satTarget=()=>Math.max(0,Math.min(100,55+satFactors().reduce((a,x)=>a+x[1],0)));
+const satWord=s=>s>=80?'아주 만족':s>=60?'만족':s>=40?'보통':s>=20?'불만':'화가 났어요';
+const satCls=s=>s>=60?'good':s>=40?'mid':'bad';
+const growEvery=base=>{const s=MG().sat;let e=base;if(s>=70)e-=1;if(polOn('immig'))e-=1;return Math.max(2,e)};
+const growBlocked=()=>MG().sat<30;
+function ledAdd(k,v){if(!S||!S.mg||!v)return;S.mg.led.cur[k]+=v}
+function mgTick(){const m=MG(),L=m.led;
+ if(L.d!==day()){if(L.d){mgDayEnd()}L.d=day();L.start=S.r.gold;for(const k of LED_K)L.cur[k]=0}
+ const tx=taxRate();if(tx>0){S.r.gold+=tx;ledAdd('tax',tx)}
+ const u=upkRate();if(u>0){if(S.r.gold>=u){S.r.gold-=u;ledAdd('upk',u);m.unpaid=Math.max(0,m.unpaid-1)}else{ledAdd('upk',S.r.gold);S.r.gold=0;if(m.unpaid===0)toast('금화가 모자라 건물 유지비가 밀렸어요. 주민들이 불안해해요');m.unpaid=Math.min(60,m.unpaid+2)}}
+ if(S.time%DAY===7){const p=Math.floor(S.pop);if(p>=10){const need=Math.ceil(p/20)*(polOn('bread')?2:1),have=S.goods.bread||0;m.breadOk=have>=need;S.goods.bread=Math.max(0,have-need);if(have)S.st.bread_eaten=(S.st.bread_eaten||0)+Math.min(have,need)}else m.breadOk=true}
+ const t=satTarget(),d=t-m.sat;m.sat+=Math.sign(d)*Math.min(.5,Math.abs(d));
+ if(m.sat<15&&S.pop>3){m.leaveT++;if(m.leaveT>=45){m.leaveT=0;S.pop--;toast('불만이 쌓여 주민 한 명이 마을을 떠났어요')}}else m.leaveT=0}
+function mgDayEnd(){const m=MG(),c=m.led.cur;const net=S.r.gold-m.led.start;c.etc=net-(c.prod+c.tax+c.sale-c.upk-c.inv);c.net=net;
+ const g=Math.max(0,c.prod+c.tax+c.sale-c.upk);const xp=Math.round(4+Math.floor(S.pop)*.3+Math.min(40,g/20)+(m.sat>=70?4:m.sat>=50?2:0));c.xp=xp;
+ const before=chiefLv();m.xp+=xp;m.led.prev={...c};const after=chiefLv();
+ if(after>before&&after>m.lvSeen){m.lvSeen=after;const opened=[];if(polSlots(after)>polSlots(before))opened.push('정책 칸');const np=Object.values(POLICIES).filter(p=>p.lv>before&&p.lv<=after).map(p=>p.n);if(np.length)opened.push(np.join('·'));if(before<2&&after>=2)opened.push('세율 조정');
+  setTimeout(()=>{sfx('claim');toast(`촌장 Lv${after} · ${chiefTitle(after)}!${opened.length?' '+opened.join(', ')+' 열림':''}`)},400)}}
+function setTax(i){if(chiefLv()<2||![0,1,2].includes(i))return;MG().tax=i;sfx('tap');save();renderSheet()}
+function togglePolicy(k){const m=MG(),P=POLICIES[k];if(!P)return;if(m.pol.includes(k)){m.pol=m.pol.filter(x=>x!==k);toast(`${P.n} 정책을 멈췄어요`);sfx('tap')}
+ else{if(chiefLv()<P.lv)return;if(m.pol.length>=polSlots()){toast('정책 칸이 가득 찼어요. 하나를 멈추고 바꿔요');return}const c=polCost();if(S.r.gold<c){toast(`금화 ${c} 필요해요`);return}S.r.gold-=c;ledAdd('inv',c);m.pol.push(k);toast(`${P.n} 정책을 시작했어요`);sfx('claim')}
+ save();updateHUD();renderSheet()}
+const fmtG=v=>(v<0?'−':'')+compactNumber(Math.round(Math.abs(v)));
+function ledRows(c,live){const etc=live?(S.r.gold-MG().led.start)-(c.prod+c.tax+c.sale-c.upk-c.inv):c.etc,net=live?S.r.gold-MG().led.start:c.net;
+ return [['건물 수입',c.prod],['세금',c.tax],['물건 판매',c.sale],['기타 (보상·거래)',etc],['건물 유지비',-c.upk],['짓기·구매',-c.inv],['합계',net]]}
+function manageHTML(){const m=MG(),l=chiefLv(),xp=m.xp,a=chiefXpAt(l),b=chiefXpAt(l+1),pct=l>=CHIEF_MAX?100:Math.round((xp-a)/(b-a)*100);
+ const nextUn=[[2,'세율 조정'],[3,'정책 칸 1'],[8,'정책 칸 2'],[15,'정책 칸 3'],...Object.values(POLICIES).map(p=>[p.lv,p.n])].filter(([v])=>v>l).sort((x,y)=>x[0]-y[0])[0];
+ const s=Math.round(m.sat),t=Math.round(satTarget()),fx=satFactors();
+ const eff=[`세금 ×${satTaxMul().toFixed(2)}`,growBlocked()?'주민이 더 오지 않아요':m.sat>=70?'주민이 빨리 모여요':'주민 증가 보통',m.sat<15?'주민이 떠나기 시작해요':''].filter(Boolean).join(' · ');
+ const cur=m.led.cur,prev=m.led.prev,rows=ledRows(cur,true),prow=prev?ledRows(prev,false):null;
+ const td=v=>`<td class="${v<0?'neg':v>0?'pos':''}">${Math.abs(v)<.5?'0':(v>0?'+':'')+fmtG(v)}</td>`;
+ const led=`<table class="ledger"><thead><tr><th></th><th>오늘</th><th>어제</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${i===rows.length-1?'sum':''}"><th>${r[0]}</th>${td(r[1])}${prow?td(prow[i][1]):'<td>—</td>'}</tr>`).join('')}</tbody></table>`;
+ const upd=upkRate()*DAY,tx=taxRate()*DAY;
+ const taxes=TAXES.map((x,i)=>`<button class="btn tax ${m.tax===i?'on':''}" data-act="tax" data-i="${i}" ${l<2?'disabled':''} aria-pressed="${m.tax===i}">${x.n}<small>세금 ×${x.m} · 만족 ${x.s>0?'+':''}${x.s}</small></button>`).join('');
+ const slots=polSlots(),pc=polCost();
+ const pols=Object.entries(POLICIES).map(([k,p])=>{const on=m.pol.includes(k),lock=l<p.lv;return `<div class="pol ${on?'on':''} ${lock?'locked':''}"><div class="pol-t"><b>${p.n}</b>${on?'<span class="pol-on">시행 중</span>':''}</div><small class="up">＋ ${p.up}</small><small class="down">－ ${p.down}</small>${lock?`<small class="pol-lock">촌장 Lv${p.lv}부터</small>`:`<button class="btn ${on?'':'go'}" data-act="policy" data-k="${k}" ${!on&&(m.pol.length>=slots||S.r.gold<pc)?'disabled':''}>${on?'멈추기':`시작 · ${ic('gold')}${pc}`}</button>`}</div>`}).join('');
+ return `<div class="top"><h2>마을 경영</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
+ <div class="mg-chief"><b>촌장 Lv${l}</b><span>${chiefTitle(l)}</span><div class="meter"><i style="width:${pct}%"></i></div><small>${l>=CHIEF_MAX?'최고 레벨':`다음 레벨까지 ${Math.ceil(b-xp)} · 하루 결산마다 경영 점수가 쌓여요`}${nextUn?` · Lv${nextUn[0]}: ${nextUn[1]}`:''}</small></div>
+ <h3 class="sec">주민 만족도</h3><div class="mg-sat ${satCls(s)}"><div class="sat-top"><b>${s}</b><span>${satWord(s)}</span><small>${t>s?'오르는 중 ▲':t<s?'내리는 중 ▼':'안정'} (목표 ${t})</small></div><div class="meter"><i style="width:${s}%"></i></div><ul class="sat-f">${fx.map(([n,v])=>`<li><span>${n}</span><b class="${v>0?'pos':'neg'}">${v>0?'+':''}${v}</b></li>`).join('')}</ul><small class="sat-eff">${eff}</small></div>
+ <h3 class="sec">마을 장부 <small>${day()}일</small></h3>${led}<p class="mg-note">하루 세금 약 ${ic('gold')}${Math.round(tx)} · 하루 유지비 약 ${ic('gold')}${Math.round(upd)}${m.unpaid>0?' · <b class="neg">유지비가 밀렸어요</b>':''}</p>
+ <h3 class="sec">세율 ${l<2?'<small>촌장 Lv2부터</small>':''}</h3><div class="taxes">${taxes}</div>
+ <h3 class="sec">정책 <small>${m.pol.length} / ${slots}칸${slots?'':' · 촌장 Lv3부터'}</small></h3><div class="pols">${pols}</div>`}
+
 
 /* ---------- quests ---------- */
 const QS=(id,r,steps)=>{const q={id,r,steps};const cur=()=>steps.find(st=>st.v()<st.g)||steps[steps.length-1];
@@ -1229,15 +1328,15 @@ const FULLW={};function fullWarn(k){if(FULLW[k]&&S.time-FULLW[k]<60)return;FULLW
 function tick(){
   const prevSe=season();
   S.time+=1;tickVisitors();staff();
-  for(const b of S.b){const p=prodOf(b);for(const k in p){if(p[k]>0){const cp=storeCap(k);if(S.r[k]>=cp){fullWarn(k);continue}const add=Math.min(p[k],cp-S.r[k]);S.r[k]+=add;if(k==='food')S.xp.farm+=add*.6;if(k==='gold')S.xp.trade+=add*.4}else S.r[k]+=p[k]}}
-  craftTick();toolTick();if(S.time%3===0)famTick();growthTick();
+  for(const b of S.b){const p=prodOf(b);for(const k in p){if(p[k]>0){const cp=storeCap(k);if(S.r[k]>=cp){fullWarn(k);continue}const add=Math.min(p[k],cp-S.r[k]);S.r[k]+=add;if(k==='food')S.xp.farm+=add*.6;if(k==='gold'){S.xp.trade+=add*.4;ledAdd('prod',add)}}else S.r[k]+=p[k]}}
+  craftTick();toolTick();mgTick();if(S.time%3===0)famTick();growthTick();
   if(count('cathedral')&&S.time%20===0&&S.rumor>0)S.rumor=Math.max(0,S.rumor-1);
-  if(S.time%30===0){let sold=0;for(const b of S.b)if(b.k==='stall'&&STAFF[b.id]&&(S.goods.bread||0)>keepOf('bread')){S.goods.bread--;const g=Math.round(14+4*b.l);S.r.gold+=g;sold+=g;floatTxt(bCX(b),bBase(b)-26,'+'+g,RCOL.gold,'gold')}for(const b of S.b)if(b.k==='potion'&&STAFF[b.id]&&(S.goods.potion_hp||0)>keepOf('potion_hp')){S.goods.potion_hp--;const g=Math.round(30+8*b.l);S.r.gold+=g;sold+=g;floatTxt(bCX(b),bBase(b)-26,'+'+g,RCOL.gold,'gold')}if(sold)S.st.stall_gold=(S.st.stall_gold||0)+sold}
+  if(S.time%30===0){let sold=0;for(const b of S.b)if(b.k==='stall'&&STAFF[b.id]&&(S.goods.bread||0)>keepOf('bread')){S.goods.bread--;const g=Math.round((14+4*b.l)*mgGoldMul('stall'));S.r.gold+=g;ledAdd('sale',g);sold+=g;floatTxt(bCX(b),bBase(b)-26,'+'+g,RCOL.gold,'gold')}for(const b of S.b)if(b.k==='potion'&&STAFF[b.id]&&(S.goods.potion_hp||0)>keepOf('potion_hp')){S.goods.potion_hp--;const g=Math.round((30+8*b.l)*mgGoldMul('potion'));S.r.gold+=g;ledAdd('sale',g);sold+=g;floatTxt(bCX(b),bBase(b)-26,'+'+g,RCOL.gold,'gold')}if(sold)S.st.stall_gold=(S.st.stall_gold||0)+sold}
   S.r.food-=foodUse();
   if(S.r.food<0){S.r.food=0;S.starveT++;if(S.starveT>=8&&S.pop>1){S.pop--;S.starveT=0;toast('식량이 떨어져 주민 한 명이 마을을 떠났어요')}}else S.starveT=0;
   const c=cap();S.growT++;
-  const every=count('tavern')?3:5;
-  if(S.pop<c&&S.r.food>=5&&S.growT>=every){S.pop++;S.growT=0;const h=S.b[0];floatTxt(h.x*TS+16,h.y*TS+4,'+1','#cfe8ff','pop')}
+  const every=growEvery(count('tavern')?3:5);
+  if(S.pop<c&&S.r.food>=5&&S.growT>=every&&!growBlocked()){S.pop++;S.growT=0;const h=S.b[0];floatTxt(h.x*TS+16,h.y*TS+4,'+1','#cfe8ff','pop')}
   if(S.pop>c)S.pop=c;
   S.spawnT++;
   if(S.spawnT>=RESPAWN_EVERY){S.spawnT=0;let n=0;S.o.forEach((o,i)=>{if(o&&idxOpen(i))n++});if(n<150){for(let tries=0;tries<20;tries++){const x=Math.random()*MW|0,y=Math.random()*MH|0,i=y*MW+x;if(TILES[i]||S.o[i]||OCC[i]||DOCC[i]||LMOCC[i]||!cellOpen(x,y))continue;if(Math.hypot(x-15,y-12)<4)continue;S.o[i]=Math.random()>=RESPAWN_ROCK?{k:Math.random()<.35?'pine':'tree',hp:3}:{k:'rock',hp:4};break}}}
@@ -1780,6 +1879,7 @@ function tap(cx,cy){const wx=cam.x+cx/css(),wy=cam.y+cy/css(),tx=Math.floor(wx/T
 
 $('#goal').addEventListener('click',e=>{const c=e.target.closest('[data-q]');if(c){claim(c.dataset.q);return}if(e.target.closest('.goal-rank')){openTab('profile');return}if(e.target.closest('.goal-open'))openTab('story')});
 $('#chief').onclick=()=>openTab('profile');
+$('#day').addEventListener('click',()=>openTab('manage'));
 $('#res').addEventListener('click',()=>openTab('resources'));
 $('#food-help').onclick=()=>openTab('food-help');
 $('#confirm').addEventListener('click',e=>{const t=e.target.closest('[data-tier]');if(!t)return;roadTier=+t.dataset.tier;updateConfirm();toast(roadTier>1?'길을 탭하면 업그레이드돼요':'길을 낼 칸을 탭하세요')});
@@ -2016,8 +2116,8 @@ let acadPick=null,expPick=null,gearPick=null;
 const gearOf=g=>(g&&g.gear)||{},gearN=g=>GEAR.filter(k=>gearOf(g)[k]).length;
 const gearTags=g=>GEAR.filter(k=>gearOf(g)[k]).map(k=>gIc(k,'gtag')).join('');
 function equipGear(id,k){const g=S.academy.grads.find(x=>x.id===id);if(!g||!GEAR.includes(k))return;g.gear=g.gear||{};if(g.gear[k]){delete g.gear[k];S.goods[k]=(S.goods[k]||0)+1;toast(`${g.n}: ${GOODS[k].n} 벗음`)}else{if(!(S.goods[k]>0)){toast(`${GOODS[k].n}${josa(GOODS[k].n,'이','가').slice(GOODS[k].n.length)} 없어요 · 대장간에서 만들어요`);return}S.goods[k]--;g.gear[k]=1;toast(`${g.n}: ${GOODS[k].n} 장착 · ${GOODS[k].d}`)}save();renderSheet()}
-const goodPrice=k=>Math.max(1,Math.round(GOODS[k].p*(1+.05*(lv(S.xp.trade)-1))*(rankOf()>=3?1.1:1)*priceMul(k)));
-function sellGood(k,n=1){const G=GOODS[k];n=Math.min(n|0,S.goods[k]||0);if(!G||n<1||!count('market'))return;const g=goodPrice(k)*n;S.goods[k]-=n;S.r.gold+=g;dailyBump('trade');sfx('coin');S.st.sold+=n;S.xp.trade+=g*.5;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');toast(`${G.n} ${n}개를 팔았어요 · 금화 +${g}`);updateHUD();save();renderSheet()}
+const goodPrice=k=>Math.max(1,Math.round(GOODS[k].p*(1+.05*(lv(S.xp.trade)-1))*(rankOf()>=3?1.1:1)*priceMul(k)*mgPriceMul()));
+function sellGood(k,n=1){const G=GOODS[k];n=Math.min(n|0,S.goods[k]||0);if(!G||n<1||!count('market'))return;const g=goodPrice(k)*n;S.goods[k]-=n;S.r.gold+=g;ledAdd('sale',g);dailyBump('trade');sfx('coin');S.st.sold+=n;S.xp.trade+=g*.5;const m=S.b.find(b=>b.k==='market');if(m)floatTxt(m.x*TS+16,m.y*TS,'+'+g,RCOL.gold,'gold');toast(`${G.n} ${n}개를 팔았어요 · 금화 +${g}`);updateHUD();save();renderSheet()}
 const UI_IC=k=>`./assets/ui/icons/${k}.webp`,UI=(k,cls='')=>`<img class="ui-ic ${cls}" src="${UI_IC(k)}" alt="" aria-hidden="true">`;
 const DAILY_ART=Object.fromEntries(['chop','mine','talk','visitor','build','trade','crisis','grad'].map(k=>[k,UI_IC('daily-'+k)]));
 const pips=(p,g)=>g<=6?`<span class="pips">${Array.from({length:g},(_,i)=>`<i class="${i<p?'on':''}"></i>`).join('')}</span>`:`<small>${p}/${g}</small>`;
@@ -2036,7 +2136,7 @@ const hasBatchim=w=>{const c=w.charCodeAt(w.length-1);return c>=0xac00&&c<=0xd7a
 function hashStr(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
 function normalizeLife(d){
  if(d.xp&&typeof d.xp==='object')for(const k of['farm','build','trade'])d.xp[k]=Math.max(0,Number.isFinite(d.xp[k])?d.xp[k]:0);
- normalizeZones(d);normalizeLandmarks(d);normalizeDungeon(d);normalizeCraft(d);d.rank=Number.isInteger(d.rank)?Math.max(0,Math.min(RANKS.length-1,d.rank)):0;
+ normalizeZones(d);normalizeLandmarks(d);normalizeDungeon(d);normalizeCraft(d);normalizeMg(d);d.rank=Number.isInteger(d.rank)?Math.max(0,Math.min(RANKS.length-1,d.rank)):0;
  {const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};const fm=obj(d.fam),bid=new Set((d.b||[]).map(b=>String(b.id)));d.fam={};for(const[id,f]of Object.entries(fm))if(bid.has(id)&&f&&typeof f.n==='string')d.fam[id]={n:f.n.slice(0,8),job:typeof f.job==='string'?f.job.slice(0,12):FAM_JOB[0],happy:Math.max(0,Math.min(3,f.happy|0)),wish:WISHES[f.wish]?f.wish:null,next:Number.isFinite(f.next)?f.next:0};d.famCap=Number.isFinite(d.famCap)?Math.max(0,Math.min(200,d.famCap|0)):0;d.news=Array.isArray(d.news)?d.news.filter(n=>n&&Number.isFinite(n.d)).slice(-12):[];if(!(d.newsBase&&typeof d.newsBase==='object'))d.newsBase=null}d.festCap=Number.isFinite(d.festCap)?Math.max(0,Math.min(200,d.festCap|0)):0;if(!(d.festPrep&&typeof d.festPrep==='object'&&Number.isFinite(d.festPrep.y)))d.festPrep=null;else for(const k of['bread','flour','inv','pts'])d.festPrep[k]=Math.max(0,d.festPrep[k]|0);d.name=cleanName(d.name);d.nameAsked=!!d.nameAsked;if(!Number.isFinite(d.feastDay))delete d.feastDay;
  const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
  const it=obj(d.items);d.items={};for(const x of ITEMS)if(it[x.id]==='found'||it[x.id]==='known')d.items[x.id]=it[x.id];
@@ -2290,7 +2390,7 @@ function openTab(t){document.querySelector('.coach')?.remove();
   if(t==='shop'){openShop();return}
   finishPlacement();selId=t;armReset=false;renderSheet();updateTabs()}
 function profileHTML(){const sk=[['farm','농사','#819853',`식량 생산 +${(lv(S.xp.farm)-1)*5}%`],['build','건축','#bd9759','생산 보너스 없음'],['trade','교역','#77929a',`금화 생산 +${(lv(S.xp.trade)-1)*5}% · 판매가 +${(lv(S.xp.trade)-1)*5}%`]];
-  return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="profile-hero"><img class="profile-pic" src="./assets/story/portrait-chief.webp" alt="" width="64" height="64" decoding="async"><div class="ph-text"><b class="ph-name">${chiefName()?esc(chiefName())+' 촌장':'이름 없는 촌장'}</b><small><span class="big">Lv1</span> 신참 촌장</small><button class="btn ph-edit" data-act="rename">${chiefName()?'이름 바꾸기':'이름 정하기'}</button></div></div>${rankHTML()}<h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c,effect])=>`<div class="pill"><div class="skill-title"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><small>${lv(S.xp[k])>=SKILL_MAX?'최고 단계':`다음 단계 ${Math.round(lvp(S.xp[k])*100)}%`}</small></div><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div><small>${effect}</small></div>`).join('')}</div><h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>영지<b>${S.zones.length} / ${ZONES.length}구역</b></div><div>명소<b>${lmCount()} / ${LANDMARKS.length}곳</b></div><div>던전<b>최고 지하 ${S.dg.best}층</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div><h3 class="sec">촌장의 비밀 <small>${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul class="help">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">아직 찾은 실마리가 없어요.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
+  return `<div class="top"><h2>촌장 정보</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="profile-hero"><img class="profile-pic" src="./assets/story/portrait-chief.webp" alt="" width="64" height="64" decoding="async"><div class="ph-text"><b class="ph-name">${chiefName()?esc(chiefName())+' 촌장':'이름 없는 촌장'}</b><small><span class="big">Lv${chiefLv()}</span> ${chiefTitle()}</small><button class="btn ph-edit" data-act="rename">${chiefName()?'이름 바꾸기':'이름 정하기'}</button></div></div><button class="btn go mg-open" data-act="manage">마을 경영 · 장부 · 정책</button>${rankHTML()}<h3 class="sec">촌장의 솜씨</h3><div class="skillrow">${sk.map(([k,n,c,effect])=>`<div class="pill"><div class="skill-title"><span>${n} <b>Lv ${lv(S.xp[k])}</b></span><small>${lv(S.xp[k])>=SKILL_MAX?'최고 단계':`다음 단계 ${Math.round(lvp(S.xp[k])*100)}%`}</small></div><div class="meter"><i style="width:${Math.round(lvp(S.xp[k])*100)}%;background:${c}"></i></div><small>${effect}</small></div>`).join('')}</div><h3 class="sec">마을 현황</h3><div class="stats"><div>날짜<b>${day()}일 · ${SEASONS[season()]}</b></div><div>주민<b>${S.pop} / ${cap()}명</b></div><div>건물<b>${S.b.length}채</b></div><div>영지<b>${S.zones.length} / ${ZONES.length}구역</b></div><div>명소<b>${lmCount()} / ${LANDMARKS.length}곳</b></div><div>던전<b>최고 지하 ${S.dg.best}층</b></div><div>이야기<b>${S.claimed.length} / ${Q.length}화</b></div></div><h3 class="sec">촌장의 비밀 <small>${S.clues.chief.length} / ${CLUES.chief.length}</small></h3>${S.clues.chief.length?`<ul class="help">${CLUES.chief.filter(c=>S.clues.chief.includes(c.id)).map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<p class="shop-note">아직 찾은 실마리가 없어요.</p>'}<div class="acts"><button class="btn" data-act="replay" data-ep="0">프롤로그 다시 보기</button></div>`}
 function peopleHTML(){return `<div class="top shop-top"><div><h2>주민</h2><div class="lv">평범한 이웃들 ${RESIDENTS.filter(resArrived).length} / ${RESIDENTS.length}</div></div><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${segHTML('people')}<section data-sub="neigh">${visitorInviteHTML()}${lifeHTML()}</section><section data-sub="roster"><div class="roster">${RESIDENTS.map(r=>{const here=resArrived(r),c=resClues(r),all=CLUES[r.id].length,rev=revealed(r.id),found=CLUES[r.id].filter(x=>S.clues[r.id].includes(x.id));return `<div class="resident ${here?'':'away'}">${residentArt(r,here)}<div><div class="resident-title"><h3>${here?r.n:'아직 만나지 못한 이웃'}</h3>${here?`<span class="lvq">${rev?'Lv 999':'Lv ???'}</span>`:''}</div><p>${here?`“${r.line}”`:`${objectName(B[r.home].n)} 지으면 이사 와요.`}</p>${here?`<div class="clue-meter" aria-label="단서 ${c}/${all}">${Array.from({length:all},(_,i)=>`<i class="${i<c?'on':''}"></i>`).join('')}</div>`:''}${here&&found.length?`<details><summary>모은 단서 보기</summary><ul>${found.map(x=>`<li>${x.t}</li>`).join('')}</ul></details>`:''}${rev?`<details class="lore-d"><summary>정체 보기</summary><div class="lore">${LORE[r.id]}</div></details>`:''}</div></div>`}).join('')}</div></section><section data-sub="acad">${acadHTML()}</section>`}
 function storyHTML(){const next=nextQuest();let from=0;
  const card=(n,title,state,extra='')=>`<button class="ep-card ${state}" ${state==='locked'?'disabled':`data-act="${state==='ready'?'claim':'replay'}" ${state==='ready'?`data-q="${Q[n-1].id}"`:`data-ep="${n}"`}`} aria-label="${n?n+'화':'프롤로그'} ${state==='locked'?'잠김':title}"><img src="${EP_THUMB(n)}" alt="" loading="lazy" decoding="async" width="360" height="240" onerror="this.onerror=null;this.style.display='none'"><span class="ep-no">${n?n+'화':'0화'}</span>${state==='locked'?`<span class="ep-lock">${UI('lock','big')}</span>`:`<span class="ep-t">${title}</span>`}${extra}</button>`;
@@ -2326,7 +2426,7 @@ function keepPlacementVisible(){
   cam.x+=(x-tx)/k;cam.y+=(y-ty)/k;clampCam();
 }
 function visitorInviteHTML(){const m=currentVisit(),phase=visitorPhase();if(!m)return '<div class="visit-card"><div><b>마을의 인연</b><br>손님들과 나눈 이야기를 다시 읽어요.</div><button class="btn" data-act="visitors">기록 보기</button></div>';const g=FRIENDS[m.who];return `<div class="visit-card"><img src="${GUESTURL[m.who]}" alt=""><div><b>${g.n} · 찾아온 손님</b><br>${visitorStatus()}</div><button class="btn ${['available','ready'].includes(phase)?'go':''}" data-act="visitors">${phase==='ready'?'보상 받기':phase==='available'?'의뢰 보기':'방문 현황'}</button></div>`}
-function resourceHTML(){const r=rates();return `<div class="top"><h2>마을 자원</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="resource-grid">${RES.map(k=>`<div class="resource-card"><h3>${ic(k)}${RN[k]}</h3><b>${exactNumber(S.r[k])}</b><small>${r[k]===0?'변화 없음':`초당 ${r[k]>0?'+':''}${r[k].toFixed(2)}`}</small>${CAPPED[k]?`<small class="cap ${S.r[k]>=storeCap(k)?'full':''}">보관 ${compactNumber(Math.min(S.r[k],storeCap(k)))} / ${compactNumber(storeCap(k))}</small>`:''}</div>`).join('')}</div>${Object.values(S.goods).some(v=>v>0)?`<h3 class="sec">만든 물건</h3><div class="goods-list">${Object.keys(GOODS).filter(k=>S.goods[k]).map(k=>`<span>${gIc(k)}${GOODS[k].n} <b>${S.goods[k]}</b></span>`).join('')}</div>`:''}<button class="btn goods-open" data-act="goods">${UI('reward')}물품 보관함 · 팔기</button><p class="shop-note">창고가 가득 차면 건물 생산이 멈춰요. 나무·바위를 직접 캐는 건 계속 할 수 있어요.</p><p>주민 ${S.pop}명 / 수용 ${cap()}명 · 쉬는 주민 ${S.idle??0}명</p><div class="acts"><button class="btn" data-act="tab" data-to="food-help">식량 마련 안내</button><button class="btn" data-act="market">${count('market')?'시장 거래':'시장 건설 보기'}</button></div>`}
+function resourceHTML(){const r=rates();return `<div class="top"><h2>마을 자원</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="resource-grid">${RES.map(k=>`<div class="resource-card"><h3>${ic(k)}${RN[k]}</h3><b>${exactNumber(S.r[k])}</b><small>${r[k]===0?'변화 없음':`초당 ${r[k]>0?'+':''}${r[k].toFixed(2)}`}</small>${CAPPED[k]?`<small class="cap ${S.r[k]>=storeCap(k)?'full':''}">보관 ${compactNumber(Math.min(S.r[k],storeCap(k)))} / ${compactNumber(storeCap(k))}</small>`:''}</div>`).join('')}</div>${Object.values(S.goods).some(v=>v>0)?`<h3 class="sec">만든 물건</h3><div class="goods-list">${Object.keys(GOODS).filter(k=>S.goods[k]).map(k=>`<span>${gIc(k)}${GOODS[k].n} <b>${S.goods[k]}</b></span>`).join('')}</div>`:''}<button class="btn goods-open" data-act="manage">마을 장부 · 만족도</button><button class="btn goods-open" data-act="goods">${UI('reward')}물품 보관함 · 팔기</button><p class="shop-note">창고가 가득 차면 건물 생산이 멈춰요. 나무·바위를 직접 캐는 건 계속 할 수 있어요.</p><p>주민 ${S.pop}명 / 수용 ${cap()}명 · 쉬는 주민 ${S.idle??0}명</p><div class="acts"><button class="btn" data-act="tab" data-to="food-help">식량 마련 안내</button><button class="btn" data-act="market">${count('market')?'시장 거래':'시장 건설 보기'}</button></div>`}
 function foodHelpHTML(){return `<div class="top"><h2>식량 마련</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><p>주민 ${S.pop}명이 초당 ${(S.pop*.12).toFixed(2)}의 식량을 먹어요. 생산 건물에는 일손을 배정할 여유도 필요해요.</p><ul class="help"><li>${season()===3?'지금은 겨울이라 밀밭이 쉬어요. 시장에서 식량을 사거나 빵집을 이용하세요.':'밀밭을 지으면 식량을 생산해요. 밀밭마다 일손 2명이 필요해요.'}</li><li>빵집은 마을회관 Lv2부터 지을 수 있고, 겨울에도 생산해요.</li><li>시장에서는 금화로 식량을 살 수 있어요.</li></ul><div class="acts">${season()!==3?'<button class="btn go" data-act="choose-build" data-k="farm">밀밭 고르기</button>':''}<button class="btn" data-act="market">${count('market')?'시장 거래':'시장 고르기'}</button>${hallL()>=2?'<button class="btn" data-act="choose-build" data-k="bakery">빵집 고르기</button>':'<button class="btn" data-act="hall">회관 확인</button>'}</div>`}
 function settingsHTML(){return `<div class="top"><h2>도움말 · 설정</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div><div class="help-groups"><details open><summary>지도와 건물 조작</summary><div class="help-pics"><figure><img src="./assets/ui/help/help-tap.webp" alt="" loading="lazy"><figcaption>나무·바위 탭</figcaption></figure><figure><img src="./assets/ui/help/help-pinch.webp" alt="" loading="lazy"><figcaption>두 손가락 확대</figcaption></figure><figure class="wide"><img src="./assets/ui/help/help-build.webp" alt="" loading="lazy"><figcaption>고르고 · 탭하고 · 짓기</figcaption></figure></div></details><details><summary>주민과 이야기</summary><div class="help-pics"><figure class="wide"><img src="./assets/ui/help/help-claim.webp" alt="" loading="lazy"><figcaption>목표를 채우면 보상과 다음 이야기</figcaption></figure></div><ul class="help"><li>주민 탭의 ‘이웃’에서 찾아온 손님, 대화, 부탁을, ‘주민 도감’에서 단서를, ‘아카데미’에서 초보 모험가를 확인해요.</li><li>상점 탭은 장식 · 시장 · 물건 도감으로 나뉘어 있어요.</li><li>이야기는 앞의 목표부터 순서대로 보상을 받으면 열려요.</li><li>단서는 저녁·계절·진행에 따라 건물을 탭할 때 발견돼요.</li><li>촌장 버튼에서 솜씨와 마을 현황을 볼 수 있어요.</li></ul></details><details><summary>식량과 금화 사용</summary><ul class="help"><li>식량이 부족하면 주민이 떠나요. 겨울에는 밀밭이 쉬니 미리 준비하세요.</li><li>상점에서 장식을 고르고, 시장 건물에서는 자원을 사고팔아요.</li><li>자원 표시를 누르면 정확한 보유량과 변화량을 볼 수 있어요.</li></ul></details></div><section class="settings-fx"><h3>소리 · 진동</h3><div class="acts"><button class="btn ${FX.snd?'go':''}" data-act="fx-snd">소리 ${FX.snd?'켜짐':'꺼짐'}</button><button class="btn ${FX.vib?'go':''}" data-act="fx-vib">진동 ${FX.vib?'켜짐':'꺼짐'}</button></div><small class="shop-note">진동은 안드로이드 폰에서만 동작해요.</small></section><section class="settings-save"><h3>저장과 새로 시작</h3><p>진행 상황은 이 기기에 자동으로 저장돼요. 다른 기기와 자동으로 연동되지는 않아요.</p><div class="acts"><button class="btn warn" data-act="reset">${armReset?'기존 마을을 지우고 새로 시작':'새로 시작'}</button>${armReset?'<button class="btn" data-act="reset-cancel">취소</button>':''}</div>${armReset?'<p class="reset-note">이 기기의 기존 진행을 지웁니다. 계속하려면 위 버튼을 한 번 더 눌러 주세요.</p>':''}</section>`}
 
@@ -2360,7 +2460,8 @@ function updateHUD(){
   for(const k of RES)h+=`<button class="chip" aria-label="${RN[k]} ${exactNumber(S.r[k])}개 · 초당 ${r[k].toFixed(2)} · 자세히 보기">${ic(k)}<span class="n">${compactNumber(S.r[k])}</span>${S.r[k]>=storeCap(k)&&r[k]>0?'<span class="r full">가득</span>':`<span class="r ${r[k]<0?'neg':r[k]>=.05?'up':''}">${Math.abs(r[k])<.05?'·':(r[k]>0?'▲':'▼')+Math.abs(r[k]).toFixed(1)}</span>`}</button>`;
   h+=`<button class="chip" aria-label="주민 ${S.pop}명, 수용 ${cap()}명 · 자세히 보기">${ic('pop')}<span class="n">${compactNumber(S.pop)}/${compactNumber(cap())}</span><span class="r" title="쉬는 일손">${UI('worker')}${S.idle??0}</span></button>`;
   const re=$('#res');if(re.dataset.v!==h){re.innerHTML=h;re.dataset.v=h}
-  $('#day').innerHTML=`${rankOf()?RANKS[rankOf()].n+' · ':''}<b>${day()}</b>일 · ${SEASONS[season()]}${isDusk()?' · 저녁':''}`;
+  {const dh=`${rankOf()?RANKS[rankOf()].n+' · ':''}<b>${day()}</b>일 · ${SEASONS[season()]}${isDusk()?' · 저녁':''} · <span class="mood ${satCls(MG().sat)}">만족 ${Math.round(MG().sat)}</span>`,de=$('#day');if(de.dataset.v!==dh){de.innerHTML=dh;de.dataset.v=dh}}
+  {const cb=$('#chief b'),cl='Lv'+chiefLv();if(cb&&cb.textContent!==cl)cb.textContent=cl}
   const q=nextQuest();let gh;
   if(q){const v=Math.min(q.v(),q.g),done=questReady(q),ep=EPISODES[Q.indexOf(q)];
     gh=`<button class="goal-open" aria-label="${ep.n}화 목표: ${q.t} ${Math.floor(v)}/${q.g}">${questIcon(q)}<span class="gq-label">${q.steps.length>1?`<em class="gq-step">${q.stepNo()}/${q.steps.length}</em>`:''}${q.t}</span><span class="gbar"><i style="width:${Math.round(v/q.g*100)}%"></i></span><small>${Math.floor(v)}/${q.g}</small></button>${done?`<button class="claim" data-q="${q.id}" aria-label="보상 받기">${UI('reward')}</button>`:''}`;
@@ -2384,6 +2485,7 @@ function renderSheet(){let h='';document.querySelector('.coach')?.remove();
   else if(selId==='resources')h=resourceHTML();
   else if(selId==='goods')h=goodsHTML();
   else if(selId==='kingdom')h=kingdomHTML();
+  else if(selId==='manage')h=manageHTML();
   else if(selId==='food-help')h=foodHelpHTML();
   else if(selId==='visitors')h=visitorsHTML();
   else if(selId==='shop')h=shopTabsHTML();
@@ -2442,6 +2544,9 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
   else if(act==='sell-good')sellGood(a.dataset.k,+a.dataset.n||1)
   else if(act==='goods'){selId='goods';sheet.scrollTop=0;renderSheet()}
   else if(act==='kingdom'){selId='kingdom';sheet.scrollTop=0;renderSheet()}
+  else if(act==='manage'){selId='manage';sheet.scrollTop=0;renderSheet()}
+  else if(act==='tax')setTax(+a.dataset.i)
+  else if(act==='policy')togglePolicy(a.dataset.k)
   else if(act==='goto-b'){const t=S.b.find(x=>x.id===+a.dataset.id);if(t){closeSheet();centerOn(bCX(t),bBase(t)-10);openSheet(t.id)}}
   else if(act==='keep')setKeep(a.dataset.k,+a.dataset.d)
   else if(act==='tool-on'&&b)toolOn(b)
