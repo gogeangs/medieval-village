@@ -363,6 +363,7 @@ body.sheet-open .hud{visibility:hidden}
 #day{cursor:pointer;pointer-events:auto}.mood.good{color:#c9eaa0}.mood.mid{color:#ffe7a6}.mood.bad{color:#ffb39a}
 .wall-tiers{grid-template-columns:repeat(4,minmax(0,1fr))!important}.rt.lock{opacity:.55}.wall-card{display:grid;gap:5px;padding:12px;border-radius:10px;background:#e4d6b15e}.wall-card b{font-weight:400;font-size:15px}.wall-card small{font-size:12px;color:#705b3e;line-height:1.5}.wall-prot{font-size:13px;color:#5d4a31}
 .cost .gic.cmat{width:11px;height:11px;vertical-align:-2px}.btn .gic.cmat{width:14px;height:14px;vertical-align:-3px}.mat-hint{display:block;width:100%;font-size:12px;color:#8a5a34;margin-top:4px}
+.porter-card{display:grid;gap:5px;padding:12px;margin-bottom:10px;border-radius:10px;background:#e4d6b15e}.pc-t{display:flex;justify-content:space-between;align-items:baseline}.pc-t b{font-weight:400;font-size:16px}.pc-t span{font-size:13px;color:#705b3e}.porter-card small{font-size:12px;color:#705b3e;line-height:1.5}.porter-card .acts{margin-top:4px}
 </style>
 
 </head>
@@ -484,9 +485,34 @@ function collectCraft(b){const c=craftState(b);if(!c.slots.length)return;const g
  c.slots=left;sfx('coin');b.glow=performance.now();
  const parts=Object.entries(got).map(([k,v])=>`${GOODS[k].n} +${v}`);if(advs.length)parts.push(`모험가 ${advs.map(x=>`${x.n}(${x.g}·${x.cls})`).join(', ')} 합류`);
  toast(parts.join(' · ')+(left.length?` · 모험가는 지금 ${advCap()}명까지 묵을 수 있어요 (여관을 지으면 늘어요)`:''));save();updateHUD();renderSheet()}
+/* ---------- porters: residents who carry finished goods to storage ---------- */
+const PORTER_MAX=3,PORTER_UPK=.05,PORTER_HIRE=50,PORTER_SPD=22;
+let PSTAFF=0,PORTERS=[];
+const portersHired=()=>Math.max(0,Math.min(PORTER_MAX,S.porters|0));
+function porterStaff(a){PSTAFF=Math.min(portersHired(),a);return a-PSTAFF}
+const porterUpk=()=>portersHired()*PORTER_UPK;
+const portable=b=>RECIPES[b.k]&&b.k!=='tavern';
+function porterBase(nearB){const st=S.b.filter(b=>b.k==='store'&&STAFF[b.id]);let best=S.b.find(b=>b.k==='hall')||S.b[0];if(st.length&&nearB){best=st.reduce((a,b)=>Math.hypot(bCX(b)-bCX(nearB),bBase(b)-bBase(nearB))<Math.hypot(bCX(a)-bCX(nearB),bBase(a)-bBase(nearB))?b:a)}else if(st.length)best=st[0];return best?{x:bCX(best),y:bBase(best)+2}:{x:200,y:200}}
+function porterPick(p){const taken=new Set(PORTERS.filter(o=>o!==p&&o.b).map(o=>o.b));let best=null,bs=-1e9;
+ for(const b of S.b){if(!portable(b)||taken.has(b.id))continue;const c=S.craft[b.id];if(!c||!c.slots.length)continue;const full=c.slots.length>=craftSlots(b);const sc=(full?1000:0)+c.slots.length*50-Math.hypot(bCX(b)-p.x,bBase(b)-p.y);if(sc>bs){bs=sc;best=b}}return best}
+function stepPorters(dt){if(!S)return;while(PORTERS.length<PSTAFF){const o=porterBase();PORTERS.push({x:o.x+(PORTERS.length*5-5),y:o.y,b:0,carry:[],st:'idle',wait:Math.random(),style:(5+PORTERS.length)%PEOPLE.length,moving:false})}while(PORTERS.length>PSTAFF){const p=PORTERS.pop();for(const k of p.carry){S.goods[k]=(S.goods[k]||0)+1;S.st['made_'+k]=(S.st['made_'+k]||0)+1}}
+ for(const p of PORTERS){p.moving=false;if(p.wait>0){p.wait-=dt;continue}
+  let tx,ty;if(p.st==='idle'){const b=porterPick(p);if(!b){p.wait=1.5;continue}p.b=b.id;p.st='go'}
+  if(p.st==='go'){const b=S.b.find(x=>x.id===p.b);if(!b){p.st='back';p.b=0;continue}tx=bCX(b);ty=bBase(b)+3}else{const o=porterBase(S.b.find(x=>x.id===p.from));tx=o.x;ty=o.y}
+  const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy),step=PORTER_SPD*dt;if(d>step){p.x+=dx/d*step;p.y+=dy/d*step;p.moving=true;p.flip=dx<0;continue}
+  p.x=tx;p.y=ty;
+  if(p.st==='go'){const b=S.b.find(x=>x.id===p.b),c=b&&S.craft[b.id];if(c&&c.slots.length){const keep=[];for(const k of c.slots){if(k==='adv')keep.push(k);else p.carry.push(k)}c.slots=keep;b.glow=performance.now();if(selId===b.id)renderSheet()}p.from=p.b;p.b=0;p.st=p.carry.length?'back':'idle';p.wait=.6}
+  else if(p.st==='back'){if(p.carry.length){const got={};for(const k of p.carry){S.goods[k]=(S.goods[k]||0)+1;got[k]=(got[k]||0)+1;S.st['made_'+k]=(S.st['made_'+k]||0)+1}S.st.carried=(S.st.carried||0)+p.carry.length;p.carry=[];let i=0;for(const k in got){floatTxt(p.x+i*8-4,p.y-12,'+'+got[k],'#fff3d4',k);i++}sfx('coin');if(selId==='goods'||selId==='resources')renderSheet();updateHUD();save()}p.st='idle';p.wait=.8}}}
+function drawPorter(p,now){const f=p.moving?((now/170|0)%2):0;ctx.drawImage(PEOPLE[p.style][f],p.x-2,p.y-7.2,4,7.5);
+ if(p.carry.length){const k=p.carry[p.carry.length-1];roundBox(ctx,p.x-2.6,p.y-11.6,5.2,4,.6,'#a87d50','#5a4028',.35);try{ctx.drawImage(gImg(k),p.x-1.8,p.y-12.6,3.6,3.6)}catch(e){}}}
+function porterHTML(){const h=portersHired(),can0=h<PORTER_MAX&&(S.idle||0)>=1&&S.r.gold>=PORTER_HIRE,busy=PORTERS.filter(p=>p.st!=='idle').length;
+ return `<div class="porter-card"><div class="pc-t"><b>짐꾼</b><span>${h} / ${PORTER_MAX}명${h?` · 일하는 중 ${PSTAFF}명`:''}</span></div><small>${h?`다 만든 물건을 공방에서 창고로 날라 와요. 가득 찬 공방부터 들러요. 선술집 모험가는 직접 맞이해요.${PSTAFF<h?' <b class="neg">쉬는 주민이 모자라 일하지 못하는 짐꾼이 있어요</b>':''}`:'짐꾼을 두면 공방에 가지 않아도 물건이 저절로 보관함에 들어와요.'}</small><small>품삯 금화 ${(PORTER_UPK*DAY).toFixed(1)}/일 · 1명</small><div class="acts">${h<PORTER_MAX?`<button class="btn go" data-act="porter-hire" ${can0?'':'disabled'}>${(S.idle||0)<1?'쉬는 주민이 없어요':`고용하기 · ${ic('gold')}${PORTER_HIRE}`}</button>`:''}${h?'<button class="btn" data-act="porter-fire">한 명 내보내기</button>':''}</div></div>`}
+function hirePorter(){if(portersHired()>=PORTER_MAX||(S.idle||0)<1||S.r.gold<PORTER_HIRE)return;pay({gold:PORTER_HIRE});S.porters=portersHired()+1;staff();sfx('claim');toast('짐꾼이 일을 시작했어요');save();updateHUD();renderSheet()}
+function firePorter(){if(!portersHired())return;S.porters=portersHired()-1;staff();sfx('tap');toast('짐꾼 한 명이 일을 마쳤어요');save();updateHUD();renderSheet()}
+
 function hotHTML(){const hot=Object.keys(GOODS).filter(k=>priceMul(k)>=1.2),cold=Object.keys(GOODS).filter(k=>priceMul(k)<=.85);if(!hot.length&&!cold.length)return'';return `<div class="price-hint"><b>${SEASONS[season()]} 시세</b>${hot.length?`<span class="up">비싸게 팔려요 ${hot.map(k=>gIc(k)+GOODS[k].n).join(' ')}</span>`:''}${cold.length?`<span class="down">싸요 ${cold.map(k=>gIc(k)+GOODS[k].n).join(' ')}</span>`:''}</div>`}
 const KEEPABLE={bread:'노점이 이만큼은 남기고 팔아요',potion_hp:'물약 상점이 이만큼은 남기고 팔아요'};
-function goodsHTML(){const mk=count('market')>0;let h=`<div class="top"><h2>물품 보관함</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${hotHTML()}${mk?'':'<p class="shop-note">시장을 지으면 여기서 바로 팔 수 있어요.</p>'}`;
+function goodsHTML(){const mk=count('market')>0;let h=`<div class="top"><h2>물품 보관함</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>${porterHTML()}${hotHTML()}${mk?'':'<p class="shop-note">시장을 지으면 여기서 바로 팔 수 있어요.</p>'}`;
  for(const[gk,gn]of GOOD_GROUPS){const ks=Object.keys(GOODS).filter(k=>GOODS[k].g===gk);if(!ks.length)continue;h+=`<h3 class="sec">${gn}</h3><div class="goods-rows">`;
   for(const k of ks){const G=GOODS[k],n=S.goods[k]||0,pm=priceMul(k),pr=goodPrice(k),worn=G.gear?gearWorn(k):0,used=G.tool?Object.values(S.tools||{}).filter(t=>t.k===k).length:0;
    h+=`<div class="good-row ${n?'':'empty'}">${gIc(k,'big')}<div class="gr-info"><b>${G.n} <span class="num">${n}</span>${worn?`<em>입는 중 ${worn}</em>`:''}${used?`<em>쓰는 중 ${used}</em>`:''}</b><small>${G.d}</small></div>
@@ -543,6 +569,7 @@ function craftHTML(b){const c=craftState(b),r=recipeOf(b),L=RECIPES[b.k],n=craft
  h+=`<div class="craft"><div class="craft-row">${gIc(r.out,'big')}<div class="craft-info"><b>${outName(r.out)}</b><span class="cost">${costHTML(r.c)}${goodsCostHTML(r.g)}<span>${UI('timer')}${Math.round(r.t/craftSpeed(b))}초</span></span><small class="craft-st ${why==='work'?'':'bad'}">${st}</small></div></div><span class="tbar"><i style="width:${pct}%"></i></span>
   <div class="slots">${Array.from({length:n},(_,i)=>`<span class="cslot ${c.slots[i]?'on':''}">${c.slots[i]?gIc(c.slots[i]):''}</span>`).join('')}</div>
   <button class="btn go" data-act="collect" ${c.slots.length?'':'disabled'}>${c.slots.length?`모두 받기 (${c.slots.length})`:'아직 만든 게 없어요'}</button></div>`;
+ if(portable(b))h+=`<p class="shop-note">${PSTAFF?`짐꾼 ${PSTAFF}명이 다 만든 물건을 보관함으로 날라요.${PORTERS.some(p=>p.b===b.id)?' 지금 이리로 오는 중이에요.':''}`:'물품 보관함에서 짐꾼을 고용하면 다 만든 물건을 저절로 날라 와요.'}</p>`;
  if(b.k==='tavern')h+=`<p class="shop-note">모험가는 던전 동료와 원정에 함께해요(묵을 곳 ${advCount()}/${advCap()}명 · 여관마다 늘어요). 주민 › 아카데미에서 장비를 입힐 수 있어요.</p>`;
  if(b.k==='smithy'||b.k==='bakery'||b.k==='mill'||b.k==='alchemy')h+=`<p class="shop-note">보관 중: ${Object.keys(GOODS).filter(k=>S.goods[k]).map(k=>`${gIc(k)}${GOODS[k].n} ${S.goods[k]}`).join(' · ')||'없음'}</p>`;
  return h}
@@ -1138,7 +1165,7 @@ function upMat(base,l){const w=base.wood||0,st=base.stone||0,o={};if(l===1){if(w
 function upCost(b){if(b.k==='hall'){const h=b.l<hallMax()?HALLUP[b.l]:null;if(!h)return null;const c={};for(const k in h)c[k]=smithyOn()?Math.ceil(h[k]*.9):h[k];return Object.assign(c,HALL_MAT[b.l]||{})}if(b.l>=3)return null;const c={},m=smithyOn()?.9:1;for(const k in B[b.k].cost)c[k]=Math.ceil(B[b.k].cost[k]*UP_MUL[b.l]*m/5)*5;return Object.assign(c,upMat(B[b.k].cost,b.l))}
 function cap(){let c=zoneCap()+guardHomes()+(S.festCap||0)+(S.famCap||0);for(const b of S.b)c+=(B[b.k].cap||0)*b.l;return c}
 let STAFF={};
-function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=wallStaff(a)}
+function staff(){let a=Math.max(0,S.pop-visitorWorkers());STAFF={};for(const b of S.b){const n=B[b.k].need;if(!n){STAFF[b.id]=true;continue}if(a>=n){a-=n;STAFF[b.id]=true}else STAFF[b.id]=false}S.idle=porterStaff(wallStaff(a))}
 function bonus(k){return (k==='food'?1+.05*(lv(S.xp.farm)-1):k==='gold'?1+.05*(lv(S.xp.trade)-1):1)*zoneBonus(k)*rankProd()*trophyProd()*routeBonus(k)*mgProdMul()}
 function prodOf(b){const P=b.k==='ranch'?{gold:.4+.4*linksOf(b).length}:B[b.k].prod;if(!P||!STAFF[b.id])return{};if(b.k==='farm'&&season()===3)return{};const o={},rb=roadBonus(b),lm=linkMul(b);const tm=S.tools&&S.tools[b.id]?1.2:1;for(const k in P)o[k]=P[k]*b.l*bonus(k)*rb*lm*tm*(k==='gold'?mgGoldMul(b.k):1);if(b.k==='ranch')o.food=-.3*b.l;return o}
 function linkTags(b){let t='';if(B[b.k].link){const ls=linksOf(b),L=B[b.k].link;const names=L.to.map(k=>LINK_NAME[k]).join('·');
@@ -1181,6 +1208,7 @@ const CHIEF_MAX=30,CHIEF_T=[[1,'신참 촌장'],[5,'어엿한 촌장'],[10,'믿�
 const chiefXpAt=l=>8*(l-1)*(l-1);
 function normalizeMg(d){const o=d.mg&&typeof d.mg==='object'?d.mg:{};const n=(v,a,b,def)=>Number.isFinite(v)?Math.max(a,Math.min(b,v)):def;
  const L=o.led&&typeof o.led==='object'?o.led:{};const day0=x=>{const z={};for(const k of LED_K)z[k]=Number.isFinite(x&&x[k])?x[k]:0;return z};
+ d.porters=Number.isInteger(d.porters)?Math.max(0,Math.min(PORTER_MAX,d.porters)):0;
  d.mg={xp:n(o.xp,0,1e9,0),tax:[0,1,2].includes(o.tax)?o.tax:1,pol:Array.isArray(o.pol)?[...new Set(o.pol.filter(k=>POLICIES[k]))]:[],sat:n(o.sat,0,100,60),unpaid:n(o.unpaid,0,999,0),breadOk:o.breadOk!==false,leaveT:n(o.leaveT,0,999,0),lvSeen:n(o.lvSeen,1,CHIEF_MAX,1),
   led:{d:Number.isInteger(L.d)?L.d:0,start:Number.isFinite(L.start)?L.start:(d.r&&d.r.gold)||0,cur:day0(L.cur),prev:L.prev?day0(L.prev):null}};return d}
 const LED_K=['prod','tax','toll','sale','upk','inv','etc','net','xp'];
@@ -1192,7 +1220,7 @@ const polSlots=(l=chiefLv())=>l>=15?3:l>=8?2:l>=3?1:0;
 const polCost=()=>20+Math.floor(S.pop)*2;
 const upkMul=()=>(polOn('frugal')?.7:1)*(polOn('pact')?1.2:1);
 const upkOf=b=>(UPK[b.k]||0)*b.l*upkMul();
-const upkRate=()=>S.b.reduce((a,b)=>a+upkOf(b),0)+wallUpk()*upkMul()+(polOn('fest')?(10+Math.floor(S.pop))/DAY:0);
+const upkRate=()=>S.b.reduce((a,b)=>a+upkOf(b),0)+(wallUpk()+porterUpk())*upkMul()+(polOn('fest')?(10+Math.floor(S.pop))/DAY:0);
 const satTaxMul=()=>.5+MG().sat/100;
 const taxRate=()=>Math.floor(S.pop)*.02*TAXES[MG().tax].m*satTaxMul()*(polOn('immig')?.7:1);
 const mgFoodMul=()=>polOn('market_day')?1.1:1;
@@ -2632,6 +2660,8 @@ sheet.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)
   else if(act==='tax')setTax(+a.dataset.i)
   else if(act==='policy')togglePolicy(a.dataset.k)
   else if(act==='keeper')toggleKeeper(+a.dataset.i)
+  else if(act==='porter-hire')hirePorter()
+  else if(act==='porter-fire')firePorter()
   else if(act==='goto-b'){const t=S.b.find(x=>x.id===+a.dataset.id);if(t){closeSheet();centerOn(bCX(t),bBase(t)-10);openSheet(t.id)}}
   else if(act==='keep')setKeep(a.dataset.k,+a.dataset.d)
   else if(act==='tool-on'&&b)toolOn(b)
@@ -2667,7 +2697,7 @@ function frame(now){
   smokeT+=dt;if(smokeT>.45){smokeT=0;for(const b of S.b)if(B[b.k].smoke&&Math.random()<.7)smoke.push({...smokeOrigin(b),life:2.4,max:2.4})}
   for(const s of smoke){s.life-=dt;s.y-=6*dt;s.x+=Math.sin(s.life*2)*3*dt+2*dt}smoke=smoke.filter(s=>s.life>0);
   for(const p of parts){p.life-=dt;p.vy+=160*dt;p.x+=p.vx*dt;p.y+=p.vy*dt}parts=parts.filter(p=>p.life>0);
-  stepBustle(dt,now);draw(now);requestAnimationFrame(frame);
+  stepBustle(dt,now);stepPorters(Math.min(dt,.25));draw(now);requestAnimationFrame(frame);
 }
 function draw(now){
   const k=K();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=curSeason===3?'#c1d2cb':'#829c70';ctx.fillRect(0,0,cv.width,cv.height);
@@ -2700,7 +2730,7 @@ function draw(now){
   if(S.props)for(const p of PROPS){const v=S.props[p.k];if(v&&FR[p.k])L.push({z:(v.y+p.fp[1])*TS-1,prop:p,pv:v})}
   for(const l of LANDMARKS){const v=S.lm[l.id];if(v)L.push({z:(v.y+l.fp[1])*TS-(l.water?14:1),lm:l})}
   const guest=visitorAnchor();if(guest)L.push({z:guest.y,guest});
-  for(const v of vils)L.push({z:v.y,v});L.sort((a,b)=>a.z-b.z);
+  for(const v of vils)L.push({z:v.y,v});for(const p of PORTERS)L.push({z:p.y,por:p});L.sort((a,b)=>a.z-b.z);
   for(const d of L){
     if(d.o){const o=d.o,X=d.x*TS,Y=d.y*TS;let sx=0;if(o.sh&&now-o.sh<220)sx=Math.sin((now-o.sh)/18)*1.2;
       if(o.k==='rock'){ctx.drawImage(SP.rock,X+sx,Y,16,16);if(o.hp<4)stroke(ctx,[[X+7,Y+7],[X+6.4,Y+9],[X+8.4,Y+10],[X+7.5,Y+12]],'#67786c',.35)}
@@ -2714,6 +2744,7 @@ function draw(now){
     else if(d.fence)drawFenceSeg(d.fence);
     else if(d.gate)drawGate(d.gate);
     else if('wall' in d)drawWall(d.wall,now);
+    else if(d.por)drawPorter(d.por,now);
     else if(d.lm)drawLandmark(d.lm,now);
     else if(d.guest)drawVisitor(d.guest);
     else if(d.decor){const item=d.decor;decorDraw(item,mode==='decor'&&item.id===decorMoveId?.35:1)}
@@ -2750,7 +2781,7 @@ function draw(now){
   const fs=Math.round(14*dpr);ctx.font=`600 ${fs}px "Jua", sans-serif`;ctx.textBaseline='middle';ctx.lineJoin='round';
   floats=floats.filter(f=>now-f.born<1100);
   for(const f of floats){const t=(now-f.born)/1100,sx=f.wx*k-ox,sy=f.wy*k-oy-t*28*dpr;ctx.globalAlpha=t>.7?(1-t)/.3:1;const w=ctx.measureText(f.txt).width,isz=f.icon?Math.round(14*dpr):0,tx=sx-(w+isz+(f.icon?4*dpr:0))/2;
-    if(f.icon)ctx.drawImage(ICON[f.icon],tx,sy-isz/2,isz,isz);ctx.lineWidth=3*dpr;ctx.strokeStyle='#6e725bef';ctx.strokeText(f.txt,tx+(f.icon?isz+4*dpr:0),sy);ctx.fillStyle=f.col;ctx.fillText(f.txt,tx+(f.icon?isz+4*dpr:0),sy)}
+    if(f.icon){const im=ICON[f.icon]||(GOODS[f.icon]?gImg(f.icon):null);if(im)ctx.drawImage(im,tx,sy-isz/2,isz,isz)}ctx.lineWidth=3*dpr;ctx.strokeStyle='#6e725bef';ctx.strokeText(f.txt,tx+(f.icon?isz+4*dpr:0),sy);ctx.fillStyle=f.col;ctx.fillText(f.txt,tx+(f.icon?isz+4*dpr:0),sy)}
   if(S&&S.st.wood===0&&$('#scene').hidden&&mode==='hand'){let best=null,bd=1e9;const cx=cam.x+vw/2,cy=cam.y+vh/2;for(let i=0;i<S.o.length;i++){const o=S.o[i];if(!o||o.k==='rock'||!idxOpen(i))continue;const x=(i%MW)*TS+8,y=(i/MW|0)*TS+8,d=Math.hypot(x-cx,y-cy);if(d<bd){bd=d;best=[x,y]}}
     if(best){const sx=best[0]*k-ox,sy=best[1]*k-oy,p=(now%1200)/1200,r=(10+p*12)*dpr;ctx.globalAlpha=1-p;ctx.lineWidth=3*dpr;ctx.strokeStyle='#fff6c8';ctx.beginPath();ctx.arc(sx,sy,r,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
       const bob=Math.sin(now/220)*4*dpr,ay=sy-30*dpr+bob,w=9*dpr;ctx.beginPath();ctx.moveTo(sx-w,ay-w*1.2);ctx.lineTo(sx+w,ay-w*1.2);ctx.lineTo(sx,ay+w*.6);ctx.closePath();ctx.fillStyle='#fff3c4';ctx.fill();ctx.lineWidth=2*dpr;ctx.strokeStyle='#8a5a2b';ctx.stroke()}}
