@@ -784,12 +784,12 @@ function levelSprite(base,kind,l,custom){const[fw]=fp(kind),W=fw*16,wide=fw===3&
     if(gold)for(const lx of[pr.x+pr.w*.18,pr.x+pr.w*.82]){g.globalAlpha=.45;ellipse(g,lx,H-6,2.6,2.6,'#ffd27a');g.globalAlpha=1;ellipse(g,lx,H-6,.8,1,'#fff0b0','#8a5a2b',.2)}});
   c.paintRect=pr;c.inkTop=pr.y;return c}
 function bImg(b,l=b.l||1){const st=b.k==='farm'?Math.floor(S.time/9+b.id)%3:0,key=b.k+':'+l+':'+st;SP._lv=SP._lv||{};if(SP._lv[key])return SP._lv[key];
-  const cust=PAINTED_LV[b.k+'-l'+Math.min(3,l)];let base=b.k==='farm'?SP.b.farm[st]:SP.b[b.k];if(cust&&b.k!=='farm')base=cust;return SP._lv[key]=levelSprite(base,b.k,l,!!(cust&&b.k!=='farm'))}
+  const cust=(()=>{for(let v=Math.min(5,l);v>=2;v--){const c=PAINTED_LV[b.k+'-l'+v];if(c)return c}return null})();let base=b.k==='farm'?SP.b.farm[st]:SP.b[b.k];if(cust&&b.k!=='farm')base=cust;return SP._lv[key]=levelSprite(base,b.k,l,!!(cust&&b.k!=='farm'))}
 const kImg=k=>bImg({k,l:1,id:0});
 function lvThumb(k,l){SP._lvt=SP._lvt||{};const key=k+':'+l;return SP._lvt[key]||(SP._lvt[key]=tightThumb(bImg({k,l,id:0})))}
 const bBase=b=>(b.y+fp(b.k)[1])*TS,bCX=b=>b.x*TS+fp(b.k)[0]*8;
 async function loadLevelArt(){try{const list=await fetch('./assets/illustrations/levels/index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():[]);
-  await Promise.all((Array.isArray(list)?list:[]).map(name=>new Promise(res=>{const m=/^([a-z]+)-l([23])\.webp$/.exec(name);if(!m||!FP[m[1]]){res();return}const im=new Image();im.onload=()=>{
+  await Promise.all((Array.isArray(list)?list:[]).map(name=>new Promise(res=>{const m=/^([a-z]+)-l([2-5])\.webp$/.exec(name);if(!m||!FP[m[1]]){res();return}const im=new Image();im.onload=()=>{
     const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const g=c.getContext('2d');g.drawImage(im,0,0);const d=g.getImageData(0,0,c.width,c.height).data;let x0=c.width,y0=c.height,x1=0,y1=0;
     for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]>24){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y}
     const sw=x1-x0+1,sh=y1-y0+1,w=32,h=Math.min(64,w*sh/sw);PAINTED_LV[m[1]+'-l'+m[2]]=art(w,h,gg=>{softShadow(gg,w/2,h-1,w*.45,1.35);gg.imageSmoothingEnabled=true;gg.imageSmoothingQuality='high';gg.drawImage(im,x0,y0,sw,sh,0,h-sh*w/sw-.6,w,sh*w/sw)});
