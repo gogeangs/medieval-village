@@ -462,7 +462,7 @@ const RECIPES={
  quarry:[{id:'brick',out:'brick',c:{stone:5,wood:1},t:25}],
  mill:[{id:'flour',out:'flour',c:{food:15},t:30}],
  bakery:[{id:'bread',out:'bread',c:{wood:4},g:{flour:1},t:30}],
- smithy:[{id:'nails',out:'nails',c:{stone:4},g:{plank:1},t:30},{id:'sword',out:'sword',c:{wood:60,stone:120},t:90},{id:'shield',out:'shield',c:{wood:120,stone:60},t:90},{id:'armor',out:'armor',c:{stone:150,gold:60},t:120},{id:'axe',out:'axe',c:{wood:80,stone:60},t:80},{id:'pick',out:'pick',c:{wood:60,stone:80},t:80},{id:'sickle',out:'sickle',c:{wood:50,stone:50,gold:30},t:80},{id:'cloak',out:'cloak',c:{gold:100},g:{feather:3,fairy:2},t:120}],
+ smithy:[{id:'sword',out:'sword',c:{wood:60,stone:120},t:90},{id:'shield',out:'shield',c:{wood:120,stone:60},t:90},{id:'armor',out:'armor',c:{stone:150,gold:60},t:120},{id:'axe',out:'axe',c:{wood:80,stone:60},t:80},{id:'pick',out:'pick',c:{wood:60,stone:80},t:80},{id:'sickle',out:'sickle',c:{wood:50,stone:50,gold:30},t:80},{id:'cloak',out:'cloak',c:{gold:100},g:{feather:3,fairy:2},t:120},{id:'nails',out:'nails',c:{stone:4},g:{plank:1},t:30}],
  tavern:[{id:'adv',out:'adv',c:{gold:300},g:{bread:3},t:150}],
  alchemy:[{id:'hp',out:'potion_hp',c:{food:20},g:{flour:1},t:40},{id:'hp2',out:'potion_hp2',c:{food:20},g:{herb:2,flour:1},t:60},{id:'calm',out:'potion_calm',c:{gold:40},g:{bread:1},t:60}]};
 const ADV_NAMES=['로건','에바','그레타','하스','미로','타냐','보리스','이브','칼라','도노','실비','라울','엠마','쿠노','피아','레오'];
@@ -473,9 +473,10 @@ const craftState=b=>S.craft[b.id]||(S.craft[b.id]={r:RECIPES[b.k][0].id,p:0,paid
 const goodsCan=g=>Object.entries(g||{}).every(([k,v])=>(S.goods[k]||0)>=v);
 const outName=k=>k==='adv'?'모험가':GOODS[k].n;
 const advCount=()=>S.academy.grads.filter(g=>g.src==='tav').length;
-function craftWhy(b){const c=craftState(b),r=recipeOf(b);if(c.slots.length>=craftSlots(b))return'full';if(B[b.k].need&&!STAFF[b.id])return'staff';if(c.paid)return'work';if(!can(r.c)||!goodsCan(r.g))return'need';return'work'}
+const MAT_STOP=30,matEnough=(r,c)=>GOODS[r.out]&&GOODS[r.out].g==='mat'&&(S.goods[r.out]||0)+c.slots.length>=MAT_STOP;
+function craftWhy(b){const c=craftState(b),r=recipeOf(b);if(c.slots.length>=craftSlots(b))return'full';if(B[b.k].need&&!STAFF[b.id])return'staff';if(c.paid)return'work';if(matEnough(r,c))return'enough';if(!can(r.c)||!goodsCan(r.g))return'need';return'work'}
 function craftTick(){for(const b of S.b){if(!RECIPES[b.k])continue;const c=craftState(b),r=recipeOf(b);if(c.slots.length>=craftSlots(b))continue;if(B[b.k].need&&!STAFF[b.id])continue;
-  if(!c.paid){if(!can(r.c)||!goodsCan(r.g))continue;pay(r.c);for(const k in r.g||{})S.goods[k]-=r.g[k];c.paid=true;c.p=0}
+  if(!c.paid){if(matEnough(r,c)||!can(r.c)||!goodsCan(r.g))continue;pay(r.c);for(const k in r.g||{})S.goods[k]-=r.g[k];c.paid=true;c.p=0}
   c.p+=craftSpeed(b);if(c.p>=r.t){c.slots.push(r.out);c.paid=false;c.p=0;if(selId===b.id)renderSheet()}}}
 function setRecipe(b,id){const L=RECIPES[b.k],r=L&&L.find(x=>x.id===id);if(!r)return;const c=craftState(b);if(c.r===id)return;const old=recipeOf(b);if(c.paid){for(const k in old.c)S.r[k]+=old.c[k];for(const k in old.g||{})S.goods[k]+=old.g[k]}c.r=id;c.p=0;c.paid=false;save();updateHUD();renderSheet()}
 function makeAdventurer(){const a=S.academy,roll=Math.random(),g=roll<.08?'S':roll<.3?'A':roll<.7?'B':'C',apt=Object.keys(ACAD_APT)[Math.random()*5|0],used=new Set(a.grads.map(x=>x.n)),pool=ADV_NAMES.filter(n=>!used.has(n)),n=pool[Math.random()*pool.length|0]||ADV_NAMES[Math.random()*ADV_NAMES.length|0];
@@ -563,10 +564,10 @@ function drawCraftBadge(b,y0,now){const c=S.craft[b.id],full=c.slots.length>=cra
 function loadGoodsArt(){fetch('./assets/goods/index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||typeof j!=='object')return;for(const[k,f]of Object.entries(j)){if(!(k in GOODS)&&k!=='adv')continue;if(typeof f!=='string'||!/^[\w.-]+\.webp$/.test(f))continue;const im=new Image();im.decoding='async';im.onload=()=>{GART[k]=im;delete GURL[k];if(!sheet.hidden)renderSheet()};im.src='./assets/goods/'+f}}).catch(()=>{})}
 const goodsCostHTML=g=>Object.entries(g||{}).map(([k,v])=>`<span class="${(S.goods[k]||0)<v?'lack':''}">${gIc(k)}${v}</span>`).join('');
 function craftHTML(b){const c=craftState(b),r=recipeOf(b),L=RECIPES[b.k],n=craftSlots(b),why=craftWhy(b),pct=c.paid?Math.min(100,Math.round(c.p/r.t*100)):0;
- const st={full:'슬롯이 가득 찼어요 · 받아야 다시 만들어요',staff:'일손이 부족해 쉬는 중',need:`재료가 부족해요 (${[missingCost(r.c),...Object.entries(r.g||{}).filter(([k,v])=>(S.goods[k]||0)<v).map(([k])=>GOODS[k].n)].filter(Boolean).join(', ')})`,work:c.paid?`${outName(r.out)} 만드는 중 · ${Math.ceil((r.t-c.p)/craftSpeed(b))}초`:'곧 시작해요'}[why];
+ const st={enough:`보관함에 ${josa(outName(r.out),'이','가')} ${MAT_STOP}개 넘게 있어 쉬는 중 · 쓰면 다시 만들어요`,full:'슬롯이 가득 찼어요 · 받아야 다시 만들어요',staff:'일손이 부족해 쉬는 중',need:`재료가 부족해요 (${[missingCost(r.c),...Object.entries(r.g||{}).filter(([k,v])=>(S.goods[k]||0)<v).map(([k])=>GOODS[k].n)].filter(Boolean).join(', ')})`,work:c.paid?`${outName(r.out)} 만드는 중 · ${Math.ceil((r.t-c.p)/craftSpeed(b))}초`:'곧 시작해요'}[why];
  let h=`<h3 class="sec">${{mill:'방앗간 작업',bakery:'빵 굽기',smithy:'장비 제작',tavern:'모험가 모집',alchemy:'물약 만들기',lumber:'판자 켜기',quarry:'벽돌 굽기'}[b.k]} <small>슬롯 ${c.slots.length}/${n}</small></h3>`;
  if(L.length>1)h+=`<div class="recipes" style="grid-template-columns:repeat(${Math.min(3,L.length)},minmax(0,1fr))">${L.map(x=>`<button class="btn recipe ${x.id===c.r?'go':''}" data-act="recipe" data-r="${x.id}" aria-pressed="${x.id===c.r}">${gIc(x.out)}<span><b>${outName(x.out)}</b><small>${GOODS[x.out]?.d||''}</small></span></button>`).join('')}</div>`;
- h+=`<div class="craft"><div class="craft-row">${gIc(r.out,'big')}<div class="craft-info"><b>${outName(r.out)}</b><span class="cost">${costHTML(r.c)}${goodsCostHTML(r.g)}<span>${UI('timer')}${Math.round(r.t/craftSpeed(b))}초</span></span><small class="craft-st ${why==='work'?'':'bad'}">${st}</small></div></div><span class="tbar"><i style="width:${pct}%"></i></span>
+ h+=`<div class="craft"><div class="craft-row">${gIc(r.out,'big')}<div class="craft-info"><b>${outName(r.out)}</b><span class="cost">${costHTML(r.c)}${goodsCostHTML(r.g)}<span>${UI('timer')}${Math.round(r.t/craftSpeed(b))}초</span></span><small class="craft-st ${why==='work'||why==='enough'?'':'bad'}">${st}</small></div></div><span class="tbar"><i style="width:${pct}%"></i></span>
   <div class="slots">${Array.from({length:n},(_,i)=>`<span class="cslot ${c.slots[i]?'on':''}">${c.slots[i]?gIc(c.slots[i]):''}</span>`).join('')}</div>
   <button class="btn go" data-act="collect" ${c.slots.length?'':'disabled'}>${c.slots.length?`모두 받기 (${c.slots.length})`:'아직 만든 게 없어요'}</button></div>`;
  if(portable(b))h+=`<p class="shop-note">${PSTAFF?`짐꾼 ${PSTAFF}명이 다 만든 물건을 보관함으로 날라요.${PORTERS.some(p=>p.b===b.id)?' 지금 이리로 오는 중이에요.':''}`:'물품 보관함에서 짐꾼을 고용하면 다 만든 물건을 저절로 날라 와요.'}</p>`;
@@ -1258,7 +1259,7 @@ function mgTick(){const m=MG(),L=m.led;
  const tx=taxRate();if(tx>0){S.r.gold+=tx;ledAdd('tax',tx)}
  const tl=tollRate();if(tl>0){S.r.gold+=tl;ledAdd('toll',tl)}
  const u=upkRate();if(u>0){if(S.r.gold>=u){S.r.gold-=u;ledAdd('upk',u);m.unpaid=Math.max(0,m.unpaid-1)}else{ledAdd('upk',S.r.gold);S.r.gold=0;if(m.unpaid===0)toast('금화가 모자라 건물 유지비가 밀렸어요. 주민들이 불안해해요');m.unpaid=Math.min(60,m.unpaid+2)}}
- if(S.time%DAY===7){const p=Math.floor(S.pop);if(p>=10){const need=Math.ceil(p/20)*(polOn('bread')?2:1),have=S.goods.bread||0;m.breadOk=have>=need;S.goods.bread=Math.max(0,have-need);if(have)S.st.bread_eaten=(S.st.bread_eaten||0)+Math.min(have,need)}else m.breadOk=true}
+ if(S.time%DAY===7){const p=Math.floor(S.pop);if(p>=10){const have=S.goods.bread||0;m.breadOk=have>=1;if(day()%3===0){const need=Math.ceil(p/30)*(polOn('bread')?2:1),eat=Math.min(have,need);S.goods.bread=have-eat;if(eat)S.st.bread_eaten=(S.st.bread_eaten||0)+eat}}else m.breadOk=true}
  const t=satTarget(),d=t-m.sat;m.sat+=Math.sign(d)*Math.min(.5,Math.abs(d));
  if(m.sat<15&&S.pop>3){m.leaveT++;if(m.leaveT>=45){m.leaveT=0;S.pop--;toast('불만이 쌓여 주민 한 명이 마을을 떠났어요')}}else m.leaveT=0}
 function mgDayEnd(){const m=MG(),c=m.led.cur;const net=S.r.gold-m.led.start;c.etc=net-(c.prod+c.tax+c.toll+c.sale-c.upk-c.inv);c.net=net;
