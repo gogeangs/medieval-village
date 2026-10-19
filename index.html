@@ -399,7 +399,7 @@ body.sheet-open .hud{visibility:hidden}
 .toast{top:auto!important;bottom:96px;transform:translate(-50%,6px)}
 .arrive{top:auto!important;bottom:calc(var(--tabbar-h,78px) + 14px)!important}
 body.sheet-open .arrive,body.placing .arrive,body.layer-on .arrive{display:none!important}
-.row3{justify-content:space-between;align-items:center}.bell{pointer-events:auto;position:relative;width:40px!important;height:40px!important;min-width:40px!important;font-size:18px}.bell i{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 4px;border-radius:10px;background:#c4472c;color:#fff;font:700 11px/19px var(--f-num,sans-serif);font-style:normal;border:1.5px solid #fff2d0}
+.row3{justify-content:space-between;align-items:center}.bell{pointer-events:auto;position:relative;width:40px!important;height:40px!important;min-width:40px!important;font-size:18px}.bell img,.laybtn img{width:26px;height:26px;object-fit:contain;pointer-events:none}.bell i{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 4px;border-radius:10px;background:#c4472c;color:#fff;font:700 11px/19px var(--f-num,sans-serif);font-style:normal;border:1.5px solid #fff2d0}
 .nb-row{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;margin-bottom:6px;border-radius:10px;background:#fff8e6;border:1.5px solid #d6c39c;font-size:14px;line-height:1.45}.nb-ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#bca07b;color:#fff;font-weight:700;font-size:13px}
 .nb-row.bad .nb-ic{background:#c4472c}.nb-row.bad{border-color:#e2a593}.nb-row.gold .nb-ic{background:#d39b3a}.nb-row.good .nb-ic{background:#6f9a4a}
 
@@ -429,7 +429,7 @@ body.sheet-open .layinfo,body.placing .layinfo{display:none!important}
   <h1 class="brand">알고보니 초보자 마을이 Lv999</h1>
   <div class="topbar"><div class="res" id="res" aria-label="마을 자원"></div></div>
   <div class="row2"><button class="chief" id="chief" aria-label="촌장 정보와 스킬"><span class="chief-badge">촌장</span><b>Lv1</b></button><div class="goal-stack"><div class="goal" id="goal"></div><span class="season" id="day"></span></div><button class="iconbtn" id="menu" aria-label="도움말과 설정">⚙</button></div>
-  <div class="row3"><button class="mood-chip" id="moodchip"></button><span class="r3-right"><button class="iconbtn laybtn" id="laybtn" aria-label="지도 보기 모드"><span aria-hidden="true">👁</span></button><button class="iconbtn bell" id="bell" aria-label="알림함"><span aria-hidden="true">🔔</span><i hidden>0</i></button></span></div>
+  <div class="row3"><button class="mood-chip" id="moodchip"></button><span class="r3-right"><button class="iconbtn laybtn" id="laybtn" aria-label="지도 보기 모드"><img src="./assets/ui/icons/map-view.webp" alt="" aria-hidden="true"></button><button class="iconbtn bell" id="bell" aria-label="알림함"><img src="./assets/ui/icons/bell.webp" alt="" aria-hidden="true"><i hidden>0</i></button></span></div>
   <div class="laybar" id="laybar" hidden></div>
   <div class="food-alert" id="food-alert" hidden><span id="food-alert-text"></span><button class="btn warn" id="food-help">식량 마련</button></div>
   <button class="life-alert" id="alert" hidden></button>
@@ -448,7 +448,7 @@ body.sheet-open .layinfo,body.placing .layinfo{display:none!important}
     <button class="tab" data-tab="village" aria-pressed="true"><span class="ti" aria-hidden="true"><span class="ti-fallback">⌂</span><img class="tab-art" src="./assets/ui/tab-village.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>마을</button>
     <button class="tab" data-tab="build" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">⚒</span><img class="tab-art" src="./assets/ui/tab-build.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>건설</button>
     <button class="tab" data-tab="people" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">☺</span><img class="tab-art" src="./assets/ui/tab-people.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>주민<i class="dot" hidden></i></button>
-    <button class="tab" data-tab="manage" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">⚖</span><img class="tab-art" src="./assets/ui/icons/daily-trade.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>경영<i class="dot" hidden></i></button>
+    <button class="tab" data-tab="manage" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">⚖</span><img class="tab-art" src="./assets/ui/tab-manage.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>경영<i class="dot" hidden></i></button>
     <button class="tab" data-tab="story" aria-pressed="false"><span class="ti" aria-hidden="true"><span class="ti-fallback">✎</span><img class="tab-art" src="./assets/ui/tab-story.webp" width="128" height="128" alt="" loading="lazy" decoding="async" fetchpriority="low"></span>이야기<i class="dot" hidden></i></button>
     
   </nav>
@@ -1387,17 +1387,17 @@ function mgSatCard(){const m=MG(),s=Math.round(m.sat),t=Math.round(satTarget()),
  return `<div class="mg-sat ${satCls(s)}"><div class="sat-top"><b>${s}</b><span>${satWord(s)}</span><small>${t>s?'오르는 중 ▲':t<s?'내리는 중 ▼':'안정'} (목표 ${t})</small></div><div class="meter"><i style="width:${s}%"></i></div><ul class="sat-f">${fx.map(([n,v])=>`<li><span>${n}</span><b class="${v>0?'pos':'neg'}">${v>0?'+':''}${v}</b></li>`).join('')}</ul><small class="sat-eff">${eff}</small></div>`}
 function manageHTML(){const m=MG(),l=chiefLv(),op=Math.round(mgTodayOp()),s=Math.round(m.sat),xpA=chiefXpAt(l),xpB=chiefXpAt(l+1),pct=l>=CHIEF_MAX?100:Math.round((m.xp-xpA)/(xpB-xpA)*100);
  const nr=RANKS[rankOf()+1],tiles=[
-  ['mg-ledger','appraise','마을 장부','수입과 지출'],
-  ['mg-policy','daily-grad','정책 · 세율',`${m.pol.length}/${polSlots()}칸 · 세금 ${TAXES[m.tax].n}`],
+  ['mg-ledger','ledger','마을 장부','수입과 지출'],
+  ['mg-policy','policy','정책 · 세율',`${m.pol.length}/${polSlots()}칸 · 세금 ${TAXES[m.tax].n}`],
   ['goods','reward','보관함',`${portersHired()?`짐꾼 ${portersHired()}명`:'물건 팔기 · 짐꾼'}`],
   ['trade','cart','시장 거래',count('market')?'자원 사고팔기':'시장이 아직 없어요'],
   ['mg-rank','village','마을 등급',nr?`${RANKS[rankOf()].n} → ${nr.n}`:RANKS[rankOf()].n],
-  ['kingdom','daily-visitor','왕국 지도',`이어진 길 ${KTOWNS.filter(t=>t.r<=rankOf()).length}곳`]];
+  ['kingdom','kingdom-map','왕국 지도',`이어진 길 ${KTOWNS.filter(t=>t.r<=rankOf()).length}곳`]];
  return `<div class="top"><h2>마을 경영</h2><button class="iconbtn x" data-act="close" aria-label="닫기">×</button></div>
  <div class="mg-sum"><button class="mg-card" data-act="mg" data-to="mg-ledger"><small>오늘 손익</small><b class="${op<0?'neg':'pos'}">${op>0?'+':''}${op}</b><span>${ic('gold')} 금화</span></button>
   <button class="mg-card ${satCls(s)}" data-act="mg" data-to="mg-policy"><small>만족도</small><b>${s}</b><span>${satWord(s)}</span></button>
   <button class="mg-card" data-act="profile"><small>촌장 Lv${l}</small><b class="sm">${chiefTitle(l)}</b><span class="meter"><i style="width:${pct}%"></i></span></button></div>
- <button class="btn go mg-blist" data-act="mg" data-to="buildings">${UI('daily-build')}건물 목록 · ${S.b.length}채</button>
+ <button class="btn go mg-blist" data-act="mg" data-to="buildings">${UI('building-list')}건물 목록 · ${S.b.length}채</button>
  <div class="mg-tiles">${tiles.map(([to,icn,n,d])=>`<button class="mg-tile" data-act="mg" data-to="${to}">${UI(icn,'mg-ic')}<span><b>${n}</b><small>${d}</small></span><i>›</i></button>`).join('')}</div>
  <h3 class="sec">만족도 요인</h3>${mgSatCard()}`}
 function mgLedgerHTML(){const m=MG(),cur=m.led.cur,prev=m.led.prev,rows=ledRows(cur,true),prow=prev?ledRows(prev,false):null;
