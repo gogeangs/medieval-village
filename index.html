@@ -1766,10 +1766,16 @@ const WTHUMB={};function wallThumb(t){if(WTHUMB[t])return WTHUMB[t];const c=docu
 function drawWallOverlay(){if(mode!=='wall')return;const C=wallCalc();for(let i=0;i<MW*MH;i++)if(C.inside[i]){const x=i%MW,y=(i/MW)|0;roundBox(ctx,x*TS+1,y*TS+1,14,14,3,'#d9f0a944',null,0)}
  for(const k in S.walls){const w=S.walls[k],x=k%MW,y=(k/MW)|0;if(w.t===3&&!(w.keep&&WSTAFF[k]))roundBox(ctx,x*TS+1,y*TS+1,14,14,3,null,'#e2674acc',.7)}}
 function wallStone(i){const w=S.walls[i];if(w.t===2)return true;if(w.t===1)return false;const x=i%MW,y=(i/MW)|0;for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=MW||Y>=MH)continue;const o=S.walls[Y*MW+X];if(o&&o.t===2)return true}return w.t===4&&rankOf()>=3}
+const WH=12,WPOST=15;
+function wallArt(st){const m=st?'stone':'wood',h=XART['wall-'+m+'-h'],v=XART['wall-'+m+'-v'],p=XART['wall-'+m+'-post'];return h&&v&&p?{h,v,p}:null}
+const iw=P=>P.width||P.naturalWidth,ih=P=>P.height||P.naturalHeight;
+function wallHRun(P,x0,x1,base){const w=iw(P),h=ih(P);for(let x=x0;x<x1-.01;){const ph=((x%16)+16)%16,seg=Math.min(16-ph,x1-x),sx=ph/16*w,sw=seg/16*w;ctx.drawImage(P,sx,0,sw,h,x,base-WH,seg,WH);x+=seg}}
+function wallVRun(P,cx,y0,y1){const w=iw(P),h=ih(P),dw=7.5*w/100;for(let y=y0;y<y1-.01;){const ph=((y%16)+16)%16,seg=Math.min(16-ph,y1-y),sy=ph/16*h,sh=seg/16*h;ctx.drawImage(P,0,sy,w,sh,cx-dw/2,y,dw,seg);y+=seg}}
 function drawWall(i,now){const w=S.walls[i],x=i%MW,y=(i/MW)|0,X=x*TS,Y=y*TS,st=wallStone(i),body=st?'#b6ae9c':'#8a6440',top=st?'#d3ccbb':'#a87d50',edge=st?'#7d7566':'#5a4028';
  const nb=(dx,dy)=>{const a=x+dx,b=y+dy;return a>=0&&b>=0&&a<MW&&b<MH&&!!S.walls[b*MW+a]};const E=nb(1,0),Wn=nb(-1,0),N=nb(0,-1),So=nb(0,1),H=8,base=Y+12;
- const run=(x0,x1)=>{if(x1<=x0)return;if(st){roundBox(ctx,x0,base-H,x1-x0,H,.4,body,edge,.35);stroke(ctx,[[x0,base-H/2],[x1,base-H/2]],edge,.2);for(let mx=x0+.5;mx<x1-1;mx+=4)roundBox(ctx,mx,base-H-2.2,2.2,2.4,.3,top,edge,.3)}else{for(let lx=x0;lx<x1-.5;lx+=2.4){shape(ctx,[[lx,base],[lx,base-H+1],[lx+1.2,base-H-1],[lx+2.4,base-H+1],[lx+2.4,base]],body,edge,.3)}stroke(ctx,[[x0,base-3],[x1,base-3]],'#6e4f30',.5)}};
- const col=(y0,y1)=>{if(y1<=y0)return;roundBox(ctx,X+5.5,y0-H,5,y1-y0,.6,top,edge,.35);if(st)for(let my=y0-H+2;my<y1-H;my+=4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],edge,.2);else for(let my=y0-H+1;my<y1-H;my+=2.4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],'#6e4f30',.25)};
+ let run=(x0,x1)=>{if(x1<=x0)return;if(st){roundBox(ctx,x0,base-H,x1-x0,H,.4,body,edge,.35);stroke(ctx,[[x0,base-H/2],[x1,base-H/2]],edge,.2);for(let mx=x0+.5;mx<x1-1;mx+=4)roundBox(ctx,mx,base-H-2.2,2.2,2.4,.3,top,edge,.3)}else{for(let lx=x0;lx<x1-.5;lx+=2.4){shape(ctx,[[lx,base],[lx,base-H+1],[lx+1.2,base-H-1],[lx+2.4,base-H+1],[lx+2.4,base]],body,edge,.3)}stroke(ctx,[[x0,base-3],[x1,base-3]],'#6e4f30',.5)}};
+ let col=(y0,y1)=>{if(y1<=y0)return;roundBox(ctx,X+5.5,y0-H,5,y1-y0,.6,top,edge,.35);if(st)for(let my=y0-H+2;my<y1-H;my+=4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],edge,.2);else for(let my=y0-H+1;my<y1-H;my+=2.4)stroke(ctx,[[X+5.5,my],[X+10.5,my]],'#6e4f30',.25)};
+ {const A0=wallArt(st);if(A0){run=(x0,x1)=>{if(x1>x0)wallHRun(A0.h,x0,x1,base)};col=(y0,y1)=>{if(y1>y0)wallVRun(A0.v,X+8,y0-WH+2,y1-WH+2)}}}
  if(w.t===4){softShadow(ctx,X+8,base+1,7,1.6);if(Wn)run(X,X+3);if(E)run(X+13,X+16);if(N)col(Y,base-4);
   {const P=XART[st?'tower-stone':'tower-wood'];if(P){const pw=P.width||P.naturalWidth,ph=P.height||P.naturalHeight,Wd=19,Hd=Wd*ph/pw,tx=X+8-Wd/2,ty=base+1.5-Hd;ctx.drawImage(P,tx,ty,Wd,Hd);if(WSTAFF[i]){const Pp=PEOPLE[3%PEOPLE.length][(now/600|0)%2];ctx.drawImage(Pp,X+6,ty+Hd*(st?.30:.36)-7,4,7.5)}if(So)col(base,Y+16+12);return}}
   roundBox(ctx,X+2.5,base-20,11,20,.6,body,edge,.4);if(st)for(let r=0;r<4;r++)stroke(ctx,[[X+2.5,base-4-r*4.5],[X+13.5,base-4-r*4.5]],edge,.2);else for(let lx=X+3;lx<X+13.5;lx+=2.2)stroke(ctx,[[lx,base-20],[lx,base]],'#6e4f30',.3);
@@ -1783,6 +1789,11 @@ function drawWall(i,now){const w=S.walls[i],x=i%MW,y=(i/MW)|0,X=x*TS,Y=y*TS,st=w
    const kept=w.keep&&WSTAFF[i];if(!kept){shape(ctx,[[X+3.6,base-11],[X+1.6,base-10],[X+1.6,base-1],[X+3.6,base]],'#7a5634','#4a3420',.3);shape(ctx,[[X+12.4,base-11],[X+14.4,base-10],[X+14.4,base-1],[X+12.4,base]],'#7a5634','#4a3420',.3)}else{roundBox(ctx,X+3.6,base-11,8.8,11,.3,'#7a5634','#4a3420',.3);stroke(ctx,[[X+8,base-11],[X+8,base]],'#4a3420',.3)}}
   else{softShadow(ctx,X+8,base+1,5,1.6);if(N)col(Y,base-6);roundBox(ctx,X+4,base-16,8,16,.6,body,edge,.4);roundBox(ctx,X+5.6,base-10,4.8,10,1.6,w.keep&&WSTAFF[i]?'#7a5634':'#3d3226',null,0);roundBox(ctx,X+3,base-18,10,3,.4,top,edge,.35);if(So)col(base+H,Y+16+12)}
   if(w.keep&&WSTAFF[i]){const P=PEOPLE[2%PEOPLE.length][0];ctx.drawImage(P,X+(hz?13.5:11.5),base-6.5,4,7.5)}return}
+ {const A=wallArt(st);if(A){const straightH=(E||Wn)&&!N&&!So,straightV=(N||So)&&!E&&!Wn;softShadow(ctx,X+8,base+.6,(E||Wn)?8:3,1);
+  {const up=N?S.walls[i-MW]:null;if(N)wallVRun(A.v,X+8,(up&&up.t>=3?Y+10:Y)-WH+2,base-WH+2)}
+  if(Wn)wallHRun(A.h,X,X+8,base);if(E)wallHRun(A.h,X+8,X+16,base);if(!E&&!Wn&&!N&&!So)wallHRun(A.h,X+4,X+12,base);
+  if(So)wallVRun(A.v,X+8,base-WH+2,Y+16+12-WH+2);
+  if(!straightH&&!straightV){const P=A.p,ph=WPOST,pw=ph*iw(P)/ih(P);ctx.drawImage(P,X+8-pw/2,base+1-ph,pw,ph)}return}}
  softShadow(ctx,X+8,base+.6,(E||Wn)?8:3,1);
  {const up=N?S.walls[i-MW]:null;if(N)col(up&&up.t>=3?Y+10:Y,base)}if(Wn)run(X,X+8);if(E)run(X+8,X+16);if(!E&&!Wn&&!N&&!So)run(X+4,X+12);
  if(st)roundBox(ctx,X+5.5,base-H-2.5,5,H+2.5,.5,body,edge,.35);else{roundBox(ctx,X+6,base-H-2,4,H+2,1.2,'#7a5634',edge,.35);ellipse(ctx,X+8,base-H-2,2,1,'#b08a5c',edge,.25)}
